@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="BSE.Tunes.XApp.Views.ServiceEndpointSettingsPage">
+    <Grid>
+        <StackLayout Orientation="Vertical" VerticalOptions="Center">
+            <Label Text="Enter the address of the web that contains the audio service." />
+            <Entry Text="{Binding ServiceEndPoint, Mode=TwoWay}" />
+            <Button Text="Submit" Command="{Binding SaveCommand}" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="BSE.Tunes.XApp.Views.LoginPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <Style TargetType="Entry">
+                    <Setter Property="Margin" Value="40,10" />
+                </Style>
+            </ResourceDictionary>
+        </Grid.Resources>
+
+        <StackLayout Grid.Row="1" VerticalOptions="FillAndExpand">
+            <Entry Text="{Binding UserName, Mode=TwoWay}" Placeholder="Enter the username" VerticalOptions="EndAndExpand" />
+            <Entry Text="{Binding Password, Mode=TwoWay}" IsPassword="true" Placeholder="Did you read the code???" VerticalOptions="StartAndExpand" />
+            <Button Text="Submit" Command="{Binding SaveCommand}" />
+        </StackLayout>
+    </Grid>
+    
+</ContentPage>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSE.Tunes.XApp", "BSE.Tunes.XApp\BSE.Tunes.XApp\BSE.Tunes.XApp.csproj", "{9C1B4F15-106F-4422-BBAD-91197B9DFBC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSE.Tunes.XApp", "BSE.Tunes.XApp\BSE.Tunes.XApp\BSE.Tunes.XApp.csproj", "{9C1B4F15-106F-4422-BBAD-91197B9DFBC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSE.Tunes.XApp.Android", "BSE.Tunes.XApp\BSE.Tunes.XApp.Android\BSE.Tunes.XApp.Android.csproj", "{BFAF10F3-F042-4647-9BDD-9B5176C579A2}"
 EndProject
@@ -176,6 +176,7 @@ Global
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.AppStore|x64.ActiveCfg = AppStore|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.AppStore|x86.ActiveCfg = AppStore|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Debug|Any CPU.Build.0 = Debug|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Debug|ARM.ActiveCfg = Debug|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Debug|iPhone.Build.0 = Debug|iPhone
@@ -228,6 +229,8 @@ Global
 		{B9F74130-2EEA-4BA2-8D53-8B82D2AD09E8}.AppStore|x86.Build.0 = Release|x86
 		{B9F74130-2EEA-4BA2-8D53-8B82D2AD09E8}.AppStore|x86.Deploy.0 = Release|x86
 		{B9F74130-2EEA-4BA2-8D53-8B82D2AD09E8}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B9F74130-2EEA-4BA2-8D53-8B82D2AD09E8}.Debug|Any CPU.Build.0 = Debug|x86
+		{B9F74130-2EEA-4BA2-8D53-8B82D2AD09E8}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{B9F74130-2EEA-4BA2-8D53-8B82D2AD09E8}.Debug|ARM.ActiveCfg = Debug|ARM
 		{B9F74130-2EEA-4BA2-8D53-8B82D2AD09E8}.Debug|ARM.Build.0 = Debug|ARM
 		{B9F74130-2EEA-4BA2-8D53-8B82D2AD09E8}.Debug|ARM.Deploy.0 = Debug|ARM

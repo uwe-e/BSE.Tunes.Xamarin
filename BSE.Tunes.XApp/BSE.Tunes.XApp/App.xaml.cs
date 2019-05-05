@@ -4,6 +4,7 @@ using BSE.Tunes.XApp.ViewModels;
 using BSE.Tunes.XApp.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using BSE.Tunes.XApp.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace BSE.Tunes.XApp
@@ -23,13 +24,20 @@ namespace BSE.Tunes.XApp
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("ExtendedSplashPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<ServiceEndpointSettingsPage, ServiceEndpointSettingsPageViewModel>();
+            containerRegistry.Register<ISettingsService, SettingsService>();
+            containerRegistry.Register<IRequestService, RequestService>();
+            containerRegistry.Register<ITunesService, TunesService>();
+            containerRegistry.Register<IAuthenticationService, AuthenticationService>();
+            containerRegistry.RegisterForNavigation<ExtendedSplashPage, ExtendedSplashPageViewModel>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
         }
     }
 }

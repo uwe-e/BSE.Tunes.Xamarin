@@ -5,7 +5,12 @@
              x:Class="BSE.Tunes.XApp.App">
 	<Application.Resources>
 
-		<!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <!-- COLORS -->
+            <Color x:Key="AccentColor">#BC4C1B</Color>
+            <Color x:Key="BackgroundColor">#212C37</Color>
+        </ResourceDictionary>
 
-	</Application.Resources>
+
+    </Application.Resources>
 </prism:PrismApplication>

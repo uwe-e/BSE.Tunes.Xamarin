@@ -1,11 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BSE.Tunes.XApp.Views.MainPage"
-             Title="{Binding Title}">
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:local="clr-namespace:BSE.Tunes.XApp.Views"
+                  xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                  prism:ViewModelLocator.AutowireViewModel="True"
+                  x:Class="BSE.Tunes.XApp.Views.MainPage">
 
-    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Label Text="Welcome to Xamarin Forms and Prism!" />
-    </StackLayout>
+    <MasterDetailPage.Master>
+        <NavigationPage Title="Required Foo">
+            <x:Arguments>
+                <local:MasterPage x:Name="masterPage" />
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Master>
 
-</ContentPage>
+</MasterDetailPage>

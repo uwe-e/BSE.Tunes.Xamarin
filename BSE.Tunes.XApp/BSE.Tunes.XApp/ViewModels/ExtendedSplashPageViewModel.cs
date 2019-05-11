@@ -9,8 +9,8 @@ using System.Linq;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
-	public class ExtendedSplashPageViewModel : ViewModelBase
-	{
+    public class ExtendedSplashPageViewModel : ViewModelBase
+    {
         private readonly ISettingsService settingsService;
         private readonly ITunesService tunesService;
         private readonly IAuthenticationService authenticationService;
@@ -33,7 +33,15 @@ namespace BSE.Tunes.XApp.ViewModels
                 {
                     if (this.settingsService.User is User user)
                     {
-                        await NavigationService.NavigateAsync("MainPage");
+                        try
+                        {
+                            await this.authenticationService.RequestRefreshTokenAsync(user.Token);
+                            await NavigationService.NavigateAsync("MainPage/NavigationPage/HomePage");
+                        }
+                        catch (Exception)
+                        {
+                            await NavigationService.NavigateAsync("LoginPage");
+                        }
                     }
                     else
                     {

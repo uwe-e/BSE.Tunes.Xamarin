@@ -65,7 +65,7 @@ namespace BSE.Tunes.XApp.ViewModels
             try
             {
                 await authenticationService.LoginAsync(UserName, Password);
-                await NavigationService.NavigateAsync("MainPage");
+                await NavigationService.NavigateAsync("MainPage/NavigationPage/HomePage");
             }
             catch (Exception exception)
             {

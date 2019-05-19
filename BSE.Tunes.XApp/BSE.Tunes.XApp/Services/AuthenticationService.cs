@@ -36,11 +36,11 @@ namespace BSE.Tunes.XApp.Services
 
             try
             {
-                var tokenResponse = await RequestAsync(fields);
+                this.TokenResponse = await RequestAsync(fields);
                 this.settingsService.User = new Models.User
                 {
                     UserName = userName,
-                    Token = tokenResponse.RefreshToken
+                    Token = this.TokenResponse.RefreshToken
                 };
                 succeeded = true;
             }
@@ -54,9 +54,8 @@ namespace BSE.Tunes.XApp.Services
 
 
 
-        public async Task<bool> RequestRefreshTokenAsync(string refreshToken)
+        public async Task<TokenResponse> RequestRefreshTokenAsync(string refreshToken)
         {
-            var refreshSucceeded = false;
             var fields = new Dictionary<string, string>
             {
                 { OAuth2Constants.GrantType, OAuth2Constants.GrantTypes.RefreshToken },
@@ -65,16 +64,15 @@ namespace BSE.Tunes.XApp.Services
 
             try
             {
-                var tokenResponse = await RequestAsync(fields);
-                this.settingsService.User.Token = tokenResponse.RefreshToken;
-                refreshSucceeded = true;
+                this.TokenResponse = await RequestAsync(fields);
+                this.settingsService.Token = this.TokenResponse.RefreshToken;
             }
             catch (Exception)
             {
                 throw;
             }
             
-            return refreshSucceeded;
+            return this.TokenResponse;
         }
 
         private async Task<TokenResponse> RequestAsync(Dictionary<string, string> fields)

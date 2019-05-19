@@ -10,10 +10,19 @@ namespace BSE.Tunes.XApp.Services
 {
     public class RequestService : IRequestService
     {
+        private readonly ISettingsService settingsService;
+        private readonly IAuthenticationService authenticationService;
+
+        public RequestService(ISettingsService settingsService, IAuthenticationService authenticationService)
+        {
+            this.settingsService = settingsService;
+            this.authenticationService = authenticationService;
+        }
+
         public async Task<TResult> GetAsync<TResult>(Uri uri)
         {
             TResult result = default(TResult);
-            using (var client = CreateHttpClient())
+            using (var client = await GetHttpClient())
             {
                 try
                 {
@@ -33,7 +42,7 @@ namespace BSE.Tunes.XApp.Services
         public async Task<TResult> PostAsync<TRequest, TResult>(Uri uri, TResult from)
         {
             TResult result = default(TResult);
-            using (var client = CreateHttpClient())
+            using (var client = GetHttpClient())
             {
                 var serialized = await Task.Run(() => JsonConvert.SerializeObject(from));
 
@@ -42,13 +51,19 @@ namespace BSE.Tunes.XApp.Services
             return result;
         }
 
-        private HttpClient CreateHttpClient(string token = "")
+        public async Task<HttpClient> GetHttpClient(bool withRefreshToken = true)
         {
             //if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             //{
             //    throw new ConnectivityException();
             //}
             var httpClient = new HttpClient();
+            var tokenResponse = this.authenticationService.TokenResponse;
+            if (withRefreshToken)
+            {
+                tokenResponse = await this.authenticationService.RequestRefreshTokenAsync(tokenResponse.RefreshToken);
+                httpClient.SetBearerToken(tokenResponse.AccessToken);
+            }
             return httpClient;
         }
     }

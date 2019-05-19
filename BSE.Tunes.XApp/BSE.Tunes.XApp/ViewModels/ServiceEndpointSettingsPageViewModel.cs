@@ -12,7 +12,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private DelegateCommand saveCommand;
         private readonly IPageDialogService pageDialogService;
         private readonly ISettingsService settingsService;
-        private readonly ITunesService tunesService;
+        private readonly IDataService dataService;
 
         public string ServiceEndPoint
         {
@@ -34,29 +34,29 @@ namespace BSE.Tunes.XApp.ViewModels
             return !String.IsNullOrEmpty(ServiceEndPoint);
         }
 
+        public ServiceEndpointSettingsPageViewModel(INavigationService navigationService,
+            IPageDialogService pageDialogService,
+            ISettingsService settingsService,
+            IDataService dataService) : base(navigationService)
+        {
+            this.pageDialogService = pageDialogService;
+            this.settingsService = settingsService;
+            this.dataService = dataService;
+        }
+
         private async void Save()
         {
             var uriBuilder = new UriBuilder(ServiceEndPoint);
             var serviceEndPoint = uriBuilder.Uri.AbsoluteUri;
             try
             {
-                await this.tunesService.IsEndPointAccessibleAsync(serviceEndPoint);
+                await this.dataService.IsEndPointAccessibleAsync(serviceEndPoint);
                 this.settingsService.ServiceEndPoint = serviceEndPoint;
             }
             catch (Exception)
             {
                 await this.pageDialogService.DisplayAlertAsync("test", "message", "cancel");
             }
-        }
-
-        public ServiceEndpointSettingsPageViewModel(INavigationService navigationService,
-            IPageDialogService pageDialogService,
-            ISettingsService settingsService,
-            ITunesService tunesService) : base(navigationService)
-        {
-            this.pageDialogService = pageDialogService;
-            this.settingsService = settingsService;
-            this.tunesService = tunesService;
         }
     }
 }

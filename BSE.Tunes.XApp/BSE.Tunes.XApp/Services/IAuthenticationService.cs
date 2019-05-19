@@ -10,6 +10,6 @@ namespace BSE.Tunes.XApp.Services
             get;
         }
         Task<bool> LoginAsync(string userName, string password);
-        Task<bool> RequestRefreshTokenAsync(string refreshToken);
+        Task<TokenResponse> RequestRefreshTokenAsync(string refreshToken);
     }
 }

@@ -27,5 +27,22 @@ namespace BSE.Tunes.XApp.Services
                 AppSettings.User = value;
             }
         }
+
+        public string Token
+        {
+            get
+            {
+                return User.Token;
+            }
+            set
+            {
+                var user = this.User;
+                if (user != null)
+                {
+                    user.Token = value;
+                    this.User = user;
+                }
+            }
+        }
     }
 }

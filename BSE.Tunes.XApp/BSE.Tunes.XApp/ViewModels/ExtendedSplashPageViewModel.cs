@@ -1,27 +1,23 @@
 ﻿using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Services;
-using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
     public class ExtendedSplashPageViewModel : ViewModelBase
     {
         private readonly ISettingsService settingsService;
-        private readonly ITunesService tunesService;
+        private readonly IDataService dataService;
         private readonly IAuthenticationService authenticationService;
 
         public ExtendedSplashPageViewModel(INavigationService navigationService,
             ISettingsService settingsService,
-            ITunesService tunesService,
+            IDataService dataService,
             IAuthenticationService authenticationService) : base(navigationService)
         {
             this.settingsService = settingsService;
-            this.tunesService = tunesService;
+            this.dataService = dataService;
             this.authenticationService = authenticationService;
         }
 
@@ -29,7 +25,7 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             try
             {
-                var isAccessible = await this.tunesService.IsEndPointAccessibleAsync(this.settingsService.ServiceEndPoint);
+                var isAccessible = await this.dataService.IsEndPointAccessibleAsync(this.settingsService.ServiceEndPoint);
                 {
                     if (this.settingsService.User is User user)
                     {

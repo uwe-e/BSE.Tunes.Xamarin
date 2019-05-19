@@ -36,10 +36,11 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<MasterPage, MasterPageViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
-            containerRegistry.Register<ISettingsService, SettingsService>();
+            containerRegistry.RegisterSingleton<ISettingsService, SettingsService>();
+            containerRegistry.Register<IDataService, DataService>();
             containerRegistry.Register<IRequestService, RequestService>();
-            containerRegistry.Register<ITunesService, TunesService>();
-            containerRegistry.Register<IAuthenticationService, AuthenticationService>();
+            
+            containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             
         }
     }

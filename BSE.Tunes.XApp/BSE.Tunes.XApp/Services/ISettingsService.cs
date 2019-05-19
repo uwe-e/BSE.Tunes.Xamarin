@@ -13,5 +13,10 @@ namespace BSE.Tunes.XApp.Services
         {
             get; set;
         }
+
+        string Token
+        {
+            get; set;
+        }
     }
 }

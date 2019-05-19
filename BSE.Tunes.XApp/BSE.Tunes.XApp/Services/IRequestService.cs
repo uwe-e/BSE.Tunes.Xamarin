@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace BSE.Tunes.XApp.Services
@@ -7,5 +8,6 @@ namespace BSE.Tunes.XApp.Services
     {
         Task<T> GetAsync<T>(Uri uri);
         Task<U> PostAsync<T, U>(Uri uri, U from);
+        Task<HttpClient> GetHttpClient(bool withRefreshToken = true);
     }
 }

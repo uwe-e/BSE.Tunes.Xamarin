@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using CarouselView.FormsPlugin.Android;
 using Prism;
 using Prism.Ioc;
 
@@ -21,6 +22,8 @@ namespace BSE.Tunes.XApp.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            CarouselViewRenderer.Init();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
             LoadApplication(new App(new AndroidInitializer()));
         }
     }

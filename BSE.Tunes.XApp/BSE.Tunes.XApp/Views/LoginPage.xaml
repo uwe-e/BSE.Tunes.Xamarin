@@ -4,25 +4,54 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.LoginPage">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
-        <Grid.Resources>
-            <ResourceDictionary>
-                <Style TargetType="Entry">
-                    <Setter Property="Margin" Value="40,10" />
-                </Style>
-            </ResourceDictionary>
-        </Grid.Resources>
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles/LoginPage.css"/>
+    </ContentPage.Resources>
 
-        <StackLayout Grid.Row="1" VerticalOptions="FillAndExpand">
-            <Entry Text="{Binding UserName, Mode=TwoWay}" Placeholder="Enter the username" VerticalOptions="EndAndExpand" />
-            <Entry Text="{Binding Password, Mode=TwoWay}" IsPassword="true" Placeholder="Did you read the code???" VerticalOptions="StartAndExpand" />
-            <Button Text="Submit" Command="{Binding SaveCommand}" />
-        </StackLayout>
-    </Grid>
-    
+    <ContentPage.Content>
+        <Grid>
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*" />
+                    <RowDefinition Height="4*" />
+                </Grid.RowDefinitions>
+
+                <FlexLayout
+                    StyleClass="signin-form"
+                    Grid.Row="0"
+                    FlexLayout.JustifyContent="{OnIdiom
+                        Desktop='Start'
+                        Tablet='Start'
+                        Phone='Center'}"
+                    FlexLayout.AlignItems="{OnIdiom
+                        Desktop='Center'
+                        Tablet='Center'
+                        Phone='Stretch'}">
+
+                    <Entry Text="{Binding UserName, Mode=TwoWay}"
+                               Placeholder="Enter the username"
+                               HorizontalOptions="{OnIdiom 
+                                    Desktop='Center'
+                                    Tablet='Center'
+                                    Phone='FillAndExpand'}"
+                               WidthRequest="{OnIdiom
+                                    Desktop='350'
+                                    Tablet='320'}"/>
+                    
+                    <Entry Text="{Binding Password, Mode=TwoWay}" 
+                               IsPassword="true" 
+                               Placeholder="Did you read the code???" 
+                               HorizontalOptions="{OnIdiom 
+                                    Desktop='Center'
+                                    Tablet='Center'
+                                    Phone='FillAndExpand'}"
+                               WidthRequest="{OnIdiom
+                                    Desktop='350'
+                                    Tablet='320'}" />
+                    <Button Text="Submit" Command="{Binding SaveCommand}" />
+
+                </FlexLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

@@ -18,18 +18,6 @@ namespace BSE.Tunes.XApp.Services
             this.settingsService = settingsService;
         }
 
-        public Task<ObservableCollection<Album>> GetFeaturedAlbums(int limit)
-        {
-            //string strUrl = string.Format("{0}/api/v2/albums/featured?limit={1}", ServiceUrl, limit);
-            //return await GetHttpResponse<ObservableCollection<Album>>(new Uri(strUrl));
-            var builder = new UriBuilder(this.settingsService.ServiceEndPoint);
-            builder.AppendToPath(string.Format("/api/v2/albums/featured?limit={0}", limit));
-
-            string strUrl = string.Format("{0}/api/v2/albums/featured?limit={1}", this.settingsService.ServiceEndPoint, limit);
-
-            return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
-        }
-
         public Task<bool> IsEndPointAccessibleAsync()
         {
             return IsEndPointAccessibleAsync(this.settingsService.ServiceEndPoint);
@@ -56,6 +44,26 @@ namespace BSE.Tunes.XApp.Services
             }
 
             return isAccessible;
+        }
+
+        public Task<ObservableCollection<Album>> GetFeaturedAlbums(int limit)
+        {
+            //string strUrl = string.Format("{0}/api/v2/albums/featured?limit={1}", ServiceUrl, limit);
+            //return await GetHttpResponse<ObservableCollection<Album>>(new Uri(strUrl));
+            var builder = new UriBuilder(this.settingsService.ServiceEndPoint);
+            builder.AppendToPath(string.Format("/api/v2/albums/featured?limit={0}", limit));
+
+            string strUrl = string.Format("{0}/api/v2/albums/featured?limit={1}", this.settingsService.ServiceEndPoint, limit);
+
+            return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
+        }
+
+        public Uri GetImage(Guid imageId, bool asThumbnail = false)
+        {
+            var builder = new UriBuilder(this.settingsService.ServiceEndPoint);
+            builder.AppendToPath(string.Format("/api/files/image/{0}", imageId.ToString()));
+
+            return builder.Uri;
         }
     }
 }

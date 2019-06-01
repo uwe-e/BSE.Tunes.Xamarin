@@ -16,5 +16,11 @@ namespace BSE.Tunes.XApp.Models
             get;
             set;
         }
+
+        public string ImageSource
+        {
+            get;
+            set;
+        }
     }
 }

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BSE.Tunes.XApp.Views.Templates.GridPanelTemplate"
+             xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
+  <ContentView.Content>
+        <Grid >
+            
+            <ffimageLoading:CachedImage Source="{Binding ImageSource}" Aspect="AspectFit" />
+            <StackLayout>
+                <StackLayout VerticalOptions="CenterAndExpand">
+                    <Label Text="{Binding Title}" Grid.Row="1"/>
+                    <Label Text="{Binding SubTitle}" Grid.Row="2"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+  </ContentView.Content>
+</ContentView>

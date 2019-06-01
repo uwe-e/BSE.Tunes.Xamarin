@@ -1,4 +1,6 @@
 ﻿using CarouselView.FormsPlugin.UWP;
+using FFImageLoading.Forms;
+using FFImageLoading.Forms.Platform;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,10 +58,11 @@ namespace BSE.Tunes.XApp.UWP
 
                 var rendererAssemblies = new List<Assembly>()
                 {
-                    typeof(FFImageLoading.Forms.Platform.CachedImageRenderer).GetTypeInfo().Assembly,
+                    typeof(CachedImage).GetTypeInfo().Assembly,
+                    //typeof(CachedImageRenderer).GetTypeInfo().Assembly,
                     typeof(CarouselViewRenderer).GetTypeInfo().Assembly
                 };
-
+                FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
                 Xamarin.Forms.Forms.Init(e, rendererAssemblies);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)

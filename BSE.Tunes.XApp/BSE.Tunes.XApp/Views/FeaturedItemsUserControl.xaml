@@ -2,11 +2,21 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:templates="clr-namespace:BSE.Tunes.XApp.Views.Templates"
+             xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.FeaturedItemsUserControl">
-  <ContentView.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
+    <ContentView.Content>
+        <Grid>
+            <carousel:CarouselViewControl ItemsSource="{Binding Items}"
+                                          ShowIndicators="True"
+                                          ShowArrows="True">
+                <carousel:CarouselViewControl.ItemTemplate>
+                    <DataTemplate>
+                        <templates:GridPanelTemplate></templates:GridPanelTemplate>
+                    </DataTemplate>
+                </carousel:CarouselViewControl.ItemTemplate>
+            </carousel:CarouselViewControl>
+        </Grid>
   </ContentView.Content>
 </ContentView>

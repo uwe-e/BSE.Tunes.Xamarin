@@ -9,8 +9,12 @@
     
     <ContentPage.Content>
         <Grid>
-            <Grid>
-                <local:FeaturedItemsUserControl />
+            <Grid AutomationId="home">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4.6*" />
+                    <RowDefinition Height="5.4*" />
+                </Grid.RowDefinitions>
+                <local:FeaturedItemsUserControl  />
                 <!--<carousel:CarouselViewControl
                     Orientation="Horizontal">
                     

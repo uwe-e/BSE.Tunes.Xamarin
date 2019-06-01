@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
+using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Services;
 using Prism.Navigation;
 
@@ -10,6 +12,9 @@ namespace BSE.Tunes.XApp.ViewModels
     {
         private readonly ISettingsService settingsService;
         private readonly IDataService dataService;
+        private ObservableCollection<GridPanel> m_items;
+
+        public ObservableCollection<GridPanel> Items => m_items ?? (m_items = new ObservableCollection<GridPanel>());
 
         public FeaturedItemsUserControlViewModel(INavigationService navigationService,
             ISettingsService settingsService,
@@ -23,7 +28,23 @@ namespace BSE.Tunes.XApp.ViewModels
 
         private async void LoadData()
         {
-            var tests = await this.dataService.GetFeaturedAlbums(6);
+            var albums = await this.dataService.GetFeaturedAlbums(6);
+            if (albums != null)
+            {
+                foreach (var album in albums)
+                {
+                    if (album != null)
+                    {
+                        Items.Add(new GridPanel
+                        {
+                            Title = album.Title,
+                            SubTitle = album.Artist.Name,
+                            ImageSource = this.dataService.GetImage(album.AlbumId)?.AbsoluteUri
+                        });
+                    }
+                }
+
+            }
         }
 
     }

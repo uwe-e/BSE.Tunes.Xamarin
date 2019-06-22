@@ -3,20 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:templates="clr-namespace:BSE.Tunes.XApp.Views.Templates"
-             xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             xmlns:cv="clr-namespace:PanCardView;assembly=PanCardView"
+             xmlns:cvcntrols="clr-namespace:PanCardView.Controls;assembly=PanCardView"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.FeaturedItemsUserControl">
     <ContentView.Content>
         <Grid>
-            <carousel:CarouselViewControl ItemsSource="{Binding Items}"
-                                          ShowIndicators="True"
-                                          ShowArrows="True">
-                <carousel:CarouselViewControl.ItemTemplate>
+            <cv:CoverFlowView ItemsSource="{Binding Items}" 
+                                     IsClippedToBounds="True"
+                                     IsCyclical = "true"
+                                     PositionShiftValue="340">
+                <cv:CoverFlowView.ItemTemplate>
                     <DataTemplate>
                         <templates:GridPanelTemplate></templates:GridPanelTemplate>
                     </DataTemplate>
-                </carousel:CarouselViewControl.ItemTemplate>
-            </carousel:CarouselViewControl>
+                </cv:CoverFlowView.ItemTemplate>
+
+                <cvcntrols:LeftArrowControl />
+                <cvcntrols:RightArrowControl ToFadeDuration="1500"/>
+                <!--<controls:IndicatorsControl ToFadeDuration="1500"/>-->
+
+            </cv:CoverFlowView>
         </Grid>
   </ContentView.Content>
 </ContentView>

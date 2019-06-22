@@ -2,25 +2,24 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BSE.Tunes.XApp.Views"
-             xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.HomePage">
     
     <ContentPage.Content>
-        <Grid>
-            <Grid AutomationId="home">
+        <StackLayout>
+            <!--<Grid AutomationId="home">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="4.6*" />
                     <RowDefinition Height="5.4*" />
-                </Grid.RowDefinitions>
-                <local:FeaturedItemsUserControl  />
-                <!--<carousel:CarouselViewControl
-                    Orientation="Horizontal">
-                    
-                </carousel:CarouselViewControl>-->
-            </Grid>
-        </Grid>
+                </Grid.RowDefinitions>-->
+            
+                <local:FeaturedItemsUserControl HeightRequest="250" />
+                
+                <local:FeaturedAlbumsUserControl HeightRequest="250"/>
+            
+            <!--</Grid>-->
+        </StackLayout>
     </ContentPage.Content>
     
 </ContentPage>

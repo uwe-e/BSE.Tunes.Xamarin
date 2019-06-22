@@ -1,5 +1,6 @@
 ﻿using CarouselView.FormsPlugin.iOS;
 using Foundation;
+using PanCardView.iOS;
 using Prism;
 using Prism.Ioc;
 using UIKit;
@@ -24,6 +25,7 @@ namespace BSE.Tunes.XApp.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             CarouselViewRenderer.Init();
+            CardsViewRenderer.Preserve();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));
 

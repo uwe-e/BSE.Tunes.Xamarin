@@ -58,6 +58,17 @@ namespace BSE.Tunes.XApp.Services
             return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
         }
 
+        public Task<ObservableCollection<Album>> GetNewestAlbums(int limit)
+        {
+            //string strUrl = string.Format("{0}/api/v2/albums/newest?limit={1}", ServiceUrl, limit);
+            //var builder = new UriBuilder(this.settingsService.ServiceEndPoint);
+            //builder.AppendToPath(string.Format("/api/v2/albums/newest?limit={0}", limit));
+
+            string strUrl = string.Format("{0}/api/v2/albums/newest?limit={0}", this.settingsService.ServiceEndPoint, limit);
+
+            return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
+        }
+
         public Uri GetImage(Guid imageId, bool asThumbnail = false)
         {
             var builder = new UriBuilder(this.settingsService.ServiceEndPoint);
@@ -65,5 +76,7 @@ namespace BSE.Tunes.XApp.Services
 
             return builder.Uri;
         }
+
+
     }
 }

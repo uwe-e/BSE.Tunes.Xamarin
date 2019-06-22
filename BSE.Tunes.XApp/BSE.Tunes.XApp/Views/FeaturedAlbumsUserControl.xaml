@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
+             xmlns:templates="clr-namespace:BSE.Tunes.XApp.Views.Templates"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="BSE.Tunes.XApp.Views.FeaturedAlbumsUserControl">
+  <ContentView.Content>
+      <Grid BackgroundColor="Blue">
+            <controls:HorizontalScrollView ItemsSource="{Binding Items}" HeightRequest="200">
+                <controls:HorizontalScrollView.ItemTemplate>
+                    <DataTemplate>
+                        <!--<templates:GridPanelTemplate></templates:GridPanelTemplate>-->
+                        <ViewCell>
+                            <StackLayout Margin="10,0,5,0" WidthRequest="150" HeightRequest="150">
+                                <Image HorizontalOptions="Start" Source="{Binding ImageSource}" WidthRequest="150" HeightRequest="150" />
+                                <Label Text="{Binding Title}" TextColor="White"/>
+                                <Label Text="{Binding SubTitle}" TextColor="#adaeb2"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </controls:HorizontalScrollView.ItemTemplate>
+            </controls:HorizontalScrollView>
+        </Grid>
+  </ContentView.Content>
+</ContentView>

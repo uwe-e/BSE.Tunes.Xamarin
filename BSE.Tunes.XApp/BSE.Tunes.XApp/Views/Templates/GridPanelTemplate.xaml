@@ -4,14 +4,13 @@
              x:Class="BSE.Tunes.XApp.Views.Templates.GridPanelTemplate"
              xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
   <ContentView.Content>
-        <Grid >
+        <Grid BackgroundColor="Red">
             
-            <ffimageLoading:CachedImage Source="{Binding ImageSource}" Aspect="AspectFit" />
-            <StackLayout>
-                <StackLayout VerticalOptions="CenterAndExpand">
-                    <Label Text="{Binding Title}" Grid.Row="1"/>
-                    <Label Text="{Binding SubTitle}" Grid.Row="2"/>
-                </StackLayout>
+            <ffimageLoading:CachedImage Source="{Binding ImageSource}" Aspect="AspectFill" />
+
+            <StackLayout BackgroundColor="#E2E2E2" TranslationY="165" Opacity=".6" VerticalOptions="End" HorizontalOptions="EndAndExpand">
+                <Label HorizontalTextAlignment="Center" Text="{Binding Title}" TextColor="Black"/>
+                <Label HorizontalTextAlignment="Center" Text="{Binding SubTitle}" TextColor="Black"/>
             </StackLayout>
         </Grid>
   </ContentView.Content>

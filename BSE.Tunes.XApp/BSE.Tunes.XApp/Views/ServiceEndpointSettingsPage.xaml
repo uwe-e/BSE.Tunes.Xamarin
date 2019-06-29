@@ -5,10 +5,60 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.ServiceEndpointSettingsPage">
     <Grid>
-        <StackLayout Orientation="Vertical" VerticalOptions="Center">
-            <Label Text="Enter the address of the web that contains the audio service." />
-            <Entry Text="{Binding ServiceEndPoint, Mode=TwoWay}" />
-            <Button Text="Submit" Command="{Binding SaveCommand}" />
-        </StackLayout>
+        <Grid RowSpacing="0">
+            <!--<Grid.RowDefinitions>
+                <RowDefinition Height="6*" />
+                <RowDefinition Height="4*" />
+            </Grid.RowDefinitions>-->
+
+            <FlexLayout
+                    StyleClass="signin-form"
+                    Grid.Row="0"
+                    FlexLayout.JustifyContent="{OnIdiom
+                        Desktop='Center'
+                        Tablet='Start'
+                        Phone='Center'}"
+                    FlexLayout.AlignItems="{OnIdiom Desktop='Center'
+                                        Tablet='Center'
+                        Phone='Stretch'}">
+
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Enter the address of the web that contains the audio service."
+                   HorizontalOptions="{OnIdiom
+                            Desktop='Center'
+                            Tablet='Center'
+                            Phone='FillAndExpand'}"
+                        WidthRequest="{OnIdiom
+                            Desktop='350'
+                            Tablet='320'}"/>
+                    <Entry Text="{Binding ServiceEndPoint, Mode=TwoWay}"
+                       HorizontalOptions="{OnIdiom
+                            Desktop='Center'
+                            Tablet='Center'
+                            Phone='FillAndExpand'}"
+                        WidthRequest="{OnIdiom
+                            Desktop='350'
+                            Tablet='320'}"/>
+                <Button Text="Submit" Command="{Binding SaveCommand}" />
+                </StackLayout>
+            </FlexLayout>
+
+            <!--<FlexLayout  
+                    x:Name="SignButtons"
+                    Grid.Row="1"    
+                BackgroundColor="Aquamarine"
+                    StyleId="signin-buttons-container"
+                    FlexLayout.AlignItems="{OnIdiom
+                        Desktop='Center'
+                        Tablet='Center'
+                        Phone='Stretch'}">
+                
+            </FlexLayout>-->
+            <!--<StackLayout Orientation="Vertical" VerticalOptions="Center">
+                <Label Text="Enter the address of the web that contains the audio service." />
+                
+                <Button Text="Submit" Command="{Binding SaveCommand}" />
+            </StackLayout>-->
+        </Grid>
     </Grid>
 </ContentPage>

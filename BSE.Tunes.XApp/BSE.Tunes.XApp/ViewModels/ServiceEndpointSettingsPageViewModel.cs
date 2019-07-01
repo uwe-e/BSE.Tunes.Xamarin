@@ -1,4 +1,5 @@
 ﻿using System;
+using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Services;
 using Prism.Commands;
 using Prism.Navigation;
@@ -13,6 +14,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly IPageDialogService pageDialogService;
         private readonly ISettingsService settingsService;
         private readonly IDataService dataService;
+        private readonly IAuthenticationService authenticationService;
 
         public string ServiceEndPoint
         {
@@ -37,11 +39,13 @@ namespace BSE.Tunes.XApp.ViewModels
         public ServiceEndpointSettingsPageViewModel(INavigationService navigationService,
             IPageDialogService pageDialogService,
             ISettingsService settingsService,
-            IDataService dataService) : base(navigationService)
+            IDataService dataService,
+            IAuthenticationService authenticationService) : base(navigationService)
         {
             this.pageDialogService = pageDialogService;
             this.settingsService = settingsService;
             this.dataService = dataService;
+            this.authenticationService = authenticationService;
         }
 
         private async void Save()
@@ -52,6 +56,22 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 await this.dataService.IsEndPointAccessibleAsync(serviceEndPoint);
                 this.settingsService.ServiceEndPoint = serviceEndPoint;
+                if (this.settingsService.User is User user)
+                {
+                    try
+                    {
+                        await this.authenticationService.RequestRefreshTokenAsync(user.Token);
+                        await NavigationService.NavigateAsync("MainPage/NavigationPage/HomePage");
+                    }
+                    catch (Exception)
+                    {
+                        await NavigationService.NavigateAsync("LoginPage");
+                    }
+                }
+                else
+                {
+                    await NavigationService.NavigateAsync("LoginPage");
+                }
             }
             catch (Exception)
             {

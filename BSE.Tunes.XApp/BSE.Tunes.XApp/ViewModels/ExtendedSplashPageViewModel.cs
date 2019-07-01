@@ -25,7 +25,6 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             try
             {
-                throw new Exception();
                 var isAccessible = await this.dataService.IsEndPointAccessibleAsync(this.settingsService.ServiceEndPoint);
                 {
                     if (this.settingsService.User is User user)

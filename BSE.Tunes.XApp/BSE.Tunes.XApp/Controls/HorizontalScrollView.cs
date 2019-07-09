@@ -3,13 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.Controls
 {
     public class HorizontalScrollView : ScrollView
     {
-        readonly StackLayout m_itemsStackLayout;
+        private readonly StackLayout _itemsStackLayout;
+        private ICommand _innerSelectedCommand;
+
+        public event EventHandler SelectedItemChanged;
+
+        public static readonly BindableProperty SelectedItemCommandProperty =
+         BindableProperty.Create(
+                "SelectedItemCommandProperty", typeof(ICommand),
+                typeof(HorizontalScrollView),
+                null);
+
+        public ICommand SelectedItemCommand
+        {
+            get => (ICommand)GetValue(SelectedItemCommandProperty);
+            set => SetValue(SelectedItemCommandProperty, value);
+        }
 
         public static readonly BindableProperty ItemsSourceProperty =
             BindableProperty.Create(
@@ -44,30 +60,40 @@ namespace BSE.Tunes.XApp.Controls
             set => SetValue(ItemTemplateProperty, value);
         }
 
+        public static readonly BindableProperty SelectedItemProperty =
+            BindableProperty.Create("SelectedItem", typeof(object), typeof(HorizontalScrollView), null, BindingMode.TwoWay, propertyChanged: OnSelectedItemChanged);
+
+        public object SelectedItem
+        {
+            get => (object)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
+
+
         public HorizontalScrollView()
         {
-            m_itemsStackLayout = new StackLayout
+            Orientation = ScrollOrientation.Horizontal;
+            _itemsStackLayout = new StackLayout
             {
                 Orientation = StackOrientation.Horizontal
             };
 
-            this.Content = m_itemsStackLayout;
+            this.Content = _itemsStackLayout;
         }
 
         protected virtual void SetItemsSource(IEnumerable oldCollection)
         {
 
             //m_itemsStackLayout.Children.Clear();
-
+            _innerSelectedCommand = new Command<View>(view =>
+            {
+                SelectedItem = view.BindingContext;
+                SelectedItem = null; // Allowing item second time selection
+            });
 
             //if (ItemsSource == null)
             //{
             //    return;
-            //}
-
-            //foreach (var item in ItemsSource)
-            //{
-            //    m_itemsStackLayout.Children.Add(GetItemView(item));
             //}
 
             if (oldCollection is INotifyCollectionChanged oldObservableCollection)
@@ -85,40 +111,21 @@ namespace BSE.Tunes.XApp.Controls
 
         private void OnObservableCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-
-
-            //        var wraplayout = bindable as WrapLayout;
-
             if (e.OldItems != null)
             {
                 foreach (var item in e.OldItems)
                 {
-                    m_itemsStackLayout.Children.Remove(GetItemView(item));
+                    _itemsStackLayout.Children.Remove(GetItemView(item));
                 }
             }
-
 
             if (e.NewItems != null)
             {
                 foreach (var item in e.NewItems)
                 {
-                    m_itemsStackLayout.Children.Add(GetItemView(item));
+                    _itemsStackLayout.Children.Add(GetItemView(item));
                 }
             }
-
-            //var oldValueINotifyCollectionChanged = oldValue as INotifyCollectionChanged;
-
-            //if (null != oldValueINotifyCollectionChanged)
-            //{
-            //    oldValueINotifyCollectionChanged.CollectionChanged -= newValueINotifyCollectionChanged_CollectionChanged;
-            //}
-
-            //var newValueINotifyCollectionChanged = newValue as INotifyCollectionChanged;
-
-            //if (null != newValueINotifyCollectionChanged)
-            //{
-            //    newValueINotifyCollectionChanged.CollectionChanged += newValueINotifyCollectionChanged_CollectionChanged;
-            //}
         }
 
         protected virtual View GetItemView(object item)
@@ -133,15 +140,46 @@ namespace BSE.Tunes.XApp.Controls
 
             view.BindingContext = item;
 
-            //var gesture = new TapGestureRecognizer
-            //{
-            //    Command = innerSelectedCommand,
-            //    CommandParameter = view
-            //};
+            var gesture = new TapGestureRecognizer
+            {
+                Command = _innerSelectedCommand,
+                CommandParameter = view
+            };
 
-            //AddGesture(view, gesture);
+            AddGesture(view, gesture);
 
             return view;
+        }
+
+        void AddGesture(View view, TapGestureRecognizer gesture)
+        {
+            view.GestureRecognizers.Add(gesture);
+
+            if (!(view is Layout<View> layout))
+            {
+                return;
+            }
+
+            foreach (var child in layout.Children)
+            {
+                AddGesture(child, gesture);
+            }
+        }
+
+        static void OnSelectedItemChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var itemsView = (HorizontalScrollView)bindable;
+            if (newValue == oldValue && newValue != null)
+            {
+                return;
+            }
+
+            itemsView.SelectedItemChanged?.Invoke(itemsView, EventArgs.Empty);
+
+            if (itemsView.SelectedItemCommand?.CanExecute(newValue) ?? false)
+            {
+                itemsView.SelectedItemCommand?.Execute(newValue);
+            }
         }
     }
 }

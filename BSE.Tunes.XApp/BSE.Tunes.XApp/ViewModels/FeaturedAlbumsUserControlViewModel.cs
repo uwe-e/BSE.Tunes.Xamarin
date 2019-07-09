@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Services;
 using Prism.Navigation;
@@ -12,9 +13,14 @@ namespace BSE.Tunes.XApp.ViewModels
     {
         private readonly ISettingsService settingsService;
         private readonly IDataService dataService;
-        private ObservableCollection<GridPanel> m_items;
+        private ObservableCollection<GridPanel> _items;
+        private ICommand _selectItemCommand;
 
-        public ObservableCollection<GridPanel> Items => m_items ?? (m_items = new ObservableCollection<GridPanel>());
+        public ObservableCollection<GridPanel> Items => _items
+            ?? (_items = new ObservableCollection<GridPanel>());
+
+        public ICommand SelectItemCommand => _selectItemCommand
+            ?? (_selectItemCommand = new Xamarin.Forms.Command<GridPanel>(SelectItem));
 
         public FeaturedAlbumsUserControlViewModel(INavigationService navigationService,
             ISettingsService settingsService,
@@ -44,6 +50,11 @@ namespace BSE.Tunes.XApp.ViewModels
                     }
                 }
             }
+        }
+
+        private void SelectItem(GridPanel obj)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

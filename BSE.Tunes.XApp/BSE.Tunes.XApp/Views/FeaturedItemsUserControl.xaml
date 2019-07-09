@@ -9,10 +9,10 @@
              x:Class="BSE.Tunes.XApp.Views.FeaturedItemsUserControl">
     <ContentView.Content>
         <Grid>
-            <cv:CoverFlowView ItemsSource="{Binding Items}" 
+            <cv:CoverFlowView ItemsSource="{Binding Items}"
                                      IsClippedToBounds="True"
-                                     IsCyclical = "true"
-                                     PositionShiftValue="340">
+                                     IsCyclical = "True"
+                                     PositionShiftValue="60">
                 <cv:CoverFlowView.ItemTemplate>
                     <DataTemplate>
                         <templates:GridPanelTemplate></templates:GridPanelTemplate>

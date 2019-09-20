@@ -5,21 +5,24 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.HomePage">
-    
+
     <ContentPage.Content>
         <StackLayout>
-            <!--<Grid AutomationId="home">
+            <Grid AutomationId="home">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="4.6*" />
-                    <RowDefinition Height="5.4*" />
-                </Grid.RowDefinitions>-->
-            
-                <local:FeaturedItemsUserControl HeightRequest="250" />
-                
-                <local:FeaturedAlbumsUserControl HeightRequest="250"/>
-            
-            <!--</Grid>-->
+                    <RowDefinition Height="3.5*" />
+                    <RowDefinition Height="5.0*" />
+                    <RowDefinition Height="1.5*" />
+                </Grid.RowDefinitions>
+
+            <local:FeaturedItemsUserControl Grid.Row="0" />
+
+                <local:FeaturedAlbumsUserControl Grid.Row="1"/>
+
+                <local:PlayerBarUserControl Grid.Row="2"/>
+
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
-    
+
 </ContentPage>

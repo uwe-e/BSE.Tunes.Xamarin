@@ -12,7 +12,7 @@
             <cv:CoverFlowView ItemsSource="{Binding Items}"
                                      IsClippedToBounds="True"
                                      IsCyclical = "True"
-                                     PositionShiftValue="60">
+                                     PositionShiftValue="120">
                 <cv:CoverFlowView.ItemTemplate>
                     <DataTemplate>
                         <templates:GridPanelTemplate></templates:GridPanelTemplate>
@@ -20,7 +20,7 @@
                 </cv:CoverFlowView.ItemTemplate>
 
                 <cvcntrols:LeftArrowControl />
-                <cvcntrols:RightArrowControl ToFadeDuration="1500"/>
+                <cvcntrols:RightArrowControl/>
                 <!--<controls:IndicatorsControl ToFadeDuration="1500"/>-->
 
             </cv:CoverFlowView>

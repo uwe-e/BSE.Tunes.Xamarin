@@ -4,54 +4,55 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.LoginPage">
-    <ContentPage.Resources>
+    <!--<ContentPage.Resources>
         <StyleSheet Source="Styles/LoginPage.css"/>
-    </ContentPage.Resources>
+    </ContentPage.Resources>-->
 
     <ContentPage.Content>
         <Grid>
-            <Grid RowSpacing="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="6*" />
-                    <RowDefinition Height="4*" />
-                </Grid.RowDefinitions>
 
-                <FlexLayout
-                    StyleClass="signin-form"
-                    Grid.Row="0"
-                    FlexLayout.JustifyContent="{OnIdiom
-                        Desktop='Start'
-                        Tablet='Start'
-                        Phone='Center'}"
-                    FlexLayout.AlignItems="{OnIdiom
-                        Desktop='Center'
-                        Tablet='Center'
-                        Phone='Stretch'}">
+            <ScrollView HorizontalOptions="Center">
+                <ScrollView.VerticalOptions>
+                    <OnIdiom
+                        x:TypeArguments="LayoutOptions"
+                        Default="CenterAndExpand"
+                        Phone="FillAndExpand" />
+                </ScrollView.VerticalOptions>
 
-                    <Entry Text="{Binding UserName, Mode=TwoWay}"
-                               Placeholder="Enter the username"
-                               HorizontalOptions="{OnIdiom 
-                                    Desktop='Center'
-                                    Tablet='Center'
-                                    Phone='FillAndExpand'}"
-                               WidthRequest="{OnIdiom
-                                    Desktop='350'
-                                    Tablet='320'}"/>
-                    
-                    <Entry Text="{Binding Password, Mode=TwoWay}" 
-                               IsPassword="true" 
-                               Placeholder="Did you read the code???" 
-                               HorizontalOptions="{OnIdiom 
-                                    Desktop='Center'
-                                    Tablet='Center'
-                                    Phone='FillAndExpand'}"
-                               WidthRequest="{OnIdiom
-                                    Desktop='350'
-                                    Tablet='320'}" />
-                    <Button Text="Submit" Command="{Binding SaveCommand}" />
+                <StackLayout Spacing="0"
+                         Margin="{OnIdiom Desktop='30'
+                                          Tablet='200,50'
+                                          Phone='20,32'}"
+                         VerticalOptions="FillAndExpand"
+                         WidthRequest="{OnPlatform  Default='-1',
+                                                    UWP='350'}">
 
-                </FlexLayout>
-            </Grid>
+                    <Grid RowSpacing="0" VerticalOptions="CenterAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Entry Text="{Binding UserName, Mode=TwoWay}"
+                                   Placeholder="Enter the username"
+                                   Margin="0,8"/>
+
+                        <Entry Text="{Binding Password, Mode=TwoWay}" 
+                                   IsPassword="true" 
+                                   Placeholder="Did you read the code???" 
+                                   Margin="0,8"
+                                   Grid.Row="1"/>
+                        <Button Text="Submit" Command="{Binding SaveCommand}"
+                                    Grid.Row="2"/>
+
+
+                    </Grid>
+
+                </StackLayout>
+
+            </ScrollView>
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>

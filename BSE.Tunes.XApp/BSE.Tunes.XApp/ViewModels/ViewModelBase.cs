@@ -37,11 +37,12 @@ namespace BSE.Tunes.XApp.ViewModels
         {
 
         }
+        //https://github.com/PrismLibrary/Prism/releases/tag/v7.2.0.1367
+        //Removed with Prism 7.2
+        //public virtual void OnNavigatingTo(INavigationParameters parameters)
+        //{
 
-        public virtual void OnNavigatingTo(INavigationParameters parameters)
-        {
-
-        }
+        //}
 
         public virtual void Destroy()
         {

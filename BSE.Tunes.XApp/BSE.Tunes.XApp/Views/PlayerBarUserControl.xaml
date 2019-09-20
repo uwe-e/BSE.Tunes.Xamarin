@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="BSE.Tunes.XApp.Views.PlayerBarUserControl" BackgroundColor="CadetBlue">
+  <ContentView.Content>
+      <StackLayout>
+          <Label Text="Hello Xamarin.Forms!" />
+            <Button x:Name="ButtonPlay" Text="Play" BackgroundColor="Orange"
+                  HorizontalOptions="EndAndExpand" VerticalOptions="Center" Command="{Binding PlayCommand}" />
+        </StackLayout>
+  </ContentView.Content>
+</ContentView>

@@ -2216,6 +2216,10 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Animation.design_bottom_sheet_slide_out = global::BSE.Tunes.XApp.Droid.Resource.Animation.design_bottom_sheet_slide_out;
 			global::PanCardView.Droid.Resource.Animation.design_snackbar_in = global::BSE.Tunes.XApp.Droid.Resource.Animation.design_snackbar_in;
 			global::PanCardView.Droid.Resource.Animation.design_snackbar_out = global::BSE.Tunes.XApp.Droid.Resource.Animation.design_snackbar_out;
+			global::PanCardView.Droid.Resource.Animation.EnterFromLeft = global::BSE.Tunes.XApp.Droid.Resource.Animation.EnterFromLeft;
+			global::PanCardView.Droid.Resource.Animation.EnterFromRight = global::BSE.Tunes.XApp.Droid.Resource.Animation.EnterFromRight;
+			global::PanCardView.Droid.Resource.Animation.ExitToLeft = global::BSE.Tunes.XApp.Droid.Resource.Animation.ExitToLeft;
+			global::PanCardView.Droid.Resource.Animation.ExitToRight = global::BSE.Tunes.XApp.Droid.Resource.Animation.ExitToRight;
 			global::PanCardView.Droid.Resource.Animator.design_appbar_state_list_animator = global::BSE.Tunes.XApp.Droid.Resource.Animator.design_appbar_state_list_animator;
 			global::PanCardView.Droid.Resource.Animator.design_fab_hide_motion_spec = global::BSE.Tunes.XApp.Droid.Resource.Animator.design_fab_hide_motion_spec;
 			global::PanCardView.Droid.Resource.Animator.design_fab_show_motion_spec = global::BSE.Tunes.XApp.Droid.Resource.Animator.design_fab_show_motion_spec;
@@ -2757,6 +2761,10 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Color.bright_foreground_inverse_material_light = global::BSE.Tunes.XApp.Droid.Resource.Color.bright_foreground_inverse_material_light;
 			global::PanCardView.Droid.Resource.Color.bright_foreground_material_dark = global::BSE.Tunes.XApp.Droid.Resource.Color.bright_foreground_material_dark;
 			global::PanCardView.Droid.Resource.Color.bright_foreground_material_light = global::BSE.Tunes.XApp.Droid.Resource.Color.bright_foreground_material_light;
+			global::PanCardView.Droid.Resource.Color.browser_actions_bg_grey = global::BSE.Tunes.XApp.Droid.Resource.Color.browser_actions_bg_grey;
+			global::PanCardView.Droid.Resource.Color.browser_actions_divider_color = global::BSE.Tunes.XApp.Droid.Resource.Color.browser_actions_divider_color;
+			global::PanCardView.Droid.Resource.Color.browser_actions_text_color = global::BSE.Tunes.XApp.Droid.Resource.Color.browser_actions_text_color;
+			global::PanCardView.Droid.Resource.Color.browser_actions_title_color = global::BSE.Tunes.XApp.Droid.Resource.Color.browser_actions_title_color;
 			global::PanCardView.Droid.Resource.Color.button_material_dark = global::BSE.Tunes.XApp.Droid.Resource.Color.button_material_dark;
 			global::PanCardView.Droid.Resource.Color.button_material_light = global::BSE.Tunes.XApp.Droid.Resource.Color.button_material_light;
 			global::PanCardView.Droid.Resource.Color.cardview_dark_background = global::BSE.Tunes.XApp.Droid.Resource.Color.cardview_dark_background;
@@ -2924,6 +2932,8 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Dimension.abc_text_size_subtitle_material_toolbar = global::BSE.Tunes.XApp.Droid.Resource.Dimension.abc_text_size_subtitle_material_toolbar;
 			global::PanCardView.Droid.Resource.Dimension.abc_text_size_title_material = global::BSE.Tunes.XApp.Droid.Resource.Dimension.abc_text_size_title_material;
 			global::PanCardView.Droid.Resource.Dimension.abc_text_size_title_material_toolbar = global::BSE.Tunes.XApp.Droid.Resource.Dimension.abc_text_size_title_material_toolbar;
+			global::PanCardView.Droid.Resource.Dimension.browser_actions_context_menu_max_width = global::BSE.Tunes.XApp.Droid.Resource.Dimension.browser_actions_context_menu_max_width;
+			global::PanCardView.Droid.Resource.Dimension.browser_actions_context_menu_min_padding = global::BSE.Tunes.XApp.Droid.Resource.Dimension.browser_actions_context_menu_min_padding;
 			global::PanCardView.Droid.Resource.Dimension.cardview_compat_inset_shadow = global::BSE.Tunes.XApp.Droid.Resource.Dimension.cardview_compat_inset_shadow;
 			global::PanCardView.Droid.Resource.Dimension.cardview_default_elevation = global::BSE.Tunes.XApp.Droid.Resource.Dimension.cardview_default_elevation;
 			global::PanCardView.Droid.Resource.Dimension.cardview_default_radius = global::BSE.Tunes.XApp.Droid.Resource.Dimension.cardview_default_radius;
@@ -3424,6 +3434,13 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Id.beginning = global::BSE.Tunes.XApp.Droid.Resource.Id.beginning;
 			global::PanCardView.Droid.Resource.Id.blocking = global::BSE.Tunes.XApp.Droid.Resource.Id.blocking;
 			global::PanCardView.Droid.Resource.Id.bottom = global::BSE.Tunes.XApp.Droid.Resource.Id.bottom;
+			global::PanCardView.Droid.Resource.Id.bottomtab_navarea = global::BSE.Tunes.XApp.Droid.Resource.Id.bottomtab_navarea;
+			global::PanCardView.Droid.Resource.Id.bottomtab_tabbar = global::BSE.Tunes.XApp.Droid.Resource.Id.bottomtab_tabbar;
+			global::PanCardView.Droid.Resource.Id.browser_actions_header_text = global::BSE.Tunes.XApp.Droid.Resource.Id.browser_actions_header_text;
+			global::PanCardView.Droid.Resource.Id.browser_actions_menu_item_icon = global::BSE.Tunes.XApp.Droid.Resource.Id.browser_actions_menu_item_icon;
+			global::PanCardView.Droid.Resource.Id.browser_actions_menu_item_text = global::BSE.Tunes.XApp.Droid.Resource.Id.browser_actions_menu_item_text;
+			global::PanCardView.Droid.Resource.Id.browser_actions_menu_items = global::BSE.Tunes.XApp.Droid.Resource.Id.browser_actions_menu_items;
+			global::PanCardView.Droid.Resource.Id.browser_actions_menu_view = global::BSE.Tunes.XApp.Droid.Resource.Id.browser_actions_menu_view;
 			global::PanCardView.Droid.Resource.Id.buttonPanel = global::BSE.Tunes.XApp.Droid.Resource.Id.buttonPanel;
 			global::PanCardView.Droid.Resource.Id.cancel_action = global::BSE.Tunes.XApp.Droid.Resource.Id.cancel_action;
 			global::PanCardView.Droid.Resource.Id.center = global::BSE.Tunes.XApp.Droid.Resource.Id.center;
@@ -3461,6 +3478,8 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Id.fill_vertical = global::BSE.Tunes.XApp.Droid.Resource.Id.fill_vertical;
 			global::PanCardView.Droid.Resource.Id.filled = global::BSE.Tunes.XApp.Droid.Resource.Id.filled;
 			global::PanCardView.Droid.Resource.Id.@fixed = global::BSE.Tunes.XApp.Droid.Resource.Id.@fixed;
+			global::PanCardView.Droid.Resource.Id.flyoutcontent_appbar = global::BSE.Tunes.XApp.Droid.Resource.Id.flyoutcontent_appbar;
+			global::PanCardView.Droid.Resource.Id.flyoutcontent_recycler = global::BSE.Tunes.XApp.Droid.Resource.Id.flyoutcontent_recycler;
 			global::PanCardView.Droid.Resource.Id.forever = global::BSE.Tunes.XApp.Droid.Resource.Id.forever;
 			global::PanCardView.Droid.Resource.Id.ghost_view = global::BSE.Tunes.XApp.Droid.Resource.Id.ghost_view;
 			global::PanCardView.Droid.Resource.Id.group_divider = global::BSE.Tunes.XApp.Droid.Resource.Id.group_divider;
@@ -3480,6 +3499,10 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Id.line3 = global::BSE.Tunes.XApp.Droid.Resource.Id.line3;
 			global::PanCardView.Droid.Resource.Id.listMode = global::BSE.Tunes.XApp.Droid.Resource.Id.listMode;
 			global::PanCardView.Droid.Resource.Id.list_item = global::BSE.Tunes.XApp.Droid.Resource.Id.list_item;
+			global::PanCardView.Droid.Resource.Id.main_appbar = global::BSE.Tunes.XApp.Droid.Resource.Id.main_appbar;
+			global::PanCardView.Droid.Resource.Id.main_tablayout = global::BSE.Tunes.XApp.Droid.Resource.Id.main_tablayout;
+			global::PanCardView.Droid.Resource.Id.main_toolbar = global::BSE.Tunes.XApp.Droid.Resource.Id.main_toolbar;
+			global::PanCardView.Droid.Resource.Id.main_viewpager = global::BSE.Tunes.XApp.Droid.Resource.Id.main_viewpager;
 			global::PanCardView.Droid.Resource.Id.masked = global::BSE.Tunes.XApp.Droid.Resource.Id.masked;
 			global::PanCardView.Droid.Resource.Id.media_actions = global::BSE.Tunes.XApp.Droid.Resource.Id.media_actions;
 			global::PanCardView.Droid.Resource.Id.message = global::BSE.Tunes.XApp.Droid.Resource.Id.message;
@@ -3573,6 +3596,8 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Id.search_voice_btn = global::BSE.Tunes.XApp.Droid.Resource.Id.search_voice_btn;
 			global::PanCardView.Droid.Resource.Id.select_dialog_listview = global::BSE.Tunes.XApp.Droid.Resource.Id.select_dialog_listview;
 			global::PanCardView.Droid.Resource.Id.selected = global::BSE.Tunes.XApp.Droid.Resource.Id.selected;
+			global::PanCardView.Droid.Resource.Id.shellcontent_appbar = global::BSE.Tunes.XApp.Droid.Resource.Id.shellcontent_appbar;
+			global::PanCardView.Droid.Resource.Id.shellcontent_toolbar = global::BSE.Tunes.XApp.Droid.Resource.Id.shellcontent_toolbar;
 			global::PanCardView.Droid.Resource.Id.shortcut = global::BSE.Tunes.XApp.Droid.Resource.Id.shortcut;
 			global::PanCardView.Droid.Resource.Id.showCustom = global::BSE.Tunes.XApp.Droid.Resource.Id.showCustom;
 			global::PanCardView.Droid.Resource.Id.showHome = global::BSE.Tunes.XApp.Droid.Resource.Id.showHome;
@@ -3679,6 +3704,9 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Layout.abc_search_view = global::BSE.Tunes.XApp.Droid.Resource.Layout.abc_search_view;
 			global::PanCardView.Droid.Resource.Layout.abc_select_dialog_material = global::BSE.Tunes.XApp.Droid.Resource.Layout.abc_select_dialog_material;
 			global::PanCardView.Droid.Resource.Layout.abc_tooltip = global::BSE.Tunes.XApp.Droid.Resource.Layout.abc_tooltip;
+			global::PanCardView.Droid.Resource.Layout.BottomTabLayout = global::BSE.Tunes.XApp.Droid.Resource.Layout.BottomTabLayout;
+			global::PanCardView.Droid.Resource.Layout.browser_actions_context_menu_page = global::BSE.Tunes.XApp.Droid.Resource.Layout.browser_actions_context_menu_page;
+			global::PanCardView.Droid.Resource.Layout.browser_actions_context_menu_row = global::BSE.Tunes.XApp.Droid.Resource.Layout.browser_actions_context_menu_row;
 			global::PanCardView.Droid.Resource.Layout.design_bottom_navigation_item = global::BSE.Tunes.XApp.Droid.Resource.Layout.design_bottom_navigation_item;
 			global::PanCardView.Droid.Resource.Layout.design_bottom_sheet_dialog = global::BSE.Tunes.XApp.Droid.Resource.Layout.design_bottom_sheet_dialog;
 			global::PanCardView.Droid.Resource.Layout.design_layout_snackbar = global::BSE.Tunes.XApp.Droid.Resource.Layout.design_layout_snackbar;
@@ -3693,6 +3721,7 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Layout.design_navigation_menu = global::BSE.Tunes.XApp.Droid.Resource.Layout.design_navigation_menu;
 			global::PanCardView.Droid.Resource.Layout.design_navigation_menu_item = global::BSE.Tunes.XApp.Droid.Resource.Layout.design_navigation_menu_item;
 			global::PanCardView.Droid.Resource.Layout.design_text_input_password_icon = global::BSE.Tunes.XApp.Droid.Resource.Layout.design_text_input_password_icon;
+			global::PanCardView.Droid.Resource.Layout.FlyoutContent = global::BSE.Tunes.XApp.Droid.Resource.Layout.FlyoutContent;
 			global::PanCardView.Droid.Resource.Layout.mr_cast_dialog = global::BSE.Tunes.XApp.Droid.Resource.Layout.mr_cast_dialog;
 			global::PanCardView.Droid.Resource.Layout.mr_cast_group_item = global::BSE.Tunes.XApp.Droid.Resource.Layout.mr_cast_group_item;
 			global::PanCardView.Droid.Resource.Layout.mr_cast_group_volume_item = global::BSE.Tunes.XApp.Droid.Resource.Layout.mr_cast_group_volume_item;
@@ -3724,9 +3753,11 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Layout.notification_template_media_custom = global::BSE.Tunes.XApp.Droid.Resource.Layout.notification_template_media_custom;
 			global::PanCardView.Droid.Resource.Layout.notification_template_part_chronometer = global::BSE.Tunes.XApp.Droid.Resource.Layout.notification_template_part_chronometer;
 			global::PanCardView.Droid.Resource.Layout.notification_template_part_time = global::BSE.Tunes.XApp.Droid.Resource.Layout.notification_template_part_time;
+			global::PanCardView.Droid.Resource.Layout.RootLayout = global::BSE.Tunes.XApp.Droid.Resource.Layout.RootLayout;
 			global::PanCardView.Droid.Resource.Layout.select_dialog_item_material = global::BSE.Tunes.XApp.Droid.Resource.Layout.select_dialog_item_material;
 			global::PanCardView.Droid.Resource.Layout.select_dialog_multichoice_material = global::BSE.Tunes.XApp.Droid.Resource.Layout.select_dialog_multichoice_material;
 			global::PanCardView.Droid.Resource.Layout.select_dialog_singlechoice_material = global::BSE.Tunes.XApp.Droid.Resource.Layout.select_dialog_singlechoice_material;
+			global::PanCardView.Droid.Resource.Layout.ShellContent = global::BSE.Tunes.XApp.Droid.Resource.Layout.ShellContent;
 			global::PanCardView.Droid.Resource.Layout.support_simple_spinner_dropdown_item = global::BSE.Tunes.XApp.Droid.Resource.Layout.support_simple_spinner_dropdown_item;
 			global::PanCardView.Droid.Resource.String.abc_action_bar_home_description = global::BSE.Tunes.XApp.Droid.Resource.String.abc_action_bar_home_description;
 			global::PanCardView.Droid.Resource.String.abc_action_bar_up_description = global::BSE.Tunes.XApp.Droid.Resource.String.abc_action_bar_up_description;
@@ -4318,6 +4349,7 @@ namespace BSE.Tunes.XApp.Droid
 			global::PanCardView.Droid.Resource.Style.Widget_MediaRouter_Light_MediaRouteButton = global::BSE.Tunes.XApp.Droid.Resource.Style.Widget_MediaRouter_Light_MediaRouteButton;
 			global::PanCardView.Droid.Resource.Style.Widget_MediaRouter_MediaRouteButton = global::BSE.Tunes.XApp.Droid.Resource.Style.Widget_MediaRouter_MediaRouteButton;
 			global::PanCardView.Droid.Resource.Style.Widget_Support_CoordinatorLayout = global::BSE.Tunes.XApp.Droid.Resource.Style.Widget_Support_CoordinatorLayout;
+			global::PanCardView.Droid.Resource.Style.collectionViewStyle = global::BSE.Tunes.XApp.Droid.Resource.Style.collectionViewStyle;
 			global::PanCardView.Droid.Resource.Styleable.ActionBar = global::BSE.Tunes.XApp.Droid.Resource.Styleable.ActionBar;
 			global::PanCardView.Droid.Resource.Styleable.ActionBar_background = global::BSE.Tunes.XApp.Droid.Resource.Styleable.ActionBar_background;
 			global::PanCardView.Droid.Resource.Styleable.ActionBar_backgroundSplit = global::BSE.Tunes.XApp.Droid.Resource.Styleable.ActionBar_backgroundSplit;

@@ -37,7 +37,7 @@ namespace BSE.Tunes.XApp.Services
                     var serialized = await responseMessage.Content.ReadAsStringAsync();
                     isAccessible = await Task.Run(() => JsonConvert.DeserializeObject<bool>(serialized));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     throw;
                 }

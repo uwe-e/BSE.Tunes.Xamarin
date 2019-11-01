@@ -18,17 +18,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="226" translatesAutoresizingMaskIntoConstraints="NO" image="Launchscreen">
-                                <rect key="frame" x="67.5" y="287.5" width="240" height="128"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="1396" translatesAutoresizingMaskIntoConstraints="NO" image="Default.png" misplaced="YES">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <constraints>
-                                    <constraint id="229" firstAttribute="height" constant="128"/>
-                                    <constraint id="230" firstAttribute="width" constant="240"/>
+                                    <constraint id="1471" firstAttribute="height" constant="647"/>
+                                    <constraint id="1472" firstAttribute="width" constant="343"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <constraints>
-                            <constraint id="227" firstItem="226" firstAttribute="centerX" secondItem="223" secondAttribute="centerX"/>
-                            <constraint id="228" firstItem="226" firstAttribute="centerY" secondItem="223" secondAttribute="centerY" constant="18"/>
+                            <constraint id="1451" firstItem="1396" firstAttribute="leading" secondItem="223" secondAttribute="leadingMargin"/>
+                            <constraint id="1452" firstAttribute="bottomMargin" secondItem="1396" secondAttribute="bottom"/>
+                            <constraint id="1454" firstAttribute="trailingMargin" secondItem="1396" secondAttribute="trailing"/>
+                            <constraint id="1455" firstItem="1396" firstAttribute="top" secondItem="223" secondAttribute="topMargin"/>
+                            <constraint id="1469" firstItem="1396" firstAttribute="centerX" secondItem="223" secondAttribute="centerX"/>
+                            <constraint id="1470" firstItem="1396" firstAttribute="centerY" secondItem="223" secondAttribute="centerY" constant="10"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -38,6 +42,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Launchscreen" width="850.3937" height="850.3937"/>
+        <image name="Default.png" width="320" height="480"/>
     </resources>
 </document>

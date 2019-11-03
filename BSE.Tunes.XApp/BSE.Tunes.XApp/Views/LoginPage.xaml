@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.LoginPage">
     <!--<ContentPage.Resources>
@@ -35,15 +36,15 @@
                         </Grid.RowDefinitions>
 
                         <Entry Text="{Binding UserName, Mode=TwoWay}"
-                                   Placeholder="Enter the username"
+                                   Placeholder="{i18n:Translate LoginPage_Entry_Placeholder_EnterUserName}"
                                    Margin="0,8"/>
 
                         <Entry Text="{Binding Password, Mode=TwoWay}" 
                                    IsPassword="true" 
-                                   Placeholder="Did you read the code???" 
+                                   Placeholder="{i18n:Translate LoginPage_Entry_Placeholder_EnterPassword}" 
                                    Margin="0,8"
                                    Grid.Row="1"/>
-                        <Button Text="Submit" Command="{Binding SaveCommand}"
+                        <Button Text="{i18n:Translate LoginPage_Button_Text_Login}" Command="{Binding SaveCommand}"
                                     Grid.Row="2"/>
 
 

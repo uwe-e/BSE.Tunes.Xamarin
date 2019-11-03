@@ -12,9 +12,10 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly IAuthenticationService authenticationService;
 
         public ExtendedSplashPageViewModel(INavigationService navigationService,
+            IResourceService resourceService,
             ISettingsService settingsService,
             IDataService dataService,
-            IAuthenticationService authenticationService) : base(navigationService)
+            IAuthenticationService authenticationService) : base(navigationService, resourceService)
         {
             this.settingsService = settingsService;
             this.dataService = dataService;

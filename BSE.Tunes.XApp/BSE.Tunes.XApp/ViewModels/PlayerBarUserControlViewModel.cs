@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using BSE.Tunes.XApp.Services;
+using Prism.Commands;
 using Prism.Navigation;
 
 namespace BSE.Tunes.XApp.ViewModels
@@ -32,7 +33,8 @@ namespace BSE.Tunes.XApp.ViewModels
 
         }
 
-        public PlayerBarUserControlViewModel(INavigationService navigationService) : base(navigationService)
+        public PlayerBarUserControlViewModel(INavigationService navigationService,
+            IResourceService resourceService) : base(navigationService, resourceService)
         {
             this.navigationService = navigationService;
         }

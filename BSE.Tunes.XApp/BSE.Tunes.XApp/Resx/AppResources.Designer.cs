@@ -61,6 +61,24 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string Dialog_Result_Ok {
+            get {
+                return ResourceManager.GetString("Dialog_Result_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        internal static string LoginPage_Button_Text_Login {
+            get {
+                return ResourceManager.GetString("LoginPage_Button_Text_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter your password.
         /// </summary>
         internal static string LoginPage_Entry_Placeholder_EnterPassword {
@@ -75,6 +93,15 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string LoginPage_Entry_Placeholder_EnterUserName {
             get {
                 return ResourceManager.GetString("LoginPage_Entry_Placeholder_EnterUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The system could not log you on. Ensure that you entered your details correctly and try again..
+        /// </summary>
+        internal static string LoginPageViewModel_LoginException {
+            get {
+                return ResourceManager.GetString("LoginPageViewModel_LoginException", resourceCulture);
             }
         }
     }

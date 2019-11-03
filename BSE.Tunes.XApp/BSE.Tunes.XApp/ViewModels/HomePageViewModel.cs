@@ -1,15 +1,11 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using BSE.Tunes.XApp.Services;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
-	public class HomePageViewModel : ViewModelBase
+    public class HomePageViewModel : ViewModelBase
 	{
-        public HomePageViewModel(INavigationService navigationService) : base(navigationService)
+        public HomePageViewModel(INavigationService navigationService, IResourceService resourceService) : base(navigationService, resourceService)
         {
         }
     }

@@ -37,10 +37,11 @@ namespace BSE.Tunes.XApp.ViewModels
         }
 
         public ServiceEndpointSettingsPageViewModel(INavigationService navigationService,
+            IResourceService resourceService,
             IPageDialogService pageDialogService,
             ISettingsService settingsService,
             IDataService dataService,
-            IAuthenticationService authenticationService) : base(navigationService)
+            IAuthenticationService authenticationService) : base(navigationService, resourceService)
         {
             this.pageDialogService = pageDialogService;
             this.settingsService = settingsService;

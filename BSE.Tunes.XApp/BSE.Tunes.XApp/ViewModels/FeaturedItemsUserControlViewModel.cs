@@ -17,8 +17,9 @@ namespace BSE.Tunes.XApp.ViewModels
         public ObservableCollection<GridPanel> Items => m_items ?? (m_items = new ObservableCollection<GridPanel>());
 
         public FeaturedItemsUserControlViewModel(INavigationService navigationService,
+            IResourceService resourceService,
             ISettingsService settingsService,
-            IDataService dataService) : base(navigationService)
+            IDataService dataService) : base(navigationService, resourceService)
         {
             this.settingsService = settingsService;
             this.dataService = dataService;

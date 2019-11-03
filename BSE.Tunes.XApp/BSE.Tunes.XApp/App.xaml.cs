@@ -39,7 +39,8 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterSingleton<ISettingsService, SettingsService>();
             containerRegistry.Register<IDataService, DataService>();
             containerRegistry.Register<IRequestService, RequestService>();
-            
+            containerRegistry.Register<IResourceService, ResourceService>();
+
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             
         }

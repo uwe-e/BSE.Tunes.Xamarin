@@ -23,8 +23,9 @@ namespace BSE.Tunes.XApp.ViewModels
             ?? (_selectItemCommand = new Xamarin.Forms.Command<GridPanel>(SelectItem));
 
         public FeaturedAlbumsUserControlViewModel(INavigationService navigationService,
+            IResourceService resourceService,
             ISettingsService settingsService,
-            IDataService dataService) : base(navigationService)
+            IDataService dataService) : base(navigationService, resourceService)
         {
             this.settingsService = settingsService;
             this.dataService = dataService;

@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using BSE.Tunes.XApp.Services;
+using Prism.Mvvm;
 using Prism.Navigation;
 
 namespace BSE.Tunes.XApp.ViewModels
@@ -9,6 +10,7 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             get; private set;
         }
+        public IResourceService ResourceService { get; }
 
         private string _title;
         public string Title
@@ -23,9 +25,10 @@ namespace BSE.Tunes.XApp.ViewModels
             }
         }
 
-        public ViewModelBase(INavigationService navigationService)
+        public ViewModelBase(INavigationService navigationService, IResourceService resourceService)
         {
             NavigationService = navigationService;
+            ResourceService = resourceService;
         }
 
         public virtual void OnNavigatedFrom(INavigationParameters parameters)

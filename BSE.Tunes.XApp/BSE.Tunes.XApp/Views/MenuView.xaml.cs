@@ -2,9 +2,9 @@
 
 namespace BSE.Tunes.XApp.Views
 {
-    public partial class MasterPage : ContentPage
+    public partial class MenuView : ContentPage
     {
-        public MasterPage()
+        public MenuView()
         {
             InitializeComponent();
         }

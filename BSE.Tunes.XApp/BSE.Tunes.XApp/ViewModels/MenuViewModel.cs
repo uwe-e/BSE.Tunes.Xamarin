@@ -3,9 +3,9 @@ using Prism.Navigation;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
-    public class MasterPageViewModel : ViewModelBase
+    public class MenuViewModel : ViewModelBase
 	{
-        public MasterPageViewModel(INavigationService navigationService,
+        public MenuViewModel(INavigationService navigationService,
             IResourceService resourceService) : base(navigationService, resourceService)
         {
         }

@@ -5,6 +5,7 @@
              xmlns:templates="clr-namespace:BSE.Tunes.XApp.Views.Templates"
              xmlns:cv="clr-namespace:PanCardView;assembly=PanCardView"
              xmlns:cvcntrols="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+             xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.FeaturedItemsUserControl">
     <ContentView.Content>
@@ -12,7 +13,12 @@
             <cv:CoverFlowView ItemsSource="{Binding Items}"
                                      IsClippedToBounds="True"
                                      IsCyclical = "True"
-                                     PositionShiftValue="120">
+                                     PositionShiftValue="145">
+                <!--<x:Arguments>
+                    <proc:BaseCoverFlowFrontViewProcessor ScaleFactor="0.75" OpacityFactor="0.25" />
+                    <proc:BaseCoverFlowBackViewProcessor  ScaleFactor="0.75" OpacityFactor="0.25" />
+                </x:Arguments>-->
+                
                 <cv:CoverFlowView.ItemTemplate>
                     <DataTemplate>
                         <templates:GridPanelTemplate></templates:GridPanelTemplate>

@@ -59,10 +59,14 @@ namespace BSE.Tunes.XApp.UWP
                 var rendererAssemblies = new List<Assembly>()
                 {
                     typeof(CachedImage).GetTypeInfo().Assembly,
-                    //typeof(CachedImageRenderer).GetTypeInfo().Assembly,
                     typeof(CarouselViewRenderer).GetTypeInfo().Assembly
                 };
                 FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+                // Xamarin.Forms Shell is only partially available on the Universal Windows Platform (UWP).
+                // In addition, Shell is currently experimental on UWP and can only be used by adding
+                // the following line of
+                // code to the App class in your UWP project, before calling Forms.Init:
+                Xamarin.Forms.Forms.SetFlags("Shell_UWP_Experimental");
                 Xamarin.Forms.Forms.Init(e, rendererAssemblies);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)

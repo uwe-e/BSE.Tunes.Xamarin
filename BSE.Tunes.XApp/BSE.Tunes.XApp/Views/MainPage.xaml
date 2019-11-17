@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:local="clr-namespace:BSE.Tunes.XApp.Views"
+                  xmlns:views="clr-namespace:BSE.Tunes.XApp.Views"
                   xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
                   prism:ViewModelLocator.AutowireViewModel="True"
                   x:Class="BSE.Tunes.XApp.Views.MainPage">
 
     <MasterDetailPage.Master>
-        <NavigationPage Title="Required Foo">
+        <views:MenuView x:Name="masterPage" />
+        <!--<NavigationPage Title="Required Foo">
             <x:Arguments>
-                <local:MasterPage x:Name="masterPage" />
+                
             </x:Arguments>
-        </NavigationPage>
+        </NavigationPage>-->
     </MasterDetailPage.Master>
 
 </MasterDetailPage>

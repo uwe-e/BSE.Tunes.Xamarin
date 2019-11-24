@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:BSE.Tunes.XApp.Views"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="BSE.Tunes.XApp.Views.HomePage">
+             x:Class="BSE.Tunes.XApp.Views.HomePage"
+             BackgroundColor="{DynamicResource backgroundColor}">
 
     <ContentPage.Content>
         <StackLayout>

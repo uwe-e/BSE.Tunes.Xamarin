@@ -5,6 +5,7 @@ using BSE.Tunes.XApp.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Styles;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace BSE.Tunes.XApp
@@ -27,6 +28,15 @@ namespace BSE.Tunes.XApp
             await NavigationService.NavigateAsync("ExtendedSplashPage");
         }
 
+        protected override async void OnStart()
+        {
+            base.OnStart();
+
+            var theme = await DependencyService.Get<IEnvironment>().GetOperatingSystemThemeAsync();
+
+            SetTheme(theme);
+        }
+
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
@@ -43,6 +53,23 @@ namespace BSE.Tunes.XApp
 
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             
+        }
+
+        private void SetTheme(Theme theme)
+        {
+            var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+            if (mergedDictionaries != null)
+            {
+                switch (theme)
+                {
+                    case Theme.Dark:
+                        mergedDictionaries.Add(new DarkTheme());
+                        break;
+                    default:
+                        mergedDictionaries.Add(new LightTheme());
+                        break;
+                }
+            }
         }
     }
 }

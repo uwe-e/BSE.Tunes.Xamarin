@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using CarouselView.FormsPlugin.Android;
 using PanCardView.Droid;
+using Plugin.CurrentActivity;
 using Prism;
 using Prism.Ioc;
 
@@ -26,6 +27,7 @@ namespace BSE.Tunes.XApp.Droid
             CarouselViewRenderer.Init();
             CardsViewRenderer.Preserve();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
+            CrossCurrentActivity.Current.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
         }
     }

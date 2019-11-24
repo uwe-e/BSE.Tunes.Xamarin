@@ -4,13 +4,13 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.ExtendedSplashPage"
-             BackgroundColor="Transparent">
-    <ContentPage.BackgroundColor>
+             BackgroundColor="{DynamicResource backgroundColor}">
+    <!--<ContentPage.BackgroundColor>
         <OnPlatform x:TypeArguments="Color">
             <On Platform="Android" Value="Transparent" />
             <On Platform="UWP" Value="{StaticResource BackgroundColor}" />
         </OnPlatform>
-    </ContentPage.BackgroundColor>
+    </ContentPage.BackgroundColor>-->
     <ContentPage.Content>
         <Grid    
             AutomationId="splash">

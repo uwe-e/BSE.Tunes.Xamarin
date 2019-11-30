@@ -4,9 +4,12 @@
              x:Class="BSE.Tunes.XApp.Styles.LightTheme">
 
     <Color x:Key="backgroundColor">#FFFFFFFF</Color>
-    
-    <Color x:Key="TextPrimaryColor">#B0000000</Color>
 
-    
+    <Color x:Key="PrimaryLabelColor">#FF000000</Color>
+    <Color x:Key="SecondaryLabelColor">#FF8a8a8e</Color>
+    <Color x:Key="TerciaryLabelColor">#FFc4c4c6</Color>
+    <Color x:Key="QuarternaryLabelColor">#FFdcdcdd</Color>
+
+
 
 </ResourceDictionary>

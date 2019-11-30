@@ -70,6 +70,15 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Albums.
+        /// </summary>
+        internal static string HomePage_FeatAlbums_SectionHeader_Button_Text {
+            get {
+                return ResourceManager.GetString("HomePage_FeatAlbums_SectionHeader_Button_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         internal static string LoginPage_Button_Text_Login {

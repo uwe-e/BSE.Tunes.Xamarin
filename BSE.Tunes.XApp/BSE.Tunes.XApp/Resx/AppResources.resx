@@ -120,6 +120,9 @@
   <data name="Dialog_Result_Ok" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="HomePage_FeatAlbums_SectionHeader_Button_Text" xml:space="preserve">
+    <value>New Albums</value>
+  </data>
   <data name="LoginPageViewModel_LoginException" xml:space="preserve">
     <value>The system could not log you on. Ensure that you entered your details correctly and try again.</value>
   </data>

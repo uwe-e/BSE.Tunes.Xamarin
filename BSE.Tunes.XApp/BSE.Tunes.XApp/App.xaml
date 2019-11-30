@@ -1,14 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
-             x:Class="BSE.Tunes.XApp.App">
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+                        xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
+                        x:Class="BSE.Tunes.XApp.App">
 	<Application.Resources>
 
         <ResourceDictionary>
             <!-- COLORS -->
             <Color x:Key="AccentColor">#BC4C1B</Color>
             <Color x:Key="BackgroundColor">#212C37</Color>
+
+            <Style x:Key="SectionHeaderButtonStyle" TargetType="controls:SectionHeaderButton">
+                <Setter Property="BackgroundColor" Value="{DynamicResource backgroundColor}"/>
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryLabelColor}"/>
+            </Style>
+
         </ResourceDictionary>
 
 

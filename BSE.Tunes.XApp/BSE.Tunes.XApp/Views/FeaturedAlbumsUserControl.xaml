@@ -1,30 +1,43 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
-             xmlns:templates="clr-namespace:BSE.Tunes.XApp.Views.Templates"
              xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.FeaturedAlbumsUserControl">
+    
     <ContentView.Content>
         <Grid>
-            <controls:HorizontalScrollView ItemsSource="{Binding Items}" HeightRequest="200"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <controls:SectionHeaderButton
+                Text="{i18n:Translate HomePage_FeatAlbums_SectionHeader_Button_Text}"
+                Style="{StaticResource SectionHeaderButtonStyle}"/>
+            
+            <Grid Grid.Row="1">
+                <controls:HorizontalScrollView ItemsSource="{Binding Items}" HeightRequest="200"
                                            SelectedItemCommand="{Binding SelectItemCommand}">
-                <controls:HorizontalScrollView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <StackLayout Margin="10,0,5,0" WidthRequest="150" HeightRequest="150">
-                                    <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding ImageSource}" WidthRequest="150" HeightRequest="150" />
-                                    <Label Text="{Binding Title}" TextColor="#adaeb2"/>
-                                    <Label Text="{Binding SubTitle}" TextColor="#adaeb2"/>
-                                </StackLayout>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </controls:HorizontalScrollView.ItemTemplate>
-            </controls:HorizontalScrollView>
+                    <controls:HorizontalScrollView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <StackLayout Margin="5,0,5,0" WidthRequest="150" HeightRequest="150">
+                                        <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding ImageSource}" WidthRequest="150" HeightRequest="150" />
+                                        <Label Text="{Binding Title}" TextColor="{DynamicResource PrimaryLabelColor}"/>
+                                        <Label Text="{Binding SubTitle}" TextColor="{DynamicResource SecondaryLabelColor}"/>
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </controls:HorizontalScrollView.ItemTemplate>
+                </controls:HorizontalScrollView>
+            </Grid>
+            
         </Grid>
     </ContentView.Content>
 </ContentView>

@@ -5,6 +5,9 @@
 
     <Color x:Key="backgroundColor">#FF000000</Color>
 
-    <Color x:Key="TextPrimaryColor">#B0FFFFFF</Color>
+    <Color x:Key="PrimaryLabelColor">#FFFFFFFF</Color>
+    <Color x:Key="SecondaryLabelColor">#FF98989f</Color>
+    <Color x:Key="TerciaryLabelColor">#FF5a5a5f</Color>
+    <Color x:Key="QuarternaryLabelColor">#FF414145</Color>
     
 </ResourceDictionary>

@@ -25,6 +25,12 @@ namespace BSE.Tunes.XApp
         {
             InitializeComponent();
 
+            // Enable your flags here!
+            Device.SetFlags(new[] {
+                "CarouselView_Experimental",
+                "IndicatorView_Experimental"
+            });
+
             await NavigationService.NavigateAsync("ExtendedSplashPage");
         }
 
@@ -40,8 +46,8 @@ namespace BSE.Tunes.XApp
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            //containerRegistry.RegisterForNavigation<MainPageUnused, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
-            containerRegistry.RegisterForNavigation<MainPage1, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ServiceEndpointSettingsPage, ServiceEndpointSettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<ExtendedSplashPage, ExtendedSplashPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
@@ -54,6 +60,8 @@ namespace BSE.Tunes.XApp
             containerRegistry.Register<IDataService, DataService>();
             containerRegistry.Register<IRequestService, RequestService>();
             containerRegistry.Register<IResourceService, ResourceService>();
+
+            //containerRegistry.RegisterForNavigation<AlbumsCarouselView, AlbumsCarouselViewModel>();
 
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
 

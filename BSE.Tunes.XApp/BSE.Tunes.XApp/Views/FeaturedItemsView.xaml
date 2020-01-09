@@ -7,7 +7,7 @@
              xmlns:cvcntrols="clr-namespace:PanCardView.Controls;assembly=PanCardView"
              xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="BSE.Tunes.XApp.Views.FeaturedItemsUserControl">
+             x:Class="BSE.Tunes.XApp.Views.FeaturedItemsView">
     <ContentView.Content>
         <Grid>
             <cv:CoverFlowView ItemsSource="{Binding Items}"

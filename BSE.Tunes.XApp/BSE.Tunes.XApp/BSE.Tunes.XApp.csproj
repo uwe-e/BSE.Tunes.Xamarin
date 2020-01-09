@@ -31,6 +31,18 @@
     <Compile Update="Styles\LightTheme.xaml.cs">
       <DependentUpon>LightTheme.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\FeaturedAlbumsView.xaml.cs">
+      <DependentUpon>FeaturedAlbumsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FeaturedItemsView.xaml.cs">
+      <DependentUpon>FeaturedItemsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainPage-Unused.xaml.cs">
+      <DependentUpon>MainPage-Unused.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
@@ -50,16 +62,19 @@
     <EmbeddedResource Update="Styles\DarkTheme.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\AlbumsCarouselView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\AlbumsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ExtendedSplashPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\FeaturedAlbumsUserControl.xaml">
+    <EmbeddedResource Update="Views\FeaturedAlbumsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\FeaturedItemsUserControl.xaml">
+    <EmbeddedResource Update="Views\FeaturedItemsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\HomePage.xaml">
@@ -68,7 +83,7 @@
     <EmbeddedResource Update="Views\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MainPage1.xaml">
+    <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MenuView.xaml">

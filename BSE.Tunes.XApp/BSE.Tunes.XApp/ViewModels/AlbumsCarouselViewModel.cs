@@ -1,28 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Windows.Input;
-using BSE.Tunes.XApp.Models;
+﻿using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Services;
 using Prism.Navigation;
+using System.Collections.ObjectModel;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
-    public class FeaturedAlbumsUserControlViewModel : ViewModelBase
+    public class AlbumsCarouselViewModel : ViewModelBase
     {
         private readonly ISettingsService settingsService;
         private readonly IDataService dataService;
-        private ObservableCollection<GridPanel> _items;
-        private ICommand _selectItemCommand;
+        private ObservableCollection<GridPanel> m_items;
 
-        public ObservableCollection<GridPanel> Items => _items
-            ?? (_items = new ObservableCollection<GridPanel>());
+        public ObservableCollection<GridPanel> Items => m_items ?? (m_items = new ObservableCollection<GridPanel>());
 
-        public ICommand SelectItemCommand => _selectItemCommand
-            ?? (_selectItemCommand = new Xamarin.Forms.Command<GridPanel>(SelectItem));
-
-        public FeaturedAlbumsUserControlViewModel(INavigationService navigationService,
+        public AlbumsCarouselViewModel(INavigationService navigationService,
             IResourceService resourceService,
             ISettingsService settingsService,
             IDataService dataService) : base(navigationService, resourceService)
@@ -35,7 +26,7 @@ namespace BSE.Tunes.XApp.ViewModels
 
         private async void LoadData()
         {
-            var albums = await this.dataService.GetNewestAlbums(20);
+            var albums = await this.dataService.GetFeaturedAlbums(6);
             if (albums != null)
             {
                 foreach (var album in albums)
@@ -46,16 +37,13 @@ namespace BSE.Tunes.XApp.ViewModels
                         {
                             Title = album.Title,
                             SubTitle = album.Artist.Name,
-                            ImageSource = this.dataService.GetImage(album.AlbumId, true)?.AbsoluteUri
+                            ImageSource = this.dataService.GetImage(album.AlbumId)?.AbsoluteUri
                         });
                     }
                 }
+
             }
         }
 
-        private void SelectItem(GridPanel obj)
-        {
-            //throw new NotImplementedException();
-        }
     }
 }

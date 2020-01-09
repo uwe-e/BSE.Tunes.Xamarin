@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using BSE.Tunes.XApp.Models;
+﻿using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Services;
 using Prism.Navigation;
+using System.Collections.ObjectModel;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
-    public class FeaturedItemsUserControlViewModel : ViewModelBase
+    public class FeaturedItemsViewModel : ViewModelBase
     {
         private readonly ISettingsService settingsService;
         private readonly IDataService dataService;
@@ -16,7 +13,7 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public ObservableCollection<GridPanel> Items => m_items ?? (m_items = new ObservableCollection<GridPanel>());
 
-        public FeaturedItemsUserControlViewModel(INavigationService navigationService,
+        public FeaturedItemsViewModel(INavigationService navigationService,
             IResourceService resourceService,
             ISettingsService settingsService,
             IDataService dataService) : base(navigationService, resourceService)

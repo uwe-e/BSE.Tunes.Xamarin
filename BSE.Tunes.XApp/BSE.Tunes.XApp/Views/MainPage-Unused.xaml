@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:views="clr-namespace:BSE.Tunes.XApp.Views"
+                  xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                  prism:ViewModelLocator.AutowireViewModel="True"
+                  x:Class="BSE.Tunes.XApp.Views.MainPageUnused">
+
+    <MasterDetailPage.Master>
+        <views:MenuView x:Name="masterPage" />
+        <!--<NavigationPage Title="Required Foo">
+            <x:Arguments>
+                
+            </x:Arguments>
+        </NavigationPage>-->
+    </MasterDetailPage.Master>
+    <MasterDetailPage.ToolbarItems>
+        <ToolbarItem Text="hallo"/>
+        <ToolbarItem Text="new hallo"/>
+    </MasterDetailPage.ToolbarItems>
+</MasterDetailPage>

@@ -6,7 +6,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="BSE.Tunes.XApp.Views.FeaturedAlbumsUserControl">
+             x:Class="BSE.Tunes.XApp.Views.FeaturedAlbumsView">
     
     <ContentView.Content>
         <Grid>

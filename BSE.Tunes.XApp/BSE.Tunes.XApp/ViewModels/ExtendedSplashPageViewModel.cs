@@ -34,7 +34,7 @@ namespace BSE.Tunes.XApp.ViewModels
                         {
                             await this.authenticationService.RequestRefreshTokenAsync(user.Token);
                             //await NavigationService.NavigateAsync("MainPage/NavigationPage/HomePage");
-                            await NavigationService.NavigateAsync("/MainPage1/HomePage");
+                            await NavigationService.NavigateAsync("/MainPage/HomePage");
                         }
                         catch (Exception)
                         {

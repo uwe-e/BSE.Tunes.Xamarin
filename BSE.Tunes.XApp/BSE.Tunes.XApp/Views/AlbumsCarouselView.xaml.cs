@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace BSE.Tunes.XApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage1 : TabbedPage
+    public partial class AlbumsCarouselView : ContentView
     {
-        public MainPage1()
+        public AlbumsCarouselView()
         {
             InitializeComponent();
         }

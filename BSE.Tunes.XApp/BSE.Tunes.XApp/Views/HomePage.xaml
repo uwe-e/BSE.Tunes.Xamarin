@@ -15,15 +15,17 @@
             <Grid AutomationId="home">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3.5*" />
-                    <RowDefinition Height="5.0*" />
-                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="3.5*" />
+                    <RowDefinition Height="3*" />
                 </Grid.RowDefinitions>
 
-            <local:FeaturedItemsUserControl Grid.Row="0" />
+                <local:FeaturedItemsView Grid.Row="0" />
 
-                <local:FeaturedAlbumsUserControl Grid.Row="1"/>
+                <local:AlbumsCarouselView Grid.Row="1"/>
 
-                <local:PlayerBarUserControl Grid.Row="2"/>
+                <local:FeaturedAlbumsView Grid.Row="2"/>
+
+                <!--<local:PlayerBarUserControl Grid.Row="2"/>-->
 
             </Grid>
         </StackLayout>

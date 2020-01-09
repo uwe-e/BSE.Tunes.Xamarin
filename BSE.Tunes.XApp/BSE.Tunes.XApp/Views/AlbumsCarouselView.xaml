@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:templates="clr-namespace:BSE.Tunes.XApp.Views.Templates"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="BSE.Tunes.XApp.Views.AlbumsCarouselView">
+  <ContentView.Content>
+        <StackLayout  HorizontalOptions="Center" VerticalOptions="Center">
+            <CarouselView x:Name="carouselView" ItemsSource="{Binding Items}" PeekAreaInsets="40">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <templates:GridPanelTemplate></templates:GridPanelTemplate>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <IndicatorView ItemsSourceBy="carouselView"
+                           IndicatorsShape="Circle"
+                           IndicatorColor="Gray"
+                           SelectedIndicatorColor="Red"
+                           IndicatorSize="10"
+                           HorizontalOptions="Center"/>
+        </StackLayout>
+  </ContentView.Content>
+</ContentView>

@@ -61,6 +61,15 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Albums.
+        /// </summary>
+        internal static string AlbumsPage_Title {
+            get {
+                return ResourceManager.GetString("AlbumsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string Dialog_Result_Ok {
@@ -75,6 +84,15 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string HomePage_FeatAlbums_SectionHeader_Button_Text {
             get {
                 return ResourceManager.GetString("HomePage_FeatAlbums_SectionHeader_Button_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        internal static string HomePage_Title {
+            get {
+                return ResourceManager.GetString("HomePage_Title", resourceCulture);
             }
         }
         
@@ -111,6 +129,24 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string LoginPageViewModel_LoginException {
             get {
                 return ResourceManager.GetString("LoginPageViewModel_LoginException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playlists.
+        /// </summary>
+        internal static string PlaylistsPage_Title {
+            get {
+                return ResourceManager.GetString("PlaylistsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string SettingsPage_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_Title", resourceCulture);
             }
         }
     }

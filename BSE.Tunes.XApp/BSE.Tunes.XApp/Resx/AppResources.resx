@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlbumsPage_Title" xml:space="preserve">
+    <value>Albums</value>
+  </data>
   <data name="Dialog_Result_Ok" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="HomePage_FeatAlbums_SectionHeader_Button_Text" xml:space="preserve">
     <value>New Albums</value>
+  </data>
+  <data name="HomePage_Title" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="LoginPageViewModel_LoginException" xml:space="preserve">
     <value>The system could not log you on. Ensure that you entered your details correctly and try again.</value>
@@ -134,5 +140,11 @@
   </data>
   <data name="LoginPage_Entry_Placeholder_EnterUserName" xml:space="preserve">
     <value>Enter the username</value>
+  </data>
+  <data name="PlaylistsPage_Title" xml:space="preserve">
+    <value>Playlists</value>
+  </data>
+  <data name="SettingsPage_Title" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>

@@ -4,8 +4,11 @@
              xmlns:local="clr-namespace:BSE.Tunes.XApp.Views"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              x:Class="BSE.Tunes.XApp.Views.HomePage"
-             BackgroundColor="{DynamicResource backgroundColor}">
+             BackgroundColor="{DynamicResource backgroundColor}"
+             Title="{i18n:Translate HomePage_Title}"
+             IconImageSource="icon_home">
 
     <ContentPage.Content>
         <StackLayout>

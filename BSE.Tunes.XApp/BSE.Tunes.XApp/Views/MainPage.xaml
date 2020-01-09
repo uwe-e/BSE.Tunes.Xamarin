@@ -14,5 +14,8 @@
             </x:Arguments>
         </NavigationPage>-->
     </MasterDetailPage.Master>
-
+    <MasterDetailPage.ToolbarItems>
+        <ToolbarItem Text="hallo"/>
+        <ToolbarItem Text="new hallo"/>
+    </MasterDetailPage.ToolbarItems>
 </MasterDetailPage>

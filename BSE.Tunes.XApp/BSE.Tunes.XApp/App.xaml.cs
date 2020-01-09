@@ -41,18 +41,24 @@ namespace BSE.Tunes.XApp
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<MainPage1, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ServiceEndpointSettingsPage, ServiceEndpointSettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<ExtendedSplashPage, ExtendedSplashPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<MenuView, MenuViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+            containerRegistry.RegisterForNavigation<AlbumsPage, AlbumsPageViewModel>();
+            containerRegistry.RegisterForNavigation<PlaylistsPage, PlaylistsPageViewModel>();
+            containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterSingleton<ISettingsService, SettingsService>();
             containerRegistry.Register<IDataService, DataService>();
             containerRegistry.Register<IRequestService, RequestService>();
             containerRegistry.Register<IResourceService, ResourceService>();
 
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
-            
+
+            containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
+            containerRegistry.RegisterForNavigation<PlaylistsPage, PlaylistsPageViewModel>();
         }
 
         private void SetTheme(Theme theme)

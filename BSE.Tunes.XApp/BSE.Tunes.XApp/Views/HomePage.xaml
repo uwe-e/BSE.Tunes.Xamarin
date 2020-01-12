@@ -11,24 +11,25 @@
              IconImageSource="icon_home">
 
     <ContentPage.Content>
-        <StackLayout>
-            <Grid AutomationId="home">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3.5*" />
-                    <RowDefinition Height="3.5*" />
-                    <RowDefinition Height="3*" />
-                </Grid.RowDefinitions>
+        <ScrollView>
+            <!--<ScrollView.Padding>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS" Value="0,0,0,-60"/>
+            </OnPlatform>
+            </ScrollView.Padding>-->
+            <ScrollView.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,30,0,0"/>
+                </OnPlatform>
+            </ScrollView.Padding>
+            <StackLayout>
+                <local:FeaturedItemsView HeightRequest="280" />
 
-                <local:FeaturedItemsView Grid.Row="0" />
+                <local:AlbumsCarouselView HeightRequest="200"/>
 
-                <local:AlbumsCarouselView Grid.Row="1"/>
-
-                <local:FeaturedAlbumsView Grid.Row="2"/>
-
-                <!--<local:PlayerBarUserControl Grid.Row="2"/>-->
-
-            </Grid>
-        </StackLayout>
+                <local:FeaturedAlbumsView HeightRequest="300"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 
 </ContentPage>

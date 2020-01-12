@@ -8,26 +8,37 @@
              xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.FeaturedItemsView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ActiveIndicator" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="Accent" />
+            </Style>
+            <Style x:Key="InactiveIndicator" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="OutlineColor" Value="Accent" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
     <ContentView.Content>
-        <Grid>
+        <Grid >
             <cv:CoverFlowView ItemsSource="{Binding Items}"
                                      IsClippedToBounds="True"
                                      IsCyclical = "True"
-                                     PositionShiftValue="145">
-                <!--<x:Arguments>
-                    <proc:BaseCoverFlowFrontViewProcessor ScaleFactor="0.75" OpacityFactor="0.25" />
-                    <proc:BaseCoverFlowBackViewProcessor  ScaleFactor="0.75" OpacityFactor="0.25" />
-                </x:Arguments>-->
-                
+                                     PositionShiftValue="125">
                 <cv:CoverFlowView.ItemTemplate>
                     <DataTemplate>
-                        <templates:GridPanelTemplate></templates:GridPanelTemplate>
+                        <templates:SlidePanelTemplate></templates:SlidePanelTemplate>
                     </DataTemplate>
                 </cv:CoverFlowView.ItemTemplate>
 
-                <cvcntrols:LeftArrowControl />
-                <cvcntrols:RightArrowControl/>
-                <!--<controls:IndicatorsControl ToFadeDuration="1500"/>-->
+                <!--<cvcntrols:IndicatorsControl  AbsoluteLayout.LayoutBounds="100, 250, 100, 50" AbsoluteLayout.LayoutFlags="None"  SelectedIndicatorStyle="{StaticResource ActiveIndicator}"/>-->
+                <cvcntrols:IndicatorsControl  AbsoluteLayout.LayoutBounds=".5, 1.08, -1, -1"
+                                              AbsoluteLayout.LayoutFlags="PositionProportional"
+                                              SelectedIndicatorStyle="{StaticResource ActiveIndicator}"
+                                              UnselectedIndicatorStyle="{StaticResource InactiveIndicator}"/>
+                <!--<cvcntrols:LeftArrowControl />
+                <cvcntrols:RightArrowControl/>-->
+                
 
             </cv:CoverFlowView>
         </Grid>

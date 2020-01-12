@@ -10,7 +10,7 @@
             <CarouselView x:Name="carouselView" ItemsSource="{Binding Items}" PeekAreaInsets="40">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <templates:GridPanelTemplate></templates:GridPanelTemplate>
+                        <templates:SlidePanelTemplate></templates:SlidePanelTemplate>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>

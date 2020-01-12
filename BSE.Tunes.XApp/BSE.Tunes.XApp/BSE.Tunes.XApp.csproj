@@ -49,6 +49,9 @@
     <Compile Update="Views\PlayerBarUserControl.xaml.cs">
       <DependentUpon>PlayerBarUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Templates\SlidePanelTemplate.xaml.cs">
+      <DependentUpon>SlidePanelTemplate.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -101,7 +104,7 @@
     <EmbeddedResource Update="Views\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Templates\GridPanelTemplate.xaml">
+    <EmbeddedResource Update="Views\Templates\SlidePanelTemplate.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Templates\MenuItemTemplate.xaml">

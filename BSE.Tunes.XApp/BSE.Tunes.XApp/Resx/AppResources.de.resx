@@ -142,7 +142,7 @@
     <value>Gebe den Benutzernamen ein</value>
   </data>
   <data name="PlaylistsPage_Title" xml:space="preserve">
-    <value>Wiedergabelisten</value>
+    <value>Playlists</value>
   </data>
   <data name="SettingsPage_Title" xml:space="preserve">
     <value>Einstellungen</value>

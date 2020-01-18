@@ -1,5 +1,8 @@
-﻿using BSE.Tunes.XApp.Models;
+﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Models;
+using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
+using Prism.Events;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -8,8 +11,8 @@ namespace BSE.Tunes.XApp.ViewModels
 {
     public class FeaturedAlbumsViewModel : ViewModelBase
     {
-        private readonly ISettingsService settingsService;
-        private readonly IDataService dataService;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IDataService _dataService;
         private ObservableCollection<GridPanel> _items;
         private ICommand _selectItemCommand;
 
@@ -20,19 +23,18 @@ namespace BSE.Tunes.XApp.ViewModels
             ?? (_selectItemCommand = new Xamarin.Forms.Command<GridPanel>(SelectItem));
 
         public FeaturedAlbumsViewModel(INavigationService navigationService,
+            IEventAggregator eventAggregator,
             IResourceService resourceService,
-            ISettingsService settingsService,
             IDataService dataService) : base(navigationService, resourceService)
         {
-            this.settingsService = settingsService;
-            this.dataService = dataService;
+            _eventAggregator = eventAggregator;
+            _dataService = dataService;
 
             LoadData();
         }
-
         private async void LoadData()
         {
-            var albums = await this.dataService.GetNewestAlbums(20);
+            var albums = await _dataService.GetNewestAlbums(20);
             if (albums != null)
             {
                 foreach (var album in albums)
@@ -43,7 +45,8 @@ namespace BSE.Tunes.XApp.ViewModels
                         {
                             Title = album.Title,
                             SubTitle = album.Artist.Name,
-                            ImageSource = this.dataService.GetImage(album.AlbumId, true)?.AbsoluteUri
+                            ImageSource = _dataService.GetImage(album.AlbumId, true)?.AbsoluteUri,
+                            Data = album
                         });
                     }
                 }
@@ -52,7 +55,12 @@ namespace BSE.Tunes.XApp.ViewModels
 
         private void SelectItem(GridPanel obj)
         {
-            //throw new NotImplementedException();
+            if (obj?.Data is Album album)
+            {
+                _eventAggregator.GetEvent<AlbumSelectedEvent>().Publish(album);
+            }
+            
         }
+
     }
 }

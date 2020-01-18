@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BSE.Tunes.XApp.Models
+﻿namespace BSE.Tunes.XApp.Models
 {
     public class GridPanel
     {
@@ -21,6 +17,10 @@ namespace BSE.Tunes.XApp.Models
         {
             get;
             set;
+        }
+        public object Data
+        {
+            get;set;
         }
     }
 }

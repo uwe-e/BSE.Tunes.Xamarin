@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Styles;
+using Prism.Mvvm;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace BSE.Tunes.XApp
@@ -46,27 +47,25 @@ namespace BSE.Tunes.XApp
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            //containerRegistry.RegisterForNavigation<MainPageUnused, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ServiceEndpointSettingsPage, ServiceEndpointSettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<ExtendedSplashPage, ExtendedSplashPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
-            containerRegistry.RegisterForNavigation<MenuView, MenuViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<AlbumsPage, AlbumsPageViewModel>();
+            containerRegistry.RegisterForNavigation<AlbumDetailPage, AlbumDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaylistsPage, PlaylistsPageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
+
             containerRegistry.RegisterSingleton<ISettingsService, SettingsService>();
             containerRegistry.Register<IDataService, DataService>();
             containerRegistry.Register<IRequestService, RequestService>();
             containerRegistry.Register<IResourceService, ResourceService>();
-
-            //containerRegistry.RegisterForNavigation<AlbumsCarouselView, AlbumsCarouselViewModel>();
-
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
 
-            containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
-            containerRegistry.RegisterForNavigation<PlaylistsPage, PlaylistsPageViewModel>();
+
+
+            ViewModelLocationProvider.Register<FeaturedAlbumsView, FeaturedAlbumsViewModel>();
         }
 
         private void SetTheme(Theme theme)

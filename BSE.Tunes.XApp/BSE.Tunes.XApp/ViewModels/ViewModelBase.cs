@@ -6,13 +6,28 @@ namespace BSE.Tunes.XApp.ViewModels
 {
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible
     {
+        private string _title;
+        private bool _isBusy;
+        private readonly IResourceService _resourceService;
+        private readonly INavigationService _navigationService;
+
         protected INavigationService NavigationService
         {
-            get; private set;
+            get
+            {
+                return _navigationService;
+            }
         }
-        public IResourceService ResourceService { get; }
+        public IResourceService ResourceService
+        {
+            get
+            {
+                return _resourceService;
+            }
+        }
 
-        private string _title;
+        
+
         public string Title
         {
             get
@@ -25,10 +40,23 @@ namespace BSE.Tunes.XApp.ViewModels
             }
         }
 
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                SetProperty<bool>(ref _isBusy, value);
+            }
+        }
+
         public ViewModelBase(INavigationService navigationService, IResourceService resourceService)
         {
-            NavigationService = navigationService;
-            ResourceService = resourceService;
+            _navigationService = navigationService;
+            _resourceService = resourceService;
+            _isBusy = true;
         }
 
         public virtual void OnNavigatedFrom(INavigationParameters parameters)

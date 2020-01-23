@@ -9,6 +9,7 @@ namespace BSE.Tunes.XApp.Services
     {
         Task<bool> IsEndPointAccessibleAsync();
         Task<bool> IsEndPointAccessibleAsync(string serviceEndPoint);
+        Task<Album> GetAlbumById(int albumId);
         Task<ObservableCollection<Album>> GetFeaturedAlbums(int limit);
         Task<ObservableCollection<Album>> GetNewestAlbums(int limit);
         Uri GetImage(Guid imageId, bool asThumbnail = false);

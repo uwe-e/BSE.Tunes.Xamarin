@@ -7,37 +7,45 @@
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.FeaturedAlbumsView">
-    
+
     <ContentView.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            
-            <controls:SectionHeaderButton
-                Text="{i18n:Translate HomePage_FeatAlbums_SectionHeader_Button_Text}"
-                Style="{StaticResource SectionHeaderButtonStyle}"/>
-            
-            <Grid Grid.Row="1">
-                <controls:HorizontalScrollView ItemsSource="{Binding Items}" HeightRequest="200"
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <controls:SectionHeaderButton Text="{i18n:Translate HomePage_FeatAlbums_SectionHeader_Button_Text}"
+                                                  Style="{StaticResource SectionHeaderButtonStyle}"/>
+
+                    <Grid Grid.Row="1">
+                        <controls:HorizontalScrollView ItemsSource="{Binding Items}" HeightRequest="200"
                                            SelectedItemCommand="{Binding SelectItemCommand}">
-                    <controls:HorizontalScrollView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <StackLayout Margin="5,0,5,0" WidthRequest="150" HeightRequest="150">
-                                        <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding ImageSource}" WidthRequest="150" HeightRequest="150" />
-                                        <Label Text="{Binding Title}" TextColor="{DynamicResource PrimaryLabelColor}"/>
-                                        <Label Text="{Binding SubTitle}" TextColor="{DynamicResource SecondaryLabelColor}"/>
-                                    </StackLayout>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </controls:HorizontalScrollView.ItemTemplate>
-                </controls:HorizontalScrollView>
-            </Grid>
-            
-        </Grid>
+                            <controls:HorizontalScrollView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid>
+                                            <StackLayout Margin="5,0,5,0" WidthRequest="150" HeightRequest="150">
+                                                <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding ImageSource}" WidthRequest="150" HeightRequest="150" />
+                                                <Label Text="{Binding Title}" TextColor="{DynamicResource PrimaryLabelColor}"/>
+                                                <Label Text="{Binding SubTitle}" TextColor="{DynamicResource SecondaryLabelColor}"/>
+                                            </StackLayout>
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </controls:HorizontalScrollView.ItemTemplate>
+                        </controls:HorizontalScrollView>
+                    </Grid>
+
+                </Grid>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="#80000000"/>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentView.Content>
 </ContentView>

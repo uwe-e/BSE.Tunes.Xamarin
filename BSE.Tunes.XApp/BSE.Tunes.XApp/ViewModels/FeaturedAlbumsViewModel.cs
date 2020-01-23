@@ -50,6 +50,7 @@ namespace BSE.Tunes.XApp.ViewModels
                         });
                     }
                 }
+                IsBusy = false;
             }
         }
 

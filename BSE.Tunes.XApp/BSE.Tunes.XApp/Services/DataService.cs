@@ -77,6 +77,10 @@ namespace BSE.Tunes.XApp.Services
             return builder.Uri;
         }
 
-
+        public Task<Album> GetAlbumById(int albumId)
+        {
+            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/albums/{albumId}";
+            return this.requestService.GetAsync<Album>(new UriBuilder(strUrl).Uri);
+        }
     }
 }

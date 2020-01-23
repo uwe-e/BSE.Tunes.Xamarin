@@ -2,18 +2,49 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.AlbumDetailPage"
              BackgroundColor="{DynamicResource backgroundColor}"
              Title="sdsfsfd">
-    <!--<NavigationPage.TitleView>
-        <Label Text="Hello World"/>
-    </NavigationPage.TitleView>-->
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to wwwww Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <ScrollView>
+                    <Grid>
+                        <StackLayout>
+                            <StackLayout Margin="5,0,5,0" WidthRequest="150" HeightRequest="150">
+                                <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding CoverSource}" WidthRequest="150" HeightRequest="150" />
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout>
+                            <ListView ItemsSource="{Binding Tracks}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Text="{Binding TrackNumber}" Grid.Column="0"/>
+                                                <Label Text="{Binding Name}" Grid.Column="1"/>
+                                            </Grid>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </Grid>
+                </ScrollView>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="#80000000"/>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
+
 </ContentPage>

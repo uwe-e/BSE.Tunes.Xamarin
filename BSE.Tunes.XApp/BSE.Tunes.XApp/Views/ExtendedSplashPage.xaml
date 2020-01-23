@@ -5,15 +5,8 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.ExtendedSplashPage"
              BackgroundColor="{DynamicResource backgroundColor}">
-    <!--<ContentPage.BackgroundColor>
-        <OnPlatform x:TypeArguments="Color">
-            <On Platform="Android" Value="Transparent" />
-            <On Platform="UWP" Value="{StaticResource BackgroundColor}" />
-        </OnPlatform>
-    </ContentPage.BackgroundColor>-->
     <ContentPage.Content>
-        <Grid    
-            AutomationId="splash">
+        <Grid AutomationId="splash">
             <Image Aspect="AspectFill">
                 <Image.Source>
                     <OnPlatform x:TypeArguments="ImageSource">

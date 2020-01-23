@@ -11,27 +11,31 @@
              IconImageSource="icon_home" NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Content>
-        <ScrollView>
-            <!--<ScrollView.Padding>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <ScrollView>
+                    <!--<ScrollView.Padding>
             <OnPlatform x:TypeArguments="Thickness">
                 <On Platform="iOS" Value="0,0,0,-60"/>
             </OnPlatform>
             </ScrollView.Padding>-->
-            <ScrollView.Padding>
-                <OnPlatform x:TypeArguments="Thickness">
-                    <On Platform="iOS" Value="0,30,0,0"/>
-                </OnPlatform>
-            </ScrollView.Padding>
-            <StackLayout>
+                    <ScrollView.Padding>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS" Value="0,30,0,0"/>
+                        </OnPlatform>
+                    </ScrollView.Padding>
+                    <StackLayout>
 
-                <local:FeaturedItemsView HeightRequest="280" />
-                
-                <local:AlbumsCarouselView HeightRequest="200"/>
+                        <local:FeaturedItemsView HeightRequest="280" />
 
-                <local:FeaturedAlbumsView HeightRequest="300"/>
-                
+                        <local:AlbumsCarouselView HeightRequest="200"/>
+
+                        <local:FeaturedAlbumsView HeightRequest="300"/>
+
+                    </StackLayout>
+                </ScrollView>
             </StackLayout>
-        </ScrollView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 
 </ContentPage>

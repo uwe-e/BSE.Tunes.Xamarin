@@ -6,6 +6,7 @@
              xmlns:cv="clr-namespace:PanCardView;assembly=PanCardView"
              xmlns:cvcntrols="clr-namespace:PanCardView.Controls;assembly=PanCardView"
              xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
+             xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.FeaturedItemsView">
     <ContentView.Resources>
@@ -21,13 +22,18 @@
     </ContentView.Resources>
     <ContentView.Content>
         <Grid>
-            <cv:CoverFlowView ItemsSource="{Binding Items}"
-                                     IsClippedToBounds="True"
-                                     IsCyclical = "True"
-                                     PositionShiftValue="125">
+            <cv:CoverFlowView x:Name="featuredItemsCardsView"
+                                  ItemsSource="{Binding Items}"
+                                  IsClippedToBounds="True"
+                                  IsCyclical = "True"
+                                  PositionShiftValue="125">
                 <cv:CoverFlowView.ItemTemplate>
                     <DataTemplate>
-                        <templates:SlidePanelTemplate></templates:SlidePanelTemplate>
+                        <templates:SlidePanelTemplate>
+                            <templates:SlidePanelTemplate.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=featuredItemsCardsView}}" CommandParameter="{Binding}"/>
+                            </templates:SlidePanelTemplate.GestureRecognizers>
+                        </templates:SlidePanelTemplate>
                     </DataTemplate>
                 </cv:CoverFlowView.ItemTemplate>
 
@@ -38,9 +44,7 @@
                                               UnselectedIndicatorStyle="{StaticResource InactiveIndicator}"/>
                 <!--<cvcntrols:LeftArrowControl />
                 <cvcntrols:RightArrowControl/>-->
-                
-
             </cv:CoverFlowView>
         </Grid>
-  </ContentView.Content>
+    </ContentView.Content>
 </ContentView>

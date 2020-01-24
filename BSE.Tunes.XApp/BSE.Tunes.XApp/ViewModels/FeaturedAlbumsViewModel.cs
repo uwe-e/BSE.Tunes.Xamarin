@@ -60,7 +60,6 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 _eventAggregator.GetEvent<AlbumSelectedEvent>().Publish(album);
             }
-            
         }
 
     }

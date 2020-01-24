@@ -5,18 +5,36 @@
              xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.AlbumDetailPage"
-             BackgroundColor="{DynamicResource backgroundColor}"
-             Title="sdsfsfd">
+             BackgroundColor="{DynamicResource backgroundColor}">
 
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <ScrollView>
-                    <Grid>
-                        <StackLayout>
-                            <StackLayout Margin="5,0,5,0" WidthRequest="150" HeightRequest="150">
-                                <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding CoverSource}" WidthRequest="150" HeightRequest="150" />
+                    <StackLayout Padding="12,12,12,0">
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout Margin="5,0,5,0" HeightRequest="150">
+                                <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding CoverSource}" WidthRequest="150" />
                             </StackLayout>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition x:Name="actionRow" Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label x:Name="infoTitle" Text="{Binding Album.Title}" LineBreakMode="TailTruncation" Grid.Row="0" FontSize="Large"/>
+                                <Label x:Name="infoSubTitle" Text="{Binding Album.Artist.Name}" LineBreakMode="TailTruncation" Grid.Row="1"/>
+                                <Label x:Name="albumGenre" LineBreakMode="TailTruncation" Grid.Row="2">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Album.Year}" FontSize="Caption"/>
+                                            <Span Text=" "/>
+                                            <Span Text="{Binding Album.Genre.Name}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
                         </StackLayout>
                         <StackLayout>
                             <ListView ItemsSource="{Binding Tracks}">
@@ -25,7 +43,7 @@
                                         <ViewCell>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="30"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Label Text="{Binding TrackNumber}" Grid.Column="0"/>
@@ -36,13 +54,13 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </StackLayout>
-                    </Grid>
+                    </StackLayout>
                 </ScrollView>
             </StackLayout>
             <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
                  AbsoluteLayout.LayoutFlags="PositionProportional"
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="#80000000"/>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="Accent"/>
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>

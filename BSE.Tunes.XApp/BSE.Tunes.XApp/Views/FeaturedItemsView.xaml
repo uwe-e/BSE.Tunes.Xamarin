@@ -20,7 +20,7 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <Grid >
+        <Grid>
             <cv:CoverFlowView ItemsSource="{Binding Items}"
                                      IsClippedToBounds="True"
                                      IsCyclical = "True"

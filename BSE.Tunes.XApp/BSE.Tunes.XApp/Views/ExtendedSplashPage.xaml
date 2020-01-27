@@ -6,27 +6,23 @@
              x:Class="BSE.Tunes.XApp.Views.ExtendedSplashPage"
              BackgroundColor="{DynamicResource backgroundColor}">
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <Grid AutomationId="splash">
-                    <Image Aspect="AspectFill">
-                        <Image.Source>
-                            <OnPlatform x:TypeArguments="ImageSource">
-                                <On Platform="iOS" Value="Default" />
-                            </OnPlatform>
-                        </Image.Source>
-                    </Image>
-                    <!--<ActivityIndicator 
+        <Grid AutomationId="splash">
+            <Image Aspect="AspectFill">
+                <Image.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <On Platform="iOS" Value="Default" />
+                    </OnPlatform>
+                </Image.Source>
+            </Image>
+            <ActivityIndicator 
                 Color="{StaticResource AccentColor}"
                 IsRunning="{Binding IsBusy}" 
-                IsVisible="{Binding IsBusy}" />-->
-                </Grid>
-            </StackLayout>
-            <StackLayout IsVisible="True" Padding="12"
+                IsVisible="{Binding IsBusy}" />
+        </Grid>
+        <!--<StackLayout IsVisible="True" Padding="12"
                  AbsoluteLayout.LayoutFlags="PositionProportional"
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
                 <ActivityIndicator IsRunning="True" Color ="#80000000"/>
-            </StackLayout>
-        </AbsoluteLayout>
+            </StackLayout>-->
     </ContentPage.Content>
 </ContentPage>

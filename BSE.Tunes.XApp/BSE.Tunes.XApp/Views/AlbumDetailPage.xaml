@@ -12,7 +12,7 @@
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <ScrollView>
                     <StackLayout Padding="12,12,12,0">
-                        <StackLayout Orientation="Horizontal">
+                        <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal">
                             <StackLayout Margin="5,0,5,0" HeightRequest="150">
                                 <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding CoverSource}" WidthRequest="150" />
                             </StackLayout>
@@ -23,12 +23,15 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition x:Name="actionRow" Height="*"/>
                                 </Grid.RowDefinitions>
-                                <Label x:Name="infoTitle" Text="{Binding Album.Title}" LineBreakMode="TailTruncation" Grid.Row="0" FontSize="Large"/>
-                                <Label x:Name="infoSubTitle" Text="{Binding Album.Artist.Name}" LineBreakMode="TailTruncation" Grid.Row="1"/>
-                                <Label x:Name="albumGenre" LineBreakMode="TailTruncation" Grid.Row="2">
+                                <Label x:Name="infoTitle" Text="{Binding Album.Title}" LineBreakMode="TailTruncation"
+                                       Grid.Row="0" FontSize="Header" TextColor="{StaticResource PrimaryLabelColor}"/>
+                                <Label x:Name="infoSubTitle" Text="{Binding Album.Artist.Name}" LineBreakMode="TailTruncation"
+                                       Grid.Row="1" TextColor="{StaticResource SecondaryLabelColor}"/>
+                                <Label x:Name="albumGenre" LineBreakMode="TailTruncation"
+                                       Grid.Row="2" TextColor="{StaticResource SecondaryLabelColor}">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding Album.Year}" FontSize="Caption"/>
+                                            <Span Text="{Binding Album.Year}"/>
                                             <Span Text=" "/>
                                             <Span Text="{Binding Album.Genre.Name}"/>
                                         </FormattedString>
@@ -36,23 +39,35 @@
                                 </Label>
                             </Grid>
                         </StackLayout>
-                        <StackLayout>
-                            <ListView ItemsSource="{Binding Tracks}">
+                        <StackLayout VerticalOptions="StartAndExpand">
+                            <ListView ItemsSource="{Binding Tracks}" VerticalOptions="Start" RowHeight="40">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="25"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Label Text="{Binding TrackNumber}" Grid.Column="0"/>
-                                                <Label Text="{Binding Name}" Grid.Column="1"/>
+                                                <Label Text="{Binding TrackNumber}"
+                                                       Grid.Column="0"
+                                                       TextColor="{StaticResource SecondaryLabelColor}" VerticalTextAlignment="Center"/>
+                                                <Label Text="{Binding Name}"
+                                                       Grid.Column="1"
+                                                       TextColor="{StaticResource PrimaryLabelColor}" 
+                                                       VerticalTextAlignment="Center"
+                                                       LineBreakMode="TailTruncation"/>
                                             </Grid>
                                         </ViewCell>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
+                                <!--<ListView.Footer>
+                                    <Label />
+                                </ListView.Footer>-->
                             </ListView>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="wdas"/>
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>

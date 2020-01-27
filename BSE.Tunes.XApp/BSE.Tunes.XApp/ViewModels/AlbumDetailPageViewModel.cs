@@ -64,10 +64,5 @@ namespace BSE.Tunes.XApp.ViewModels
                 IsBusy = false;
             }
         }
-
-        //public override void OnNavigatedFrom(INavigationParameters parameters)
-        //{
-        //    base.OnNavigatedFrom(parameters);
-        //}
     }
 }

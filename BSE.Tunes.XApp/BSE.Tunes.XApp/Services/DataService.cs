@@ -82,5 +82,17 @@ namespace BSE.Tunes.XApp.Services
             string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/albums/{albumId}";
             return this.requestService.GetAsync<Album>(new UriBuilder(strUrl).Uri);
         }
+
+        public Task<int> GetNumberOfAlbumsByGenre(int? genreId)
+        {
+            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/albums/genre/{genreId ?? 0}/count";
+            return this.requestService.GetAsync<int>(new UriBuilder(strUrl).Uri);
+        }
+
+        public Task<ObservableCollection<Album>> GetAlbumsByGenre(int? genreId, int skip, int limit)
+        {
+            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/albums/genre/{genreId ?? 0}/?skip={skip}&limit={limit}";
+            return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
+        }
     }
 }

@@ -79,7 +79,7 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Albums.
+        ///   Looks up a localized string similar to New Music.
         /// </summary>
         internal static string HomePage_FeatAlbums_SectionHeader_Button_Text {
             get {

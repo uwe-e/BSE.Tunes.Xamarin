@@ -14,8 +14,12 @@
                 <views:HomePage/>
             </x:Arguments>
         </NavigationPage>
-        <!--<views:HomePage/>-->
-        <views:AlbumsPage/>
+        <NavigationPage Title="{i18n:Translate AlbumsPage_Title}" IconImageSource="icon_album">
+            <x:Arguments>
+                <views:AlbumsPage/>
+            </x:Arguments>
+        </NavigationPage>
+        <!--<views:AlbumsPage/>-->
         <views:PlaylistsPage/>
         <views:SettingsPage/>
     </TabbedPage.Children>

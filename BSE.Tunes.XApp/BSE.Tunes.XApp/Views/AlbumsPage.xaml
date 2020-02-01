@@ -10,28 +10,43 @@
              Title="{i18n:Translate AlbumsPage_Title}"
              IconImageSource="icon_album">
     <ContentPage.Content>
-        <StackLayout>
-            <CollectionView ItemsSource="{Binding Items}"
-                            RemainingItemsThreshold="{Binding PageSize}"
-                            RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical"
-                                     Span="2" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <!--<ViewCell>-->
-                            <Grid Padding="20,0,10,40">
-                                <StackLayout Margin="5,0,5,0" WidthRequest="150" HeightRequest="150">
-                                    <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding ImageSource}" WidthRequest="150" HeightRequest="150" />
-                                    <Label Text="{Binding Title}" TextColor="{DynamicResource PrimaryLabelColor}"/>
-                                    <Label Text="{Binding SubTitle}" TextColor="{DynamicResource SecondaryLabelColor}"/>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <CollectionView ItemsSource="{Binding Items}"
+                                RemainingItemsThreshold="{Binding PageSize}"
+                                RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}"
+                                VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="20,10,20,0">
+                                <StackLayout WidthRequest="150">
+                                    <ffimageLoading:CachedImage HorizontalOptions="Start"
+                                                                Source="{Binding ImageSource}"
+                                                                Aspect="AspectFill"
+                                                                WidthRequest="150"/>
+                                    <Label Text="{Binding Title}"
+                                           Margin="0,-5,0,0"
+                                           TextColor="{DynamicResource PrimaryLabelColor}"
+                                           LineBreakMode="TailTruncation"/>
+                                    <Label Text="{Binding SubTitle}"
+                                           Margin="0,-5,0,0"
+                                           FontSize="13"
+                                           TextColor="{DynamicResource SecondaryLabelColor}"
+                                           LineBreakMode="TailTruncation"/>
                                 </StackLayout>
-                            </Grid>
-                        <!--</ViewCell>-->
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="{Binding PrimaryLabelColor}"/>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

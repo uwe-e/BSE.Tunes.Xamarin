@@ -4,6 +4,7 @@ using BSE.Tunes.XApp.Services;
 using Prism;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private int _pageSize;
         private int _pageNumber;
         private bool _hasItems;
+        private readonly IPageDialogService _pageDialogService;
         private readonly IDataService _dataService;
 
         public event EventHandler IsActiveChanged;
@@ -61,8 +63,10 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public AlbumsPageViewModel(INavigationService navigationService,
             IResourceService resourceService,
+            IPageDialogService pageDialogService,
             IDataService dataService) : base(navigationService, resourceService)
         {
+            _pageDialogService = pageDialogService;
             _dataService = dataService;
             PageSize = 10;
         }
@@ -102,23 +106,36 @@ namespace BSE.Tunes.XApp.ViewModels
             }
 
             IsBusy = true;
-            var albums = await _dataService.GetAlbumsByGenre(null, PageNumber, PageSize);
-            if (albums != null)
+            try
             {
-                foreach (var album in albums)
+                var albums = await _dataService.GetAlbumsByGenre(null, PageNumber, PageSize);
+                if (albums != null)
                 {
-                    if (album != null)
+                    foreach (var album in albums)
                     {
-                        Items.Add(new GridPanel
+                        if (album != null)
                         {
-                            Title = album.Title,
-                            SubTitle = album.Artist.Name,
-                            ImageSource = _dataService.GetImage(album.AlbumId)?.AbsoluteUri,
-                            Data = album
-                        });
+                            Items.Add(new GridPanel
+                            {
+                                Title = album.Title,
+                                SubTitle = album.Artist.Name,
+                                ImageSource = _dataService.GetImage(album.AlbumId)?.AbsoluteUri,
+                                Data = album
+                            });
+                        }
                     }
+                    PageNumber = Items.Count;
                 }
-                PageNumber = Items.Count;
+            }
+            catch (Exception ex)
+            {
+                //var msg = ex.Message;
+                var dialogResult = ResourceService.GetString("Dialog_Result_Ok");
+                await _pageDialogService.DisplayAlertAsync("", ex.Message, dialogResult);
+            }
+            finally
+            {
+                
                 IsBusy = false;
             }
         }

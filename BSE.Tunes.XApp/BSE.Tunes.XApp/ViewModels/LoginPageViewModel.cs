@@ -1,32 +1,28 @@
 ﻿using BSE.Tunes.XApp.Services;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
-        private readonly IPageDialogService pageDialogService;
-        private readonly ISettingsService settingsService;
-        private readonly IAuthenticationService authenticationService;
-        private string userName;
-        private DelegateCommand saveCommand;
-        private string password;
+        private readonly IPageDialogService _pageDialogService;
+        private readonly IAuthenticationService _authenticationService;
+        private DelegateCommand _saveCommand;
+        private string _userName;
+        private string _password;
 
         public string UserName
         {
             get
             {
-                return userName;
+                return _userName;
             }
             set
             {
-                SetProperty(ref userName, value);
+                SetProperty(ref _userName, value);
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
@@ -34,26 +30,24 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             get
             {
-                return password;
+                return _password;
             }
             set
             {
-                SetProperty(ref password, value);
+                SetProperty(ref _password, value);
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public DelegateCommand SaveCommand => saveCommand ?? (saveCommand = new DelegateCommand(Save, CanSave));
+        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(Save, CanSave));
 
         public LoginPageViewModel(INavigationService navigationService,
             IResourceService resourceService,
             IPageDialogService pageDialogService,
-            ISettingsService settingsService,
             IAuthenticationService authenticationService) : base(navigationService, resourceService)
         {
-            this.pageDialogService = pageDialogService;
-            this.settingsService = settingsService;
-            this.authenticationService = authenticationService;
+            _pageDialogService = pageDialogService;
+            _authenticationService = authenticationService;
         }
 
         private bool CanSave()
@@ -65,14 +59,14 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             try
             {
-                await authenticationService.LoginAsync(UserName, Password);
+                await _authenticationService.LoginAsync(UserName, Password);
                 await NavigationService.NavigateAsync("MainPage");
             }
             catch (Exception)
             {
                 var message = ResourceService.GetString("LoginPageViewModel_LoginException");
                 var dialogResult = ResourceService.GetString("Dialog_Result_Ok");
-                await this.pageDialogService.DisplayAlertAsync("", message, dialogResult);
+                await _pageDialogService.DisplayAlertAsync("", message, dialogResult);
             }
         }
 

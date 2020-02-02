@@ -15,7 +15,7 @@
                 </Image.Source>
             </Image>
             <ActivityIndicator 
-                Color="{StaticResource AccentColor}"
+                Color="{Binding PrimaryLabelColor}"
                 IsRunning="{Binding IsBusy}" 
                 IsVisible="{Binding IsBusy}" />
         </Grid>

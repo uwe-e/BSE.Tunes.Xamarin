@@ -42,7 +42,7 @@
                             </Grid>
                         </StackLayout>
                         <StackLayout VerticalOptions="StartAndExpand">
-                            <ListView ItemsSource="{Binding Tracks}" VerticalOptions="Start" RowHeight="40">
+                            <ListView ItemsSource="{Binding Tracks}" VerticalOptions="Start" RowHeight="45">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
@@ -77,7 +77,7 @@
             <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
                  AbsoluteLayout.LayoutFlags="PositionProportional"
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="Accent"/>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="{Binding PrimaryLabelColor}"/>
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>

@@ -8,35 +8,40 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.AlbumsCarouselView">
     <ContentView.Content>
-        <StackLayout  VerticalOptions="Start">
-            <!--<Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>-->
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout  VerticalOptions="Start" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
 
-            <controls:SectionHeaderButton Text="{i18n:Translate HomePage_AlbumsCarousel_SectionHeader_Button_Text}"
+                <controls:SectionHeaderButton Text="{i18n:Translate HomePage_AlbumsCarousel_SectionHeader_Button_Text}"
                                                   Style="{StaticResource SectionHeaderButtonStyle}" HorizontalOptions="Start"/>
 
-            <CarouselView x:Name="carouselView"
+                <CarouselView x:Name="carouselView"
                               Margin="-50,0,0,0" ItemsSource="{Binding Items}"
                               PeekAreaInsets="50">
-                <CarouselView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal" />
-                </CarouselView.ItemsLayout>
-                <CarouselView.ItemTemplate>
-                    <DataTemplate>
-                        <templates:SlidePanelTemplate></templates:SlidePanelTemplate>
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
-            <!--<IndicatorView ItemsSourceBy="carouselView"
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal" />
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="0" CornerRadius="10" IsClippedToBounds="True"
+                                   BackgroundColor="{DynamicResource backgroundColor}">
+                                <templates:SlidePanelTemplate Margin="0"></templates:SlidePanelTemplate>
+                            </Frame>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                <!--<IndicatorView ItemsSourceBy="carouselView"
                            IndicatorsShape="Circle"
                            IndicatorColor="Gray"
                            SelectedIndicatorColor="Red"
                            IndicatorSize="10"
                            HorizontalOptions="Center"/>-->
-            <!--</Grid>-->
-        </StackLayout>
+                <!--</Grid>-->
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="{Binding PrimaryLabelColor}"/>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentView.Content>
 </ContentView>

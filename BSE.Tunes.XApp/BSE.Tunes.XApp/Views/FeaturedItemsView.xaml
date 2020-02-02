@@ -21,30 +21,37 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <Grid>
-            <cv:CoverFlowView x:Name="featuredItemsCardsView"
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout VerticalOptions="Start" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <cv:CoverFlowView x:Name="featuredItemsCardsView"
                                   ItemsSource="{Binding Items}"
                                   IsClippedToBounds="True"
                                   IsCyclical = "True"
                                   PositionShiftValue="125">
-                <cv:CoverFlowView.ItemTemplate>
-                    <DataTemplate>
-                        <templates:SlidePanelTemplate>
-                            <templates:SlidePanelTemplate.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=featuredItemsCardsView}}" CommandParameter="{Binding}"/>
-                            </templates:SlidePanelTemplate.GestureRecognizers>
-                        </templates:SlidePanelTemplate>
-                    </DataTemplate>
-                </cv:CoverFlowView.ItemTemplate>
+                    <cv:CoverFlowView.ItemTemplate>
+                        <DataTemplate>
+                            <templates:SlidePanelTemplate>
+                                <templates:SlidePanelTemplate.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=featuredItemsCardsView}}" CommandParameter="{Binding}"/>
+                                </templates:SlidePanelTemplate.GestureRecognizers>
+                            </templates:SlidePanelTemplate>
+                        </DataTemplate>
+                    </cv:CoverFlowView.ItemTemplate>
 
-                <!--<cvcntrols:IndicatorsControl  AbsoluteLayout.LayoutBounds="100, 250, 100, 50" AbsoluteLayout.LayoutFlags="None"  SelectedIndicatorStyle="{StaticResource ActiveIndicator}"/>-->
-                <cvcntrols:IndicatorsControl  AbsoluteLayout.LayoutBounds=".5, 1.08, -1, -1"
-                                              AbsoluteLayout.LayoutFlags="PositionProportional"
-                                              SelectedIndicatorStyle="{StaticResource ActiveIndicator}"
-                                              UnselectedIndicatorStyle="{StaticResource InactiveIndicator}"/>
-                <!--<cvcntrols:LeftArrowControl />
+                    <!--<cvcntrols:IndicatorsControl  AbsoluteLayout.LayoutBounds="100, 250, 100, 50" AbsoluteLayout.LayoutFlags="None"  SelectedIndicatorStyle="{StaticResource ActiveIndicator}"/>-->
+                    <cvcntrols:IndicatorsControl  AbsoluteLayout.LayoutBounds=".5, 1.08, -1, -1"
+                                                  AbsoluteLayout.LayoutFlags="PositionProportional"
+                                                  SelectedIndicatorStyle="{StaticResource ActiveIndicator}"
+                                                  UnselectedIndicatorStyle="{StaticResource InactiveIndicator}"/>
+                    <!--<cvcntrols:LeftArrowControl />
                 <cvcntrols:RightArrowControl/>-->
-            </cv:CoverFlowView>
-        </Grid>
+                </cv:CoverFlowView>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="{Binding PrimaryLabelColor}"/>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentView.Content>
 </ContentView>

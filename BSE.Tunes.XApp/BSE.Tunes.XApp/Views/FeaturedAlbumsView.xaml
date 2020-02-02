@@ -2,9 +2,9 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
-             xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+             xmlns:template="clr-namespace:BSE.Tunes.XApp.Views.Templates"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.FeaturedAlbumsView">
 
@@ -26,13 +26,7 @@
                             <controls:HorizontalScrollView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <Grid>
-                                            <StackLayout Margin="5,0,5,0" WidthRequest="150" HeightRequest="150">
-                                                <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding ImageSource}" WidthRequest="150" HeightRequest="150" />
-                                                <Label Text="{Binding Title}" TextColor="{DynamicResource PrimaryLabelColor}"/>
-                                                <Label Text="{Binding SubTitle}" TextColor="{DynamicResource SecondaryLabelColor}"/>
-                                            </StackLayout>
-                                        </Grid>
+                                        <template:ViewItemTemplate/>
                                     </ViewCell>
                                 </DataTemplate>
                             </controls:HorizontalScrollView.ItemTemplate>

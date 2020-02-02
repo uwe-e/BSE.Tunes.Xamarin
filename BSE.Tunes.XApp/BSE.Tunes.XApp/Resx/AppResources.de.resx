@@ -123,6 +123,9 @@
   <data name="Dialog_Result_Ok" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="HomePage_AlbumsCarousel_SectionHeader_Button_Text" xml:space="preserve">
+    <value>Endecken</value>
+  </data>
   <data name="HomePage_FeatAlbums_SectionHeader_Button_Text" xml:space="preserve">
     <value>Neue Musik</value>
   </data>

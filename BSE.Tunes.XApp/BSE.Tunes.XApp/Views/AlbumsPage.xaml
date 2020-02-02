@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
-             xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+             xmlns:template="clr-namespace:BSE.Tunes.XApp.Views.Templates"
              x:Class="BSE.Tunes.XApp.Views.AlbumsPage"
              BackgroundColor="{DynamicResource backgroundColor}"
              Title="{i18n:Translate AlbumsPage_Title}"
@@ -12,8 +12,8 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <CollectionView ItemsSource="{Binding Items}"
-                                RemainingItemsThreshold="{Binding PageSize}"
+                <CollectionView x:Name="albumsView"  ItemsSource="{Binding Items}"
+                                RemainingItemsThreshold="1"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}"
                                 VerticalOptions="FillAndExpand">
                     <CollectionView.ItemsLayout>
@@ -22,21 +22,11 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Padding="20,10,20,0">
-                                <StackLayout WidthRequest="150">
-                                    <ffimageLoading:CachedImage HorizontalOptions="Start"
-                                                                Source="{Binding ImageSource}"
-                                                                Aspect="AspectFill"
-                                                                WidthRequest="150"/>
-                                    <Label Text="{Binding Title}"
-                                           Margin="0,-5,0,0"
-                                           TextColor="{DynamicResource PrimaryLabelColor}"
-                                           LineBreakMode="TailTruncation"/>
-                                    <Label Text="{Binding SubTitle}"
-                                           Margin="0,-5,0,0"
-                                           FontSize="13"
-                                           TextColor="{DynamicResource SecondaryLabelColor}"
-                                           LineBreakMode="TailTruncation"/>
-                                </StackLayout>
+                                <template:ViewItemTemplate>
+                                    <template:ViewItemTemplate.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=albumsView}}" CommandParameter="{Binding}"/>
+                                    </template:ViewItemTemplate.GestureRecognizers>
+                                </template:ViewItemTemplate>
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

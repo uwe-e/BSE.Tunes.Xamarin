@@ -79,7 +79,16 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Music.
+        ///   Looks up a localized string similar to Explore.
+        /// </summary>
+        internal static string HomePage_AlbumsCarousel_SectionHeader_Button_Text {
+            get {
+                return ResourceManager.GetString("HomePage_AlbumsCarousel_SectionHeader_Button_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whats New.
         /// </summary>
         internal static string HomePage_FeatAlbums_SectionHeader_Button_Text {
             get {

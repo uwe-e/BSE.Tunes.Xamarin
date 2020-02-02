@@ -9,9 +9,17 @@
             
             <ffimageLoading:CachedImage Source="{Binding ImageSource}" Aspect="AspectFill" />
 
-            <StackLayout BackgroundColor="#44000000" VerticalOptions="End" HorizontalOptions="FillAndExpand">
-                <Label HorizontalTextAlignment="Center" Text="{Binding Title}" TextColor="White"  LineBreakMode="TailTruncation"/>
-                <Label HorizontalTextAlignment="Center" Text="{Binding SubTitle}" TextColor="White" LineBreakMode="TailTruncation"/>
+            <StackLayout BackgroundColor="#33000000" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                <Label HorizontalTextAlignment="Center"
+                       Text="{Binding Title}"
+                       TextColor="White"
+                       LineBreakMode="TailTruncation"/>
+                <Label HorizontalTextAlignment="Center" 
+                       Margin="0,-5,0,0"
+                       FontSize="13"
+                       Text="{Binding SubTitle}"
+                       TextColor="White"
+                       LineBreakMode="TailTruncation"/>
             </StackLayout>
         </Grid>
   </ContentView.Content>

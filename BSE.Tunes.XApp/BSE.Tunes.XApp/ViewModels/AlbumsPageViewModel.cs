@@ -7,6 +7,7 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -18,16 +19,21 @@ namespace BSE.Tunes.XApp.ViewModels
         private bool _isActive;
         private bool _isActivated;
         private ICommand _loadMoreItemsCommand;
+        private ICommand _selectItemCommand;
         private int _totalNumberOfItems;
         private int _pageSize;
         private int _pageNumber;
         private bool _hasItems;
-        private readonly IPageDialogService _pageDialogService;
+        
         private readonly IDataService _dataService;
 
         public event EventHandler IsActiveChanged;
+        
         public ICommand LoadMoreItemsCommand => 
             _loadMoreItemsCommand ?? (_loadMoreItemsCommand = new DelegateCommand(LoadMoreItems, HasMoreItems));
+        
+        public ICommand SelectItemCommand => _selectItemCommand
+            ?? (_selectItemCommand = new Xamarin.Forms.Command<GridPanel>(SelectItem));
 
         public ObservableCollection<GridPanel> Items => _items ?? (_items = new ObservableCollection<GridPanel>());
 
@@ -63,10 +69,8 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public AlbumsPageViewModel(INavigationService navigationService,
             IResourceService resourceService,
-            IPageDialogService pageDialogService,
             IDataService dataService) : base(navigationService, resourceService)
         {
-            _pageDialogService = pageDialogService;
             _dataService = dataService;
             PageSize = 10;
         }
@@ -129,14 +133,23 @@ namespace BSE.Tunes.XApp.ViewModels
             }
             catch (Exception ex)
             {
-                //var msg = ex.Message;
-                var dialogResult = ResourceService.GetString("Dialog_Result_Ok");
-                await _pageDialogService.DisplayAlertAsync("", ex.Message, dialogResult);
+                Debug.WriteLine(ex);
             }
             finally
             {
-                
                 IsBusy = false;
+            }
+        }
+        
+        private async void SelectItem(GridPanel obj)
+        {
+            if (obj?.Data is Album album)
+            {
+                var navigationParams = new NavigationParameters
+                    {
+                        { "album", album }
+                    };
+                await NavigationService.NavigateAsync("NavigationPage/AlbumDetailPage", navigationParams);
             }
         }
     }

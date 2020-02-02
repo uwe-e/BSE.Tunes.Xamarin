@@ -11,19 +11,19 @@
              IconImageSource="icon_home" >
 
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+        <!--<AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">-->
+            <!--<StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">-->
                 <ScrollView>
                     <!--<ScrollView.Padding>
             <OnPlatform x:TypeArguments="Thickness">
                 <On Platform="iOS" Value="0,0,0,-60"/>
             </OnPlatform>
             </ScrollView.Padding>-->
-                    <ScrollView.Padding>
+                    <!--<ScrollView.Padding>
                         <OnPlatform x:TypeArguments="Thickness">
                             <On Platform="iOS" Value="0,30,0,0"/>
                         </OnPlatform>
-                    </ScrollView.Padding>
+                    </ScrollView.Padding>-->
                     <StackLayout>
 
                         <local:FeaturedItemsView HeightRequest="280" />
@@ -34,8 +34,8 @@
 
                     </StackLayout>
                 </ScrollView>
-            </StackLayout>
-        </AbsoluteLayout>
+            <!--</StackLayout>
+        </AbsoluteLayout>-->
     </ContentPage.Content>
 
 </ContentPage>

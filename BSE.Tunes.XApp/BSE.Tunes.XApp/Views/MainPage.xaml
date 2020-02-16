@@ -6,15 +6,20 @@
             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
             BackgroundColor="{DynamicResource backgroundColor}"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom" NavigationPage.HasNavigationBar="False">
 
     <TabbedPage.Children>
-        <NavigationPage Title="{i18n:Translate HomePage_Title}" IconImageSource="icon_home">
+        <NavigationPage Title="{i18n:Translate HomePage_Title}"
+                        IconImageSource="icon_home"
+                        ios:NavigationPage.IsNavigationBarTranslucent="True">
             <x:Arguments>
                 <views:HomePage/>
             </x:Arguments>
         </NavigationPage>
-        <NavigationPage Title="{i18n:Translate AlbumsPage_Title}" IconImageSource="icon_album">
+        <NavigationPage Title="{i18n:Translate AlbumsPage_Title}"
+                        IconImageSource="icon_album"
+                        ios:NavigationPage.IsNavigationBarTranslucent="True">
             <x:Arguments>
                 <views:AlbumsPage/>
             </x:Arguments>

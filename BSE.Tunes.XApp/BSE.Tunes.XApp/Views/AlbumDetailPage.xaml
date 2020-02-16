@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:iOSSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.AlbumDetailPage"
              BackgroundColor="{DynamicResource backgroundColor}" 
-             NavigationPage.HasNavigationBar="False" iOSSpecific:NavigationPage.IsNavigationBarTranslucent="True">
+             NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -42,7 +42,8 @@
                             </Grid>
                         </StackLayout>
                         <StackLayout VerticalOptions="StartAndExpand">
-                            <ListView ItemsSource="{Binding Tracks}" VerticalOptions="Start" RowHeight="45">
+                            <ListView ItemsSource="{Binding Tracks}" VerticalOptions="Start" RowHeight="45"
+                                      ios:ListView.SeparatorStyle="FullWidth">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>

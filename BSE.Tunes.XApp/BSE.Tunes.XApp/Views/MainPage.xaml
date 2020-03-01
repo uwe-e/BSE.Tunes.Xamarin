@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:views="clr-namespace:BSE.Tunes.XApp.Views"
-            x:Class="BSE.Tunes.XApp.Views.MainPage"
-            xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
-            BackgroundColor="{DynamicResource backgroundColor}"
-            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-            xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-            android:TabbedPage.ToolbarPlacement="Bottom" NavigationPage.HasNavigationBar="False">
+<controls:ExtendedTabbedPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BSE.Tunes.XApp.Views"
+    xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
+    x:Class="BSE.Tunes.XApp.Views.MainPage"
+    xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+    BackgroundColor="{DynamicResource backgroundColor}"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    android:TabbedPage.ToolbarPlacement="Bottom"
+    ios:TabbedPage.TranslucencyMode="Opaque"
+    BarBackgroundColor="{DynamicResource systemGray6}"
+    NavigationPage.HasNavigationBar="False">
 
     <TabbedPage.Children>
         <NavigationPage Title="{i18n:Translate HomePage_Title}"
@@ -24,10 +29,9 @@
                 <views:AlbumsPage/>
             </x:Arguments>
         </NavigationPage>
-        <!--<views:AlbumsPage/>-->
         <views:PlaylistsPage/>
         <views:SettingsPage/>
     </TabbedPage.Children>
 
 
-</TabbedPage>
+</controls:ExtendedTabbedPage>

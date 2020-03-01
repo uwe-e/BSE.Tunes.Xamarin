@@ -1,10 +1,11 @@
-﻿using Xamarin.Forms;
+﻿using BSE.Tunes.XApp.Controls;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace BSE.Tunes.XApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : TabbedPage
+    public partial class MainPage : ExtendedTabbedPage
     {
         public MainPage()
         {

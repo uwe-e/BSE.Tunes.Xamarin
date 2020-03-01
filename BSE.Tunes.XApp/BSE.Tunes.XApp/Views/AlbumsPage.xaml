@@ -12,7 +12,7 @@
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <CollectionView x:Name="albumsView"  ItemsSource="{Binding Items}"
-                                RemainingItemsThreshold="1"
+                                RemainingItemsThreshold="{Binding PageSize}"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}"
                                 VerticalOptions="FillAndExpand">
                     <CollectionView.ItemsLayout>

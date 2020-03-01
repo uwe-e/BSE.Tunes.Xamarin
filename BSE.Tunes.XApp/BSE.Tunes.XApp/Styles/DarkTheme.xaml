@@ -4,6 +4,7 @@
              x:Class="BSE.Tunes.XApp.Styles.DarkTheme">
 
     <Color x:Key="backgroundColor">#FF000000</Color>
+    <Color x:Key="systemGray6">#1C1C27</Color>
 
     <Color x:Key="PrimaryLabelColor">#FFFFFFFF</Color>
     <Color x:Key="SecondaryLabelColor">#FF98989f</Color>

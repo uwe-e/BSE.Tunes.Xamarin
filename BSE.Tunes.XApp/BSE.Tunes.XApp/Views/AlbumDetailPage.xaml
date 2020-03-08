@@ -13,6 +13,11 @@
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <ScrollView>
+                    <ScrollView.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" Value="0,0,0,50"/>
+                    </OnPlatform>
+                    </ScrollView.Padding>
                     <StackLayout Padding="12,12,12,0">
                         <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal">
                             <StackLayout Margin="5,0,5,0" HeightRequest="150">
@@ -68,9 +73,6 @@
                                     <Label />
                                 </ListView.Footer>-->
                             </ListView>
-                        </StackLayout>
-                        <StackLayout>
-                            <Label Text="wdas"/>
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>

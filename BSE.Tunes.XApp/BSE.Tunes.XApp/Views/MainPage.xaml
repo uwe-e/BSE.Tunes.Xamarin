@@ -17,8 +17,6 @@
     PauseCommand="{Binding PauseCommand}"
     PlayNextCommand="{Binding PlayNextCommand}">
 
-    <!--<controls:ExtendedTabbedPage PlayCommand="{Binding PlayCommand}"/>-->
-
     <TabbedPage.Children>
         <NavigationPage Title="{i18n:Translate HomePage_Title}"
                         IconImageSource="icon_home"

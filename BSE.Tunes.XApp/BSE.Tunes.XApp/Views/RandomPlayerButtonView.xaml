@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:bseios="clr-namespace:BSE.Tunes.XApp.PlatformConfiguration.iOSSpecific"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="BSE.Tunes.XApp.Views.RandomPlayerButtonView">
+    
+    <ContentView.Content>
+        <Button bseios:Button.UILineBreakMode="WordWrap"
+                bseios:Button.UITextAlignment="Center"
+                Margin="3,3,6,3"
+                BackgroundColor="{StaticResource systemBlue}"
+                TextColor="White"
+                FontSize="Medium"
+                Command="{Binding PlayRandomCommand}"
+                Text="{Binding Text}" VerticalOptions="Fill"/>
+    </ContentView.Content>
+    
+</ContentView>

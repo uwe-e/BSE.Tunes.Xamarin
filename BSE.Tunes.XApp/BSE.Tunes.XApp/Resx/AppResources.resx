@@ -129,6 +129,9 @@
   <data name="HomePage_FeatAlbums_SectionHeader_Button_Text" xml:space="preserve">
     <value>Whats New</value>
   </data>
+  <data name="HomePage_RandomPlayerButton_Button_Text" xml:space="preserve">
+    <value>We have {0} songs and if you have enough time we play them all.</value>
+  </data>
   <data name="HomePage_Title" xml:space="preserve">
     <value>Home</value>
   </data>

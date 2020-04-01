@@ -12,11 +12,11 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <Style x:Key="ActiveIndicator" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="Accent" />
+                <Setter Property="BackgroundColor" Value="{StaticResource systemBlue}" />
             </Style>
             <Style x:Key="InactiveIndicator" TargetType="Frame">
                 <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="OutlineColor" Value="Accent" />
+                <Setter Property="OutlineColor" Value="{StaticResource systemBlue}" />
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>

@@ -15,5 +15,7 @@ namespace BSE.Tunes.XApp.Services
         Task<int> GetNumberOfAlbumsByGenre(int? genreId);
         Task<ObservableCollection<Album>> GetAlbumsByGenre(int? genreId, int skip, int limit);
         Uri GetImage(Guid imageId, bool asThumbnail = false);
+        Task<SystemInfo> GetSystemInfo();
+        Task<ObservableCollection<int>> GetTrackIdsByGenre(int? genreId = null);
     }
 }

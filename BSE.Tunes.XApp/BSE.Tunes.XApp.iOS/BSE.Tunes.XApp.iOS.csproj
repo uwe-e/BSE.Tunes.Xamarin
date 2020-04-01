@@ -98,6 +98,8 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Renderer\ButtonElementManager.cs" />
+    <Compile Include="Renderer\ButtonRenderer.cs" />
     <Compile Include="Renderer\ExtendedTabbedRenderer.cs" />
     <Compile Include="Services\Environment_iOS.cs" />
     <Compile Include="Main.cs" />

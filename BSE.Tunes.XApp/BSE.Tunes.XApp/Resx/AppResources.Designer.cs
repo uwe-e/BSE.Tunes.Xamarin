@@ -97,6 +97,15 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We have {0} songs and if you have enough time we play them all..
+        /// </summary>
+        internal static string HomePage_RandomPlayerButton_Button_Text {
+            get {
+                return ResourceManager.GetString("HomePage_RandomPlayerButton_Button_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string HomePage_Title {

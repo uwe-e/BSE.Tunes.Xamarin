@@ -5,6 +5,8 @@
 
     <Color x:Key="backgroundColor">#FFFFFFFF</Color>
     <Color x:Key="systemGray6">#F2F2F7</Color>
+    <Color x:Key="systemBlue">#007AFF</Color>
+
 
     <Color x:Key="PrimaryLabelColor">#FF000000</Color>
     <Color x:Key="SecondaryLabelColor">#FF8a8a8e</Color>

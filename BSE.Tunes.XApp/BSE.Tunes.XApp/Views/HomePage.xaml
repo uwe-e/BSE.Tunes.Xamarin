@@ -20,6 +20,8 @@
 
                 <local:FeaturedItemsView HeightRequest="280" />
 
+                <local:RandomPlayerButtonView HeightRequest="80"/>
+
                 <local:AlbumsCarouselView HeightRequest="240"/>
 
                 <local:FeaturedAlbumsView HeightRequest="300"/>

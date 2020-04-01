@@ -94,5 +94,19 @@ namespace BSE.Tunes.XApp.Services
             string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/albums/genre/{genreId ?? 0}/?skip={skip}&limit={limit}";
             return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
         }
+        
+        public Task<SystemInfo> GetSystemInfo()
+        {
+             string strUrl = $"{this.settingsService.ServiceEndPoint}/api/system";
+            return this.requestService.GetAsync<SystemInfo>(new UriBuilder(strUrl).Uri);
+        }
+        
+        public Task<ObservableCollection<int>> GetTrackIdsByGenre(int? genreId = null)
+        {
+            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/tracka/genre/{genreId ?? 0}";
+            return this.requestService.GetAsync<ObservableCollection<int>>(new UriBuilder(strUrl).Uri);
+        }
+
+
     }
 }

@@ -8,6 +8,7 @@ namespace BSE.Tunes.XApp.Controls
     {
         void SendPlayClicked();
         void SendPauseClicked();
+        void SendPlayNextClicked();
     }
 
 }

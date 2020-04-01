@@ -19,8 +19,11 @@ namespace BSE.Tunes.XApp
          * App(IPlatformInitializer initializer = null) cannot be handled by the Activator.
          */
         public App() : this(null) { }
-
-        public App(IPlatformInitializer initializer) : base(initializer) { }
+        /*
+         * "setFormsDependencyResolver = true" means that the Xamarin.Forms DepedencyService will
+         * use the same DI container when resolving instances.
+         */
+        public App(IPlatformInitializer initializer) : base(initializer, setFormsDependencyResolver: true) { }
 
         protected override async void OnInitialized()
         {

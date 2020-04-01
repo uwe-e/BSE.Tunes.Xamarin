@@ -12,7 +12,12 @@
     android:TabbedPage.ToolbarPlacement="Bottom"
     ios:TabbedPage.TranslucencyMode="Opaque"
     BarBackgroundColor="{DynamicResource systemGray6}"
-    NavigationPage.HasNavigationBar="False">
+    NavigationPage.HasNavigationBar="False"
+    PlayCommand="{Binding PlayCommand}"
+    PauseCommand="{Binding PauseCommand}"
+    PlayNextCommand="{Binding PlayNextCommand}">
+
+    <!--<controls:ExtendedTabbedPage PlayCommand="{Binding PlayCommand}"/>-->
 
     <TabbedPage.Children>
         <NavigationPage Title="{i18n:Translate HomePage_Title}"

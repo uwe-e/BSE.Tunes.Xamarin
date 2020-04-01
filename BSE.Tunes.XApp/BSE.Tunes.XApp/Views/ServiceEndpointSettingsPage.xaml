@@ -15,9 +15,6 @@
             </ScrollView.VerticalOptions>
 
             <StackLayout Spacing="0"
-                         Margin="{OnIdiom Desktop='30'
-                                          Tablet='200,50'
-                                          Phone='20,32'}"
                          VerticalOptions="FillAndExpand"
                          WidthRequest="{OnPlatform  Default='-1',
                                                     UWP='350'}">

@@ -48,24 +48,13 @@ namespace BSE.Tunes.XApp.Services
 
         public Task<ObservableCollection<Album>> GetFeaturedAlbums(int limit)
         {
-            //string strUrl = string.Format("{0}/api/v2/albums/featured?limit={1}", ServiceUrl, limit);
-            //return await GetHttpResponse<ObservableCollection<Album>>(new Uri(strUrl));
-            var builder = new UriBuilder(this.settingsService.ServiceEndPoint);
-            builder.AppendToPath(string.Format("/api/v2/albums/featured?limit={0}", limit));
-
             string strUrl = string.Format("{0}/api/v2/albums/featured?limit={1}", this.settingsService.ServiceEndPoint, limit);
-
             return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
         }
 
         public Task<ObservableCollection<Album>> GetNewestAlbums(int limit)
         {
-            //string strUrl = string.Format("{0}/api/v2/albums/newest?limit={1}", ServiceUrl, limit);
-            //var builder = new UriBuilder(this.settingsService.ServiceEndPoint);
-            //builder.AppendToPath(string.Format("/api/v2/albums/newest?limit={0}", limit));
-
             string strUrl = string.Format("{0}/api/v2/albums/newest?limit={0}", this.settingsService.ServiceEndPoint, limit);
-
             return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
         }
 
@@ -100,13 +89,19 @@ namespace BSE.Tunes.XApp.Services
              string strUrl = $"{this.settingsService.ServiceEndPoint}/api/system";
             return this.requestService.GetAsync<SystemInfo>(new UriBuilder(strUrl).Uri);
         }
-        
+
+        public Task<Track> GetTrackById(int trackId)
+        {
+            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/tracks/{trackId}";
+            return this.requestService.GetAsync<Track>(new UriBuilder(strUrl).Uri);
+        }
+
         public Task<ObservableCollection<int>> GetTrackIdsByGenre(int? genreId = null)
         {
-            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/tracka/genre/{genreId ?? 0}";
+            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/tracks/genre/{genreId ?? 0}";
             return this.requestService.GetAsync<ObservableCollection<int>>(new UriBuilder(strUrl).Uri);
         }
 
-
+        
     }
 }

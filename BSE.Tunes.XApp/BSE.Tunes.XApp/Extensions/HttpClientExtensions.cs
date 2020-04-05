@@ -13,5 +13,12 @@ namespace System.Net.Http
         {
             client.SetToken("Bearer", token);
         }
+        public static void AddRange(this HttpClient request, long from, long to)
+        {
+            if (request != null)
+            {
+                request.DefaultRequestHeaders.Range = new RangeHeaderValue(from, to);
+            }
+        }
     }
 }

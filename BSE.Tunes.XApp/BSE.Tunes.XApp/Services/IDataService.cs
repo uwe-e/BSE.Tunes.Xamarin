@@ -7,8 +7,6 @@ namespace BSE.Tunes.XApp.Services
 {
     public interface IDataService
     {
-        Task<bool> IsEndPointAccessibleAsync();
-        Task<bool> IsEndPointAccessibleAsync(string serviceEndPoint);
         Task<Album> GetAlbumById(int albumId);
         Task<ObservableCollection<Album>> GetFeaturedAlbums(int limit);
         Task<ObservableCollection<Album>> GetNewestAlbums(int limit);
@@ -16,6 +14,9 @@ namespace BSE.Tunes.XApp.Services
         Task<ObservableCollection<Album>> GetAlbumsByGenre(int? genreId, int skip, int limit);
         Uri GetImage(Guid imageId, bool asThumbnail = false);
         Task<SystemInfo> GetSystemInfo();
+        Task<Track> GetTrackById(int trackId);
         Task<ObservableCollection<int>> GetTrackIdsByGenre(int? genreId = null);
+        Task<bool> IsEndPointAccessibleAsync();
+        Task<bool> IsEndPointAccessibleAsync(string serviceEndPoint);
     }
 }

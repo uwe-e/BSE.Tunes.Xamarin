@@ -62,11 +62,13 @@ namespace BSE.Tunes.XApp
 
             containerRegistry.RegisterSingleton<ISettingsService, SettingsService>();
             containerRegistry.Register<IDataService, DataService>();
+            containerRegistry.Register<IStreamingService, StreamingService>();
             containerRegistry.Register<IRequestService, RequestService>();
             containerRegistry.Register<IResourceService, ResourceService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
 
-
+            var playerService = DependencyService.Get<IPlayerService>();
+            containerRegistry.RegisterInstance(playerService);
 
             ViewModelLocationProvider.Register<FeaturedAlbumsView, FeaturedAlbumsViewModel>();
         }

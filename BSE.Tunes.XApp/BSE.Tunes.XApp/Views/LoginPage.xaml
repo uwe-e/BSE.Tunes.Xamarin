@@ -21,9 +21,9 @@
                 </ScrollView.VerticalOptions>
 
                 <StackLayout Spacing="0"
-                         VerticalOptions="FillAndExpand"
-                         WidthRequest="{OnPlatform  Default='-1',
-                                                    UWP='350'}">
+                             Margin="{OnIdiom Desktop='30', Tablet='200,50', Phone='20,32'}"
+                             VerticalOptions="FillAndExpand"
+                             WidthRequest="{OnPlatform  Default='-1', UWP='350'}">
 
                     <Grid RowSpacing="0" VerticalOptions="CenterAndExpand">
                         <Grid.RowDefinitions>

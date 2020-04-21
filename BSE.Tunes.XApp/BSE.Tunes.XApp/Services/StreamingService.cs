@@ -1,6 +1,7 @@
 ﻿using BSE.Tunes.XApp.Extensions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +54,41 @@ namespace BSE.Tunes.XApp.Services
                 }
             }
             return partialContent;
+        }
+
+        public async Task<Stream> GetPartialStream(Guid guid, long rangeFrom, long rangeTo)
+        {
+            System.IO.Stream result;
+            Uri requestUri = GetRequestUri(guid);
+            using (var httpClient = await _requestService.GetHttpClient(false))
+            {
+                httpClient.AddRange(rangeFrom, rangeTo);
+                result = await httpClient.GetStreamAsync(requestUri);
+            }
+            return result;
+        }
+
+        public async Task<System.IO.Stream> GetStream(Guid guid)
+        {
+            System.IO.Stream result = null;
+            Uri requestUri = GetRequestUri(guid);
+
+            using (var httpClient = await _requestService.GetHttpClient(false))
+            {
+                //httpClient.AddRange(rangeFrom, rangeTo);
+                //result = await httpClient.GetStreamAsync(requestUri);
+                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, requestUri))
+                {
+                    //    //using (var responseMessage = await httpClient.SendAsync(request))
+                    //    //{
+                    //    //    var cnt = responseMessage.Content.ReadAsStreamAsync();
+                    //    //    var cnt1 = responseMessage.Content.ReadAsByteArrayAsync();
+                    //    //    var resuaalt = responseMessage.Content.LoadIntoBufferAsync();
+                    //    //    //partialContent = (int)responseMessage.Content.Headers.ContentLength.GetValueOrDefault(0);
+                    //    //}
+                    }
+                }
+            return result;
         }
 
         private Uri GetRequestUri(Guid guid)

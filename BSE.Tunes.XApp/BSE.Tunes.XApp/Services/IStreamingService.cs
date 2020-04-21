@@ -9,6 +9,10 @@ namespace BSE.Tunes.XApp.Services
     {
         Task<long> GetContentLength(Guid guid);
 
+        Task<System.IO.Stream> GetStream(Guid guid);
+
         Task<int> GetPartialContent(Guid guid, long rangeFrom, long rangeTo);
+
+        Task<System.IO.Stream> GetPartialStream(Guid guid, long rangeFrom, long rangeTo);
     }
 }

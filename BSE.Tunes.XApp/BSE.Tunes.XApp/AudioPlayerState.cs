@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BSE.Tunes.XApp
+﻿namespace BSE.Tunes.XApp
 {
-    public enum PlayState
+    public enum AudioPlayerState
     {
         Closed = 0,
         Opening = 1,

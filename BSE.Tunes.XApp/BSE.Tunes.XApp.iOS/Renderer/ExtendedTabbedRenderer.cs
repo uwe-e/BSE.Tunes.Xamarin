@@ -20,7 +20,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         UIButton _playNextButton;
         UIView _playerBar;
 
-        PlayState CurrentPlayState { get; set; } = PlayState.Closed;
+        AudioPlayerState CurrentAudioPlayerState { get; set; } = AudioPlayerState.Closed;
         ExtendedTabbedPage Page => Element as ExtendedTabbedPage;
         IDataService DataService => DependencyService.Resolve<IDataService>();
 
@@ -85,6 +85,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             {
                 Frame = new CGRect(rightX, 7, 33, 33)
             };
+            _playNextButton.SetBackgroundImage(UIImage.FromFile("icon_playnext_gray@2x.png"), UIControlState.Disabled);
             _playNextButton.SetBackgroundImage(UIImage.FromFile("icon_playnext_blue@2x.png"), UIControlState.Normal);
             _playNextButton.TouchUpInside -= PlayNextButtonTouchUpInside;
             _playNextButton.TouchUpInside += PlayNextButtonTouchUpInside;
@@ -100,31 +101,29 @@ namespace BSE.Tunes.XApp.iOS.Renderer
            
         }
 
-        
-
         private void OnPlayStateChanged(object sender, PlayStateChangedEventArgs args)
         {
-            var playState = args.NewState;
-            switch (playState)
+            var audioPlayerState = args.NewState;
+            switch (audioPlayerState)
             {
-                case PlayState.Playing:
+                case AudioPlayerState.Playing:
                     _playButton.SetBackgroundImage(UIImage.FromFile("icon_pause_blue@2x.png"), UIControlState.Normal);
                     break;
-                case PlayState.Paused:
+                case AudioPlayerState.Paused:
                     _playButton.SetBackgroundImage(UIImage.FromFile("icon_play_blue@2x.png"), UIControlState.Normal);
                     break;
             }
-            CurrentPlayState = playState;
+            CurrentAudioPlayerState = audioPlayerState;
         }
 
         private void PlayButtonTouchUpInside(object sender, EventArgs e)
         {
-            OnPlayButtonTouchUpInside(Element as IPlayerController, CurrentPlayState);
+            OnPlayButtonTouchUpInside(Element as IPlayerController, CurrentAudioPlayerState);
         }
 
-        internal static void OnPlayButtonTouchUpInside(IPlayerController element, PlayState playState)
+        internal static void OnPlayButtonTouchUpInside(IPlayerController element, AudioPlayerState playState)
         {
-            if (playState == PlayState.Playing)
+            if (playState == AudioPlayerState.Playing)
             {
                 element?.SendPauseClicked();
                 return;
@@ -134,10 +133,10 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         
         private void PlayNextButtonTouchUpInside(object sender, EventArgs e)
         {
-            OnPlayNextButtonTouchUpInside(Element as IPlayerController, CurrentPlayState);
+            OnPlayNextButtonTouchUpInside(Element as IPlayerController, CurrentAudioPlayerState);
         }
 
-        internal static void OnPlayNextButtonTouchUpInside(IPlayerController element, PlayState playState)
+        internal static void OnPlayNextButtonTouchUpInside(IPlayerController element, AudioPlayerState playState)
         {
             //if (playState == PlayState.Playing)
             //{

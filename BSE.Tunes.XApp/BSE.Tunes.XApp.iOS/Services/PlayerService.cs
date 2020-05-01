@@ -4,6 +4,7 @@ using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using Foundation;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
@@ -15,21 +16,31 @@ namespace BSE.Tunes.XApp.iOS.Services
 {
     public class PlayerService : IPlayerService
     {
+        private StreamingPlayback _player;
         private IRequestService _requestService => DependencyService.Resolve<IRequestService>();
         private ISettingsService _settingsService => DependencyService.Resolve<ISettingsService>();
-        private StreamingPlayback _player;
+
+        public AudioPlayerState AudioPlayerState { get; private set; } = AudioPlayerState.Closed;
+
+        public event Action<AudioPlayerState> AudioPlayerStateChanged;
+
+        public event Action<MediaState> MediaStateChanged;
 
         public void Pause()
         {
+            _player?.Pause();
         }
 
         public void Play()
         {
+            _player?.Play();
         }
-
-        public void PlayNext()
+        
+        public void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioplayerMode)
         {
+            throw new NotImplementedException();
         }
+        
         public async Task SetTrackAsync(Track track)
         {
             if (track != null)
@@ -50,27 +61,21 @@ namespace BSE.Tunes.XApp.iOS.Services
                 }
             }
         }
-
+        bool _downloadComplete;
         private async Task StreamDownloadHandler(Guid guid)
         {
             var buffer = new byte[8192];
             long totalNumberBytesRead = -1;
-            int bytesReceived = 0;
-            double sampleRate = 0;
 
+            _downloadComplete = false;
+            Console.WriteLine($"Downloader started");
             try
             {
                 using (_player = new StreamingPlayback())
                 {
-                    _player.OutputReady += delegate
-                    {
-                        //timeline = player.OutputQueue.CreateTimeline();
-                        sampleRate = _player.OutputQueue.SampleRate;
-                    };
-                    _player.Finished += delegate
-                    {
-
-                    };
+                    _player.OutputReady += OnPlayerOutputReady;
+                    _player.Finished += OnPlayerFinished;
+                    _player.AudioPlayerStateChanged += OnAudioPlayerStateChanged;
 
                     Uri requestUri = GetRequestUri(guid);
                     using (var httpClient = await _requestService.GetHttpClient(true))
@@ -78,20 +83,38 @@ namespace BSE.Tunes.XApp.iOS.Services
                         using (var response = await httpClient.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, CancellationToken.None))
                         {
                             long totalStreamLength = response.Content.Headers.ContentLength.GetValueOrDefault(totalNumberBytesRead);
-
+                            Console.WriteLine($"Stream Length: {totalStreamLength}");
+                            
                             using (var inputStream = await response.Content.ReadAsStreamAsync())
                             {
                                 do
                                 {
-                                    if (bytesReceived < totalStreamLength)
+                                    var bytesReceived = await inputStream.ReadAsync(buffer, 0, buffer.Length, CancellationToken.None);
+                                    if (bytesReceived == 0)
                                     {
-                                        bytesReceived = await inputStream.ReadAsync(buffer, 0, buffer.Length, CancellationToken.None);
+                                        Console.WriteLine($"0 bytesReceived at {totalNumberBytesRead} of {totalStreamLength}");
+                                    }
                                         //Console.WriteLine($"{ totalNumberBytesRead  } + {bytesReceived } from { totalStreamLength}");
                                         _player.ParseBytes(buffer, bytesReceived, false, totalNumberBytesRead == (int)totalStreamLength);
-                                        totalNumberBytesRead += bytesReceived;
+                                    if (totalNumberBytesRead == (int)totalStreamLength)
+                                    {
+                                        Console.WriteLine($"Last Packet");
                                     }
-                                }
-                                while (totalNumberBytesRead != totalStreamLength);
+                                    
+                                    totalNumberBytesRead += bytesReceived;
+                                } while (!_downloadComplete);
+                               
+                                //do
+                                //{
+                                //    //if (totalNumberBytesRead < totalStreamLength)
+                                //    {
+                                //        var bytesReceived = await inputStream.ReadAsync(buffer, 0, buffer.Length, CancellationToken.None);
+                                //        Console.WriteLine($"{ totalNumberBytesRead  } + {bytesReceived } from { totalStreamLength}");
+                                //        _player.ParseBytes(buffer, bytesReceived, false, totalNumberBytesRead == (int)totalStreamLength);
+                                //        totalNumberBytesRead += bytesReceived;
+                                //    }
+                                //}
+                                //while (totalNumberBytesRead != totalStreamLength);
                             }
                         }
                     }
@@ -99,7 +122,35 @@ namespace BSE.Tunes.XApp.iOS.Services
             }
             catch (Exception exception)
             {
-                var msg = exception.Message;
+                //throw exception;
+                Console.WriteLine($"Fähler: {exception.Message}");
+                //var msg = exception.Message;
+            }
+        }
+
+        private void OnPlayerOutputReady(AudioToolbox.OutputAudioQueue obj)
+        {
+            //sampleRate = _player.OutputQueue.SampleRate;
+            //obj.
+            //AudioPlayerStateChanged(AudioPlayerState.Opening);
+            Console.WriteLine($"Player: Output Ready ");
+            MediaStateChanged(MediaState.Opened);
+        }
+
+        private void OnPlayerFinished(object sender, EventArgs e)
+        {
+            //AudioPlayerStateChanged(AudioPlayerState.Closed);
+            Console.WriteLine($"Player: Output Finished");
+            _downloadComplete = true;
+            MediaStateChanged(MediaState.Ended);
+        }
+
+        private void OnAudioPlayerStateChanged(AudioPlayerState audioPlayerState)
+        {
+            if (audioPlayerState != AudioPlayerState)
+            {
+                AudioPlayerState = audioPlayerState;
+                AudioPlayerStateChanged(audioPlayerState);
             }
         }
 

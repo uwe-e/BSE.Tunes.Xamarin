@@ -1,11 +1,8 @@
-﻿using System;
+﻿using AudioToolbox;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using AudioToolbox;
-using Foundation;
-using UIKit;
 
 namespace BSE.Tunes.XApp.iOS
 {
@@ -24,14 +21,14 @@ namespace BSE.Tunes.XApp.iOS
 	{
 		public event EventHandler Finished;
 		public event Action<OutputAudioQueue> OutputReady;
+		public event Action<AudioPlayerState> AudioPlayerStateChanged;
 
 		// the AudioToolbox decoder
 		private AudioFileStream _audioFileStream;
-		private int _bufferSize = 128 * 1024;
 		private List<AudioBuffer> _outputBuffers;
 		private AudioBuffer _currentBuffer;
-		// Maximum buffers
-		private int _maxBufferCount = 4;
+		private AudioQueueStatus _audioQueueStatus = AudioQueueStatus.UnsupportedProperty;
+
 		// Keep track of all queued up buffers, so that we know that the playback finished
 		private int _queuedBufferCount = 0;
 		// Current Filestream Position - if we don't keep track we don't know when to push the last uncompleted buffer
@@ -59,35 +56,13 @@ namespace BSE.Tunes.XApp.iOS
 		/// <summary>
 		/// Defines the size forearch buffer, when using a slow source use more buffers with lower buffersizes
 		/// </summary>
-		public int BufferSize
-		{
-			get
-			{
-				return _bufferSize;
-			}
-
-			set
-			{
-				_bufferSize = value;
-			}
-		}
+		public int BufferSize { get; set; } = 128 * 1024;
 
 		/// <summary>
 		/// Defines the maximum Number of Buffers to use, the count can only change after Reset is called or the
 		/// StreamingPlayback is freshly instantiated
 		/// </summary>
-		public int MaxBufferCount
-		{
-			get
-			{
-				return _maxBufferCount;
-			}
-
-			set
-			{
-				_maxBufferCount = value;
-			}
-		}
+		public int MaxBufferCount { get; set; } = 4;
 
 		public StreamingPlayback() : this(AudioFileType.MP3)
 		{
@@ -133,7 +108,8 @@ namespace BSE.Tunes.XApp.iOS
 		/// </summary>
 		public void Pause()
 		{
-			OutputQueue.Pause();
+			CheckAudioQueueStatus(OutputQueue.Pause(), AudioPlayerState.Paused);
+			//OutputQueue.Pause();
 			Started = false;
 		}
 
@@ -142,7 +118,8 @@ namespace BSE.Tunes.XApp.iOS
 		/// </summary>
 		public void Play()
 		{
-			OutputQueue.Start();
+			CheckAudioQueueStatus(OutputQueue.Start(), AudioPlayerState.Playing);
+			//OutputQueue.Start();
 			Started = true;
 		}
 
@@ -170,7 +147,9 @@ namespace BSE.Tunes.XApp.iOS
 			{
 
 				if (OutputQueue != null)
+				{
 					OutputQueue.Stop(true);
+				}
 
 				if (_outputBuffers != null)
 				{
@@ -204,10 +183,9 @@ namespace BSE.Tunes.XApp.iOS
 			foreach (var p in args.PacketDescriptions)
 			{
 				_currentByteCount += p.DataByteSize;
-
 				AudioStreamPacketDescription pd = p;
 
-				int left = _bufferSize - _currentBuffer.CurrentOffset;
+				int left = BufferSize - _currentBuffer.CurrentOffset;
 				if (left < pd.DataByteSize)
 				{
 					EnqueueBuffer();
@@ -244,7 +222,7 @@ namespace BSE.Tunes.XApp.iOS
 		/// <summary>
 		/// Enqueue the active buffer to the OutputQueue
 		/// </summary>
-		void EnqueueBuffer()
+		private void EnqueueBuffer()
 		{
 			_currentBuffer.IsInUse = true;
 			OutputQueue.EnqueueBuffer(_currentBuffer.Buffer, _currentBuffer.CurrentOffset, _currentBuffer.PacketDescriptions.ToArray());
@@ -255,7 +233,7 @@ namespace BSE.Tunes.XApp.iOS
 		/// <summary>
 		/// Wait until a buffer is freed up
 		/// </summary>
-		void WaitForBuffer()
+		private void WaitForBuffer()
 		{
 			int curIndex = _outputBuffers.IndexOf(_currentBuffer);
 			_currentBuffer = _outputBuffers[curIndex < _outputBuffers.Count - 1 ? curIndex + 1 : 0];
@@ -267,7 +245,7 @@ namespace BSE.Tunes.XApp.iOS
 			}
 		}
 
-		void StartQueueIfNeeded()
+		private void StartQueueIfNeeded()
 		{
 			if (Started)
 				return;
@@ -278,7 +256,7 @@ namespace BSE.Tunes.XApp.iOS
 		/// <summary>
 		/// When a AudioProperty in the fed packets is found this callback is called
 		/// </summary>
-		void AudioPropertyFound(object sender, PropertyFoundEventArgs args)
+		private void AudioPropertyFound(object sender, PropertyFoundEventArgs args)
 		{
 			if (args.Property == AudioFileStreamProperty.BitRate)
 			{
@@ -292,8 +270,7 @@ namespace BSE.Tunes.XApp.iOS
 					OutputQueue.Dispose();
 
 				OutputQueue = new OutputAudioQueue(_audioFileStream.StreamBasicDescription);
-				if (OutputReady != null)
-					OutputReady(OutputQueue);
+				OutputReady?.Invoke(OutputQueue);
 
 				_currentByteCount = 0;
 				OutputQueue.BufferCompleted += HandleBufferCompleted;
@@ -319,7 +296,7 @@ namespace BSE.Tunes.XApp.iOS
 		/// <summary>
 		/// Is called when a buffer is completly read and can be freed up
 		/// </summary>
-		void HandleBufferCompleted(object sender, BufferCompletedEventArgs e)
+		private void HandleBufferCompleted(object sender, BufferCompletedEventArgs e)
 		{
 			_queuedBufferCount--;
 			IntPtr buf = e.IntPtrBuffer;
@@ -339,8 +316,25 @@ namespace BSE.Tunes.XApp.iOS
 				}
 			}
 
-			if (_queuedBufferCount == 0 && Finished != null)
-				Finished(this, new EventArgs());
+			if (_queuedBufferCount == 0)
+			{
+				Finished?.Invoke(this, new EventArgs());
+				CheckAudioQueueStatus(OutputQueue.Stop(true), AudioPlayerState.Closed);
+			}
+				
+		}
+
+		private void CheckAudioQueueStatus(AudioQueueStatus audioQueueStatus, AudioPlayerState mediaPlayerState = AudioPlayerState.Closed)
+		{
+			if (audioQueueStatus != _audioQueueStatus)
+			{
+				_audioQueueStatus = audioQueueStatus;
+			}
+
+			if (_audioQueueStatus == AudioQueueStatus.Ok)
+			{
+				AudioPlayerStateChanged?.Invoke(mediaPlayerState);
+			}
 		}
 	}
 }

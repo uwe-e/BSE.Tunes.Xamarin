@@ -99,17 +99,17 @@ namespace BSE.Tunes.XApp.Controls
 
         public EventHandler<PlayStateChangedEventArgs> PlayStateChanged;
 
-        PlayState CurrentPlayState { get; set; } = PlayState.Stopped;
+        AudioPlayerState CurrentPlayState { get; set; } = AudioPlayerState.Stopped;
 
         public void SendPauseClicked()
         {
-            PlayStateChanged?.Invoke(this, new PlayStateChangedEventArgs(PlayState.Playing, PlayState.Paused));
+            PlayStateChanged?.Invoke(this, new PlayStateChangedEventArgs(AudioPlayerState.Playing, AudioPlayerState.Paused));
             PauseCommand?.Execute(PauseCommandParameter);
         }
 
         public void SendPlayClicked()
         {
-            PlayStateChanged?.Invoke(this, new PlayStateChangedEventArgs(CurrentPlayState, PlayState.Playing));
+            PlayStateChanged?.Invoke(this, new PlayStateChangedEventArgs(CurrentPlayState, AudioPlayerState.Playing));
             PlayCommand?.Execute(PlayCommandParameter);
         }
 

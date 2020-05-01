@@ -1,8 +1,10 @@
-﻿using BSE.Tunes.XApp.Services;
+﻿using BSE.Tunes.XApp.Collections;
+using BSE.Tunes.XApp.Services;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
-using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
@@ -10,6 +12,7 @@ namespace BSE.Tunes.XApp.ViewModels
     public class RandomPlayerButtonViewModel : ViewModelBase
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IPlayerManager _playerManager;
         private readonly IDataService _dataService;
         private string _text;
         private ICommand _playRandomCommand;
@@ -31,16 +34,31 @@ namespace BSE.Tunes.XApp.ViewModels
         public RandomPlayerButtonViewModel(INavigationService navigationService,
             IEventAggregator eventAggregator,
             IResourceService resourceService,
+            IPlayerManager playerManager,
             IDataService dataService) : base(navigationService, resourceService)
         {
-            this._eventAggregator = eventAggregator;
-            this._dataService = dataService;
+            _eventAggregator = eventAggregator;
+            _playerManager = playerManager;
+            _dataService = dataService;
 
             LoadData();
         }
 
         private async void LoadData()
         {
+            ObservableCollection<int> trackIds = await _dataService.GetTrackIdsByGenre();
+            if (trackIds != null)
+            {
+                var randomTrackIds = trackIds.ToRandomCollection();
+                int trackId = randomTrackIds.FirstOrDefault();
+                if (trackId > 0)
+                {
+                    //_currentTrack = await _dataService.GetTrackById(trackId);
+                }
+                //_playlist = randomTrackIds.ToNavigableCollection();
+                _playerManager.Playlist = randomTrackIds.ToNavigableCollection();
+            }
+
             var sysInfo = await _dataService.GetSystemInfo();
             if (sysInfo != null)
             {

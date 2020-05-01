@@ -6,13 +6,13 @@ namespace BSE.Tunes.XApp
 {
     public class PlayStateChangedEventArgs : EventArgs
     {
-        public PlayStateChangedEventArgs(PlayState oldState, PlayState newState)
+        public PlayStateChangedEventArgs(AudioPlayerState oldState, AudioPlayerState newState)
         {
             OldState = oldState;
             NewState = newState;
         }
 
-        public PlayState OldState { get; }
-        public PlayState NewState { get; }
+        public AudioPlayerState OldState { get; }
+        public AudioPlayerState NewState { get; }
     }
 }

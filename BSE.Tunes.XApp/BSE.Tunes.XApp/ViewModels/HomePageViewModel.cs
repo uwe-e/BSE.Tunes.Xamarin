@@ -14,8 +14,8 @@ namespace BSE.Tunes.XApp.ViewModels
             IResourceService resourceService,
             IEventAggregator eventAggregator) : base(navigationService, resourceService)
         {
-            this._eventAggregator = eventAggregator;
-            this._eventAggregator.GetEvent<AlbumSelectedEvent>().Subscribe(SelectAlbum, ThreadOption.UIThread);
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<AlbumSelectedEvent>().Subscribe(SelectAlbum, ThreadOption.UIThread);
 
         }
         private async void SelectAlbum(Album album)

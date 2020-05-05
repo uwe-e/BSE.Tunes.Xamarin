@@ -4,6 +4,7 @@ using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using Foundation;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
@@ -16,7 +17,10 @@ namespace BSE.Tunes.XApp.iOS.Services
 {
     public class PlayerService : IPlayerService
     {
+        private Task _currentTask;
         private StreamingPlayback _player;
+        private CancellationTokenSource _cancellationTokenSource;
+        bool _playerOutputFinished;
         private IRequestService _requestService => DependencyService.Resolve<IRequestService>();
         private ISettingsService _settingsService => DependencyService.Resolve<ISettingsService>();
 
@@ -35,39 +39,78 @@ namespace BSE.Tunes.XApp.iOS.Services
         {
             _player?.Play();
         }
-        
+
+        public void Stop()
+        {
+            _player?.Stop();
+        }
+
         public void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioplayerMode)
         {
             throw new NotImplementedException();
         }
         
-        public async Task SetTrackAsync(Track track)
+        public void SetTrack(Track track)
         {
             if (track != null)
             {
+                if (_currentTask != null)
+                {
+                    if (_player != null)
+                    {
+                        _player.OutputReady -= OnPlayerOutputReady;
+                        _player.Finished -= OnPlayerFinished;
+                        _player.AudioPlayerStateChanged -= OnAudioPlayerStateChanged;
+                    }
+                    if (_cancellationTokenSource != null)
+                    {
+                        _cancellationTokenSource.Cancel();
+                        _cancellationTokenSource.Dispose();
+                        _cancellationTokenSource = null;
+                    }
+                    _currentTask.Wait();
+                    _currentTask.Dispose();
+                    _currentTask = null;
+                }
+
+                _cancellationTokenSource = new CancellationTokenSource();
                 Guid guid = track.Guid;
                 //guid = new Guid("f856d83e-cf83-425f-b2e2-254ad704e766");
                 // Create a shared intance session & check
-                using (var session = AVAudioSession.SharedInstance())
+                //using (var session = AVAudioSession.SharedInstance())
+                //{
+                //if (session != null)
                 {
-                    if (session != null)
-                    {
-                        await Task.Run(() => StreamDownloadHandler(guid));
-                        // Set up the session for playback category
-                        NSError error;
-                        session.SetCategory(AVAudioSessionCategory.Playback, AVAudioSessionCategoryOptions.DefaultToSpeaker);
-                        session.OverrideOutputAudioPort(AVAudioSessionPortOverride.Speaker, out error);
-                    }
+                    _currentTask = Task.Run(() => StreamDownloadHandler(guid, _cancellationTokenSource.Token));
+
+                    //_tasks.Add(t);
+                    //await Task.Run(() => StreamDownloadHandler(guid));
+                    // Set up the session for playback category
+                    //NSError error;
+                    //session.SetCategory(AVAudioSessionCategory.Playback, AVAudioSessionCategoryOptions.DefaultToSpeaker);
+                    //session.OverrideOutputAudioPort(AVAudioSessionPortOverride.Speaker, out error);
                 }
+                //}
             }
+            //return null;
         }
-        bool _downloadComplete;
-        private async Task StreamDownloadHandler(Guid guid)
+        
+        private async Task StreamDownloadHandler(Guid guid, CancellationToken cancellationToken)
         {
             var buffer = new byte[8192];
             long totalNumberBytesRead = -1;
 
-            _downloadComplete = false;
+            _playerOutputFinished = false;
+
+            if (_player != null)
+            {
+                _player.OutputReady -= OnPlayerOutputReady;
+                _player.Finished -= OnPlayerFinished;
+                _player.AudioPlayerStateChanged -= OnAudioPlayerStateChanged;
+                _player?.FlushAndClose();
+                _player = null;
+            }
+
             Console.WriteLine($"Downloader started");
             try
             {
@@ -80,41 +123,25 @@ namespace BSE.Tunes.XApp.iOS.Services
                     Uri requestUri = GetRequestUri(guid);
                     using (var httpClient = await _requestService.GetHttpClient(true))
                     {
-                        using (var response = await httpClient.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, CancellationToken.None))
+                        using (var response = await httpClient.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
                         {
-                            long totalStreamLength = response.Content.Headers.ContentLength.GetValueOrDefault(totalNumberBytesRead);
+                            long totalStreamLength = response.Content.Headers.ContentLength.GetValueOrDefault(totalNumberBytesRead) - 1;
                             Console.WriteLine($"Stream Length: {totalStreamLength}");
-                            
+
                             using (var inputStream = await response.Content.ReadAsStreamAsync())
                             {
                                 do
                                 {
-                                    var bytesReceived = await inputStream.ReadAsync(buffer, 0, buffer.Length, CancellationToken.None);
+                                    var bytesReceived = await inputStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
                                     if (bytesReceived == 0)
                                     {
                                         Console.WriteLine($"0 bytesReceived at {totalNumberBytesRead} of {totalStreamLength}");
                                     }
-                                        //Console.WriteLine($"{ totalNumberBytesRead  } + {bytesReceived } from { totalStreamLength}");
-                                        _player.ParseBytes(buffer, bytesReceived, false, totalNumberBytesRead == (int)totalStreamLength);
-                                    if (totalNumberBytesRead == (int)totalStreamLength)
-                                    {
-                                        Console.WriteLine($"Last Packet");
-                                    }
-                                    
+                                    //Console.WriteLine($"{ totalNumberBytesRead  } + {bytesReceived } from { totalStreamLength}");
+                                    _player.ParseBytes(buffer, bytesReceived, false, totalNumberBytesRead == (int)totalStreamLength);
+
                                     totalNumberBytesRead += bytesReceived;
-                                } while (!_downloadComplete);
-                               
-                                //do
-                                //{
-                                //    //if (totalNumberBytesRead < totalStreamLength)
-                                //    {
-                                //        var bytesReceived = await inputStream.ReadAsync(buffer, 0, buffer.Length, CancellationToken.None);
-                                //        Console.WriteLine($"{ totalNumberBytesRead  } + {bytesReceived } from { totalStreamLength}");
-                                //        _player.ParseBytes(buffer, bytesReceived, false, totalNumberBytesRead == (int)totalStreamLength);
-                                //        totalNumberBytesRead += bytesReceived;
-                                //    }
-                                //}
-                                //while (totalNumberBytesRead != totalStreamLength);
+                                } while (!_playerOutputFinished || cancellationToken.IsCancellationRequested);
                             }
                         }
                     }
@@ -122,9 +149,7 @@ namespace BSE.Tunes.XApp.iOS.Services
             }
             catch (Exception exception)
             {
-                //throw exception;
-                Console.WriteLine($"Fähler: {exception.Message}");
-                //var msg = exception.Message;
+                Console.WriteLine($"Exception thrown in {nameof(StreamDownloadHandler)} with message {exception.Message}");
             }
         }
 
@@ -139,9 +164,8 @@ namespace BSE.Tunes.XApp.iOS.Services
 
         private void OnPlayerFinished(object sender, EventArgs e)
         {
-            //AudioPlayerStateChanged(AudioPlayerState.Closed);
             Console.WriteLine($"Player: Output Finished");
-            _downloadComplete = true;
+            _playerOutputFinished = true;
             MediaStateChanged(MediaState.Ended);
         }
 

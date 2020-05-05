@@ -22,7 +22,8 @@ namespace BSE.Tunes.XApp.iOS
 		public event EventHandler Finished;
 		public event Action<OutputAudioQueue> OutputReady;
 		public event Action<AudioPlayerState> AudioPlayerStateChanged;
-
+		// If the player has stopped by user action
+		private bool _stopPlayer;
 		// the AudioToolbox decoder
 		private AudioFileStream _audioFileStream;
 		private List<AudioBuffer> _outputBuffers;
@@ -39,6 +40,7 @@ namespace BSE.Tunes.XApp.iOS
 		public OutputAudioQueue OutputQueue;
 
 		public bool Started { get; private set; }
+		
 
 		public float Volume
 		{
@@ -121,8 +123,15 @@ namespace BSE.Tunes.XApp.iOS
 			CheckAudioQueueStatus(OutputQueue.Start(), AudioPlayerState.Playing);
 			//OutputQueue.Start();
 			Started = true;
+			_stopPlayer = false;
 		}
 
+		public void Stop()
+		{
+			_stopPlayer = true;
+			CheckAudioQueueStatus(OutputQueue.Stop(true), AudioPlayerState.Stopped);
+			Started = false;
+		}
 		/// <summary>
 		/// Main methode to kick off the streaming, just send the bytes to this method
 		/// </summary>
@@ -134,6 +143,7 @@ namespace BSE.Tunes.XApp.iOS
 
 		public void Dispose()
 		{
+			Console.WriteLine("Player disposing");
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
@@ -145,16 +155,20 @@ namespace BSE.Tunes.XApp.iOS
 		{
 			if (disposing)
 			{
-
 				if (OutputQueue != null)
 				{
-					OutputQueue.Stop(true);
+					OutputQueue?.Stop(true);
 				}
 
 				if (_outputBuffers != null)
 				{
 					foreach (var b in _outputBuffers)
-						OutputQueue.FreeBuffer(b.Buffer);
+					{
+						if (b != null)
+						{
+							OutputQueue?.FreeBuffer(b.Buffer);
+						}
+					}
 
 					_outputBuffers.Clear();
 					_outputBuffers = null;
@@ -166,11 +180,37 @@ namespace BSE.Tunes.XApp.iOS
 					_audioFileStream = null;
 				}
 
+
 				if (OutputQueue != null)
 				{
-					OutputQueue.Dispose();
+					OutputQueue?.Dispose();
 					OutputQueue = null;
 				}
+				//if (OutputQueue != null)
+				//{
+				//	OutputQueue.Stop(true);
+				//}
+
+				//if (_outputBuffers != null)
+				//{
+				//	foreach (var b in _outputBuffers)
+				//		OutputQueue.FreeBuffer(b.Buffer);
+
+				//	_outputBuffers.Clear();
+				//	_outputBuffers = null;
+				//}
+
+				//if (_audioFileStream != null)
+				//{
+				//	_audioFileStream.Close();
+				//	_audioFileStream = null;
+				//}
+
+				//if (OutputQueue != null)
+				//{
+				//	OutputQueue.Dispose();
+				//	OutputQueue = null;
+				//}
 			}
 		}
 
@@ -316,10 +356,9 @@ namespace BSE.Tunes.XApp.iOS
 				}
 			}
 
-			if (_queuedBufferCount == 0)
+			if (_queuedBufferCount == 0 && !_stopPlayer)
 			{
 				Finished?.Invoke(this, new EventArgs());
-				CheckAudioQueueStatus(OutputQueue.Stop(true), AudioPlayerState.Closed);
 			}
 				
 		}

@@ -12,9 +12,10 @@ namespace BSE.Tunes.XApp.Services
         AudioPlayerState AudioPlayerState { get; }
         event Action<AudioPlayerState> AudioPlayerStateChanged;
         event Action<MediaState> MediaStateChanged;
-        Task SetTrackAsync(Track track);
+        void SetTrack(Track track);
         void Play();
         void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioplayerMode);
         void Pause();
+        void Stop();
     }
 }

@@ -13,7 +13,6 @@ namespace BSE.Tunes.XApp.Services
     {
         private readonly IDataService _dataService;
         private readonly IEventAggregator _eventAggregator;
-
         private IPlayerService _playerService { get; }
 
         public NavigableCollection<int> Playlist { get; set; }
@@ -50,7 +49,7 @@ namespace BSE.Tunes.XApp.Services
                 Track track = await _dataService.GetTrackById(trackId);
                 if (track != null)
                 {
-                    await SetTrackAsync(track);
+                    _playerService.SetTrack(track);
                 }
             }
         }
@@ -58,18 +57,6 @@ namespace BSE.Tunes.XApp.Services
         public void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioPlayerMode)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task SetTrackAsync(Track track)
-        {
-            try
-            {
-                await _playerService?.SetTrackAsync(track);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
         public bool CanPlay()
@@ -88,14 +75,15 @@ namespace BSE.Tunes.XApp.Services
             {
                 if (Playlist.MoveNext())
                 {
+                    _playerService.Stop();
                     var trackId = Playlist.Current;
                     if (trackId > 0)
                     {
                         Track track = await _dataService.GetTrackById(trackId);
                         if (track != null)
                         {
-                            Console.WriteLine($"Next Track Requested");
-                            await SetTrackAsync(track);
+                            Console.WriteLine($"Next Track with ID {track.Id} requested: ");
+                            _playerService.SetTrack(track);
                         }
                     }
                 }

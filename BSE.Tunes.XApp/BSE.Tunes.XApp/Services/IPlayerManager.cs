@@ -17,6 +17,5 @@ namespace BSE.Tunes.XApp.Services
         void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioPlayerMode);
         void PlayNextTrack();
         void Pause();
-        Task SetTrackAsync(Track track);
     }
 }

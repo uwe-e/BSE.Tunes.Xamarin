@@ -15,5 +15,7 @@ namespace BSE.Tunes.XApp.Controls
 
         object PlayNextCommandParameter { get; set; }
         ICommand PlayNextCommand { get; set; }
+
+        object Progress { get; set; }
     }
 }

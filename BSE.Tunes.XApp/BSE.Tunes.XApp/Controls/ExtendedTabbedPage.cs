@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace BSE.Tunes.XApp.Controls
 {
@@ -49,8 +50,6 @@ namespace BSE.Tunes.XApp.Controls
                propertyChanging: OnPlayNextCommandChanging,
                propertyChanged: OnPlayNextCommandChanged);
 
-
-
         public static readonly BindableProperty PlayNextCommandParameterProperty
             = BindableProperty.Create(
                 nameof(IPlayerElement.PlayNextCommandParameter),
@@ -59,7 +58,11 @@ namespace BSE.Tunes.XApp.Controls
                 null,
                 propertyChanged: (bindable, oldvalue, newvalue) => PlayNextCommandCanExecuteChanged(bindable, EventArgs.Empty));
 
-
+        public static readonly BindableProperty ProgressProperty
+            = BindableProperty.Create(
+                nameof(IPlayerElement.Progress),
+                typeof(double),
+                typeof(IPlayerElement), 0d, coerceValue: (bo, v) => ((double)v).Clamp(0, 1));
 
         public ICommand PlayCommand
         {
@@ -95,6 +98,12 @@ namespace BSE.Tunes.XApp.Controls
         {
             get { return GetValue(PlayNextCommandParameterProperty); }
             set { SetValue(PlayNextCommandParameterProperty, value); }
+        }
+
+        public double Progress
+        {
+            get { return (double)GetValue(ProgressProperty); }
+            set { SetValue(ProgressProperty, value); }
         }
 
         public EventHandler<PlayStateChangedEventArgs> PlayStateChanged;

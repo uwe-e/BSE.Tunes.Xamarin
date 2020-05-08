@@ -19,6 +19,7 @@ namespace BSE.Tunes.XApp.Services
         public AudioPlayerMode AudioPlayerMode { get; private set; }
         public Track CurrentTrack => throw new NotImplementedException();
         public AudioPlayerState AudioPlayerState { get; private set; } = AudioPlayerState.Closed;
+        public float Progress => _playerService?.Progress ?? default;
 
         public PlayerManager(IDataService dataService,
             IPlayerService playerService,
@@ -110,6 +111,7 @@ namespace BSE.Tunes.XApp.Services
                     }
                     break;
             }
+            _eventAggregator.GetEvent<MediaStateChangedEvent>().Publish(mediaState);
         }
     }
 }

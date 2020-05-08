@@ -1,4 +1,5 @@
 ﻿using BSE.Tunes.XApp.Collections;
+using BSE.Tunes.XApp.Controls;
 using BSE.Tunes.XApp.Events;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
@@ -8,6 +9,7 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -17,6 +19,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly IPageDialogService _pageDialogService;
         private Track _currentTrack;
+        private Timer _progressTimer ;
         private ICommand _playCommand;
         private ICommand _pauseCommand;
         private ICommand _playNextCommand;
@@ -71,10 +74,45 @@ namespace BSE.Tunes.XApp.ViewModels
                     if (AudioPlayerState != audioPlayerState)
                     {
                         AudioPlayerState = audioPlayerState;
+
+                        switch (audioPlayerState)
+                        {
+                            case AudioPlayerState.Stopped:
+                            case AudioPlayerState.Paused:
+                                _progressTimer?.Stop();
+                                break;
+                            case AudioPlayerState.Playing:
+                                _progressTimer?.Start();
+                                break;
+                        }
+                    }
+                    
+                };
+            }, ThreadOption.UIThread);
+            _eventAggregator.GetEvent<MediaStateChangedEvent>().Subscribe((args) => {
+                if (args is MediaState mediaState)
+                {
+                    switch (mediaState)
+                    {
+                        case MediaState.Opened:
+                            OnMediaOpenend();
+                            break;
+                        case MediaState.Ended:
+                            OnMediaEnded();
+                            break;
                     }
                 };
             }, ThreadOption.UIThread);
+
+            _progressTimer = new Timer(TimeSpan.FromSeconds(1), OnTimerTick);
         }
+
+        private void OnTimerTick()
+        {
+            Console.WriteLine($"Tick Tick {_playerManager?.Progress }");
+        }
+
+
 
         //private bool CanPlay()
         //{
@@ -96,6 +134,7 @@ namespace BSE.Tunes.XApp.ViewModels
                         break;
                     case AudioPlayerState.Paused:
                         _playerManager.Play();
+
                         break;
                 }
             }
@@ -127,6 +166,16 @@ namespace BSE.Tunes.XApp.ViewModels
         private void PlayNext()
         {
             _playerManager.PlayNextTrack();
+        }
+        
+        private void OnMediaEnded()
+        {
+            _progressTimer?.Stop();
+        }
+
+        private void OnMediaOpenend()
+        {
+            _progressTimer?.Start();
         }
     }
 }

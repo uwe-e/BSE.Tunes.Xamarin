@@ -40,7 +40,7 @@ namespace BSE.Tunes.XApp.iOS
 		public OutputAudioQueue OutputQueue;
 
 		public bool Started { get; private set; }
-		
+
 
 		public float Volume
 		{
@@ -59,7 +59,7 @@ namespace BSE.Tunes.XApp.iOS
 		/// Defines the size forearch buffer, when using a slow source use more buffers with lower buffersizes
 		/// </summary>
 		public int BufferSize { get; set; } = 128 * 1024;
-
+		public int BitRate {get; private set;}
 		/// <summary>
 		/// Defines the maximum Number of Buffers to use, the count can only change after Reset is called or the
 		/// StreamingPlayback is freshly instantiated
@@ -75,6 +75,7 @@ namespace BSE.Tunes.XApp.iOS
 			_audioFileStream = new AudioFileStream(type);
 			_audioFileStream.PacketDecoded += AudioPacketDecoded;
 			_audioFileStream.PropertyFound += AudioPropertyFound;
+
 		}
 
 		public void Reset()
@@ -111,7 +112,6 @@ namespace BSE.Tunes.XApp.iOS
 		public void Pause()
 		{
 			CheckAudioQueueStatus(OutputQueue.Pause(), AudioPlayerState.Paused);
-			//OutputQueue.Pause();
 			Started = false;
 		}
 
@@ -121,7 +121,6 @@ namespace BSE.Tunes.XApp.iOS
 		public void Play()
 		{
 			CheckAudioQueueStatus(OutputQueue.Start(), AudioPlayerState.Playing);
-			//OutputQueue.Start();
 			Started = true;
 			_stopPlayer = false;
 		}
@@ -186,31 +185,6 @@ namespace BSE.Tunes.XApp.iOS
 					OutputQueue?.Dispose();
 					OutputQueue = null;
 				}
-				//if (OutputQueue != null)
-				//{
-				//	OutputQueue.Stop(true);
-				//}
-
-				//if (_outputBuffers != null)
-				//{
-				//	foreach (var b in _outputBuffers)
-				//		OutputQueue.FreeBuffer(b.Buffer);
-
-				//	_outputBuffers.Clear();
-				//	_outputBuffers = null;
-				//}
-
-				//if (_audioFileStream != null)
-				//{
-				//	_audioFileStream.Close();
-				//	_audioFileStream = null;
-				//}
-
-				//if (OutputQueue != null)
-				//{
-				//	OutputQueue.Dispose();
-				//	OutputQueue = null;
-				//}
 			}
 		}
 
@@ -220,6 +194,13 @@ namespace BSE.Tunes.XApp.iOS
 		/// </summary>
 		void AudioPacketDecoded(object sender, PacketReceivedEventArgs args)
 		{
+			if (BitRate == 0)
+			{
+				BitRate = ((AudioFileStream)sender).BitRate;
+
+				//((AudioFileStream)sender).DataOffset
+			}
+			
 			foreach (var p in args.PacketDescriptions)
 			{
 				_currentByteCount += p.DataByteSize;
@@ -298,14 +279,10 @@ namespace BSE.Tunes.XApp.iOS
 		/// </summary>
 		private void AudioPropertyFound(object sender, PropertyFoundEventArgs args)
 		{
-			if (args.Property == AudioFileStreamProperty.BitRate)
-			{
-
-			}
 			if (args.Property == AudioFileStreamProperty.ReadyToProducePackets)
 			{
 				Started = false;
-
+				
 				if (OutputQueue != null)
 					OutputQueue.Dispose();
 

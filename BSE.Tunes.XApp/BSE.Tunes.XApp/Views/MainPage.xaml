@@ -15,7 +15,7 @@
     NavigationPage.HasNavigationBar="False"
     PlayCommand="{Binding PlayCommand}"
     PauseCommand="{Binding PauseCommand}"
-    PlayNextCommand="{Binding PlayNextCommand}">
+    PlayNextCommand="{Binding PlayNextCommand}" Progress="0.4">
 
     <TabbedPage.Children>
         <NavigationPage Title="{i18n:Translate HomePage_Title}"

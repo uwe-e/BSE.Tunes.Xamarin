@@ -1,10 +1,10 @@
-﻿using AVFoundation;
+﻿using AudioToolbox;
+using AVFoundation;
 using BSE.Tunes.XApp.iOS.Services;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using Foundation;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
@@ -18,13 +18,20 @@ namespace BSE.Tunes.XApp.iOS.Services
     public class PlayerService : IPlayerService
     {
         private Task _currentTask;
+        private AudioQueueTimeline _audioQueueTimeline = null;
         private StreamingPlayback _player;
         private CancellationTokenSource _cancellationTokenSource;
-        bool _playerOutputFinished;
+        private bool _playerOutputFinished;
+        private long _totalStreamLength;
+
         private IRequestService _requestService => DependencyService.Resolve<IRequestService>();
         private ISettingsService _settingsService => DependencyService.Resolve<ISettingsService>();
 
         public AudioPlayerState AudioPlayerState { get; private set; } = AudioPlayerState.Closed;
+
+        public float Progress => GetProgress();
+
+        
 
         public event Action<AudioPlayerState> AudioPlayerStateChanged;
 
@@ -49,7 +56,7 @@ namespace BSE.Tunes.XApp.iOS.Services
         {
             throw new NotImplementedException();
         }
-        
+
         public void SetTrack(Track track)
         {
             if (track != null)
@@ -77,30 +84,28 @@ namespace BSE.Tunes.XApp.iOS.Services
                 Guid guid = track.Guid;
                 //guid = new Guid("f856d83e-cf83-425f-b2e2-254ad704e766");
                 // Create a shared intance session & check
-                //using (var session = AVAudioSession.SharedInstance())
-                //{
-                //if (session != null)
+                using (var session = AVAudioSession.SharedInstance())
                 {
-                    _currentTask = Task.Run(() => StreamDownloadHandler(guid, _cancellationTokenSource.Token));
+                    if (session != null)
+                    {
+                        _currentTask = Task.Run(() => StreamDownloadHandler(guid, _cancellationTokenSource.Token));
 
-                    //_tasks.Add(t);
-                    //await Task.Run(() => StreamDownloadHandler(guid));
-                    // Set up the session for playback category
-                    //NSError error;
-                    //session.SetCategory(AVAudioSessionCategory.Playback, AVAudioSessionCategoryOptions.DefaultToSpeaker);
-                    //session.OverrideOutputAudioPort(AVAudioSessionPortOverride.Speaker, out error);
+                        // Set up the session for playback category
+                        session.SetCategory(AVAudioSessionCategory.Playback, AVAudioSessionCategoryOptions.DefaultToSpeaker);
+                        session.OverrideOutputAudioPort(AVAudioSessionPortOverride.Speaker, out NSError error);
+                    }
                 }
-                //}
             }
-            //return null;
         }
-        
+
         private async Task StreamDownloadHandler(Guid guid, CancellationToken cancellationToken)
         {
             var buffer = new byte[8192];
             long totalNumberBytesRead = -1;
 
             _playerOutputFinished = false;
+            _totalStreamLength = 0L;
+            _audioQueueTimeline = null;
 
             if (_player != null)
             {
@@ -123,22 +128,22 @@ namespace BSE.Tunes.XApp.iOS.Services
                     Uri requestUri = GetRequestUri(guid);
                     using (var httpClient = await _requestService.GetHttpClient(true))
                     {
-                        using (var response = await httpClient.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                        using (var response = await TryGetAsync(0, requestUri, httpClient, cancellationToken))
                         {
-                            long totalStreamLength = response.Content.Headers.ContentLength.GetValueOrDefault(totalNumberBytesRead) - 1;
-                            Console.WriteLine($"Stream Length: {totalStreamLength}");
+                            _totalStreamLength = response.Content.Headers.ContentLength.GetValueOrDefault(totalNumberBytesRead) - 1;
+                            Console.WriteLine($"Stream Length: {_totalStreamLength}");
 
                             using (var inputStream = await response.Content.ReadAsStreamAsync())
                             {
                                 do
                                 {
                                     var bytesReceived = await inputStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
-                                    if (bytesReceived == 0)
-                                    {
-                                        Console.WriteLine($"0 bytesReceived at {totalNumberBytesRead} of {totalStreamLength}");
-                                    }
+                                    //if (bytesReceived == 0)
+                                    //{
+                                    //    Console.WriteLine($"0 bytesReceived at {totalNumberBytesRead} of {totalStreamLength}");
+                                    //}
                                     //Console.WriteLine($"{ totalNumberBytesRead  } + {bytesReceived } from { totalStreamLength}");
-                                    _player.ParseBytes(buffer, bytesReceived, false, totalNumberBytesRead == (int)totalStreamLength);
+                                    _player.ParseBytes(buffer, bytesReceived, false, totalNumberBytesRead == (int)_totalStreamLength);
 
                                     totalNumberBytesRead += bytesReceived;
                                 } while (!_playerOutputFinished || cancellationToken.IsCancellationRequested);
@@ -147,18 +152,37 @@ namespace BSE.Tunes.XApp.iOS.Services
                     }
                 }
             }
+            catch (HttpRequestException exception)
+            {
+                Console.WriteLine($"no request possible");
+                throw exception;
+            }
             catch (Exception exception)
             {
                 Console.WriteLine($"Exception thrown in {nameof(StreamDownloadHandler)} with message {exception.Message}");
             }
         }
 
-        private void OnPlayerOutputReady(AudioToolbox.OutputAudioQueue obj)
+        private static async Task<HttpResponseMessage> TryGetAsync(int attempt, Uri requestUri, HttpClient httpClient, CancellationToken cancellationToken)
         {
-            //sampleRate = _player.OutputQueue.SampleRate;
-            //obj.
-            //AudioPlayerStateChanged(AudioPlayerState.Opening);
-            Console.WriteLine($"Player: Output Ready ");
+            var responseMessage = await httpClient.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            if (attempt == 3)
+            {
+                throw new HttpRequestException("GetAsync aborted after 3 attempts");
+            }
+            if (responseMessage.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                await Task.Delay(1000);
+                return await TryGetAsync(attempt += 1, requestUri, httpClient, cancellationToken);
+            }
+            return responseMessage;
+        }
+
+        private void OnPlayerOutputReady(AudioToolbox.OutputAudioQueue outputAudioQueue)
+        {
+            Console.WriteLine($"Player: Output Ready");
+            
+            _audioQueueTimeline = outputAudioQueue.CreateTimeline();
             MediaStateChanged(MediaState.Opened);
         }
 
@@ -183,6 +207,27 @@ namespace BSE.Tunes.XApp.iOS.Services
             var builder = new UriBuilder(_settingsService.ServiceEndPoint);
             builder.Path = Path.Combine(builder.Path, $"/api/files/audio/{guid}");
             return builder.Uri;
+        }
+        
+        private float GetProgress()
+        {
+            var queue = _player.OutputQueue;
+            if (queue == null || _audioQueueTimeline == null)
+            {
+                return default;
+            }
+
+            bool timelineDiscontinuty = false;
+            var audioTimeStamp = new AudioTimeStamp();
+
+            queue.GetCurrentTime(
+                _audioQueueTimeline,
+                ref audioTimeStamp,
+                ref timelineDiscontinuty); ;
+
+            return (float)(audioTimeStamp.SampleTime
+                / _player?.OutputQueue.SampleRate
+                / (_totalStreamLength * 8 / _player.BitRate));
         }
     }
 }

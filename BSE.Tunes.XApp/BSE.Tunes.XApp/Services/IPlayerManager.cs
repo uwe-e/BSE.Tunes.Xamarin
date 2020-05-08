@@ -10,6 +10,7 @@ namespace BSE.Tunes.XApp.Services
         NavigableCollection<int> Playlist { get; set; }
         AudioPlayerMode AudioPlayerMode { get; }
         Track CurrentTrack { get; }
+        float Progress { get; }
         bool CanPlay();
         bool CanPlayNextTrack();
         void Play();

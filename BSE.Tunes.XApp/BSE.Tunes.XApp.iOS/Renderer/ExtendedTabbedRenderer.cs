@@ -19,6 +19,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         UIButton _playButton;
         UIButton _playNextButton;
         UIView _playerBar;
+        UIProgressView _progressView;
 
         AudioPlayerState CurrentAudioPlayerState { get; set; } = AudioPlayerState.Closed;
         ExtendedTabbedPage Page => Element as ExtendedTabbedPage;
@@ -72,6 +73,13 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         private void SetupUserInterface()
         {
             var rightX = View.Bounds.Right - 47;
+
+            _progressView = new UIProgressView()
+            {
+                Frame = new CGRect(View.Bounds.Left + 2, View.Bounds.Top, View.Bounds.Width - 4, 7),
+                Progress = (float)Page.Progress
+            };
+            //_progressView.SetProgress(25, true);
             
             _playButton = new UIButton()
             {
@@ -94,6 +102,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             {
                 BackgroundColor = ((TabbedPage)Element).BarBackgroundColor.ToUIColor()
             };
+            _playerBar.Add(_progressView);
             _playerBar.Add(_playButton);
             _playerBar.Add(_playNextButton);
 

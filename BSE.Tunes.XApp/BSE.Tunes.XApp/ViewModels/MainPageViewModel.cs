@@ -26,6 +26,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private NavigableCollection<int> _playlist;
         private AudioPlayerState _audioPlayerState = AudioPlayerState.Closed;
         private AudioPlayerMode _audioPlayerMode = AudioPlayerMode.None;
+        private float _progress;
 
         public ICommand PlayCommand => _playCommand
             ?? (_playCommand = new DelegateCommand(Play));
@@ -55,6 +56,18 @@ namespace BSE.Tunes.XApp.ViewModels
             set
             {
                 SetProperty<AudioPlayerMode>(ref _audioPlayerMode, value);
+            }
+        }
+
+        public float Progress
+        {
+            get
+            {
+                return _progress;
+            }
+            set
+            {
+                SetProperty<float>(ref _progress, value);
             }
         }
 
@@ -104,15 +117,13 @@ namespace BSE.Tunes.XApp.ViewModels
                 };
             }, ThreadOption.UIThread);
 
-            _progressTimer = new Timer(TimeSpan.FromSeconds(1), OnTimerTick);
+            _progressTimer = new Timer(TimeSpan.FromSeconds(1), ProgressTimerAction);
         }
 
-        private void OnTimerTick()
+        private void ProgressTimerAction()
         {
-            Console.WriteLine($"Tick Tick {_playerManager?.Progress }");
+            Progress = _playerManager?.Progress ?? default;
         }
-
-
 
         //private bool CanPlay()
         //{

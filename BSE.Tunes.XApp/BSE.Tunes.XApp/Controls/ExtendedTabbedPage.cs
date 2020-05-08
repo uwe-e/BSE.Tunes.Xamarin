@@ -60,9 +60,9 @@ namespace BSE.Tunes.XApp.Controls
 
         public static readonly BindableProperty ProgressProperty
             = BindableProperty.Create(
-                nameof(IPlayerElement.Progress),
+                nameof(Progress),
                 typeof(double),
-                typeof(IPlayerElement), 0d, coerceValue: (bo, v) => ((double)v).Clamp(0, 1));
+                typeof(ExtendedTabbedPage), 0d, coerceValue: (bo, v) => ((double)v).Clamp(0, 1));
 
         public ICommand PlayCommand
         {

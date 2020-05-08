@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BSE.Tunes.XApp.Controls;
+﻿using BSE.Tunes.XApp.Controls;
 using BSE.Tunes.XApp.iOS.Renderer;
 using BSE.Tunes.XApp.Services;
 using CoreGraphics;
-using Foundation;
+using System;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -24,26 +20,6 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         AudioPlayerState CurrentAudioPlayerState { get; set; } = AudioPlayerState.Closed;
         ExtendedTabbedPage Page => Element as ExtendedTabbedPage;
         IDataService DataService => DependencyService.Resolve<IDataService>();
-
-        protected override void OnElementChanged(VisualElementChangedEventArgs e)
-        {
-            base.OnElementChanged(e);
-            
-            if (e.OldElement != null || Page == null)
-            {
-                return;
-            }
-            try
-            {
-                SetupUserInterface();
-
-                Page.PlayStateChanged += OnPlayStateChanged;
-            }
-            catch (Exception exception)
-            {
-                System.Diagnostics.Debug.WriteLine($"\t\t\tERROR: {exception.Message}");
-            }
-        }
 
         public override void ViewDidLayoutSubviews()
         {
@@ -63,11 +39,37 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             var frame = View.Frame;
             var tabBarFrame = TabBar.Frame;
             var playerFrame = _playerBar.Frame;
-            
+
             _playerBar.Frame = new System.Drawing.RectangleF((float)Element.X, (float)(frame.Top + frame.Height - tabBarFrame.Height - 50), (float)Element.Width, (float)50);
-            
+
             Page.ContainerArea = new Rectangle(0, 0, frame.Width, frame.Height - playerFrame.Height - tabBarFrame.Height);
 
+        }
+
+        protected override void OnElementChanged(VisualElementChangedEventArgs e)
+        {
+            base.OnElementChanged(e);
+
+            if (e.OldElement != null || Page == null)
+            {
+                return;
+            }
+            try
+            {
+                SetupUserInterface();
+                Page.PropertyChanged += OnPropertyChanged;
+                Page.PlayStateChanged += OnPlayStateChanged;
+            }
+            catch (Exception exception)
+            {
+                System.Diagnostics.Debug.WriteLine($"\t\t\tERROR: {exception.Message}");
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            Page.PropertyChanged -= OnPropertyChanged;
+            base.Dispose(disposing);
         }
 
         private void SetupUserInterface()
@@ -79,8 +81,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
                 Frame = new CGRect(View.Bounds.Left + 2, View.Bounds.Top, View.Bounds.Width - 4, 7),
                 Progress = (float)Page.Progress
             };
-            //_progressView.SetProgress(25, true);
-            
+
             _playButton = new UIButton()
             {
                 Frame = new CGRect(rightX - 47, 7, 33, 33)
@@ -107,7 +108,14 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             _playerBar.Add(_playNextButton);
 
             View.Add(_playerBar);
-           
+
+        }
+        private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Page.Progress))
+            {
+                _progressView.SetProgress((float)Page.Progress, Page.Progress == default ? false : true);
+            }
         }
 
         private void OnPlayStateChanged(object sender, PlayStateChangedEventArgs args)
@@ -139,7 +147,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             }
             element?.SendPlayClicked();
         }
-        
+
         private void PlayNextButtonTouchUpInside(object sender, EventArgs e)
         {
             OnPlayNextButtonTouchUpInside(Element as IPlayerController, CurrentAudioPlayerState);

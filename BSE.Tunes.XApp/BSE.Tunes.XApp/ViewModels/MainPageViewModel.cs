@@ -9,7 +9,6 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -18,7 +17,9 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly IPlayerManager _playerManager;
         private readonly IEventAggregator _eventAggregator;
         private readonly IPageDialogService _pageDialogService;
+        private readonly IDataService _dataService;
         private Track _currentTrack;
+        private Uri _coverSource;
         private Timer _progressTimer ;
         private ICommand _playCommand;
         private ICommand _pauseCommand;
@@ -71,15 +72,41 @@ namespace BSE.Tunes.XApp.ViewModels
             }
         }
 
+        public Track CurrentTrack
+        {
+            get
+            {
+                return _currentTrack;
+            }
+            set
+            {
+                SetProperty<Track>(ref _currentTrack, value);
+            }
+        }
+
+        public Uri CoverSource
+        {
+            get
+            {
+                return _coverSource;
+            }
+            set
+            {
+                SetProperty<Uri>(ref _coverSource, value);
+            }
+        }
+
         public MainPageViewModel(INavigationService navigationService,
             IResourceService resourceService,
             IPlayerManager playerManager,
             IEventAggregator eventAggregator,
-            IPageDialogService pageDialogService)
+            IPageDialogService pageDialogService,
+            IDataService dataService)
             : base(navigationService, resourceService)
         {
             _playerManager = playerManager;
             _pageDialogService = pageDialogService;
+            _dataService = dataService;
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<AudioPlayerStateChangedEvent>().Subscribe((args) => {
                 if (args is AudioPlayerState audioPlayerState)
@@ -115,6 +142,13 @@ namespace BSE.Tunes.XApp.ViewModels
                             break;
                     }
                 };
+            }, ThreadOption.UIThread);
+            _eventAggregator.GetEvent<TrackChangedEvent>().Subscribe((args) => {
+                if (args is Track track)
+                {
+                    CurrentTrack = track;
+                    LoadCover(CurrentTrack);
+                }
             }, ThreadOption.UIThread);
 
             _progressTimer = new Timer(TimeSpan.FromSeconds(1), ProgressTimerAction);
@@ -187,6 +221,20 @@ namespace BSE.Tunes.XApp.ViewModels
         private void OnMediaOpenend()
         {
             _progressTimer?.Start();
+            CurrentTrack = _playerManager.CurrentTrack;
+            LoadCover(CurrentTrack);
+        }
+
+        private void LoadCover(Track track)
+        {
+            if (track != null)
+            {
+                Uri coverSource = _dataService.GetImage(track.Album.AlbumId, true);
+                if (coverSource != null && !coverSource.Equals(CoverSource))
+                {
+                    CoverSource = coverSource;
+                }
+            }
         }
     }
 }

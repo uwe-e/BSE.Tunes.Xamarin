@@ -28,13 +28,9 @@ namespace BSE.Tunes.XApp.iOS.Services
         private ISettingsService _settingsService => DependencyService.Resolve<ISettingsService>();
 
         public AudioPlayerState AudioPlayerState { get; private set; } = AudioPlayerState.Closed;
-
         public float Progress => GetProgress();
 
-        
-
         public event Action<AudioPlayerState> AudioPlayerStateChanged;
-
         public event Action<MediaState> MediaStateChanged;
 
         public void Pause()

@@ -119,6 +119,30 @@ namespace BSE.Tunes.XApp.Controls
             set { SetValue(AudioPlayerStateProperty, value); }
         }
 
+        public static readonly BindableProperty TrackTitleProperty
+            = BindableProperty.Create(nameof(TrackTitle),
+                                      typeof(string),
+                                      typeof(AudioPlayer),
+                                      default(string));
+
+        public string TrackTitle
+        {
+            get { return (string)GetValue(TrackTitleProperty); }
+            set { SetValue(TrackTitleProperty, value); }
+        }
+
+        public static readonly BindableProperty CoverProperty
+            = BindableProperty.Create(nameof(Cover),
+                typeof(ImageSource),
+                typeof(AudioPlayer),
+                default(ImageSource));
+
+        public ImageSource Cover
+        {
+            get { return (ImageSource)GetValue(CoverProperty); }
+            set { SetValue(CoverProperty, value); }
+        }
+
         public void SendPauseClicked()
         {
             PauseCommand?.Execute(PauseCommandParameter);

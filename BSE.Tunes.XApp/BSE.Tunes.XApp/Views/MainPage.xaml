@@ -21,6 +21,8 @@
                               PauseCommand="{Binding PauseCommand}"
                               PlayNextCommand="{Binding PlayNextCommand}"
                               Progress="{Binding Progress, Mode=TwoWay}"
+                              TrackTitle="{Binding CurrentTrack.Name, Mode=TwoWay}"
+                              Cover="{Binding CoverSource, Mode=TwoWay}"
                               AudioPlayerState="{Binding AudioPlayerState, Mode=TwoWay}"/>
     </controls:ExtendedTabbedPage.AudioPlayerBar>
 

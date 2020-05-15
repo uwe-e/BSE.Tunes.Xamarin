@@ -1,4 +1,5 @@
 ﻿using BSE.Tunes.XApp.Collections;
+using BSE.Tunes.XApp.Events;
 using BSE.Tunes.XApp.Services;
 using Prism.Commands;
 using Prism.Events;
@@ -53,9 +54,12 @@ namespace BSE.Tunes.XApp.ViewModels
                 int trackId = randomTrackIds.FirstOrDefault();
                 if (trackId > 0)
                 {
-                    //_currentTrack = await _dataService.GetTrackById(trackId);
+                    var track = await _dataService.GetTrackById(trackId);
+                    if (track != null)
+                    {
+                        _eventAggregator.GetEvent<TrackChangedEvent>().Publish(track);
+                    }
                 }
-                //_playlist = randomTrackIds.ToNavigableCollection();
                 _playerManager.Playlist = randomTrackIds.ToNavigableCollection();
             }
 

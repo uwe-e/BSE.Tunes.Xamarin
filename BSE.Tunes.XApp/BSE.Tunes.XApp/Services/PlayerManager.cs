@@ -17,7 +17,7 @@ namespace BSE.Tunes.XApp.Services
 
         public NavigableCollection<int> Playlist { get; set; }
         public AudioPlayerMode AudioPlayerMode { get; private set; }
-        public Track CurrentTrack => throw new NotImplementedException();
+        public Track CurrentTrack { get; private set; }
         public AudioPlayerState AudioPlayerState { get; private set; } = AudioPlayerState.Closed;
         public float Progress => _playerService?.Progress ?? default;
 
@@ -100,10 +100,17 @@ namespace BSE.Tunes.XApp.Services
             }
         }
 
-        private void OnMediaStateChanged(MediaState mediaState)
+        private async void OnMediaStateChanged(MediaState mediaState)
         {
             switch (mediaState)
             {
+                case MediaState.Opened:
+                    var trackId = Playlist.Current;
+                    if (trackId > 0)
+                    {
+                        CurrentTrack = await _dataService.GetTrackById(trackId);
+                    }
+                    break;
                 case MediaState.Ended:
                     if (AudioPlayerMode != AudioPlayerMode.None && AudioPlayerMode != AudioPlayerMode.Song && CanPlayNextTrack())
                     {

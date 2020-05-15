@@ -1,9 +1,12 @@
 ﻿using BSE.Tunes.XApp.Controls;
 using BSE.Tunes.XApp.iOS.Renderer;
 using CoreGraphics;
+using Foundation;
 using System;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -75,11 +78,20 @@ namespace BSE.Tunes.XApp.iOS.Renderer
 
             if (e.PropertyName == nameof(Player.Progress))
             {
-                _progressView.SetProgress((float)Player.Progress, Player.Progress == default ? false : true);
+                SetProgress(Player.Progress);
+                
             }
             if (e.PropertyName == nameof(Player.AudioPlayerState))
             {
                 SetPlayerState(Player.AudioPlayerState);
+            }
+            if (e.PropertyName == nameof(Player.TrackTitle))
+            {
+                SetTrackTitle(Player.TrackTitle);
+            }
+            if (e.PropertyName == nameof(Player.Cover))
+            {
+                SetCover(Player.Cover);
             }
         }
 
@@ -87,7 +99,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         {
             _progressView = new UIProgressView()
             {
-                BackgroundColor = UIColor.Red,
+                //BackgroundColor = UIColor.Red,
                 Progress = (float)Player.Progress
             };
 
@@ -95,22 +107,24 @@ namespace BSE.Tunes.XApp.iOS.Renderer
 
             _coverImageView = new UIImageView()
             {
-                BackgroundColor = UIColor.Orange,
+                //BackgroundColor = UIColor.Orange,
+                //Image = UIImage.f
             };
 
             AddSubview(_coverImageView);
 
             _trackTitleLabel = new UILabel()
             {
-                BackgroundColor = UIColor.Blue,
-                Text = "This is the title"
+                //BackgroundColor = UIColor.Blue,
+                LineBreakMode = UILineBreakMode.TailTruncation,
+                //Text = "This is the title"
             };
 
             AddSubview(_trackTitleLabel);
 
             _playButton = new UIButton()
             {
-                BackgroundColor = UIColor.Green,
+                //BackgroundColor = UIColor.Green,
             };
             _playButton.SetBackgroundImage(UIImage.FromFile("icon_play_d_blue_20_50.png"), UIControlState.Normal);
             _playButton.TouchUpInside -= PlayButtonTouchUpInside;
@@ -120,7 +134,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
 
             _playNextButton = new UIButton()
             {
-                BackgroundColor = UIColor.Yellow,
+                //BackgroundColor = UIColor.Yellow,
             };
             _playNextButton.SetBackgroundImage(UIImage.FromFile("icon_playnext_gray@2x.png"), UIControlState.Disabled);
             _playNextButton.SetBackgroundImage(UIImage.FromFile("icon-playnext_d_blue_20_50@2x.png"), UIControlState.Normal);
@@ -129,8 +143,24 @@ namespace BSE.Tunes.XApp.iOS.Renderer
 
             AddSubview(_playNextButton);
         }
+        private void SetProgress(double progress)
+        {
+            _progressView.Hidden = progress == default ? true : false;
+            _progressView.SetProgress((float)progress, progress == default ? false : true);
+        }
+        private void SetTrackTitle(string trackTitle)
+        {
+            _trackTitleLabel.Text = trackTitle;
+        }
 
-        
+        private async void SetCover(ImageSource imageSource)
+        {
+            var image = await Task.Run(() => new ImageLoaderSourceHandler().LoadImageAsync(imageSource, default, 1f));
+            if (image != null)
+            {
+                _coverImageView.Image = image;
+            }
+        }
 
         private void SetPlayerState(AudioPlayerState audioPlayerState)
         {

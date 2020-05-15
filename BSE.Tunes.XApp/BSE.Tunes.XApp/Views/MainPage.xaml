@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:BSE.Tunes.XApp.Views"
     xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
     x:Class="BSE.Tunes.XApp.Views.MainPage"
     xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
     BackgroundColor="{DynamicResource backgroundColor}"
@@ -12,10 +14,15 @@
     android:TabbedPage.ToolbarPlacement="Bottom"
     ios:TabbedPage.TranslucencyMode="Opaque"
     BarBackgroundColor="{DynamicResource systemGray6}"
-    NavigationPage.HasNavigationBar="False"
-    PlayCommand="{Binding PlayCommand}"
-    PauseCommand="{Binding PauseCommand}"
-    PlayNextCommand="{Binding PlayNextCommand}" Progress="{Binding Progress, Mode=TwoWay}">
+    NavigationPage.HasNavigationBar="False">
+
+    <controls:ExtendedTabbedPage.AudioPlayerBar>
+        <controls:AudioPlayer PlayCommand="{Binding PlayCommand}"
+                              PauseCommand="{Binding PauseCommand}"
+                              PlayNextCommand="{Binding PlayNextCommand}"
+                              Progress="{Binding Progress, Mode=TwoWay}"
+                              AudioPlayerState="{Binding AudioPlayerState, Mode=TwoWay}"/>
+    </controls:ExtendedTabbedPage.AudioPlayerBar>
 
     <TabbedPage.Children>
         <NavigationPage Title="{i18n:Translate HomePage_Title}"

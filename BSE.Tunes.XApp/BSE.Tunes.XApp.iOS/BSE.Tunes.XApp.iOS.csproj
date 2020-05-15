@@ -99,6 +99,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="QueueStream.cs" />
+    <Compile Include="Renderer\AudioPlayerRenderer.cs" />
     <Compile Include="Renderer\ButtonElementManager.cs" />
     <Compile Include="Renderer\ButtonRenderer.cs" />
     <Compile Include="Renderer\ExtendedTabbedRenderer.cs" />
@@ -205,9 +206,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\icon_play_dark%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\Default.png" />
   </ItemGroup>
   <ItemGroup>
@@ -256,19 +254,16 @@
     <BundleResource Include="Resources\icon_playlists%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\icon_playnext_dark%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\icon_play_blue%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\icon_playnext_blue%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\icon_pause_blue%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\icon_playnext_gray%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon_play_d_blue_20_50%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon_pause_d_blue_20_50%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon-playnext_d_blue_20_50%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>

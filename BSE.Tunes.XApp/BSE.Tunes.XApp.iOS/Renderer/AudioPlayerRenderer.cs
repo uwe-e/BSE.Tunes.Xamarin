@@ -3,6 +3,7 @@ using BSE.Tunes.XApp.iOS.Renderer;
 using CoreGraphics;
 using System;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -16,6 +17,8 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         private AudioPlayerState _audioPlayerState = AudioPlayerState.Closed;
         private UIButton _playNextButton;
         private UIButton _playButton;
+        private UILabel _trackTitleLabel;
+        private UIImageView _coverImageView;
         private UIProgressView _progressView;
 
         AudioPlayer Player => Element as AudioPlayer;
@@ -44,6 +47,16 @@ namespace BSE.Tunes.XApp.iOS.Renderer
                                    Bounds.Top,
                                    Bounds.Width - 4,
                                    7);
+            
+            _coverImageView.Frame = new CGRect(leftX,
+                                   7,
+                                   controlWidth,
+                                   controlHeight);
+
+            _trackTitleLabel.Frame = new CGRect(leftX + controlWidth + offsetLeft,
+                                   7,
+                                   rightX - 10 - (2 * controlWidth) - (3 * offsetLeft),
+                                   controlHeight);
 
             _playButton.Frame = new CGRect(rightX - controlWidth - offsetLeft,
                                    7,
@@ -70,8 +83,6 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             }
         }
 
-        
-
         private void SetupUserInterface()
         {
             _progressView = new UIProgressView()
@@ -81,6 +92,21 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             };
 
             AddSubview(_progressView);
+
+            _coverImageView = new UIImageView()
+            {
+                BackgroundColor = UIColor.Orange,
+            };
+
+            AddSubview(_coverImageView);
+
+            _trackTitleLabel = new UILabel()
+            {
+                BackgroundColor = UIColor.Blue,
+                Text = "This is the title"
+            };
+
+            AddSubview(_trackTitleLabel);
 
             _playButton = new UIButton()
             {

@@ -57,7 +57,8 @@ namespace BSE.Tunes.XApp.Services
 
         public void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioPlayerMode)
         {
-            throw new NotImplementedException();
+            Playlist = trackIds.ToNavigableCollection();
+            PlayTracks(AudioPlayerMode);
         }
 
         public bool CanPlay()

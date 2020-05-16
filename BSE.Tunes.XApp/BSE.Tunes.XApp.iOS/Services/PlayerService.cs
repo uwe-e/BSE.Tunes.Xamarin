@@ -207,7 +207,7 @@ namespace BSE.Tunes.XApp.iOS.Services
         
         private float GetProgress()
         {
-            var queue = _player.OutputQueue;
+            var queue = _player?.OutputQueue;
             if (queue == null || _audioQueueTimeline == null)
             {
                 return default;

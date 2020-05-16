@@ -11,8 +11,11 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
         {
             base.OnElementChanged(e);
-            SetLineBreakMode(e);
-            SetTextAlignment(e);
+            if (e.NewElement != null)
+            {
+                SetLineBreakMode(e);
+                SetTextAlignment(e);
+            }
         }
 
         private void SetLineBreakMode(ElementChangedEventArgs<Button> e)

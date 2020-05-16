@@ -47,6 +47,18 @@
                             </Grid>
                         </StackLayout>
                         <StackLayout VerticalOptions="StartAndExpand">
+                            <StackLayout Orientation="Horizontal">
+                                <Button Text="Wiedergabe"
+                                        ImageSource="icon_play_d_blue_20_50"
+                                        HorizontalOptions="Start"
+                                        Command="{Binding PlayCommand}"/>
+                                <Button Text="Zufällig"
+                                        ImageSource="icon_shuffle_d_blue_20_50"
+                                        HorizontalOptions="End"
+                                        Command="{Binding PlayRandomComand}"/>
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout VerticalOptions="StartAndExpand">
                             <ListView ItemsSource="{Binding Tracks}" VerticalOptions="Start" RowHeight="45"
                                       ios:ListView.SeparatorStyle="FullWidth">
                                 <ListView.ItemTemplate>

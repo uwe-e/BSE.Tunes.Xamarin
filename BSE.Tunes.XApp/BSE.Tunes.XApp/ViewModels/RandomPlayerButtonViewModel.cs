@@ -4,6 +4,7 @@ using BSE.Tunes.XApp.Services;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -16,7 +17,10 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly IPlayerManager _playerManager;
         private readonly IDataService _dataService;
         private string _text;
-        private ICommand _playRandomCommand;
+        private ObservableCollection<int> _trackIds;
+        private DelegateCommand _playRandomCommand;
+
+        public DelegateCommand PlayRandomCommand => _playRandomCommand ?? (_playRandomCommand = new DelegateCommand(PlayRandom, CanPlayRandom));
 
         public string Text
         {
@@ -29,8 +33,6 @@ namespace BSE.Tunes.XApp.ViewModels
                 SetProperty<string>(ref _text, value);
             }
         }
-
-        public ICommand PlayRandomCommand => _playRandomCommand ?? (_playRandomCommand = new DelegateCommand(PlayRandom));
 
         public RandomPlayerButtonViewModel(INavigationService navigationService,
             IEventAggregator eventAggregator,
@@ -50,8 +52,8 @@ namespace BSE.Tunes.XApp.ViewModels
             ObservableCollection<int> trackIds = await _dataService.GetTrackIdsByGenre();
             if (trackIds != null)
             {
-                var randomTrackIds = trackIds.ToRandomCollection();
-                int trackId = randomTrackIds.FirstOrDefault();
+                _trackIds = trackIds.ToRandomCollection();
+                int trackId = _trackIds.FirstOrDefault();
                 if (trackId > 0)
                 {
                     var track = await _dataService.GetTrackById(trackId);
@@ -60,7 +62,8 @@ namespace BSE.Tunes.XApp.ViewModels
                         _eventAggregator.GetEvent<TrackChangedEvent>().Publish(track);
                     }
                 }
-                _playerManager.Playlist = randomTrackIds.ToNavigableCollection();
+                _playerManager.Playlist = _trackIds.ToNavigableCollection();
+                PlayRandomCommand.RaiseCanExecuteChanged();
             }
 
             var sysInfo = await _dataService.GetSystemInfo();
@@ -69,9 +72,19 @@ namespace BSE.Tunes.XApp.ViewModels
                 Text = string.Format(ResourceService.GetString("HomePage_RandomPlayerButton_Button_Text"), sysInfo.NumberTracks);
             }
         }
+
+        private bool CanPlayRandom()
+        {
+            return _trackIds?.Count > 0;
+        }
         
         private void PlayRandom()
         {
+            _trackIds = _trackIds?.ToRandomCollection();
+            if (_trackIds != null)
+            {
+                _playerManager.PlayTracks(new ObservableCollection<int>(_trackIds), AudioPlayerMode.Random);
+            }
         }
     }
 }

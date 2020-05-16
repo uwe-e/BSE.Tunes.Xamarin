@@ -147,7 +147,7 @@ namespace BSE.Tunes.XApp.ViewModels
                 if (args is Track track)
                 {
                     CurrentTrack = track;
-                    LoadCover(CurrentTrack);
+                    LoadCoverSource(CurrentTrack);
                 }
             }, ThreadOption.UIThread);
 
@@ -222,10 +222,10 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             _progressTimer?.Start();
             CurrentTrack = _playerManager.CurrentTrack;
-            LoadCover(CurrentTrack);
+            LoadCoverSource(CurrentTrack);
         }
 
-        private void LoadCover(Track track)
+        private void LoadCoverSource(Track track)
         {
             if (track != null)
             {

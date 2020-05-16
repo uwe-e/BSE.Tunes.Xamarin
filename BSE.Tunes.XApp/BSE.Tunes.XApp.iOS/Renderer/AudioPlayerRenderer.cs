@@ -1,5 +1,6 @@
 ﻿using BSE.Tunes.XApp.Controls;
 using BSE.Tunes.XApp.iOS.Renderer;
+using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using System;
@@ -20,6 +21,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         private AudioPlayerState _audioPlayerState = AudioPlayerState.Closed;
         private UIButton _playNextButton;
         private UIButton _playButton;
+        private UIView _bottomBorder;
         private UILabel _trackTitleLabel;
         private UIImageView _coverImageView;
         private UIProgressView _progressView;
@@ -43,7 +45,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             var leftX = Bounds.Left + 10;
             var rightX = Bounds.Right - 46;
             var offsetLeft = 5;
-            var controlHeight = 36;
+            var controlHeight = 46;
             var controlWidth = controlHeight;
 
             _progressView.Frame = new CGRect(Bounds.Left + 2,
@@ -70,6 +72,11 @@ namespace BSE.Tunes.XApp.iOS.Renderer
                                    7,
                                    controlWidth,
                                    controlHeight);
+
+            _bottomBorder.Frame = new CGRect(Bounds.Left,
+                Bounds.Top + Bounds.Height -1 ,
+                Bounds.Width,
+                1);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -79,7 +86,6 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             if (e.PropertyName == nameof(Player.Progress))
             {
                 SetProgress(Player.Progress);
-                
             }
             if (e.PropertyName == nameof(Player.AudioPlayerState))
             {
@@ -142,6 +148,13 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             _playNextButton.TouchUpInside += PlayNextButtonTouchUpInside;
 
             AddSubview(_playNextButton);
+
+
+            _bottomBorder = new UIView
+            {
+                BackgroundColor = UIColor.SeparatorColor
+            };
+            AddSubview(_bottomBorder);
         }
         private void SetProgress(double progress)
         {

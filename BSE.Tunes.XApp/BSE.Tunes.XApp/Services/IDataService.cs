@@ -18,5 +18,6 @@ namespace BSE.Tunes.XApp.Services
         Task<ObservableCollection<int>> GetTrackIdsByGenre(int? genreId = null);
         Task<bool> IsEndPointAccessibleAsync();
         Task<bool> IsEndPointAccessibleAsync(string serviceEndPoint);
+        Task<bool> UpdateHistory(History history);
     }
 }

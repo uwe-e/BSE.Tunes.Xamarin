@@ -21,19 +21,18 @@ namespace BSE.Tunes.XApp.ViewModels
         private Track _currentTrack;
         private Uri _coverSource;
         private Timer _progressTimer ;
-        private ICommand _playCommand;
-        private ICommand _pauseCommand;
-        private ICommand _playNextCommand;
-        private NavigableCollection<int> _playlist;
+        private DelegateCommand _playCommand;
+        private DelegateCommand _pauseCommand;
+        private DelegateCommand _playNextCommand;
         private AudioPlayerState _audioPlayerState = AudioPlayerState.Closed;
         private AudioPlayerMode _audioPlayerMode = AudioPlayerMode.None;
         private float _progress;
 
-        public ICommand PlayCommand => _playCommand
+        public DelegateCommand PlayCommand => _playCommand
             ?? (_playCommand = new DelegateCommand(Play));
-        public ICommand PauseCommand => _pauseCommand
+        public DelegateCommand PauseCommand => _pauseCommand
             ?? (_pauseCommand = new DelegateCommand(Pause, CanPause));
-        public ICommand PlayNextCommand => _playNextCommand
+        public DelegateCommand PlayNextCommand => _playNextCommand
             ?? (_playNextCommand = new DelegateCommand(PlayNext, CanPlayNext));
 
         public AudioPlayerState AudioPlayerState
@@ -126,7 +125,6 @@ namespace BSE.Tunes.XApp.ViewModels
                                 break;
                         }
                     }
-                    
                 };
             }, ThreadOption.UIThread);
             _eventAggregator.GetEvent<MediaStateChangedEvent>().Subscribe((args) => {

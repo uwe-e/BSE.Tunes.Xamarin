@@ -12,6 +12,7 @@ namespace BSE.Tunes.XApp.Services
     public class PlayerManager : IPlayerManager
     {
         private readonly IDataService _dataService;
+        private readonly ISettingsService _settingsService;
         private readonly IEventAggregator _eventAggregator;
         private IPlayerService _playerService { get; }
 
@@ -23,10 +24,12 @@ namespace BSE.Tunes.XApp.Services
 
         public PlayerManager(IDataService dataService,
             IPlayerService playerService,
+            ISettingsService settingsService,
             IEventAggregator eventAggregator)
         {
             _dataService = dataService;
             _playerService = playerService;
+            _settingsService = settingsService;
             _eventAggregator = eventAggregator;
             _playerService.AudioPlayerStateChanged += OnAudioPlayerStateChanged;
             _playerService.MediaStateChanged += OnMediaStateChanged;
@@ -110,6 +113,7 @@ namespace BSE.Tunes.XApp.Services
                     if (trackId > 0)
                     {
                         CurrentTrack = await _dataService.GetTrackById(trackId);
+                        UpdateHistory(CurrentTrack);
                     }
                     break;
                 case MediaState.Ended:
@@ -120,6 +124,22 @@ namespace BSE.Tunes.XApp.Services
                     break;
             }
             _eventAggregator.GetEvent<MediaStateChangedEvent>().Publish(mediaState);
+        }
+
+        private async void UpdateHistory(Track track)
+        {
+            var userName = _settingsService.User.UserName;
+            if (!string.IsNullOrEmpty(userName))
+            {
+                await _dataService.UpdateHistory(new History
+                {
+                    AppId = (int)AudioPlayerMode,
+                    AlbumId = track.Album.Id,
+                    TrackId = track.Id,
+                    UserName = userName,
+                    PlayedAt = DateTime.Now
+                });
+            }
         }
     }
 }

@@ -1,52 +1,45 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 
 namespace BSE.Tunes.XApp.Services
 {
     public class RequestService : IRequestService
     {
-        private readonly ISettingsService settingsService;
-        private readonly IAuthenticationService authenticationService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public RequestService(ISettingsService settingsService, IAuthenticationService authenticationService)
+        public RequestService(IAuthenticationService authenticationService)
         {
-            this.settingsService = settingsService;
-            this.authenticationService = authenticationService;
+            _authenticationService = authenticationService;
         }
 
         public async Task<TResult> GetAsync<TResult>(Uri uri)
         {
-            TResult result = default(TResult);
+            TResult result = default;
             using (var client = await GetHttpClient())
             {
-                try
-                {
-                    var responseMessage = await client.GetAsync(uri);
-                    //responseMessage.EnsureExtendedSuccessStatusCode();
-                    var serialized =  await responseMessage.Content.ReadAsStringAsync();
-                    result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized));
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                var responseMessage = await client.GetAsync(uri);
+                //responseMessage.EnsureExtendedSuccessStatusCode();
+                var serialized = await responseMessage.Content.ReadAsStringAsync();
+                result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized));
             }
-                return result;
+            return result;
         }
 
-        public async Task<TResult> PostAsync<TRequest, TResult>(Uri uri, TResult from)
+        public async Task<TResult> PostAsync<TResult, TRequest>(Uri uri, TRequest from)
         {
-            TResult result = default(TResult);
-            using (var client = GetHttpClient())
+            TResult result = default;
+            using (var client = await GetHttpClient())
             {
                 var serialized = await Task.Run(() => JsonConvert.SerializeObject(from));
-
-                //var serialized = await responseMessage.Content.ReadAsStringAsync();
+                using (var responseMessage = await client.PostAsync(uri,
+                                                                    new StringContent(serialized, Encoding.UTF8, "application/json")))
+                {
+                    var responseData = await responseMessage.Content.ReadAsStringAsync();
+                    result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(responseData));
+                }
             }
             return result;
         }
@@ -58,10 +51,10 @@ namespace BSE.Tunes.XApp.Services
             //    throw new ConnectivityException();
             //}
             var httpClient = new HttpClient();
-            var tokenResponse = this.authenticationService.TokenResponse;
+            var tokenResponse = _authenticationService.TokenResponse;
             if (withRefreshToken)
             {
-                tokenResponse = await this.authenticationService.RequestRefreshTokenAsync(tokenResponse.RefreshToken);
+                tokenResponse = await _authenticationService.RequestRefreshTokenAsync(tokenResponse.RefreshToken);
                 httpClient.SetBearerToken(tokenResponse.AccessToken);
             }
             return httpClient;

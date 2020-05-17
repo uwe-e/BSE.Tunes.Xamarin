@@ -9,18 +9,18 @@ namespace BSE.Tunes.XApp.Services
 {
     public class DataService : IDataService
     {
-        private readonly IRequestService requestService;
-        private readonly ISettingsService settingsService;
+        private readonly IRequestService _requestService;
+        private readonly ISettingsService _settingsService;
 
         public DataService(IRequestService requestService, ISettingsService settingsService)
         {
-            this.requestService = requestService;
-            this.settingsService = settingsService;
+            _requestService = requestService;
+            _settingsService = settingsService;
         }
 
         public Task<bool> IsEndPointAccessibleAsync()
         {
-            return IsEndPointAccessibleAsync(this.settingsService.ServiceEndPoint);
+            return IsEndPointAccessibleAsync(_settingsService.ServiceEndPoint);
         }
 
         public async Task<bool> IsEndPointAccessibleAsync(string serviceEndPoint)
@@ -29,7 +29,7 @@ namespace BSE.Tunes.XApp.Services
             var builder = new UriBuilder(serviceEndPoint);
             builder.AppendToPath("api/tunes/IsHostAccessible");
 
-            using (var client = await this.requestService.GetHttpClient(false))
+            using (var client = await _requestService.GetHttpClient(false))
             {
                 try
                 {
@@ -48,19 +48,19 @@ namespace BSE.Tunes.XApp.Services
 
         public Task<ObservableCollection<Album>> GetFeaturedAlbums(int limit)
         {
-            string strUrl = string.Format("{0}/api/v2/albums/featured?limit={1}", this.settingsService.ServiceEndPoint, limit);
-            return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
+            string strUrl = string.Format("{0}/api/v2/albums/featured?limit={1}", this._settingsService.ServiceEndPoint, limit);
+            return _requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
         }
 
         public Task<ObservableCollection<Album>> GetNewestAlbums(int limit)
         {
-            string strUrl = string.Format("{0}/api/v2/albums/newest?limit={0}", this.settingsService.ServiceEndPoint, limit);
-            return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
+            string strUrl = string.Format("{0}/api/v2/albums/newest?limit={0}", this._settingsService.ServiceEndPoint, limit);
+            return _requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
         }
 
         public Uri GetImage(Guid imageId, bool asThumbnail = false)
         {
-            var builder = new UriBuilder(this.settingsService.ServiceEndPoint);
+            var builder = new UriBuilder(_settingsService.ServiceEndPoint);
             builder.AppendToPath(string.Format("/api/files/image/{0}", imageId.ToString()));
 
             return builder.Uri;
@@ -68,40 +68,44 @@ namespace BSE.Tunes.XApp.Services
 
         public Task<Album> GetAlbumById(int albumId)
         {
-            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/albums/{albumId}";
-            return this.requestService.GetAsync<Album>(new UriBuilder(strUrl).Uri);
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/albums/{albumId}";
+            return _requestService.GetAsync<Album>(new UriBuilder(strUrl).Uri);
         }
 
         public Task<int> GetNumberOfAlbumsByGenre(int? genreId)
         {
-            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/albums/genre/{genreId ?? 0}/count";
-            return this.requestService.GetAsync<int>(new UriBuilder(strUrl).Uri);
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/albums/genre/{genreId ?? 0}/count";
+            return _requestService.GetAsync<int>(new UriBuilder(strUrl).Uri);
         }
 
         public Task<ObservableCollection<Album>> GetAlbumsByGenre(int? genreId, int skip, int limit)
         {
-            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/albums/genre/{genreId ?? 0}/?skip={skip}&limit={limit}";
-            return this.requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/albums/genre/{genreId ?? 0}/?skip={skip}&limit={limit}";
+            return _requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
         }
         
         public Task<SystemInfo> GetSystemInfo()
         {
-             string strUrl = $"{this.settingsService.ServiceEndPoint}/api/system";
-            return this.requestService.GetAsync<SystemInfo>(new UriBuilder(strUrl).Uri);
+             string strUrl = $"{_settingsService.ServiceEndPoint}/api/system";
+            return _requestService.GetAsync<SystemInfo>(new UriBuilder(strUrl).Uri);
         }
 
         public Task<Track> GetTrackById(int trackId)
         {
-            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/tracks/{trackId}";
-            return this.requestService.GetAsync<Track>(new UriBuilder(strUrl).Uri);
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/tracks/{trackId}";
+            return _requestService.GetAsync<Track>(new UriBuilder(strUrl).Uri);
         }
 
         public Task<ObservableCollection<int>> GetTrackIdsByGenre(int? genreId = null)
         {
-            string strUrl = $"{this.settingsService.ServiceEndPoint}/api/v2/tracks/genre/{genreId ?? 0}";
-            return this.requestService.GetAsync<ObservableCollection<int>>(new UriBuilder(strUrl).Uri);
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/tracks/genre/{genreId ?? 0}";
+            return _requestService.GetAsync<ObservableCollection<int>>(new UriBuilder(strUrl).Uri);
         }
 
-        
+        public Task<bool> UpdateHistory(History history)
+        {
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/tunes/UpdateHistory";
+            return _requestService.PostAsync<bool, History>(new UriBuilder(strUrl).Uri, history);
+        }
     }
 }

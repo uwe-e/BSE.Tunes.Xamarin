@@ -61,7 +61,7 @@ namespace BSE.Tunes.XApp.Services
         public void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioPlayerMode)
         {
             Playlist = trackIds.ToNavigableCollection();
-            PlayTracks(AudioPlayerMode);
+            PlayTracks(audioPlayerMode);
         }
 
         public bool CanPlay()

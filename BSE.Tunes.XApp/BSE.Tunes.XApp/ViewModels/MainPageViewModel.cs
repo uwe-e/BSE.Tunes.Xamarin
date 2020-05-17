@@ -1,5 +1,4 @@
-﻿using BSE.Tunes.XApp.Collections;
-using BSE.Tunes.XApp.Controls;
+﻿using BSE.Tunes.XApp.Controls;
 using BSE.Tunes.XApp.Events;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
@@ -8,7 +7,6 @@ using Prism.Events;
 using Prism.Navigation;
 using Prism.Services;
 using System;
-using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
 {

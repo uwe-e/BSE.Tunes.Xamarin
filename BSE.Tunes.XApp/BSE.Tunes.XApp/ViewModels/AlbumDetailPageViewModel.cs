@@ -19,14 +19,18 @@ namespace BSE.Tunes.XApp.ViewModels
         private Album _album;
         private ObservableCollection<Track> _tracks;
         private string _coverSource;
-        private DelegateCommand _playCommand;
-        private DelegateCommand _playRandomCommand;
+        private DelegateCommand _playAllCommand;
+        private DelegateCommand _playAllRandomizedCommand;
+        private DelegateCommand<object> _playCommand;
 
-        public DelegateCommand PlayCommand => _playCommand
-            ?? (_playCommand = new DelegateCommand(PlayAll, CanPlayAll));
+        public DelegateCommand<object> PlayCommand => _playCommand
+            ?? (_playCommand = new DelegateCommand<object>(PlayTrack));
 
-        public DelegateCommand PlayRandomCommand => _playRandomCommand
-            ?? (_playRandomCommand = new DelegateCommand(PlayRandom, CanPlayRandom));
+        public DelegateCommand PlayAllCommand => _playAllCommand
+            ?? (_playAllCommand = new DelegateCommand(PlayAll, CanPlayAll));
+
+        public DelegateCommand PlayAllRandomizedCommand => _playAllRandomizedCommand
+            ?? (_playAllRandomizedCommand = new DelegateCommand(PlayAllRandomized, CanPlayAllRandomized));
 
         public Album Album
         {
@@ -74,8 +78,19 @@ namespace BSE.Tunes.XApp.ViewModels
                     Tracks.Add(track);
                 }
                 CoverSource = _dataService.GetImage(Album.AlbumId)?.AbsoluteUri;
-                PlayCommand.RaiseCanExecuteChanged();
+                PlayAllCommand.RaiseCanExecuteChanged();
                 IsBusy = false;
+            }
+        }
+
+        private void PlayTrack(object obj)
+        {
+            if (obj is Track track)
+            {
+                PlayTracks(new List<int>
+                {
+                    track.Id
+                }, AudioPlayerMode.Song);
             }
         }
         
@@ -86,24 +101,24 @@ namespace BSE.Tunes.XApp.ViewModels
 
         private void PlayAll()
         {
-            PlayTracks(GetTrackIds());
+            PlayTracks(GetTrackIds(), AudioPlayerMode.CD);
         }
 
-        private bool CanPlayRandom()
+        private bool CanPlayAllRandomized()
         {
             return CanPlayAll();
         }
 
-        private void PlayRandom()
+        private void PlayAllRandomized()
         {
-            PlayTracks(GetTrackIds().ToRandomCollection());
+            PlayTracks(GetTrackIds().ToRandomCollection(), AudioPlayerMode.CD);
         }
         
-        private void PlayTracks(IEnumerable<int> trackIds)
+        private void PlayTracks(IEnumerable<int> trackIds, AudioPlayerMode audioPlayerMode)
         {
             _playerManager.PlayTracks(
                             new System.Collections.ObjectModel.ObservableCollection<int>(trackIds),
-                            AudioPlayerMode.CD);
+                            audioPlayerMode);
         }
 
         private ObservableCollection<int> GetTrackIds()

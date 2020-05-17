@@ -51,16 +51,21 @@
                                 <Button Text="Wiedergabe"
                                         ImageSource="icon_play_d_blue_20_50"
                                         HorizontalOptions="Start"
-                                        Command="{Binding PlayCommand}"/>
+                                        Command="{Binding PlayAllCommand}"/>
                                 <Button Text="Zufällig"
                                         ImageSource="icon_shuffle_d_blue_20_50"
                                         HorizontalOptions="End"
-                                        Command="{Binding PlayRandomComand}"/>
+                                        Command="{Binding PlayAllRandomizedComand}"/>
                             </StackLayout>
                         </StackLayout>
                         <StackLayout VerticalOptions="StartAndExpand">
                             <ListView ItemsSource="{Binding Tracks}" VerticalOptions="Start" RowHeight="45"
                                       ios:ListView.SeparatorStyle="FullWidth">
+                                <ListView.Behaviors>
+                                    <prism:EventToCommandBehavior EventName="ItemTapped"
+                                                                  Command="{Binding PlayCommand}"
+                                                                  EventArgsParameterPath="Item"/>
+                                </ListView.Behaviors>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>

@@ -25,7 +25,6 @@
                               Cover="{Binding CoverSource, Mode=TwoWay}"
                               AudioPlayerState="{Binding AudioPlayerState, Mode=TwoWay}"/>
     </controls:ExtendedTabbedPage.AudioPlayerBar>
-
     <TabbedPage.Children>
         <NavigationPage Title="{i18n:Translate HomePage_Title}"
                         IconImageSource="icon_home"

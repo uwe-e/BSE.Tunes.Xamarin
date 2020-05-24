@@ -1,12 +1,8 @@
 ﻿using BSE.Tunes.XApp.Controls;
 using BSE.Tunes.XApp.iOS.Renderer;
-using CoreAnimation;
 using CoreGraphics;
-using Foundation;
 using System;
 using System.ComponentModel;
-using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
@@ -99,6 +95,10 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             {
                 SetCover(Player.Cover);
             }
+            if (e.PropertyName == nameof(Player.IsPlayNextEnabled))
+            {
+                UpdateIsPlayNextEnabled(Player.IsPlayNextEnabled);
+            }
         }
 
         private void SetupUserInterface()
@@ -132,7 +132,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             {
                 //BackgroundColor = UIColor.Green,
             };
-            _playButton.SetBackgroundImage(UIImage.FromFile("icon_play_d_blue_20_50.png"), UIControlState.Normal);
+            _playButton.SetBackgroundImage(UIImage.FromFile("icon_play_d_blue_20_50"), UIControlState.Normal);
             _playButton.TouchUpInside -= PlayButtonTouchUpInside;
             _playButton.TouchUpInside += PlayButtonTouchUpInside;
 
@@ -142,11 +142,11 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             {
                 //BackgroundColor = UIColor.Yellow,
             };
-            _playNextButton.SetBackgroundImage(UIImage.FromFile("icon_playnext_gray@2x.png"), UIControlState.Disabled);
-            _playNextButton.SetBackgroundImage(UIImage.FromFile("icon-playnext_d_blue_20_50@2x.png"), UIControlState.Normal);
+            _playNextButton.SetBackgroundImage(UIImage.FromFile("icon-playnext_gray_20_50"), UIControlState.Disabled);
+            _playNextButton.SetBackgroundImage(UIImage.FromFile("icon-playnext_d_blue_20_50"), UIControlState.Normal);
             _playNextButton.TouchUpInside -= PlayNextButtonTouchUpInside;
             _playNextButton.TouchUpInside += PlayNextButtonTouchUpInside;
-
+            _playNextButton.Enabled = false;
             AddSubview(_playNextButton);
 
 
@@ -190,7 +190,11 @@ namespace BSE.Tunes.XApp.iOS.Renderer
                 //    break;
             }
         }
-        
+
+        private void UpdateIsPlayNextEnabled(bool isPlayNextEnabled)
+        {
+            _playNextButton.Enabled = isPlayNextEnabled;
+        }
         private void PlayButtonTouchUpInside(object sender, EventArgs e)
         {
             OnPlayButtonTouchUpInside(Element as IPlayerController);

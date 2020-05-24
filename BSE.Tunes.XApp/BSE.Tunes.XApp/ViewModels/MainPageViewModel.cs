@@ -27,7 +27,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private float _progress;
 
         public DelegateCommand PlayCommand => _playCommand
-            ?? (_playCommand = new DelegateCommand(Play));
+            ?? (_playCommand = new DelegateCommand(Play, CanPlay));
         public DelegateCommand PauseCommand => _pauseCommand
             ?? (_pauseCommand = new DelegateCommand(Pause, CanPause));
         public DelegateCommand PlayNextCommand => _playNextCommand
@@ -155,13 +155,14 @@ namespace BSE.Tunes.XApp.ViewModels
             Progress = _playerManager?.Progress ?? default;
         }
 
-        //private bool CanPlay()
-        //{
-        //    return true;
-        //}
+        private bool CanPlay()
+        {
+            return false;
+        }
 
         private async void Play()
         {
+            
             try
             {
                 switch (AudioPlayerState)
@@ -193,10 +194,7 @@ namespace BSE.Tunes.XApp.ViewModels
 
         private void Pause()
         {
-            if (CanPause())
-            {
-                _playerManager.Pause();
-            }
+            _playerManager.Pause();
         }
         
         private bool CanPlayNext()
@@ -217,7 +215,10 @@ namespace BSE.Tunes.XApp.ViewModels
         private void OnMediaOpenend()
         {
             _progressTimer?.Start();
+            
             CurrentTrack = _playerManager.CurrentTrack;
+            PlayNextCommand.RaiseCanExecuteChanged();
+            PauseCommand.RaiseCanExecuteChanged();
             LoadCoverSource(CurrentTrack);
         }
 

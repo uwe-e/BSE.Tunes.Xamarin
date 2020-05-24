@@ -16,7 +16,17 @@ namespace BSE.Tunes.XApp.Controls
             get { return (AudioPlayer)GetValue(AudioPlayerBarProperty); }
             set { SetValue(AudioPlayerBarProperty, value); }
         }
-        
+
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            AudioPlayer audioPlayer = AudioPlayerBar;
+            if (audioPlayer != null)
+            {
+                SetInheritedBindingContext(audioPlayer, BindingContext);
+            }
+        }
+
         private static void OnAudioPlayerBarChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var newElement = (Element)newValue;

@@ -68,8 +68,9 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             _audioPlayerBar = audioPlayerRenderer.NativeView;
             _audioPlayerBar.Hidden = false;
             _audioPlayerBar.BackgroundColor = ((TabbedPage)Element).BarBackgroundColor.ToUIColor();
-            
-            View.Add(_audioPlayerBar);
+
+            View.AddSubview(_audioPlayerBar);
+            //View.Add(_audioPlayerBar);
         }
     }
 }

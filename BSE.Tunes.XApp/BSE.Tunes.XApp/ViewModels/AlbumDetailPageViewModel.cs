@@ -1,14 +1,11 @@
-﻿using BSE.Tunes.XApp.Models.Contract;
+﻿using BSE.Tunes.XApp.Collections;
+using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
-using BSE.Tunes.XApp.Collections;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -79,6 +76,7 @@ namespace BSE.Tunes.XApp.ViewModels
                 }
                 CoverSource = _dataService.GetImage(Album.AlbumId)?.AbsoluteUri;
                 PlayAllCommand.RaiseCanExecuteChanged();
+                PlayAllRandomizedCommand.RaiseCanExecuteChanged();
                 IsBusy = false;
             }
         }

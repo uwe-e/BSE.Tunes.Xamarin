@@ -55,7 +55,7 @@
                                 <Button Text="Zufällig"
                                         ImageSource="icon_shuffle_d_blue_20_50"
                                         HorizontalOptions="End"
-                                        Command="{Binding PlayAllRandomizedComand}"/>
+                                        Command="{Binding PlayAllRandomizedCommand}"/>
                             </StackLayout>
                         </StackLayout>
                         <StackLayout VerticalOptions="StartAndExpand">

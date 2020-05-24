@@ -199,7 +199,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
       <Version>2.4.11.982</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.772" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.800" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
   </ItemGroup>
   <ItemGroup>
@@ -257,9 +257,6 @@
     <BundleResource Include="Resources\icon_playlists%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\icon_playnext_gray%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\icon_play_d_blue_20_50%402x.png" />
   </ItemGroup>
   <ItemGroup>
@@ -273,6 +270,9 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\icon_shuffle_d_blue_20_50%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon-playnext_gray_20_50%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>

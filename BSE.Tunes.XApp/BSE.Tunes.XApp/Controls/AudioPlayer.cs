@@ -5,13 +5,13 @@ using Xamarin.Forms.Internals;
 
 namespace BSE.Tunes.XApp.Controls
 {
-    public class AudioPlayer : View, IPlayerController
+    public class AudioPlayer : View, IPlayerController, IPlayerElement
     {
         public static readonly BindableProperty PlayCommandProperty
         = BindableProperty.Create(
-            nameof(PlayCommand),
+            nameof(IPlayerElement.PlayCommand),
             typeof(ICommand),
-            typeof(AudioPlayer),
+            typeof(IPlayerElement),
             null,
             propertyChanging: OnPlayCommandChanging,
             propertyChanged: OnPlayCommandChanged);
@@ -24,9 +24,9 @@ namespace BSE.Tunes.XApp.Controls
 
         public static readonly BindableProperty PlayCommandParameterProperty
             = BindableProperty.Create(
-                nameof(PlayCommandParameter),
+                nameof(IPlayerElement.PlayCommandParameter),
                 typeof(object),
-                typeof(AudioPlayer),
+                typeof(IPlayerElement),
                 null,
                 propertyChanged: (bindable, oldvalue, newvalue) => PlayCommandCanExecuteChanged(bindable, EventArgs.Empty));
 
@@ -38,9 +38,9 @@ namespace BSE.Tunes.XApp.Controls
 
         public static readonly BindableProperty PauseCommandProperty
             = BindableProperty.Create(
-                nameof(PauseCommand),
+                nameof(IPlayerElement.PauseCommand),
                 typeof(ICommand),
-                typeof(AudioPlayer),
+                typeof(IPlayerElement),
                 null,
                 propertyChanging: OnPauseCommandChanging,
                 propertyChanged: OnPauseCommandChanged);
@@ -53,12 +53,12 @@ namespace BSE.Tunes.XApp.Controls
 
         public static readonly BindableProperty PauseCommandParameterProperty
             = BindableProperty.Create(
-                nameof(PauseCommandParameter),
+                nameof(IPlayerElement.PauseCommandParameter),
                 typeof(object),
-                typeof(AudioPlayer),
+                typeof(IPlayerElement),
                 null,
                 propertyChanged: (bindable, oldvalue, newvalue) => PauseCommandCanExecuteChanged(bindable, EventArgs.Empty));
-        
+
         public object PauseCommandParameter
         {
             get { return GetValue(PauseCommandParameterProperty); }
@@ -67,9 +67,9 @@ namespace BSE.Tunes.XApp.Controls
 
         public static readonly BindableProperty PlayNextCommandProperty
            = BindableProperty.Create(
-               nameof(PlayNextCommand),
+               nameof(IPlayerElement.PlayNextCommand),
                typeof(ICommand),
-               typeof(AudioPlayer),
+               typeof(IPlayerElement),
                null,
                propertyChanging: OnPlayNextCommandChanging,
                propertyChanged: OnPlayNextCommandChanged);
@@ -82,9 +82,9 @@ namespace BSE.Tunes.XApp.Controls
 
         public static readonly BindableProperty PlayNextCommandParameterProperty
             = BindableProperty.Create(
-                nameof(PlayNextCommandParameter),
+                nameof(IPlayerElement.PlayNextCommandParameter),
                 typeof(object),
-                typeof(AudioPlayer),
+                typeof(IPlayerElement),
                 null,
                 propertyChanged: (bindable, oldvalue, newvalue) => PlayNextCommandCanExecuteChanged(bindable, EventArgs.Empty));
 
@@ -96,10 +96,10 @@ namespace BSE.Tunes.XApp.Controls
 
         public static readonly BindableProperty ProgressProperty
                   = BindableProperty.Create(
-                      nameof(Progress),
+                      nameof(IPlayerElement.Progress),
                       typeof(double),
-                      typeof(AudioPlayer), 0d, coerceValue: (bo, v) => ((double)v).Clamp(0, 1));
-        
+                      typeof(IPlayerElement), 0d, coerceValue: (bo, v) => ((double)v).Clamp(0, 1));
+
         public double Progress
         {
             get { return (double)GetValue(ProgressProperty); }
@@ -143,6 +143,18 @@ namespace BSE.Tunes.XApp.Controls
             set { SetValue(CoverProperty, value); }
         }
 
+        public static readonly BindableProperty IsPlayNextEnabledProperty
+            = BindableProperty.Create(nameof(IsPlayNextEnabled),
+                typeof(bool),
+                typeof(AudioPlayer),
+                default);
+
+        public bool IsPlayNextEnabled
+        {
+            get { return (bool)GetValue(IsPlayNextEnabledProperty); }
+            set { SetValue(IsPlayNextEnabledProperty, value); }
+        }
+
         public void SendPauseClicked()
         {
             PauseCommand?.Execute(PauseCommandParameter);
@@ -157,15 +169,26 @@ namespace BSE.Tunes.XApp.Controls
         {
             PlayNextCommand?.Execute(PlayNextCommandParameter);
         }
-        
+
         private static void OnPlayCommandChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is AudioPlayer control)
+            IPlayerElement player = (IPlayerElement)bindable;
+            if (newValue is ICommand newCommand)
             {
-                if (newValue is ICommand newCommand)
-                {
-                    newCommand.CanExecuteChanged += PlayCommandCanExecuteChanged;
-                }
+                newCommand.CanExecuteChanged += player.OnPlayCommandCanExecuteChanged;
+            }
+            if (player.PlayCommand != null)
+            {
+                PlayCommandCanExecuteChanged(player, EventArgs.Empty);
+            }
+        }
+
+        private static void OnPlayCommandChanging(BindableObject bindable, object oldValue, object newValue)
+        {
+            IPlayerElement player = (IPlayerElement)bindable;
+            if (oldValue != null)
+            {
+                (oldValue as ICommand).CanExecuteChanged -= player.OnPlayCommandCanExecuteChanged;
             }
         }
 
@@ -177,36 +200,30 @@ namespace BSE.Tunes.XApp.Controls
             }
         }
 
-        private static void OnPlayCommandChanging(BindableObject bindable, object oldValue, object newValue)
+        public void OnPlayCommandCanExecuteChanged(object sender, EventArgs e)
         {
-            if (bindable is AudioPlayer control)
-            {
-                if (oldValue != null)
-                {
-                    (oldValue as ICommand).CanExecuteChanged -= PlayCommandCanExecuteChanged;
-                }
-            }
+            AudioPlayer.PlayCommandCanExecuteChanged(this, EventArgs.Empty);
         }
-        
+
         private static void OnPauseCommandChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is AudioPlayer control)
+            IPlayerElement player = (IPlayerElement)bindable;
+            if (newValue is ICommand newCommand)
             {
-                if (newValue is ICommand newCommand)
-                {
-                    newCommand.CanExecuteChanged += PauseCommandCanExecuteChanged;
-                }
+                newCommand.CanExecuteChanged += player.OnPauseCommandCanExecuteChanged;
+            }
+            if (player.PauseCommand != null)
+            {
+                PauseCommandCanExecuteChanged(player, EventArgs.Empty);
             }
         }
 
         private static void OnPauseCommandChanging(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is AudioPlayer control)
+            IPlayerElement player = (IPlayerElement)bindable;
+            if (oldValue != null)
             {
-                if (oldValue != null)
-                {
-                    (oldValue as ICommand).CanExecuteChanged -= PauseCommandCanExecuteChanged;
-                }
+                (oldValue as ICommand).CanExecuteChanged -= player.OnPauseCommandCanExecuteChanged;
             }
         }
 
@@ -217,35 +234,49 @@ namespace BSE.Tunes.XApp.Controls
                 control.PauseCommand?.CanExecute(control.PauseCommandParameter);
             }
         }
-        
+
+        public void OnPauseCommandCanExecuteChanged(object sender, EventArgs e)
+        {
+            AudioPlayer.PauseCommandCanExecuteChanged(this, EventArgs.Empty);
+        }
+
         private static void OnPlayNextCommandChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is AudioPlayer control)
+            IPlayerElement player = (IPlayerElement)bindable;
+            if (newValue is ICommand newCommand)
             {
-                if (newValue is ICommand newCommand)
-                {
-                    newCommand.CanExecuteChanged += PlayNextCommandCanExecuteChanged;
-                }
+                newCommand.CanExecuteChanged += player.OnPlayNextCommandCanExecuteChanged;
+            }
+            if (player.PlayNextCommand != null)
+            {
+                PlayNextCommandCanExecuteChanged(player, EventArgs.Empty);
             }
         }
 
         private static void OnPlayNextCommandChanging(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is AudioPlayer control)
+            IPlayerElement player = (IPlayerElement)bindable;
+            if (oldValue != null)
             {
-                if (oldValue != null)
-                {
-                    (oldValue as ICommand).CanExecuteChanged -= PlayNextCommandCanExecuteChanged;
-                }
+                (oldValue as ICommand).CanExecuteChanged -= player.OnPlayNextCommandCanExecuteChanged;
             }
         }
 
         private static void PlayNextCommandCanExecuteChanged(object sender, EventArgs empty)
         {
-            if (sender is AudioPlayer control)
+            if (sender is AudioPlayer player)
             {
-                control.PlayNextCommand?.CanExecute(control.PlayNextCommandParameter);
+                if (player.PlayNextCommand != null)
+                {
+                    player.IsPlayNextEnabled = player.PlayNextCommand.CanExecute(player.PlayNextCommandParameter);
+                }
             }
         }
+
+        public void OnPlayNextCommandCanExecuteChanged(object sender, EventArgs e)
+        {
+            AudioPlayer.PlayNextCommandCanExecuteChanged(this, EventArgs.Empty);
+        }
+
     }
 }

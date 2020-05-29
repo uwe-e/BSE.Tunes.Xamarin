@@ -6,7 +6,7 @@ namespace BSE.Tunes.XApp.Models.Contract
 {
     public class History
     {
-        public int AppId
+        public int PlayMode
         {
             get;
             set;

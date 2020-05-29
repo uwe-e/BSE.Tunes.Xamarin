@@ -15,7 +15,6 @@ namespace BSE.Tunes.XApp.Services
         event Action<MediaState> MediaStateChanged;
         void SetTrack(Track track);
         void Play();
-        void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioplayerMode);
         void Pause();
         void Stop();
     }

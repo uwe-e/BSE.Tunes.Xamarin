@@ -41,7 +41,6 @@ namespace BSE.Tunes.XApp.iOS
 
 		public bool Started { get; private set; }
 
-
 		public float Volume
 		{
 			get
@@ -75,7 +74,6 @@ namespace BSE.Tunes.XApp.iOS
 			_audioFileStream = new AudioFileStream(type);
 			_audioFileStream.PacketDecoded += AudioPacketDecoded;
 			_audioFileStream.PropertyFound += AudioPropertyFound;
-
 		}
 
 		public void Reset()
@@ -128,7 +126,7 @@ namespace BSE.Tunes.XApp.iOS
 		public void Stop()
 		{
 			_stopPlayer = true;
-			CheckAudioQueueStatus(OutputQueue.Stop(true), AudioPlayerState.Stopped);
+			CheckAudioQueueStatus(OutputQueue.Stop(false), AudioPlayerState.Stopped);
 			Started = false;
 		}
 		/// <summary>
@@ -178,7 +176,6 @@ namespace BSE.Tunes.XApp.iOS
 					_audioFileStream.Close();
 					_audioFileStream = null;
 				}
-
 
 				if (OutputQueue != null)
 				{
@@ -333,7 +330,8 @@ namespace BSE.Tunes.XApp.iOS
 				}
 			}
 
-			if (_queuedBufferCount == 0 && !_stopPlayer)
+			//if (_queuedBufferCount == 0 && !_stopPlayer)
+			if (_queuedBufferCount == 0 || _stopPlayer)
 			{
 				Finished?.Invoke(this, new EventArgs());
 			}

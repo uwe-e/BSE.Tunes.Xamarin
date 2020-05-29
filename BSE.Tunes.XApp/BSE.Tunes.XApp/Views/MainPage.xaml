@@ -15,13 +15,13 @@
     ios:TabbedPage.TranslucencyMode="Opaque"
     BarBackgroundColor="{DynamicResource systemGray6}"
     NavigationPage.HasNavigationBar="False">
-
+<!-- -->
     <controls:ExtendedTabbedPage.AudioPlayerBar>
         <controls:AudioPlayer PlayCommand="{Binding PlayCommand}"
                               PauseCommand="{Binding PauseCommand}"
                               PlayNextCommand="{Binding PlayNextCommand}"
                               Progress="{Binding Progress, Mode=TwoWay}"
-                              TrackTitle="{Binding CurrentTrack.Name, Mode=TwoWay}"
+                              Track="{Binding CurrentTrack, Mode=TwoWay}"
                               Cover="{Binding CoverSource, Mode=TwoWay}"
                               AudioPlayerState="{Binding AudioPlayerState, Mode=TwoWay}"/>
     </controls:ExtendedTabbedPage.AudioPlayerBar>

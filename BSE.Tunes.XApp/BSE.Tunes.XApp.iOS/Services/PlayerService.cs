@@ -48,11 +48,6 @@ namespace BSE.Tunes.XApp.iOS.Services
             _player?.Stop();
         }
 
-        public void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioplayerMode)
-        {
-            throw new NotImplementedException();
-        }
-
         public void SetTrack(Track track)
         {
             if (track != null)
@@ -150,8 +145,7 @@ namespace BSE.Tunes.XApp.iOS.Services
             }
             catch (HttpRequestException exception)
             {
-                Console.WriteLine($"no request possible");
-                throw exception;
+                Console.WriteLine($"Exception thrown in {nameof(StreamDownloadHandler)} with message {exception.Message}");
             }
             catch (Exception exception)
             {
@@ -162,12 +156,13 @@ namespace BSE.Tunes.XApp.iOS.Services
         private static async Task<HttpResponseMessage> TryGetAsync(int attempt, Uri requestUri, HttpClient httpClient, CancellationToken cancellationToken)
         {
             var responseMessage = await httpClient.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-            if (attempt == 3)
+            if (attempt == 5)
             {
-                throw new HttpRequestException("GetAsync aborted after 3 attempts");
+                throw new HttpRequestException("GetAsync aborted after 5 attempts");
             }
             if (responseMessage.StatusCode != System.Net.HttpStatusCode.OK)
             {
+                Console.WriteLine($"Attempt no {attempt} in {nameof(TryGetAsync)}");
                 await Task.Delay(1000);
                 return await TryGetAsync(attempt += 1, requestUri, httpClient, cancellationToken);
             }

@@ -1,5 +1,6 @@
 ﻿using BSE.Tunes.XApp.Controls;
 using BSE.Tunes.XApp.iOS.Renderer;
+using BSE.Tunes.XApp.Models.Contract;
 using CoreGraphics;
 using System;
 using System.ComponentModel;
@@ -18,7 +19,8 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         private UIButton _playNextButton;
         private UIButton _playButton;
         private UIView _bottomBorder;
-        private UILabel _trackTitleLabel;
+        private UILabel _titleLabel;
+        private UILabel _artistLabel;
         private UIImageView _coverImageView;
         private UIProgressView _progressView;
 
@@ -54,10 +56,15 @@ namespace BSE.Tunes.XApp.iOS.Renderer
                                    controlWidth,
                                    controlHeight);
 
-            _trackTitleLabel.Frame = new CGRect(leftX + controlWidth + offsetLeft,
+            _titleLabel.Frame = new CGRect(leftX + controlWidth + offsetLeft,
                                    7,
                                    rightX - 10 - (2 * controlWidth) - (3 * offsetLeft),
-                                   controlHeight);
+                                   24);
+
+            _artistLabel.Frame = new CGRect(leftX + controlWidth + offsetLeft,
+                                   32,
+                                   rightX - 10 - (2 * controlWidth) - (3 * offsetLeft),
+                                   20);
 
             _playButton.Frame = new CGRect(rightX - controlWidth - offsetLeft,
                                    7,
@@ -87,9 +94,9 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             {
                 SetPlayerState(Player.AudioPlayerState);
             }
-            if (e.PropertyName == nameof(Player.TrackTitle))
+            if (e.PropertyName == nameof(Player.Track))
             {
-                SetTrackTitle(Player.TrackTitle);
+                SetTrackInfo(Player.Track);
             }
             if (e.PropertyName == nameof(Player.Cover))
             {
@@ -114,19 +121,28 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             _coverImageView = new UIImageView()
             {
                 //BackgroundColor = UIColor.Orange,
-                //Image = UIImage.f
             };
 
             AddSubview(_coverImageView);
 
-            _trackTitleLabel = new UILabel()
+            _titleLabel = new UILabel()
             {
                 //BackgroundColor = UIColor.Blue,
                 LineBreakMode = UILineBreakMode.TailTruncation,
                 //Text = "This is the title"
             };
 
-            AddSubview(_trackTitleLabel);
+            AddSubview(_titleLabel);
+
+            _artistLabel = new UILabel()
+            {
+                //BackgroundColor = UIColor.Red,
+                LineBreakMode = UILineBreakMode.TailTruncation,
+                //Text = "This is the title",
+                Font = UIFont.SystemFontOfSize(11)
+            };
+
+            AddSubview(_artistLabel);
 
             _playButton = new UIButton()
             {
@@ -161,11 +177,11 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             _progressView.Hidden = progress == default ? true : false;
             _progressView.SetProgress((float)progress, progress == default ? false : true);
         }
-        private void SetTrackTitle(string trackTitle)
+        private void SetTrackInfo(Track track)
         {
-            _trackTitleLabel.Text = trackTitle;
+            _titleLabel.Text = track?.Name;
+            _artistLabel.Text = track?.Album?.Artist?.Name;
         }
-
         private async void SetCover(ImageSource imageSource)
         {
             var image = await Task.Run(() => new ImageLoaderSourceHandler().LoadImageAsync(imageSource, default, 1f));

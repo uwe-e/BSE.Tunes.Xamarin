@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BSE.Tunes.XApp.Models.Contract;
+using System;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -119,17 +120,18 @@ namespace BSE.Tunes.XApp.Controls
             set { SetValue(AudioPlayerStateProperty, value); }
         }
 
-        public static readonly BindableProperty TrackTitleProperty
-            = BindableProperty.Create(nameof(TrackTitle),
-                                      typeof(string),
-                                      typeof(AudioPlayer),
-                                      default(string));
+        public static readonly BindableProperty TrackProperty
+            = BindableProperty.Create(nameof(Track),
+                typeof(Track),
+                typeof(AudioPlayer),
+                default);
 
-        public string TrackTitle
+        public Track Track
         {
-            get { return (string)GetValue(TrackTitleProperty); }
-            set { SetValue(TrackTitleProperty, value); }
+            get { return (Track)GetValue(TrackProperty); }
+            set { SetValue(TrackProperty, value); }
         }
+
 
         public static readonly BindableProperty CoverProperty
             = BindableProperty.Create(nameof(Cover),

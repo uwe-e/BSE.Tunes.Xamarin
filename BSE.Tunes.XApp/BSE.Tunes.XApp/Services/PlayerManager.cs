@@ -38,6 +38,7 @@ namespace BSE.Tunes.XApp.Services
         public void Pause()
         {
             _playerService.Pause();
+            //_playerService.Stop();
         }
 
         public void Play()
@@ -60,6 +61,7 @@ namespace BSE.Tunes.XApp.Services
 
         public void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioPlayerMode)
         {
+            _playerService.Stop();
             Playlist = trackIds.ToNavigableCollection();
             PlayTracks(audioPlayerMode);
         }
@@ -133,7 +135,7 @@ namespace BSE.Tunes.XApp.Services
             {
                 await _dataService.UpdateHistory(new History
                 {
-                    AppId = (int)AudioPlayerMode,
+                    PlayMode = (int)AudioPlayerMode,
                     AlbumId = track.Album.Id,
                     TrackId = track.Id,
                     UserName = userName,

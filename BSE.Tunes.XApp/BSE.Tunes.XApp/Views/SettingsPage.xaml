@@ -1,11 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
-             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              x:Class="BSE.Tunes.XApp.Views.SettingsPage"
              Title="{i18n:Translate SettingsPage_Title}"
              IconImageSource="icon_settings">
-  
+    <ContentPage.Content>
+        <TableView Intent="Settings">
+            <TableRoot>
+                <TableSection Title="{i18n:Translate SettingsPage_SectionWebserver_Title}">
+                    <TextCell Text="{i18n:Translate SettingsPage_SectionWebserver_Description_Text}"
+                              Detail="{Binding ServiceEndPoint}" />
+                </TableSection>
+                <TableSection Title="{i18n:Translate SettingsPage_SectionAccount_Title}">
+                    <TextCell Text="{i18n:Translate SettingsPage_SectionAccount_Description_Text1}"
+                              Detail="{Binding UserName}"/>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </ContentPage.Content>
 </ContentPage>

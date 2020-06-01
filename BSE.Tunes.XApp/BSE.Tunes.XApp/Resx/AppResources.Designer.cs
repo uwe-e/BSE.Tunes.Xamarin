@@ -61,6 +61,24 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Play all.
+        /// </summary>
+        internal static string AlbumsDetailPage_Button_PlayAll_Text {
+            get {
+                return ResourceManager.GetString("AlbumsDetailPage_Button_PlayAll_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shuffle all.
+        /// </summary>
+        internal static string AlbumsDetailPage_Button_PlayRandomized_Text {
+            get {
+                return ResourceManager.GetString("AlbumsDetailPage_Button_PlayRandomized_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Albums.
         /// </summary>
         internal static string AlbumsPage_Title {
@@ -156,6 +174,42 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string PlaylistsPage_Title {
             get {
                 return ResourceManager.GetString("PlaylistsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account at BSEtunes.
+        /// </summary>
+        internal static string SettingsPage_SectionAccount_Description_Text1 {
+            get {
+                return ResourceManager.GetString("SettingsPage_SectionAccount_Description_Text1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        internal static string SettingsPage_SectionAccount_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_SectionAccount_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The web address of your BSEtunes.
+        /// </summary>
+        internal static string SettingsPage_SectionWebserver_Description_Text {
+            get {
+                return ResourceManager.GetString("SettingsPage_SectionWebserver_Description_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Webserver.
+        /// </summary>
+        internal static string SettingsPage_SectionWebserver_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_SectionWebserver_Title", resourceCulture);
             }
         }
         

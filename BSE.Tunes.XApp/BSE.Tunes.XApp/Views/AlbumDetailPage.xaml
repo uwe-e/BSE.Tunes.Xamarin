@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              xmlns:prism="http://prismlibrary.com"
              xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
@@ -48,11 +49,11 @@
                         </StackLayout>
                         <StackLayout VerticalOptions="StartAndExpand">
                             <StackLayout Orientation="Horizontal">
-                                <Button Text="Wiedergabe"
+                                <Button Text="{i18n:Translate AlbumsDetailPage_Button_PlayAll_Text}"
                                         ImageSource="icon_play_d_blue_20_50"
                                         HorizontalOptions="Start"
                                         Command="{Binding PlayAllCommand}"/>
-                                <Button Text="Zufällig"
+                                <Button Text="{i18n:Translate AlbumsDetailPage_Button_PlayRandomized_Text}"
                                         ImageSource="icon_shuffle_d_blue_20_50"
                                         HorizontalOptions="End"
                                         Command="{Binding PlayAllRandomizedCommand}"/>

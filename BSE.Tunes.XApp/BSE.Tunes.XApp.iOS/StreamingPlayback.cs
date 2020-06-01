@@ -109,7 +109,7 @@ namespace BSE.Tunes.XApp.iOS
 		/// </summary>
 		public void Pause()
 		{
-			CheckAudioQueueStatus(OutputQueue.Pause(), AudioPlayerState.Paused);
+			CheckAudioQueueStatus(OutputQueue?.Pause(), AudioPlayerState.Paused);
 			Started = false;
 		}
 
@@ -118,7 +118,7 @@ namespace BSE.Tunes.XApp.iOS
 		/// </summary>
 		public void Play()
 		{
-			CheckAudioQueueStatus(OutputQueue.Start(), AudioPlayerState.Playing);
+			CheckAudioQueueStatus(OutputQueue?.Start(), AudioPlayerState.Playing);
 			Started = true;
 			_stopPlayer = false;
 		}
@@ -126,13 +126,14 @@ namespace BSE.Tunes.XApp.iOS
 		public void Stop()
 		{
 			_stopPlayer = true;
-			CheckAudioQueueStatus(OutputQueue.Stop(false), AudioPlayerState.Stopped);
+			CheckAudioQueueStatus(OutputQueue?.Stop(false), AudioPlayerState.Stopped);
 			Started = false;
 		}
-		/// <summary>
-		/// Main methode to kick off the streaming, just send the bytes to this method
-		/// </summary>
-		public void ParseBytes(byte[] buffer, int count, bool discontinuity, bool lastPacket)
+
+        /// <summary>
+        /// Main methode to kick off the streaming, just send the bytes to this method
+        /// </summary>
+        public void ParseBytes(byte[] buffer, int count, bool discontinuity, bool lastPacket)
 		{
 			this._lastPacket = lastPacket;
 			_audioFileStream.ParseBytes(buffer, 0, count, discontinuity);
@@ -338,16 +339,19 @@ namespace BSE.Tunes.XApp.iOS
 				
 		}
 
-		private void CheckAudioQueueStatus(AudioQueueStatus audioQueueStatus, AudioPlayerState mediaPlayerState = AudioPlayerState.Closed)
+		private void CheckAudioQueueStatus(AudioQueueStatus? audioQueueStatus, AudioPlayerState mediaPlayerState = AudioPlayerState.Closed)
 		{
-			if (audioQueueStatus != _audioQueueStatus)
+			if (audioQueueStatus is AudioQueueStatus audioStatus)
 			{
-				_audioQueueStatus = audioQueueStatus;
-			}
+				if (audioStatus != _audioQueueStatus)
+				{
+					_audioQueueStatus = audioStatus;
+				}
 
-			if (_audioQueueStatus == AudioQueueStatus.Ok)
-			{
-				AudioPlayerStateChanged?.Invoke(mediaPlayerState);
+				if (_audioQueueStatus == AudioQueueStatus.Ok)
+				{
+					AudioPlayerStateChanged?.Invoke(mediaPlayerState);
+				}
 			}
 		}
 	}

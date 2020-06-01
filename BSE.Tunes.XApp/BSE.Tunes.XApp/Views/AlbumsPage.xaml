@@ -25,7 +25,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Padding="20,10,20,0">
+                            <StackLayout Padding="10">
                                 <template:ViewItemTemplate>
                                     <template:ViewItemTemplate.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=albumsView}}" CommandParameter="{Binding}"/>

@@ -1,8 +1,11 @@
 ﻿using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism;
+using Prism.Commands;
 using Prism.Navigation;
 using System;
-using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -13,6 +16,14 @@ namespace BSE.Tunes.XApp.ViewModels
         private bool _isActivated;
         private string _serviceEndPoint;
         private string _userName;
+        private DelegateCommand _toServiceEndpointDetailCommand;
+        private DelegateCommand _toAccountDetailCommand;
+
+        public ICommand ToServiceEndpointDetailCommand
+            => _toServiceEndpointDetailCommand ?? (_toServiceEndpointDetailCommand = new DelegateCommand(NavigateToServiceEndpointDetail));
+
+        public ICommand ToAccountDetailCommand
+           => _toAccountDetailCommand ?? (_toAccountDetailCommand = new DelegateCommand(NavigateToAccountDetail));
 
         public bool IsActive
         {
@@ -68,6 +79,15 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             ServiceEndPoint = _settingsService?.ServiceEndPoint;
             UserName = _settingsService?.User.UserName;
+        }
+        
+        private void NavigateToAccountDetail()
+        {
+        }
+
+        private async void NavigateToServiceEndpointDetail()
+        {
+            await NavigationService.NavigateAsync(nameof(ServiceEndpointSettingsPage));
         }
     }
 }

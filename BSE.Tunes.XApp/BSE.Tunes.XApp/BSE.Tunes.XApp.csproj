@@ -46,6 +46,9 @@
     <Compile Update="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ServiceEndpointWizzardPage.xaml.cs">
+      <DependentUpon>ServiceEndpointWizzardPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Templates\SlidePanelTemplate.xaml.cs">
       <DependentUpon>SlidePanelTemplate.xaml</DependentUpon>
     </Compile>
@@ -99,6 +102,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ServiceEndpointSettingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ServiceEndpointWizzardPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SettingsPage.xaml">

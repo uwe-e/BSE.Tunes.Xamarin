@@ -108,6 +108,7 @@
     <Compile Include="Renderer\AudioPlayerRenderer.cs" />
     <Compile Include="Renderer\ButtonElementManager.cs" />
     <Compile Include="Renderer\ButtonRenderer.cs" />
+    <Compile Include="Renderer\TextCellRenderer.cs" />
     <Compile Include="Renderer\ExtendedTabbedRenderer.cs" />
     <Compile Include="Services\Environment_iOS.cs" />
     <Compile Include="Main.cs" />

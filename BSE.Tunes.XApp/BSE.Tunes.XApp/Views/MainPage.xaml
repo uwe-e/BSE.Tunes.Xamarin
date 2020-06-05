@@ -15,7 +15,7 @@
     ios:TabbedPage.TranslucencyMode="Opaque"
     BarBackgroundColor="{DynamicResource systemGray6}"
     NavigationPage.HasNavigationBar="False">
-<!-- -->
+
     <controls:ExtendedTabbedPage.AudioPlayerBar>
         <controls:AudioPlayer PlayCommand="{Binding PlayCommand}"
                               PauseCommand="{Binding PauseCommand}"
@@ -40,8 +40,20 @@
                 <views:AlbumsPage/>
             </x:Arguments>
         </NavigationPage>
-        <views:PlaylistsPage/>
-        <views:SettingsPage/>
+        <NavigationPage Title="{i18n:Translate PlaylistsPage_Title}"
+                        IconImageSource="icon_playlists"
+                        ios:NavigationPage.IsNavigationBarTranslucent="True">
+            <x:Arguments>
+                <views:PlaylistsPage/>
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="{i18n:Translate SettingsPage_Title}"
+                        IconImageSource="icon_settings"
+                        ios:NavigationPage.IsNavigationBarTranslucent="True">
+            <x:Arguments>
+                <views:SettingsPage/>
+            </x:Arguments>
+        </NavigationPage>
     </TabbedPage.Children>
 
 

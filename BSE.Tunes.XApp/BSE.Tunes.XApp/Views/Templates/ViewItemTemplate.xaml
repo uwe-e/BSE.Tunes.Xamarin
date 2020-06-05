@@ -4,12 +4,15 @@
              xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="BSE.Tunes.XApp.Views.Templates.ViewItemTemplate">
     <ContentView.Content>
-        <StackLayout Margin="3,0,3,0" WidthRequest="180" HeightRequest="180">
-            <Frame Padding="0" CornerRadius="5" IsClippedToBounds="True"
-                   BackgroundColor="{DynamicResource backgroundColor}">
+        <StackLayout Margin="3,0,3,0" HeightRequest="200">
+            <Frame Padding="0"
+                   CornerRadius="5"
+                   IsClippedToBounds="True"
+                   HasShadow="False">
                 <ffimageLoading:CachedImage Source="{Binding ImageSource}"
                                         Aspect="AspectFill"
-                                        WidthRequest="180" HeightRequest="150"/>
+                                        WidthRequest="160" HeightRequest="160"/>
+                <!--<Grid WidthRequest="160" HeightRequest="160" BackgroundColor="Red"/>-->
             </Frame>
             <Label Text="{Binding Title}"
                    Margin="0,-5,0,0"

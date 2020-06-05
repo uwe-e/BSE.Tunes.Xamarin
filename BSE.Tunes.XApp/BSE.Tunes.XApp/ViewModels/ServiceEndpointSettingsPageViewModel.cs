@@ -1,83 +1,96 @@
-﻿using System;
-using BSE.Tunes.XApp.Models;
-using BSE.Tunes.XApp.Services;
+﻿using BSE.Tunes.XApp.Services;
+using Prism;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using System;
+using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
-    public class ServiceEndpointSettingsPageViewModel : ViewModelBase
+    public class ServiceEndpointSettingsPageViewModel : ViewModelBase, IActiveAware
     {
-        private string serviceEndPoint;
-        private DelegateCommand saveCommand;
-        private readonly IPageDialogService pageDialogService;
-        private readonly ISettingsService settingsService;
-        private readonly IDataService dataService;
-        private readonly IAuthenticationService authenticationService;
+        private readonly ISettingsService _settingsService;
+        private readonly IPageDialogService _pageDialogService;
+        private readonly IPlayerManager _playerManager;
+        private bool _isActive;
+        private bool _isActivated;
+        private string _serviceEndPoint;
+        private DelegateCommand _deleteCommand;
+
+        public ICommand DeleteAddressCommand
+            => _deleteCommand ?? (_deleteCommand = new DelegateCommand(Delete));
+
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set { SetProperty(ref _isActive, value, RaiseIsActiveChanged); }
+        }
 
         public string ServiceEndPoint
         {
             get
             {
-                return this.serviceEndPoint;
+                return _serviceEndPoint;
             }
             set
             {
-                SetProperty(ref this.serviceEndPoint, value);
-                SaveCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _serviceEndPoint, value);
             }
         }
 
-        public DelegateCommand SaveCommand => this.saveCommand ?? (this.saveCommand = new DelegateCommand(Save, CanSave));
+        public event EventHandler IsActiveChanged;
 
-        private bool CanSave()
-        {
-            return !String.IsNullOrEmpty(ServiceEndPoint);
-        }
-
-        public ServiceEndpointSettingsPageViewModel(INavigationService navigationService,
-            IResourceService resourceService,
-            IPageDialogService pageDialogService,
+        public ServiceEndpointSettingsPageViewModel(
+            INavigationService navigationService,
             ISettingsService settingsService,
-            IDataService dataService,
-            IAuthenticationService authenticationService) : base(navigationService, resourceService)
+            IPageDialogService pageDialogService,
+            IPlayerManager playerManager,
+            IResourceService resourceService) : base(navigationService, resourceService)
         {
-            this.pageDialogService = pageDialogService;
-            this.settingsService = settingsService;
-            this.dataService = dataService;
-            this.authenticationService = authenticationService;
+            _settingsService = settingsService;
+            _pageDialogService = pageDialogService;
+            _playerManager = playerManager;
         }
 
-        private async void Save()
+        private void RaiseIsActiveChanged()
         {
-            var uriBuilder = new UriBuilder(ServiceEndPoint);
-            var serviceEndPoint = uriBuilder.Uri.AbsoluteUri;
-            try
+            if (IsActive && !_isActivated)
             {
-                await this.dataService.IsEndPointAccessibleAsync(serviceEndPoint);
-                this.settingsService.ServiceEndPoint = serviceEndPoint;
-                if (this.settingsService.User is User user)
-                {
-                    try
-                    {
-                        await this.authenticationService.RequestRefreshTokenAsync(user.Token);
-                        await NavigationService.NavigateAsync("MainPage/NavigationPage/HomePage");
-                    }
-                    catch (Exception)
-                    {
-                        await NavigationService.NavigateAsync("LoginPage");
-                    }
-                }
-                else
-                {
-                    await NavigationService.NavigateAsync("LoginPage");
-                }
+                _isActivated = true;
+
+                LoadSettings();
             }
-            catch (Exception)
-            {
-                await this.pageDialogService.DisplayAlertAsync("test", "message", "cancel");
-            }
+            IsActiveChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        private void LoadSettings()
+        {
+            ServiceEndPoint = _settingsService?.ServiceEndPoint;
+        }
+        
+        private async void Delete()
+        {
+            ResourceService.GetString("ServiceEndpointSettingsPage_ActionSheet_Title");
+
+            var buttons = new IActionSheetButton[]
+            {
+                ActionSheetButton.CreateCancelButton(
+                    ResourceService.GetString("ActionSheetButton_Cancel")),
+                ActionSheetButton.CreateDestroyButton(
+                    ResourceService.GetString("ActionSheetButton_Delete"),
+                    DeleteAction)
+            };
+
+            await _pageDialogService.DisplayActionSheetAsync(
+                ResourceService.GetString("ServiceEndpointSettingsPage_ActionSheet_Title"),
+                buttons);
+        }
+
+        private void DeleteAction()
+        {
+            //_playerManager.
+        }
+
     }
 }

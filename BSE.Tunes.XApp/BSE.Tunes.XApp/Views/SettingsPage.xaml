@@ -3,20 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:bseios="clr-namespace:BSE.Tunes.XApp.PlatformConfiguration.iOSSpecific"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.SettingsPage"
-             Title="{i18n:Translate SettingsPage_Title}"
-             IconImageSource="icon_settings">
+             Title="{i18n:Translate SettingsPage_Title}">
     <ContentPage.Content>
         <TableView Intent="Settings">
             <TableRoot>
                 <TableSection Title="{i18n:Translate SettingsPage_SectionWebserver_Title}">
                     <TextCell Text="{i18n:Translate SettingsPage_SectionWebserver_Description_Text}"
-                              Detail="{Binding ServiceEndPoint}" />
+                              bseios:TextCell.Accessory="DisclosureIndicator"
+                              Detail="{Binding ServiceEndPoint}" Command="{Binding ToServiceEndpointDetailCommand}"/>
                 </TableSection>
                 <TableSection Title="{i18n:Translate SettingsPage_SectionAccount_Title}">
-                    <TextCell Text="{i18n:Translate SettingsPage_SectionAccount_Description_Text1}"
-                              Detail="{Binding UserName}"/>
+                    <TextCell Text="{i18n:Translate SettingsPage_SectionAccount_Description_Text}"
+                              Detail="{Binding UserName}"
+                              bseios:TextCell.Accessory="DisclosureIndicator"/>
                 </TableSection>
             </TableRoot>
         </TableView>

@@ -61,6 +61,24 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ActionSheetButton_Cancel {
+            get {
+                return ResourceManager.GetString("ActionSheetButton_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string ActionSheetButton_Delete {
+            get {
+                return ResourceManager.GetString("ActionSheetButton_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Play all.
         /// </summary>
         internal static string AlbumsDetailPage_Button_PlayAll_Text {
@@ -178,11 +196,56 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete the address of this BSETunes?.
+        /// </summary>
+        internal static string ServiceEndpointSettingsPage_ActionSheet_Title {
+            get {
+                return ResourceManager.GetString("ServiceEndpointSettingsPage_ActionSheet_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Address.
+        /// </summary>
+        internal static string ServiceEndpointSettingsPage_ButtonDelete_Text {
+            get {
+                return ResourceManager.GetString("ServiceEndpointSettingsPage_ButtonDelete_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The web address of your BSEtunes.
+        /// </summary>
+        internal static string ServiceEndpointSettingsPage_SectionWebserver_Description_Text {
+            get {
+                return ResourceManager.GetString("ServiceEndpointSettingsPage_SectionWebserver_Description_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        internal static string ServiceEndpointSettingsPage_SectionWebserver_Title {
+            get {
+                return ResourceManager.GetString("ServiceEndpointSettingsPage_SectionWebserver_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Webserver.
+        /// </summary>
+        internal static string ServiceEndpointSettingsPage_Title {
+            get {
+                return ResourceManager.GetString("ServiceEndpointSettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your account at BSEtunes.
         /// </summary>
-        internal static string SettingsPage_SectionAccount_Description_Text1 {
+        internal static string SettingsPage_SectionAccount_Description_Text {
             get {
-                return ResourceManager.GetString("SettingsPage_SectionAccount_Description_Text1", resourceCulture);
+                return ResourceManager.GetString("SettingsPage_SectionAccount_Description_Text", resourceCulture);
             }
         }
         

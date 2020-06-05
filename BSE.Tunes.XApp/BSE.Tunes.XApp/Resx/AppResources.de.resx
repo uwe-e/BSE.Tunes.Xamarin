@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionSheetButton_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ActionSheetButton_Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
   <data name="AlbumsDetailPage_Button_PlayAll_Text" xml:space="preserve">
     <value>Alle wiedergeben</value>
   </data>
@@ -156,14 +162,29 @@
   <data name="PlaylistsPage_Title" xml:space="preserve">
     <value>Playlists</value>
   </data>
-  <data name="SettingsPage_SectionAccount_Description_Text1" xml:space="preserve">
+  <data name="ServiceEndpointSettingsPage_ActionSheet_Title" xml:space="preserve">
+    <value>Willst du die Adresse dieses BSETunes löschen?</value>
+  </data>
+  <data name="ServiceEndpointSettingsPage_ButtonDelete_Text" xml:space="preserve">
+    <value>Adresse löschen</value>
+  </data>
+  <data name="ServiceEndpointSettingsPage_SectionWebserver_Description_Text" xml:space="preserve">
+    <value>Die Adresse Deines BSEtunes</value>
+  </data>
+  <data name="ServiceEndpointSettingsPage_SectionWebserver_Title" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="ServiceEndpointSettingsPage_Title" xml:space="preserve">
+    <value>Webserver</value>
+  </data>
+  <data name="SettingsPage_SectionAccount_Description_Text" xml:space="preserve">
     <value>Dein Konto bei BSEtunes</value>
   </data>
   <data name="SettingsPage_SectionAccount_Title" xml:space="preserve">
     <value>Konto</value>
   </data>
   <data name="SettingsPage_SectionWebserver_Description_Text" xml:space="preserve">
-    <value>Die Adresse deines BSEtunes</value>
+    <value>Die Adresse Deines BSEtunes</value>
   </data>
   <data name="SettingsPage_SectionWebserver_Title" xml:space="preserve">
     <value>Webserver</value>

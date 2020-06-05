@@ -21,7 +21,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string>BSE.Tunes.XApp</string>
+	<string>BSETunes</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.bsetunes.xapp</string>
 	<key>CFBundleVersion</key>

@@ -22,7 +22,9 @@
                     </CarouselView.ItemsLayout>
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <Frame Padding="0" CornerRadius="10" IsClippedToBounds="True"
+                            <Frame Padding="0" CornerRadius="10"
+                                   IsClippedToBounds="True"
+                                   HasShadow="False"
                                    BackgroundColor="{DynamicResource backgroundColor}">
                                 <templates:SlidePanelTemplate Margin="0"></templates:SlidePanelTemplate>
                             </Frame>

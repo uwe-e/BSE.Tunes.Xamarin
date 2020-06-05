@@ -1,5 +1,6 @@
 ﻿using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism.Navigation;
 using System;
 
@@ -48,7 +49,7 @@ namespace BSE.Tunes.XApp.ViewModels
             }
             catch (Exception)
             {
-                await NavigationService.NavigateAsync("ServiceEndpointSettingsPage");
+                await NavigationService.NavigateAsync(nameof(ServiceEndpointWizzardPage));
             }
         }
     }

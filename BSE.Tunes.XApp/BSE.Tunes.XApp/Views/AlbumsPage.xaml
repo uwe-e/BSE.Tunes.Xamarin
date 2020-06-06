@@ -6,8 +6,8 @@
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              xmlns:template="clr-namespace:BSE.Tunes.XApp.Views.Templates"
              x:Class="BSE.Tunes.XApp.Views.AlbumsPage"
-             BackgroundColor="{DynamicResource backgroundColor}"
              Title="{i18n:Translate AlbumsPage_Title}">
+
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -43,4 +43,5 @@
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
+    
 </ContentPage>

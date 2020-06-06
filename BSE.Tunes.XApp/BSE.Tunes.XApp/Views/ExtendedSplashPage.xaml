@@ -5,6 +5,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.ExtendedSplashPage"
              BackgroundColor="{DynamicResource backgroundColor}">
+    
     <ContentPage.Content>
         <Grid AutomationId="splash">
             <Image Aspect="AspectFill">
@@ -25,4 +26,5 @@
                 <ActivityIndicator IsRunning="True" Color ="#80000000"/>
             </StackLayout>-->
     </ContentPage.Content>
+    
 </ContentPage>

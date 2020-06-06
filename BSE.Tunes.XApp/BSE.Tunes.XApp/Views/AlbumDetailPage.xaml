@@ -7,7 +7,6 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.AlbumDetailPage"
-             BackgroundColor="{DynamicResource backgroundColor}" 
              NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Content>

@@ -166,7 +166,7 @@
     <value>Konto löschen</value>
   </data>
   <data name="LoginSettingsPage_SectionAccount_Description_Text" xml:space="preserve">
-    <value>Dein Konto für dieses BSEtunes</value>
+    <value>Konto für dieses BSEtunes</value>
   </data>
   <data name="LoginSettingsPage_SectionAccount_Title" xml:space="preserve">
     <value>Information</value>
@@ -184,7 +184,7 @@
     <value>Adresse löschen</value>
   </data>
   <data name="ServiceEndpointSettingsPage_SectionWebserver_Description_Text" xml:space="preserve">
-    <value>Die Adresse Deines BSEtunes</value>
+    <value>Adresse dieses BSEtunes</value>
   </data>
   <data name="ServiceEndpointSettingsPage_SectionWebserver_Title" xml:space="preserve">
     <value>Information</value>
@@ -193,13 +193,13 @@
     <value>Webserver</value>
   </data>
   <data name="SettingsPage_SectionAccount_Description_Text" xml:space="preserve">
-    <value>Dein Konto bei BSEtunes</value>
+    <value>Konto für dieses BSEtunes</value>
   </data>
   <data name="SettingsPage_SectionAccount_Title" xml:space="preserve">
     <value>Konto</value>
   </data>
   <data name="SettingsPage_SectionWebserver_Description_Text" xml:space="preserve">
-    <value>Die Adresse Deines BSEtunes</value>
+    <value>Die Adresse dieses BSEtunes</value>
   </data>
   <data name="SettingsPage_SectionWebserver_Title" xml:space="preserve">
     <value>Webserver</value>

@@ -205,7 +205,7 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your account at BSEtunes.
+        ///   Looks up a localized string similar to The Account for this BSEtunes.
         /// </summary>
         internal static string LoginSettingsPage_SectionAccount_Description_Text {
             get {
@@ -259,7 +259,7 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The web address of your BSEtunes.
+        ///   Looks up a localized string similar to The address of this BSEtunes.
         /// </summary>
         internal static string ServiceEndpointSettingsPage_SectionWebserver_Description_Text {
             get {
@@ -286,7 +286,7 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your account at BSEtunes.
+        ///   Looks up a localized string similar to The Account for this BSEtunes.
         /// </summary>
         internal static string SettingsPage_SectionAccount_Description_Text {
             get {
@@ -304,7 +304,7 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The web address of your BSEtunes.
+        ///   Looks up a localized string similar to The address of this BSEtunes.
         /// </summary>
         internal static string SettingsPage_SectionWebserver_Description_Text {
             get {

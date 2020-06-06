@@ -5,9 +5,6 @@
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.LoginWizzardPage">
-    <!--<ContentPage.Resources>
-        <StyleSheet Source="Styles/LoginPage.css"/>
-    </ContentPage.Resources>-->
 
     <ContentPage.Content>
         <Grid>

@@ -7,6 +7,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.SettingsPage"
              Title="{i18n:Translate SettingsPage_Title}">
+    
     <ContentPage.Content>
         <TableView Intent="Settings">
             <TableRoot>
@@ -24,4 +25,5 @@
             </TableRoot>
         </TableView>
     </ContentPage.Content>
+    
 </ContentPage>

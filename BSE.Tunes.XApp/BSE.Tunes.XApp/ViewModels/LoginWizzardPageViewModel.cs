@@ -7,7 +7,7 @@ using System;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
-    public class LoginPageViewModel : ViewModelBase
+    public class LoginWizzardPageViewModel : ViewModelBase
     {
         private readonly IPageDialogService _pageDialogService;
         private readonly IAuthenticationService _authenticationService;
@@ -42,7 +42,7 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(Save, CanSave));
 
-        public LoginPageViewModel(INavigationService navigationService,
+        public LoginWizzardPageViewModel(INavigationService navigationService,
             IResourceService resourceService,
             IPageDialogService pageDialogService,
             IAuthenticationService authenticationService) : base(navigationService, resourceService)

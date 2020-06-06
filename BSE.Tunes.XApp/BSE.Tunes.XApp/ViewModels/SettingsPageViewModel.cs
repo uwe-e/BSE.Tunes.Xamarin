@@ -80,8 +80,9 @@ namespace BSE.Tunes.XApp.ViewModels
             UserName = _settingsService?.User.UserName;
         }
         
-        private void NavigateToAccountDetail()
+        private async void NavigateToAccountDetail()
         {
+            await NavigationService.NavigateAsync(nameof(LoginSettingsPage));
         }
 
         private async void NavigateToServiceEndpointDetail()

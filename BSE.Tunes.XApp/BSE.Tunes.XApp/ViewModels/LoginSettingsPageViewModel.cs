@@ -6,36 +6,35 @@ using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
-    public class ServiceEndpointSettingsPageViewModel : BaseSettingsPageViewModel
+    public class LoginSettingsPageViewModel : BaseSettingsPageViewModel
     {
+        private string _userName;
         private readonly IPageDialogService _pageDialogService;
-        private string _serviceEndPoint;
 
-        public string ServiceEndPoint
+        public string UserName
         {
             get
             {
-                return _serviceEndPoint;
+                return _userName;
             }
             set
             {
-                SetProperty(ref _serviceEndPoint, value);
+                SetProperty(ref _userName, value);
             }
         }
 
-        public ServiceEndpointSettingsPageViewModel(
-            INavigationService navigationService,
+        public LoginSettingsPageViewModel(INavigationService navigationService,
             ISettingsService settingsService,
-            IPageDialogService pageDialogService,
             IPlayerManager playerManager,
-            IResourceService resourceService) : base(navigationService, settingsService, playerManager, resourceService)
+            IResourceService resourceService,
+            IPageDialogService pageDialogService) : base(navigationService, settingsService, playerManager, resourceService)
         {
             _pageDialogService = pageDialogService;
         }
 
         public override void LoadSettings()
         {
-            ServiceEndPoint = SettingsService?.ServiceEndPoint;
+            UserName = SettingsService?.User.UserName;
         }
 
         public async override void DeleteSettings()
@@ -50,7 +49,7 @@ namespace BSE.Tunes.XApp.ViewModels
             };
 
             await _pageDialogService.DisplayActionSheetAsync(
-                ResourceService.GetString("ServiceEndpointSettingsPage_ActionSheet_Title"),
+                ResourceService.GetString("LoginSettingsPage_ActionSheet_Title"),
                 buttons);
         }
 
@@ -58,11 +57,10 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             if (await PlayerManager.CloseAsync())
             {
-                SettingsService.ServiceEndPoint = null;
+                SettingsService.User = null;
 
-                await NavigationService.NavigateAsync("/" + nameof(NavigationPage) + "/" + nameof(ServiceEndpointWizzardPage));
+                await NavigationService.NavigateAsync("/" + nameof(NavigationPage) + "/" + nameof(LoginWizzardPage));
             }
         }
-
     }
 }

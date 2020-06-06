@@ -2,9 +2,9 @@
 
 namespace BSE.Tunes.XApp.Views
 {
-    public partial class LoginPage : ContentPage
+    public partial class LoginWizzardPage : ContentPage
     {
-        public LoginPage()
+        public LoginWizzardPage()
         {
             InitializeComponent();
         }

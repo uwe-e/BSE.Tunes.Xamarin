@@ -187,6 +187,51 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete your account for this BSETunes?.
+        /// </summary>
+        internal static string LoginSettingsPage_ActionSheet_Title {
+            get {
+                return ResourceManager.GetString("LoginSettingsPage_ActionSheet_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Account.
+        /// </summary>
+        internal static string LoginSettingsPage_ButtonDelete_Text {
+            get {
+                return ResourceManager.GetString("LoginSettingsPage_ButtonDelete_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account at BSEtunes.
+        /// </summary>
+        internal static string LoginSettingsPage_SectionAccount_Description_Text {
+            get {
+                return ResourceManager.GetString("LoginSettingsPage_SectionAccount_Description_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        internal static string LoginSettingsPage_SectionAccount_Title {
+            get {
+                return ResourceManager.GetString("LoginSettingsPage_SectionAccount_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        internal static string LoginSettingsPage_Title {
+            get {
+                return ResourceManager.GetString("LoginSettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Playlists.
         /// </summary>
         internal static string PlaylistsPage_Title {

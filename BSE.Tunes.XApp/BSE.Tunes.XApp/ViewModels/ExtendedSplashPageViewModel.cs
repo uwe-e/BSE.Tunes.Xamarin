@@ -38,12 +38,12 @@ namespace BSE.Tunes.XApp.ViewModels
                         }
                         catch (Exception)
                         {
-                            await NavigationService.NavigateAsync(nameof(LoginPage));
+                            await NavigationService.NavigateAsync(nameof(LoginWizzardPage));
                         }
                     }
                     else
                     {
-                        await NavigationService.NavigateAsync(nameof(LoginPage));
+                        await NavigationService.NavigateAsync(nameof(LoginWizzardPage));
                     }
                 }
             }

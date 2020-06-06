@@ -159,6 +159,21 @@
   <data name="LoginPage_Entry_Placeholder_EnterUserName" xml:space="preserve">
     <value>Gebe den Benutzernamen ein</value>
   </data>
+  <data name="LoginSettingsPage_ActionSheet_Title" xml:space="preserve">
+    <value>Willst du das Konto für dieses BSETunes löschen?</value>
+  </data>
+  <data name="LoginSettingsPage_ButtonDelete_Text" xml:space="preserve">
+    <value>Konto löschen</value>
+  </data>
+  <data name="LoginSettingsPage_SectionAccount_Description_Text" xml:space="preserve">
+    <value>Dein Konto für dieses BSEtunes</value>
+  </data>
+  <data name="LoginSettingsPage_SectionAccount_Title" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="LoginSettingsPage_Title" xml:space="preserve">
+    <value>Konto</value>
+  </data>
   <data name="PlaylistsPage_Title" xml:space="preserve">
     <value>Playlists</value>
   </data>

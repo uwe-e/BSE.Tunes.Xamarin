@@ -5,23 +5,24 @@
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="BSE.Tunes.XApp.Views.ServiceEndpointSettingsPage"
+             x:Class="BSE.Tunes.XApp.Views.LoginSettingsPage"
              ios:NavigationPage.IsNavigationBarTranslucent="True"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
-             Title="{i18n:Translate ServiceEndpointSettingsPage_Title}">
+             Title="{i18n:Translate LoginSettingsPage_Title}">
 
     <ContentPage.Content>
         <TableView Intent="Settings">
             <TableRoot>
-                <TableSection Title="{i18n:Translate ServiceEndpointSettingsPage_SectionWebserver_Title}">
-                    <TextCell Text="{i18n:Translate ServiceEndpointSettingsPage_SectionWebserver_Description_Text}"
-                              Detail="{Binding ServiceEndPoint}"/>
+                <TableSection Title="{i18n:Translate LoginSettingsPage_SectionAccount_Title}">
+                    <TextCell Text="{i18n:Translate LoginSettingsPage_SectionAccount_Description_Text}"
+                              Detail="{Binding UserName}"/>
                     <ViewCell>
-                        <Button Text="{i18n:Translate ServiceEndpointSettingsPage_ButtonDelete_Text}"
+                        <Button Text="{i18n:Translate LoginSettingsPage_ButtonDelete_Text}"
                                 Command="{Binding DeleteCommand}"/>
                     </ViewCell>
                 </TableSection>
             </TableRoot>
         </TableView>
     </ContentPage.Content>
+
 </ContentPage>

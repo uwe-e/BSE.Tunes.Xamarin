@@ -18,6 +18,7 @@
                 <TableSection Title="{i18n:Translate SettingsPage_SectionAccount_Title}">
                     <TextCell Text="{i18n:Translate SettingsPage_SectionAccount_Description_Text}"
                               Detail="{Binding UserName}"
+                              Command="{Binding ToAccountDetailCommand}"
                               bseios:TextCell.Accessory="DisclosureIndicator"/>
                 </TableSection>
             </TableRoot>

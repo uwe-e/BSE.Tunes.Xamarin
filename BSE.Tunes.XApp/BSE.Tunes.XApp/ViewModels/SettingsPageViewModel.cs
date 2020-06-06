@@ -5,7 +5,6 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {

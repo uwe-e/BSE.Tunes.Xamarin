@@ -34,16 +34,16 @@ namespace BSE.Tunes.XApp.ViewModels
                         try
                         {
                             await _authenticationService.RequestRefreshTokenAsync(user.Token);
-                            await NavigationService.NavigateAsync("MainPage");
+                            await NavigationService.NavigateAsync(nameof(MainPage));
                         }
                         catch (Exception)
                         {
-                            await NavigationService.NavigateAsync("LoginPage");
+                            await NavigationService.NavigateAsync(nameof(LoginPage));
                         }
                     }
                     else
                     {
-                        await NavigationService.NavigateAsync("LoginPage");
+                        await NavigationService.NavigateAsync(nameof(LoginPage));
                     }
                 }
             }

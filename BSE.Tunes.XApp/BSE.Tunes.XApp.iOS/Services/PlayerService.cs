@@ -32,6 +32,11 @@ namespace BSE.Tunes.XApp.iOS.Services
 
         public event Action<AudioPlayerState> AudioPlayerStateChanged;
         public event Action<MediaState> MediaStateChanged;
+        
+        public Task<bool> CloseAsync()
+        {
+            return CleanUpPlayerResources();
+        }
 
         public void Pause()
         {
@@ -48,45 +53,71 @@ namespace BSE.Tunes.XApp.iOS.Services
             _player?.Stop();
         }
 
-        public void SetTrack(Track track)
+        public async void SetTrack(Track track)
         {
             if (track != null)
             {
-                if (_currentTask != null)
-                {
-                    if (_player != null)
-                    {
-                        _player.OutputReady -= OnPlayerOutputReady;
-                        _player.Finished -= OnPlayerFinished;
-                        _player.AudioPlayerStateChanged -= OnAudioPlayerStateChanged;
-                    }
-                    if (_cancellationTokenSource != null)
-                    {
-                        _cancellationTokenSource.Cancel();
-                        _cancellationTokenSource.Dispose();
-                        _cancellationTokenSource = null;
-                    }
-                    _currentTask.Wait();
-                    _currentTask.Dispose();
-                    _currentTask = null;
-                }
+                //if (_currentTask != null)
+                //{
+                //    if (_player != null)
+                //    {
+                //        _player.OutputReady -= OnPlayerOutputReady;
+                //        _player.Finished -= OnPlayerFinished;
+                //        _player.AudioPlayerStateChanged -= OnAudioPlayerStateChanged;
+                //    }
+                //    if (_cancellationTokenSource != null)
+                //    {
+                //        _cancellationTokenSource.Cancel();
+                //        _cancellationTokenSource.Dispose();
+                //        _cancellationTokenSource = null;
+                //    }
+                //    _currentTask.Wait();
+                //    _currentTask.Dispose();
+                //    _currentTask = null;
+                //}
 
-                _cancellationTokenSource = new CancellationTokenSource();
-                Guid guid = track.Guid;
-                //guid = new Guid("f856d83e-cf83-425f-b2e2-254ad704e766");
-                // Create a shared intance session & check
-                using (var session = AVAudioSession.SharedInstance())
+                if (await CleanUpPlayerResources())
                 {
-                    if (session != null)
+                    _cancellationTokenSource = new CancellationTokenSource();
+                    Guid guid = track.Guid;
+                    //guid = new Guid("f856d83e-cf83-425f-b2e2-254ad704e766");
+                    // Create a shared intance session & check
+                    using (var session = AVAudioSession.SharedInstance())
                     {
-                        _currentTask = Task.Run(() => StreamDownloadHandler(guid, _cancellationTokenSource.Token));
+                        if (session != null)
+                        {
+                            _currentTask = Task.Run(() => StreamDownloadHandler(guid, _cancellationTokenSource.Token));
 
-                        // Set up the session for playback category
-                        session.SetCategory(AVAudioSessionCategory.Playback, AVAudioSessionCategoryOptions.DefaultToSpeaker);
-                        session.OverrideOutputAudioPort(AVAudioSessionPortOverride.Speaker, out NSError error);
+                            // Set up the session for playback category
+                            session.SetCategory(AVAudioSessionCategory.Playback, AVAudioSessionCategoryOptions.DefaultToSpeaker);
+                            session.OverrideOutputAudioPort(AVAudioSessionPortOverride.Speaker, out NSError error);
+                        }
                     }
                 }
             }
+        }
+
+        private Task<bool> CleanUpPlayerResources()
+        {
+            if (_currentTask != null)
+            {
+                if (_player != null)
+                {
+                    _player.OutputReady -= OnPlayerOutputReady;
+                    _player.Finished -= OnPlayerFinished;
+                    _player.AudioPlayerStateChanged -= OnAudioPlayerStateChanged;
+                }
+                if (_cancellationTokenSource != null)
+                {
+                    _cancellationTokenSource.Cancel();
+                    _cancellationTokenSource.Dispose();
+                    _cancellationTokenSource = null;
+                }
+                _currentTask.Wait();
+                _currentTask.Dispose();
+                _currentTask = null;
+            }
+            return Task.FromResult(true);
         }
 
         private async Task StreamDownloadHandler(Guid guid, CancellationToken cancellationToken)
@@ -220,5 +251,7 @@ namespace BSE.Tunes.XApp.iOS.Services
                 / _player?.OutputQueue.SampleRate
                 / (_totalStreamLength * 8 / _player.BitRate));
         }
+
+
     }
 }

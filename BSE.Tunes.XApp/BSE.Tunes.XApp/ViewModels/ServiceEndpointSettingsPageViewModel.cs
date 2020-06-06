@@ -1,10 +1,12 @@
 ﻿using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -87,9 +89,14 @@ namespace BSE.Tunes.XApp.ViewModels
                 buttons);
         }
 
-        private void DeleteAction()
+        private async void DeleteAction()
         {
-            //_playerManager.
+            if (await _playerManager.CloseAsync())
+            {
+                _settingsService.ServiceEndPoint = null;
+
+                await NavigationService.NavigateAsync("/" + nameof(NavigationPage) + "/" + nameof(ServiceEndpointWizzardPage));
+            }
         }
 
     }

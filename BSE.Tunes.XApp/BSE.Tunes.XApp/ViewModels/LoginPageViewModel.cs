@@ -1,4 +1,5 @@
 ﻿using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -60,7 +61,7 @@ namespace BSE.Tunes.XApp.ViewModels
             try
             {
                 await _authenticationService.LoginAsync(UserName, Password);
-                await NavigationService.NavigateAsync("MainPage");
+                await NavigationService.NavigateAsync(nameof(MainPage));
             }
             catch (Exception)
             {

@@ -242,7 +242,7 @@ namespace BSE.Tunes.XApp.iOS
 		/// Enqueue the active buffer to the OutputQueue
 		/// </summary>
 		private void EnqueueBuffer()
-		{
+        {
 			_currentBuffer.IsInUse = true;
 			OutputQueue.EnqueueBuffer(_currentBuffer.Buffer, _currentBuffer.CurrentOffset, _currentBuffer.PacketDescriptions.ToArray());
 			_queuedBufferCount++;

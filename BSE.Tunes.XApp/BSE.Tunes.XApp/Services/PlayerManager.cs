@@ -96,7 +96,12 @@ namespace BSE.Tunes.XApp.Services
                 }
             }
         }
-
+        
+        public Task<bool> CloseAsync()
+        {
+            return _playerService.CloseAsync();
+        }
+        
         private void OnAudioPlayerStateChanged(AudioPlayerState audioPlayerState)
         {
             if (AudioPlayerState != audioPlayerState)
@@ -143,5 +148,7 @@ namespace BSE.Tunes.XApp.Services
                 });
             }
         }
+
+        
     }
 }

@@ -1,8 +1,5 @@
 ﻿using BSE.Tunes.XApp.Models.Contract;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BSE.Tunes.XApp.Services
@@ -17,5 +14,6 @@ namespace BSE.Tunes.XApp.Services
         void Play();
         void Pause();
         void Stop();
+        Task<bool> CloseAsync();
     }
 }

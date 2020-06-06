@@ -1,6 +1,7 @@
 ﻿using System;
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -9,27 +10,27 @@ namespace BSE.Tunes.XApp.ViewModels
 {
     public class ServiceEndpointSettingsWizzardViewModel : ViewModelBase
     {
-        private string serviceEndPoint;
-        private DelegateCommand saveCommand;
-        private readonly IPageDialogService pageDialogService;
-        private readonly ISettingsService settingsService;
-        private readonly IDataService dataService;
-        private readonly IAuthenticationService authenticationService;
+        private string _serviceEndPoint;
+        private DelegateCommand _saveCommand;
+        private readonly IPageDialogService _pageDialogService;
+        private readonly ISettingsService _settingsService;
+        private readonly IDataService _dataService;
+        private readonly IAuthenticationService _authenticationService;
 
         public string ServiceEndPoint
         {
             get
             {
-                return this.serviceEndPoint;
+                return _serviceEndPoint;
             }
             set
             {
-                SetProperty(ref this.serviceEndPoint, value);
+                SetProperty(ref _serviceEndPoint, value);
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public DelegateCommand SaveCommand => this.saveCommand ?? (this.saveCommand = new DelegateCommand(Save, CanSave));
+        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(Save, CanSave));
 
         private bool CanSave()
         {
@@ -43,10 +44,10 @@ namespace BSE.Tunes.XApp.ViewModels
             IDataService dataService,
             IAuthenticationService authenticationService) : base(navigationService, resourceService)
         {
-            this.pageDialogService = pageDialogService;
-            this.settingsService = settingsService;
-            this.dataService = dataService;
-            this.authenticationService = authenticationService;
+            _pageDialogService = pageDialogService;
+            _settingsService = settingsService;
+            _dataService = dataService;
+            _authenticationService = authenticationService;
         }
 
         private async void Save()
@@ -55,28 +56,28 @@ namespace BSE.Tunes.XApp.ViewModels
             var serviceEndPoint = uriBuilder.Uri.AbsoluteUri;
             try
             {
-                await this.dataService.IsEndPointAccessibleAsync(serviceEndPoint);
-                this.settingsService.ServiceEndPoint = serviceEndPoint;
-                if (this.settingsService.User is User user)
+                await _dataService.IsEndPointAccessibleAsync(serviceEndPoint);
+                _settingsService.ServiceEndPoint = serviceEndPoint;
+                if (_settingsService.User is User user)
                 {
                     try
                     {
-                        await this.authenticationService.RequestRefreshTokenAsync(user.Token);
-                        await NavigationService.NavigateAsync("MainPage/NavigationPage/HomePage");
+                        await this._authenticationService.RequestRefreshTokenAsync(user.Token);
+                        await NavigationService.NavigateAsync(nameof(MainPage));
                     }
                     catch (Exception)
                     {
-                        await NavigationService.NavigateAsync("LoginPage");
+                        await NavigationService.NavigateAsync(nameof(LoginPage));
                     }
                 }
                 else
                 {
-                    await NavigationService.NavigateAsync("LoginPage");
+                    await NavigationService.NavigateAsync(nameof(LoginPage));
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                await this.pageDialogService.DisplayAlertAsync("test", "message", "cancel");
+                await _pageDialogService.DisplayAlertAsync("test", exception.Message, "cancel");
             }
         }
     }

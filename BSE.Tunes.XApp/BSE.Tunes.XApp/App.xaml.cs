@@ -35,7 +35,7 @@ namespace BSE.Tunes.XApp
                 "IndicatorView_Experimental"
             });
 
-            await NavigationService.NavigateAsync("ExtendedSplashPage");
+            await NavigationService.NavigateAsync(nameof(ExtendedSplashPage));
         }
 
         protected override async void OnStart()

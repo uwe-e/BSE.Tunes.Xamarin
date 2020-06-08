@@ -4,20 +4,19 @@
                         xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
                         xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
                         x:Class="BSE.Tunes.XApp.App">
-	<Application.Resources>
+    <Application.Resources>
 
-        <ResourceDictionary>
-            <!-- COLORS -->
-            <Color x:Key="AccentColor">#BC4C1B</Color>
-            <Color x:Key="BackgroundColor">#212C37</Color>
+        <ResourceDictionary Source="Styles/LightTheme.xaml" />
 
-            <Style x:Key="SectionHeaderButtonStyle" TargetType="controls:SectionHeaderButton">
-                <Setter Property="BackgroundColor" Value="{DynamicResource backgroundColor}"/>
-                <Setter Property="TextColor" Value="{DynamicResource PrimaryLabelColor}"/>
-            </Style>
+        <Style x:Key="SectionHeaderButtonStyle" TargetType="controls:SectionHeaderButton">
+            <Setter Property="BackgroundColor" Value="{DynamicResource backgroundColor}"/>
+            <Setter Property="TextColor" Value="{DynamicResource PrimaryLabelColor}"/>
+        </Style>
 
-        </ResourceDictionary>
-
+        <Style x:Key="DestroyButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{DynamicResource SystemGray6}"/>
+            <Setter Property="TextColor" Value="{DynamicResource SystemRed}"/>
+        </Style>
 
     </Application.Resources>
 </prism:PrismApplication>

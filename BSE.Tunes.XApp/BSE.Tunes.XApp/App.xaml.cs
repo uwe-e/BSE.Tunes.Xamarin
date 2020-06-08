@@ -7,12 +7,14 @@ using Xamarin.Forms.Xaml;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Styles;
 using Prism.Mvvm;
+using System;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace BSE.Tunes.XApp
 {
     public partial class App
     {
+        private OSAppTheme _currentTheme;
         /* 
          * The Xamarin Forms XAML Previewer in Visual Studio uses System.Activator.CreateInstance.
          * This imposes a limitation in which the App class must have a default constructor. 
@@ -31,20 +33,28 @@ namespace BSE.Tunes.XApp
 
             // Enable your flags here!
             Device.SetFlags(new[] {
-                "CarouselView_Experimental",
-                "IndicatorView_Experimental"
+                //"CarouselView_Experimental",
+                "IndicatorView_Experimental",
+                "AppTheme_Experimental"
             });
+
+            if (Application.Current != null)
+            {
+                Application.Current.RequestedThemeChanged += HandleRequestedThemeChanged;
+                _currentTheme = Application.Current.RequestedTheme;
+                SetTheme(_currentTheme);
+            }
 
             await NavigationService.NavigateAsync(nameof(ExtendedSplashPage));
         }
 
-        protected override async void OnStart()
+        private void HandleRequestedThemeChanged(object sender, AppThemeChangedEventArgs e)
         {
-            base.OnStart();
-
-            var theme = await DependencyService.Get<IEnvironment>().GetOperatingSystemThemeAsync();
-
-            SetTheme(theme);
+            if (e.RequestedTheme != _currentTheme)
+            {
+                _currentTheme = e.RequestedTheme;
+                SetTheme(_currentTheme);
+            }
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -76,16 +86,19 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterForNavigation<LoginSettingsPage, LoginSettingsPageViewModel>();
         }
 
-        private void SetTheme(Theme theme)
+        private void SetTheme(OSAppTheme theme)
         {
             var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
             if (mergedDictionaries != null)
             {
+                mergedDictionaries.Clear();
+
                 switch (theme)
                 {
-                    case Theme.Dark:
+                    case OSAppTheme.Dark:
                         mergedDictionaries.Add(new DarkTheme());
                         break;
+                    case OSAppTheme.Light:
                     default:
                         mergedDictionaries.Add(new LightTheme());
                         break;

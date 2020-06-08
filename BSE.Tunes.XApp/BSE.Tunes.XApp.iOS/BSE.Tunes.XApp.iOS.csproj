@@ -110,7 +110,6 @@
     <Compile Include="Renderer\ButtonRenderer.cs" />
     <Compile Include="Renderer\TextCellRenderer.cs" />
     <Compile Include="Renderer\ExtendedTabbedRenderer.cs" />
-    <Compile Include="Services\Environment_iOS.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Services\PlayerService.cs" />
@@ -201,7 +200,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
       <Version>2.4.11.982</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.800" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.847" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
   </ItemGroup>
   <ItemGroup>

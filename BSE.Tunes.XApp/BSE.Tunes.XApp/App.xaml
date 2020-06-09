@@ -9,7 +9,7 @@
         <ResourceDictionary Source="Styles/LightTheme.xaml" />
 
         <Style x:Key="SectionHeaderButtonStyle" TargetType="controls:SectionHeaderButton">
-            <Setter Property="BackgroundColor" Value="{DynamicResource backgroundColor}"/>
+            <Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}"/>
             <Setter Property="TextColor" Value="{DynamicResource PrimaryLabelColor}"/>
         </Style>
 

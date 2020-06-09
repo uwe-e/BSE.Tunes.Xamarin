@@ -25,7 +25,7 @@
                             <Frame Padding="0" CornerRadius="10"
                                    IsClippedToBounds="True"
                                    HasShadow="False"
-                                   BackgroundColor="{DynamicResource backgroundColor}">
+                                   BackgroundColor="{DynamicResource BackgroundColor}">
                                 <templates:SlidePanelTemplate Margin="0"></templates:SlidePanelTemplate>
                             </Frame>
                         </DataTemplate>

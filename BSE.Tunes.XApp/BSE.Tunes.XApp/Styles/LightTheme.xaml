@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BSE.Tunes.XApp.Styles.LightTheme">
 
-    <Color x:Key="backgroundColor">#FFFFFFFF</Color>
-    <Color x:Key="systemGray6">#F2F2F7</Color>
-    <Color x:Key="systemBlue">#007AFF</Color>
+    <Color x:Key="BackgroundColor">#FFFFFFFF</Color>
+    <Color x:Key="SystemBlue">#007AFF</Color>
     <Color x:Key="SystemRed">#FF3B55</Color>
 
     <Color x:Key="SystemGray6">#F2F2F7</Color>

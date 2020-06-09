@@ -10,7 +10,7 @@
         <Button bseios:Button.UILineBreakMode="WordWrap"
                 bseios:Button.UITextAlignment="Center"
                 Margin="3,3,6,3"
-                BackgroundColor="{StaticResource systemBlue}"
+                BackgroundColor="{StaticResource SystemBlue}"
                 TextColor="White"
                 FontSize="Medium"
                 Command="{Binding PlayRandomCommand}"

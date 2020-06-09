@@ -8,12 +8,12 @@
     prism:ViewModelLocator.AutowireViewModel="True"
     x:Class="BSE.Tunes.XApp.Views.MainPage"
     xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
-    BackgroundColor="{DynamicResource backgroundColor}"
+    BackgroundColor="{DynamicResource BackgroundColor}"
     xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     android:TabbedPage.ToolbarPlacement="Bottom"
     ios:TabbedPage.TranslucencyMode="Opaque"
-    BarBackgroundColor="{DynamicResource systemGray6}"
+    BarBackgroundColor="{DynamicResource SystemGray6}"
     NavigationPage.HasNavigationBar="False">
 
     <controls:ExtendedTabbedPage.AudioPlayerBar>

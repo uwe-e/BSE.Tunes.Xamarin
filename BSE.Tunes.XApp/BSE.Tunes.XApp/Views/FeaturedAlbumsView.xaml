@@ -13,7 +13,8 @@
             <StackLayout VerticalOptions="Start" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
 
                 <controls:SectionHeaderButton Text="{i18n:Translate HomePage_FeatAlbums_SectionHeader_Button_Text}"
-                                                  Style="{StaticResource SectionHeaderButtonStyle}" HorizontalOptions="Start"/>
+                                              Style="{DynamicResource SectionHeaderButtonStyle}"
+                                              HorizontalOptions="Start"/>
 
                 <controls:HorizontalScrollView ItemsSource="{Binding Items}" HeightRequest="200"
                                            SelectedItemCommand="{Binding SelectItemCommand}">

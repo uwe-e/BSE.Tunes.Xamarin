@@ -189,7 +189,7 @@ namespace BSE.Tunes.XApp.iOS.Services
             var responseMessage = await httpClient.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             if (attempt == 5)
             {
-                throw new HttpRequestException("GetAsync aborted after 5 attempts");
+                throw new HttpRequestException($"{nameof(TryGetAsync)} aborted after 5 attempts");
             }
             if (responseMessage.StatusCode != System.Net.HttpStatusCode.OK)
             {

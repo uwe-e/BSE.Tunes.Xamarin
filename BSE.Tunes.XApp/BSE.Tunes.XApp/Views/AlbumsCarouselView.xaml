@@ -12,7 +12,8 @@
             <StackLayout  VerticalOptions="Start" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
 
                 <controls:SectionHeaderButton Text="{i18n:Translate HomePage_AlbumsCarousel_SectionHeader_Button_Text}"
-                                                  Style="{StaticResource SectionHeaderButtonStyle}" HorizontalOptions="Start"/>
+                                              Style="{DynamicResource SectionHeaderButtonStyle}"
+                                              HorizontalOptions="Start"/>
 
                 <CarouselView x:Name="carouselView"
                               Margin="-50,0,0,0" ItemsSource="{Binding Items}"

@@ -33,7 +33,7 @@ namespace BSE.Tunes.XApp
 
             // Enable your flags here!
             Device.SetFlags(new[] {
-                //"CarouselView_Experimental",
+                "CarouselView_Experimental",
                 "IndicatorView_Experimental",
                 "AppTheme_Experimental"
             });

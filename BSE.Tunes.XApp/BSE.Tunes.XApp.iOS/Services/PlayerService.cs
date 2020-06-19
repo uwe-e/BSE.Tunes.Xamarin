@@ -148,7 +148,7 @@ namespace BSE.Tunes.XApp.iOS.Services
                     _player.AudioPlayerStateChanged += OnAudioPlayerStateChanged;
 
                     Uri requestUri = GetRequestUri(guid);
-                    using (var httpClient = await _requestService.GetHttpClient(true))
+                    using (var httpClient = await _requestService.GetHttpClient())
                     {
                         using (var response = await TryGetAsync(0, requestUri, httpClient, cancellationToken))
                         {

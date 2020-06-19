@@ -40,14 +40,8 @@
     <Compile Update="Views\LoginWizzardPage.xaml.cs">
       <DependentUpon>LoginWizzardPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\MainPage-Unused.xaml.cs">
-      <DependentUpon>MainPage-Unused.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\MenuView.xaml.cs">
-      <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ServiceEndpointWizzardPage.xaml.cs">
       <DependentUpon>ServiceEndpointWizzardPage.xaml</DependentUpon>
@@ -96,9 +90,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MainPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\MenuView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PlaylistsPage.xaml">

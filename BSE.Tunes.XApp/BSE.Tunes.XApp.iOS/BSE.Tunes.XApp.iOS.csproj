@@ -104,7 +104,6 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="QueueStream.cs" />
     <Compile Include="Renderer\AudioPlayerRenderer.cs" />
     <Compile Include="Renderer\ButtonElementManager.cs" />
     <Compile Include="Renderer\ButtonRenderer.cs" />

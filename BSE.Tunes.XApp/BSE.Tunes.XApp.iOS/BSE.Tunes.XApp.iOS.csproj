@@ -104,6 +104,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="IO\QueueStream.cs" />
     <Compile Include="Renderer\AudioPlayerRenderer.cs" />
     <Compile Include="Renderer\ButtonElementManager.cs" />
     <Compile Include="Renderer\ButtonRenderer.cs" />
@@ -112,7 +113,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Services\PlayerService.cs" />
-    <Compile Include="StreamingPlayback.cs" />
+    <Compile Include="Audio\StreamingPlayback.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -199,7 +200,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
       <Version>2.4.11.982</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.7.0.968" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +275,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\icon-playnext_gray_20_50%402x.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

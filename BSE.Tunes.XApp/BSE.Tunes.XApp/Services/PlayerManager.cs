@@ -14,6 +14,8 @@ namespace BSE.Tunes.XApp.Services
         private readonly IDataService _dataService;
         private readonly ISettingsService _settingsService;
         private readonly IEventAggregator _eventAggregator;
+        private int _attempToPlay;
+
         private IPlayerService _playerService { get; }
 
         public NavigableCollection<int> Playlist { get; set; }
@@ -38,7 +40,6 @@ namespace BSE.Tunes.XApp.Services
         public void Pause()
         {
             _playerService.Pause();
-            //_playerService.Stop();
         }
 
         public void Play()
@@ -116,6 +117,7 @@ namespace BSE.Tunes.XApp.Services
             switch (mediaState)
             {
                 case MediaState.Opened:
+                    _attempToPlay = 0;
                     var trackId = Playlist.Current;
                     if (trackId > 0)
                     {
@@ -129,8 +131,26 @@ namespace BSE.Tunes.XApp.Services
                         PlayNextTrack();
                     }
                     break;
+                case MediaState.BadRequest:
+                    Console.WriteLine($"{nameof(OnMediaStateChanged)} bad request");
+                    if (AudioPlayerMode != AudioPlayerMode.None && AudioPlayerMode != AudioPlayerMode.Song && CanPlayNextTrack())
+                    {
+                        //If we have a bad request, we try to play the track another time;
+                        TryToPlayTrack();
+                        
+                    }
+                    break;
             }
             _eventAggregator.GetEvent<MediaStateChangedEvent>().Publish(mediaState);
+        }
+
+        private void TryToPlayTrack()
+        {
+            if (_attempToPlay < 3)
+            {
+                _attempToPlay += 1;
+                _playerService.SetTrack(CurrentTrack);
+            }
         }
 
         private async void UpdateHistory(Track track)

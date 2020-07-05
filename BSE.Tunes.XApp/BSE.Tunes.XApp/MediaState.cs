@@ -7,6 +7,7 @@
         Ended = 2,
         NextRequested = 3,
         PreviousRequested = 4,
-        DownloadCompleted = 5
+        DownloadCompleted = 5,
+        BadRequest = 6
     }
 }

@@ -7,6 +7,7 @@
         Buffering = 2,
         Playing = 3,
         Paused = 4,
-        Stopped = 5
+        Stopping = 5,
+        Stopped = 6
     }
 }

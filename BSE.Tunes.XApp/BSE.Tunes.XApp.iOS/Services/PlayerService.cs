@@ -130,19 +130,21 @@ namespace BSE.Tunes.XApp.iOS.Services
                             _totalStreamLength = response.Content.Headers.ContentLength.GetValueOrDefault(totalNumberBytesRead);
                             Console.WriteLine($"Stream Length: {_totalStreamLength}");
 
-                            var inputStream = await GetQueueStream(response.Content, cancellationToken);
-                            //var inputStream = await response.Content.ReadAsStreamAsync();
-                            int inputStreamLength;
-
-                            while (((inputStreamLength = inputStream.Read(buffer, 0, buffer.Length)) != 0) || !cancellationToken.IsCancellationRequested)
+                            using (var inputStream = await GetQueueStream(response.Content, cancellationToken))
                             {
-                                if (cancellationToken.IsCancellationRequested)
+                                //var inputStream = await response.Content.ReadAsStreamAsync();
+                                int inputStreamLength;
+
+                                while (((inputStreamLength = inputStream.Read(buffer, 0, buffer.Length)) != 0) || !cancellationToken.IsCancellationRequested)
                                 {
-                                    cancellationToken.ThrowIfCancellationRequested();
+                                    if (cancellationToken.IsCancellationRequested)
+                                    {
+                                        cancellationToken.ThrowIfCancellationRequested();
+                                    }
+                                    //Console.WriteLine($"{nameof(StreamDownloadHandler)} read {totalNumberBytesRead} from {_totalStreamLength} ");
+                                    totalNumberBytesRead += inputStreamLength;
+                                    _player.ParseBytes(buffer, inputStreamLength, false, totalNumberBytesRead == (int)_totalStreamLength);
                                 }
-                                //Console.WriteLine($"{nameof(StreamDownloadHandler)} read {totalNumberBytesRead} from {_totalStreamLength} ");
-                                totalNumberBytesRead += inputStreamLength;
-                                _player.ParseBytes(buffer, inputStreamLength, false, totalNumberBytesRead == (int)_totalStreamLength);
                             }
                         }
                     }

@@ -22,8 +22,6 @@ namespace BSE.Tunes.XApp.iOS.Audio
         public event EventHandler Finished;
         public event Action<OutputAudioQueue> OutputReady;
         public event Action<AudioPlayerState> AudioPlayerStateChanged;
-        // If the player has stopped by user action
-        private bool _stopPlayer;
         // the AudioToolbox decoder
         private AudioFileStream _audioFileStream;
 
@@ -37,6 +35,7 @@ namespace BSE.Tunes.XApp.iOS.Audio
         private long _currentByteCount = 0;
         //Used to trigger a dump of the last buffer.
         private bool _lastPacket;
+        private AudioPlayerState _audioPlayerState = AudioPlayerState.Closed;
 
         public OutputAudioQueue OutputQueue;
 
@@ -121,14 +120,12 @@ namespace BSE.Tunes.XApp.iOS.Audio
         {
             CheckAudioQueueStatus(OutputQueue?.Start(), AudioPlayerState.Playing);
             Started = true;
-            _stopPlayer = false;
         }
 
         public void Stop()
         {
-            _stopPlayer = true;
-            CheckAudioQueueStatus(OutputQueue?.Stop(false), AudioPlayerState.Stopping);
             Started = false;
+            CheckAudioQueueStatus(OutputQueue?.Stop(false), AudioPlayerState.Stopping);
         }
 
         /// <summary>
@@ -236,7 +233,7 @@ namespace BSE.Tunes.XApp.iOS.Audio
             if ((_audioFileStream != null && _currentByteCount == _audioFileStream.DataByteCount) || _lastPacket)
             {
                 _lastPacket = false;
-                Console.WriteLine($"{nameof(AudioPacketDecoded)} lastpacket because of {_lastPacket}");
+                Console.WriteLine($"{nameof(AudioPacketDecoded)} This is the lastpacket");
                 EnqueueBuffer();
             }
         }
@@ -269,8 +266,9 @@ namespace BSE.Tunes.XApp.iOS.Audio
 
         private void StartQueueIfNeeded()
         {
-            if (Started)
+            if (Started || _audioPlayerState == AudioPlayerState.Stopping || _audioPlayerState == AudioPlayerState.Stopped)
                 return;
+
 
             Play();
         }
@@ -333,13 +331,14 @@ namespace BSE.Tunes.XApp.iOS.Audio
                 }
             }
 
-            if (_queuedBufferCount == 0 || _stopPlayer)
+            if (_queuedBufferCount == 0 || _audioPlayerState == AudioPlayerState.Stopping)
             {
-                Finished?.Invoke(this, new EventArgs());
+                Console.WriteLine($"{nameof(HandleBufferCompleted)} when playerState stopping");
+                SetAudioPlayerStatus(AudioPlayerState.Stopped);
             }
         }
 
-        private void CheckAudioQueueStatus(AudioQueueStatus? audioQueueStatus, AudioPlayerState mediaPlayerState = AudioPlayerState.Closed)
+        private void CheckAudioQueueStatus(AudioQueueStatus? audioQueueStatus, AudioPlayerState audioPlayerState )
         {
             if (audioQueueStatus is AudioQueueStatus audioStatus)
             {
@@ -350,8 +349,21 @@ namespace BSE.Tunes.XApp.iOS.Audio
 
                 if (_audioQueueStatus == AudioQueueStatus.Ok)
                 {
-                    AudioPlayerStateChanged?.Invoke(mediaPlayerState);
+                    SetAudioPlayerStatus(audioPlayerState);
                 }
+            }
+        }
+
+        private void SetAudioPlayerStatus(AudioPlayerState audioPlayerState = AudioPlayerState.Closed)
+        {
+            if (audioPlayerState != _audioPlayerState)
+            {
+                _audioPlayerState = audioPlayerState;
+                if (_audioPlayerState == AudioPlayerState.Stopped)
+                {
+                    Finished?.Invoke(this, new EventArgs());
+                }
+                AudioPlayerStateChanged?.Invoke(audioPlayerState);
             }
         }
     }

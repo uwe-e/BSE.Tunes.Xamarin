@@ -9,9 +9,9 @@ namespace BSE.Tunes.XApp.ViewModels
     {
         private readonly ISettingsService settingsService;
         private readonly IDataService dataService;
-        private ObservableCollection<GridPanel> m_items;
+        private ObservableCollection<GridPanel> _items;
 
-        public ObservableCollection<GridPanel> Items => m_items ?? (m_items = new ObservableCollection<GridPanel>());
+        public ObservableCollection<GridPanel> Items => _items ?? (_items = new ObservableCollection<GridPanel>());
 
         public AlbumsCarouselViewModel(INavigationService navigationService,
             IResourceService resourceService,

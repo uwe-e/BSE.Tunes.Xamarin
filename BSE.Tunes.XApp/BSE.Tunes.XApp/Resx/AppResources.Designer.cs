@@ -241,6 +241,24 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Albums, Songs....
+        /// </summary>
+        internal static string SearchPage_SearchBar_Placeholder {
+            get {
+                return ResourceManager.GetString("SearchPage_SearchBar_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string SearchPage_Title {
+            get {
+                return ResourceManager.GetString("SearchPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to delete the address of this BSETunes?.
         /// </summary>
         internal static string ServiceEndpointSettingsPage_ActionSheet_Title {

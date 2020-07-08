@@ -31,12 +31,14 @@ namespace BSE.Tunes.XApp.iOS.Renderer
 
             var frame = View.Frame;
             var tabBarFrame = TabBar.Frame;
-            var audioPlayerFrame = _audioPlayerBar.Frame;
+            if (_audioPlayerBar != null)
+            {
+                var audioPlayerFrame = _audioPlayerBar.Frame;
 
-            _audioPlayerBar.Frame = new System.Drawing.RectangleF((float)Element.X, (float)(frame.Top + frame.Height - tabBarFrame.Height - 60), (float)Element.Width, (float)60);
+                _audioPlayerBar.Frame = new System.Drawing.RectangleF((float)Element.X, (float)(frame.Top + frame.Height - tabBarFrame.Height - 60), (float)Element.Width, (float)60);
 
-            Page.ContainerArea = new Rectangle(0, 0, frame.Width, frame.Height - audioPlayerFrame.Height - tabBarFrame.Height);
-
+                Page.ContainerArea = new Rectangle(0, 0, frame.Width, frame.Height - audioPlayerFrame.Height - tabBarFrame.Height);
+            }
         }
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)

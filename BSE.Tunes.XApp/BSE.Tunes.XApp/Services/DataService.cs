@@ -83,7 +83,12 @@ namespace BSE.Tunes.XApp.Services
             string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/albums/genre/{genreId ?? 0}/?skip={skip}&limit={limit}";
             return _requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
         }
-        
+        public Task<string[]> GetSearchSuggestions(string searchPhrase)
+        {
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/search/suggestions/{searchPhrase}";
+            return _requestService.GetAsync<String[]>(new UriBuilder(strUrl).Uri);
+        }
+
         public Task<SystemInfo> GetSystemInfo()
         {
              string strUrl = $"{_settingsService.ServiceEndPoint}/api/system";

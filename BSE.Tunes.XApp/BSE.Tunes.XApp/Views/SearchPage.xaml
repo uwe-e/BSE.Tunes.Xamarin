@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+             x:Class="BSE.Tunes.XApp.Views.SearchPage"
+             Title="{i18n:Translate SearchPage_Title}" Padding="10"
+             ios:Page.UseSafeArea="true">
+
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <StackLayout>
+                    <SearchBar x:Name="searchBar"
+                       HorizontalOptions="Fill"
+                       Text="{Binding TextValue}"
+                       VerticalOptions="StartAndExpand"
+                       ios:SearchBar.SearchBarStyle="Minimal"
+                       Placeholder="{i18n:Translate SearchPage_SearchBar_Placeholder}">
+                        <SearchBar.Behaviors>
+                            <prism:EventToCommandBehavior EventName="TextChanged"
+                                                  Command="{Binding TextChangedCommand}"
+                                                  EventArgsParameterPath="NewTextValue"/>
+                        </SearchBar.Behaviors>
+                    </SearchBar>
+                    <ListView x:Name="searchResults"
+                      HorizontalOptions="Fill"
+                      ItemsSource="{Binding SearchSuggestions}"
+                      VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="{Binding PrimaryLabelColor}"/>
+                </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+
+</ContentPage>

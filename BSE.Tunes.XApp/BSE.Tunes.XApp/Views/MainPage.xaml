@@ -47,6 +47,13 @@
                 <views:PlaylistsPage/>
             </x:Arguments>
         </NavigationPage>
+        <NavigationPage Title="{i18n:Translate SearchPage_Title}"
+                        IconImageSource="icon_search"
+                        ios:NavigationPage.IsNavigationBarTranslucent="True">
+            <x:Arguments>
+                <views:SearchPage/>
+            </x:Arguments>
+        </NavigationPage>
         <NavigationPage Title="{i18n:Translate SettingsPage_Title}"
                         IconImageSource="icon_settings"
                         ios:NavigationPage.IsNavigationBarTranslucent="True">

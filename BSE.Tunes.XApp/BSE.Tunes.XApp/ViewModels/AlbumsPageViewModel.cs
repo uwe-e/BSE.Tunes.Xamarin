@@ -4,7 +4,6 @@ using BSE.Tunes.XApp.Services;
 using Prism;
 using Prism.Commands;
 using Prism.Navigation;
-using Prism.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;

@@ -6,7 +6,7 @@
     <ContentView.Content>
         <StackLayout Margin="3,0,3,0" WidthRequest="160" HeightRequest="200">
             <Frame Padding="0"
-                   CornerRadius="5"
+                   CornerRadius="3"
                    IsClippedToBounds="True"
                    HasShadow="False">
                 <ffimageLoading:CachedImage Source="{Binding ImageSource}"

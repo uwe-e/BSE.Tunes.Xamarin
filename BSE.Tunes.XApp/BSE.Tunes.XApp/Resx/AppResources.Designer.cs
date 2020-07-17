@@ -250,6 +250,42 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show all.
+        /// </summary>
+        internal static string SearchPage_SectionAlbums_DisplayAll_Text {
+            get {
+                return ResourceManager.GetString("SearchPage_SectionAlbums_DisplayAll_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Albums.
+        /// </summary>
+        internal static string SearchPage_SectionAlbums_Title {
+            get {
+                return ResourceManager.GetString("SearchPage_SectionAlbums_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show all.
+        /// </summary>
+        internal static string SearchPage_SectionTracks_DisplayAll_Text {
+            get {
+                return ResourceManager.GetString("SearchPage_SectionTracks_DisplayAll_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Songs.
+        /// </summary>
+        internal static string SearchPage_SectionTracks_Title {
+            get {
+                return ResourceManager.GetString("SearchPage_SectionTracks_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         internal static string SearchPage_Title {

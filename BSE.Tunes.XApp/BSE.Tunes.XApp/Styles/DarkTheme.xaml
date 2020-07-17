@@ -7,11 +7,13 @@
     <Color x:Key="SystemBlue">#0A84FF</Color>
     <Color x:Key="SystemRed">#FF455F</Color>
 
+    <Color x:Key="SystemGray5">#2C2C2E</Color>
     <Color x:Key="SystemGray6">#1C1C1E</Color>
 
     <Color x:Key="PrimaryLabelColor">#FFFFFFFF</Color>
     <Color x:Key="SecondaryLabelColor">#FF98989f</Color>
     <Color x:Key="TerciaryLabelColor">#FF5a5a5f</Color>
     <Color x:Key="QuarternaryLabelColor">#FF414145</Color>
+    <Color x:Key="SeparatorColor">#FF545458</Color>
     
 </ResourceDictionary>

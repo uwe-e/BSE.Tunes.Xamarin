@@ -86,9 +86,6 @@
                                         </ViewCell>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
-                                <!--<ListView.Footer>
-                                    <Label />
-                                </ListView.Footer>-->
                             </ListView>
                         </StackLayout>
                     </StackLayout>

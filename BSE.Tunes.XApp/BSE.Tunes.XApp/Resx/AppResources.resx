@@ -180,6 +180,18 @@
   <data name="SearchPage_SearchBar_Placeholder" xml:space="preserve">
     <value>Albums, Songs...</value>
   </data>
+  <data name="SearchPage_SectionAlbums_DisplayAll_Text" xml:space="preserve">
+    <value>Show all</value>
+  </data>
+  <data name="SearchPage_SectionAlbums_Title" xml:space="preserve">
+    <value>Albums</value>
+  </data>
+  <data name="SearchPage_SectionTracks_DisplayAll_Text" xml:space="preserve">
+    <value>Show all</value>
+  </data>
+  <data name="SearchPage_SectionTracks_Title" xml:space="preserve">
+    <value>Songs</value>
+  </data>
   <data name="SearchPage_Title" xml:space="preserve">
     <value>Search</value>
   </data>

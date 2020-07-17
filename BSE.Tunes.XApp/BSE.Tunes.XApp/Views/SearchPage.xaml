@@ -7,35 +7,133 @@
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              x:Class="BSE.Tunes.XApp.Views.SearchPage"
              Title="{i18n:Translate SearchPage_Title}" Padding="10"
-             ios:Page.UseSafeArea="true">
+             ios:Page.UseSafeArea="true"
+             x:Name="page">
 
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <StackLayout>
+                <StackLayout VerticalOptions="Start">
                     <SearchBar x:Name="searchBar"
-                       HorizontalOptions="Fill"
-                       Text="{Binding TextValue}"
-                       VerticalOptions="StartAndExpand"
-                       ios:SearchBar.SearchBarStyle="Minimal"
-                       Placeholder="{i18n:Translate SearchPage_SearchBar_Placeholder}">
+                               VerticalOptions="StartAndExpand"
+                               HorizontalOptions="Fill"
+                               Text="{Binding TextValue}"
+                               Placeholder="{i18n:Translate SearchPage_SearchBar_Placeholder}">
                         <SearchBar.Behaviors>
                             <prism:EventToCommandBehavior EventName="TextChanged"
                                                   Command="{Binding TextChangedCommand}"
                                                   EventArgsParameterPath="NewTextValue"/>
                         </SearchBar.Behaviors>
                     </SearchBar>
-                    <ListView x:Name="searchResults"
-                      HorizontalOptions="Fill"
-                      ItemsSource="{Binding SearchSuggestions}"
-                      VerticalOptions="CenterAndExpand" />
+                    <ScrollView>
+                        <StackLayout>
+                            <StackLayout VerticalOptions="Start" IsVisible="{Binding HasAlbums}">
+                                <Grid >
+                                    <Label Text="{i18n:Translate SearchPage_SectionAlbums_Title}}"
+                                           Margin="15,0"
+                                           Style="{DynamicResource SectionHeaderLabelStyle}"/>
+                                    <Button Text="{i18n:Translate SearchPage_SectionAlbums_DisplayAll_Text}"
+                                            Margin="15,0"
+                                            Style="{DynamicResource MoreItemsButtonStyle}"
+                                            IsVisible="{Binding HasMoreAlbums}"/>
+                                </Grid>
+                                <StackLayout VerticalOptions="Start"
+                                             BindableLayout.ItemsSource="{Binding Albums}"
+                                             BackgroundColor="{DynamicResource SystemGray6}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+
+                                            <StackLayout>
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectItemCommand,
+                                                            Source={x:Reference page}}"
+                                                                          CommandParameter="{Binding}"/>
+                                                </StackLayout.GestureRecognizers>
+                                                <Grid Margin="15">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="15"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Source="{Binding ImageSource}" 
+                                                       Aspect="AspectFill" HeightRequest="50"/>
+                                                    <StackLayout Grid.Column="1">
+                                                        <Label Text="{Binding Title}"
+                                                               LineBreakMode="TailTruncation"/>
+                                                        <Label Margin="0,-5,0,0"
+                                                               FontSize="13"
+                                                               Text="{Binding SubTitle}"
+                                                               LineBreakMode="TailTruncation"/>
+                                                    </StackLayout>
+                                                    <Image Source="icon_chevron_right_d_gray"
+                                                           Aspect="AspectFit"
+                                                           Grid.Column="2"/>
+                                                </Grid>
+
+                                                <BoxView Style="{DynamicResource SeparatorItem}" />
+
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout VerticalOptions="Start" IsVisible="{Binding HasTracks}">
+                                <Grid >
+                                    <Label Text="{i18n:Translate SearchPage_SectionTracks_Title}"
+                                           Margin="15,0"
+                                           Style="{DynamicResource SectionHeaderLabelStyle}"/>
+                                    <Button Margin="15,0" Text="{i18n:Translate SearchPage_SectionTracks_DisplayAll_Text}"
+                                            Style="{DynamicResource MoreItemsButtonStyle}"
+                                            IsVisible="{Binding HasMoreTracks}"/>
+                                </Grid>
+                            
+                            <StackLayout VerticalOptions="Start"
+                                         BindableLayout.ItemsSource="{Binding Tracks}"
+                                         BackgroundColor="{DynamicResource SystemGray6}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+
+                                            <StackLayout>
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.PlayCommand,
+                                                        Source={x:Reference page}}"
+                                                                          CommandParameter="{Binding}"/>
+                                                </StackLayout.GestureRecognizers>
+                                                <Grid Margin="15">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="15"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Source="{Binding ImageSource}" 
+                                                           Aspect="AspectFill" HeightRequest="50"/>
+                                                    <StackLayout Grid.Column="1">
+                                                        <Label Text="{Binding Title}"
+                                                               LineBreakMode="TailTruncation"/>
+                                                        <Label Margin="0,-5,0,0"
+                                                               FontSize="13"
+                                                               Text="{Binding SubTitle}"
+                                                               LineBreakMode="TailTruncation"/>
+                                                    </StackLayout>
+                                                </Grid>
+
+                                                <BoxView Style="{DynamicResource SeparatorItem}" />
+                                                
+                                            </StackLayout>
+                                        </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
                 </StackLayout>
+
             </StackLayout>
             <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
                  AbsoluteLayout.LayoutFlags="PositionProportional"
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-                    <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="{Binding PrimaryLabelColor}"/>
-                </StackLayout>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="{Binding PrimaryLabelColor}"/>
+            </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
 

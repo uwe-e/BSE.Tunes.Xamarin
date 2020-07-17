@@ -13,7 +13,7 @@
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <StackLayout.Padding>
                     <OnPlatform x:TypeArguments="Thickness">
-                        <On Platform="iOS" Value="0,50,0,50"/>
+                        <On Platform="iOS" Value="0,50,0,0"/>
                     </OnPlatform>
                 </StackLayout.Padding>
                 <CollectionView x:Name="albumsView"  ItemsSource="{Binding Items}"

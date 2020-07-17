@@ -71,6 +71,13 @@ namespace BSE.Tunes.XApp.Services
             string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/albums/{albumId}";
             return _requestService.GetAsync<Album>(new UriBuilder(strUrl).Uri);
         }
+        
+        public Task<Album[]> GetAlbumSearchResults(string query, int skip, int limit)
+        {
+            query = System.Web.HttpUtility.UrlEncode(query);
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/search/albums/search/?query={query}&skip={skip}&limit={limit}";
+            return _requestService.GetAsync<Album[]>(new UriBuilder(strUrl).Uri);
+        }
 
         public Task<int> GetNumberOfAlbumsByGenre(int? genreId)
         {
@@ -83,12 +90,7 @@ namespace BSE.Tunes.XApp.Services
             string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/albums/genre/{genreId ?? 0}/?skip={skip}&limit={limit}";
             return _requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
         }
-        public Task<string[]> GetSearchSuggestions(string searchPhrase)
-        {
-            string strUrl = $"{_settingsService.ServiceEndPoint}/api/search/suggestions/{searchPhrase}";
-            return _requestService.GetAsync<String[]>(new UriBuilder(strUrl).Uri);
-        }
-
+        
         public Task<SystemInfo> GetSystemInfo()
         {
              string strUrl = $"{_settingsService.ServiceEndPoint}/api/system";
@@ -107,10 +109,17 @@ namespace BSE.Tunes.XApp.Services
             return _requestService.GetAsync<ObservableCollection<int>>(new UriBuilder(strUrl).Uri);
         }
 
+        public Task<Track[]> GetTrackSearchResults(string query, int skip, int limit)
+        {
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/search/tracks/search/?query={query}&skip={skip}&limit={limit}";
+            return _requestService.GetAsync<Track[]>(new UriBuilder(strUrl).Uri);
+        }
+
         public Task<bool> UpdateHistory(History history)
         {
             string strUrl = $"{_settingsService.ServiceEndPoint}/api/tunes/UpdateHistory";
             return _requestService.PostAsync<bool, History>(new UriBuilder(strUrl).Uri, history);
         }
+        
     }
 }

@@ -1,14 +1,15 @@
 ﻿using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using PanCardView.Extensions;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -16,6 +17,8 @@ namespace BSE.Tunes.XApp.ViewModels
     {
         private DelegateCommand<string> _textChangedCommand;
         private DelegateCommand<GridPanel> _selectItemCommand;
+        private ICommand _showAllAlbumSearchResultsCommand;
+        private ICommand _showAllTrackSearchResultsCommand;
         private DelegateCommand<GridPanel> _playCommand;
         private string _textValue;
         private readonly IDataService _dataService;
@@ -33,8 +36,15 @@ namespace BSE.Tunes.XApp.ViewModels
         public DelegateCommand<GridPanel> SelectItemCommand => _selectItemCommand
             ?? (_selectItemCommand = new DelegateCommand<GridPanel>(SelectItem));
 
+        public ICommand ShowAllAlbumSearchResultsCommand => _showAllAlbumSearchResultsCommand
+           ?? (_showAllAlbumSearchResultsCommand = new DelegateCommand(ShowAllAlbumSearchResults));
+
         public DelegateCommand<GridPanel> PlayCommand => _playCommand
             ?? (_playCommand = new DelegateCommand<GridPanel>(PlayTrack));
+
+
+        public ICommand ShowAllTrackSearchResultsCommand => _showAllTrackSearchResultsCommand
+           ?? (_showAllTrackSearchResultsCommand = new DelegateCommand(ShowAllTrackSearchResults));
 
         public string TextValue
         {
@@ -214,20 +224,30 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             if (obj?.Data is Track track)
             {
-                _playerManager.PlayTracks(
-                            new System.Collections.ObjectModel.ObservableCollection<int>()
-                            {
-                                track.Id
-                            }
-                            ,
-                            AudioPlayerMode.Song);
-
-
-                //PlayTracks(new List<int>
-                //{
-                //    track.Id
-                //}, AudioPlayerMode.Song);
+                _playerManager.PlayTracks(new ObservableCollection<int>()
+                {
+                    track.Id
+                }
+                , AudioPlayerMode.Song);
             }
+        } 
+        
+        private async void ShowAllAlbumSearchResults()
+        {
+            var navigationParams = new NavigationParameters
+                    {
+                        { "query",  TextValue}
+                    };
+            await NavigationService.NavigateAsync($"{nameof(AlbumSearchResultsPage)}", navigationParams);
+        }
+        
+        private async void ShowAllTrackSearchResults()
+        {
+            var navigationParams = new NavigationParameters
+                    {
+                        { "query",  TextValue}
+                    };
+            await NavigationService.NavigateAsync($"{nameof(TrackSearchResultsPage)}", navigationParams);
         }
     }
 }

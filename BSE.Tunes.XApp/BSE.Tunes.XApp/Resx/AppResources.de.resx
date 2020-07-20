@@ -129,6 +129,9 @@
   <data name="AlbumsDetailPage_Button_PlayRandomized_Text" xml:space="preserve">
     <value>Zufallswiedergabe</value>
   </data>
+  <data name="AlbumSearchResultsPage_Title" xml:space="preserve">
+    <value>Alben</value>
+  </data>
   <data name="AlbumsPage_Title" xml:space="preserve">
     <value>Alben</value>
   </data>
@@ -224,5 +227,8 @@
   </data>
   <data name="SettingsPage_Title" xml:space="preserve">
     <value>Einstellungen</value>
+  </data>
+  <data name="TrackSearchResultsPage_Title" xml:space="preserve">
+    <value>Titel</value>
   </data>
 </root>

@@ -99,6 +99,15 @@ namespace BSE.Tunes.XApp.Resx {
         /// <summary>
         ///   Looks up a localized string similar to Albums.
         /// </summary>
+        internal static string AlbumSearchResultsPage_Title {
+            get {
+                return ResourceManager.GetString("AlbumSearchResultsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Albums.
+        /// </summary>
         internal static string AlbumsPage_Title {
             get {
                 return ResourceManager.GetString("AlbumsPage_Title", resourceCulture);
@@ -381,6 +390,15 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string SettingsPage_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Songs.
+        /// </summary>
+        internal static string TrackSearchResultsPage_Title {
+            get {
+                return ResourceManager.GetString("TrackSearchResultsPage_Title", resourceCulture);
             }
         }
     }

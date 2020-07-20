@@ -128,7 +128,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\hamburger.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\icon_search.png" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\icon_home.png" />
   </ItemGroup>

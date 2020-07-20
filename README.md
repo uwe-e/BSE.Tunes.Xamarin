@@ -1,5 +1,5 @@
 # BSE.Tunes.Xamarin
-The Xamarin version of BSEtunes can in ios play single songs, whole albums and randomized, the whole content of this BSEtunes.
+The Xamarin version of BSEtunes can play (atm only ios) single songs, whole albums and randomized, the whole content of this BSEtunes.
 
 It has a home page,
 

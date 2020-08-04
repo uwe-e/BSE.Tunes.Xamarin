@@ -4,8 +4,44 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+             xmlns:template="clr-namespace:BSE.Tunes.XApp.Views.Templates"
              x:Class="BSE.Tunes.XApp.Views.PlaylistsPage"
-             Title="{i18n:Translate PlaylistsPage_Title}"
-             IconImageSource="icon_playlists">
-  
+             Title="{i18n:Translate PlaylistsPage_Title}">
+
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <StackLayout.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" Value="0,50,0,0"/>
+                    </OnPlatform>
+                </StackLayout.Padding>
+                <CollectionView x:Name="albumsView"  ItemsSource="{Binding Items}"
+                                RemainingItemsThreshold="{Binding PageSize}"
+                                RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}"
+                                VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="6,3,6,3">
+                                <template:ViewItemTemplate>
+                                    <template:ViewItemTemplate.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=albumsView}}" CommandParameter="{Binding}"/>
+                                    </template:ViewItemTemplate.GestureRecognizers>
+                                </template:ViewItemTemplate>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="{Binding PrimaryLabelColor}"/>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+
 </ContentPage>

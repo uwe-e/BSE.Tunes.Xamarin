@@ -120,6 +120,11 @@ namespace BSE.Tunes.XApp.Services
             string strUrl = $"{_settingsService.ServiceEndPoint}/api/tunes/UpdateHistory";
             return _requestService.PostAsync<bool, History>(new UriBuilder(strUrl).Uri, history);
         }
-        
+
+        public Task<ObservableCollection<Playlist>> GetPlaylistsByUserName(string userName, int skip, int limit)
+        {
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/playlists/{userName}/?skip={skip}&limit={limit}";
+            return _requestService.GetAsync<ObservableCollection<Playlist>>(new UriBuilder(strUrl).Uri);
+        }
     }
 }

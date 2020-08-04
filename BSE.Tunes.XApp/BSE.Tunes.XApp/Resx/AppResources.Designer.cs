@@ -241,6 +241,15 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Songs.
+        /// </summary>
+        internal static string PlaylistItem_PartNumberOfEntries {
+            get {
+                return ResourceManager.GetString("PlaylistItem_PartNumberOfEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Playlists.
         /// </summary>
         internal static string PlaylistsPage_Title {

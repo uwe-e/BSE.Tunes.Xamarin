@@ -126,5 +126,19 @@ namespace BSE.Tunes.XApp.Services
             string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/playlists/{userName}/?skip={skip}&limit={limit}";
             return _requestService.GetAsync<ObservableCollection<Playlist>>(new UriBuilder(strUrl).Uri);
         }
+
+        public Task<Playlist> GetPlaylistByIdWithNumberOfEntries(int playlistId, string userName)
+        {
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/playlists/{userName}/{playlistId}/$count";
+            return _requestService.GetAsync<Playlist>(new UriBuilder(strUrl).Uri);
+        }
+
+        public Task<ObservableCollection<Guid>> GetPlaylistImageIdsById(int playlistId, string userName, int limit)
+        {
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/playlists/{userName}/{playlistId}/imageids/?limit={limit}";
+            return _requestService.GetAsync<ObservableCollection<Guid>>(new UriBuilder(strUrl).Uri);
+        }
+
+        
     }
 }

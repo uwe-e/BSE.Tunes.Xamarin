@@ -68,7 +68,10 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterForNavigation<AlbumsPage, AlbumsPageViewModel>();
             containerRegistry.RegisterForNavigation<AlbumDetailPage, AlbumDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaylistsPage, PlaylistsPageViewModel>();
+            containerRegistry.RegisterForNavigation<PlaylistDetailPage, PlaylistDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<SearchPage, SearchPageViewModel>();
+            containerRegistry.RegisterForNavigation<AlbumSearchResultsPage, AlbumSearchResultsPageViewModel>();
+            containerRegistry.RegisterForNavigation<TrackSearchResultsPage, TrackSearchResultsPageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<ServiceEndpointSettingsPage, ServiceEndpointSettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<ServiceEndpointSettingsPage, ServiceEndpointSettingsPageViewModel>();
@@ -87,9 +90,6 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterInstance(playerService);
 
             ViewModelLocationProvider.Register<FeaturedAlbumsView, FeaturedAlbumsViewModel>();
-
-            containerRegistry.RegisterForNavigation<AlbumSearchResultsPage, AlbumSearchResultsPageViewModel>();
-            containerRegistry.RegisterForNavigation<TrackSearchResultsPage, TrackSearchResultsPageViewModel>();
         }
 
         private void SetTheme(OSAppTheme theme)

@@ -32,7 +32,7 @@ namespace BSE.Tunes.XApp.ViewModels
                     {
                         Title = album.Title,
                         SubTitle = album.Artist.Name,
-                        ImageSource = DataService.GetImage(album.AlbumId)?.AbsoluteUri,
+                        ImageSource = DataService.GetImage(album.AlbumId, true)?.AbsoluteUri,
                         Data = album
                     });
                 }

@@ -6,7 +6,6 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
@@ -23,11 +22,15 @@ namespace BSE.Tunes.XApp.ViewModels
         private int _pageNumber;
         private bool _hasItems;
         private ICommand _loadMoreItemsCommand;
+        private ICommand _selectItemCommand;
 
         public event EventHandler IsActiveChanged;
 
         public ICommand LoadMoreItemsCommand =>
             _loadMoreItemsCommand ?? (_loadMoreItemsCommand = new DelegateCommand(LoadMoreItems));
+
+        public ICommand SelectItemCommand => _selectItemCommand
+            ?? (_selectItemCommand = new Xamarin.Forms.Command<GridPanel>(SelectItem));
 
         public bool IsActive
         {
@@ -105,7 +108,6 @@ namespace BSE.Tunes.XApp.ViewModels
                                     Title = playlist.Name,
                                     SubTitle = FormatNumberOfEntriesString(playlist),
                                     ImageSource = await _cacheableBitmapService.GetBitmapSource(
-                                        //albumIds.Select(id => _dataService.GetImage(id, true)),
                                         albumIds,
                                         playlist.Guid.ToString(),
                                         150, true),
@@ -120,6 +122,18 @@ namespace BSE.Tunes.XApp.ViewModels
                 {
                     IsBusy = false;
                 }
+            }
+        }
+        
+        private async void SelectItem(GridPanel obj)
+        {
+            if (obj?.Data is Playlist playlist)
+            {
+                var navigationParams = new NavigationParameters
+                    {
+                        { "playlist", playlist }
+                    };
+                await NavigationService.NavigateAsync("NavigationPage/PlaylistDetailPage", navigationParams);
             }
         }
 

@@ -177,6 +177,12 @@
   <data name="LoginSettingsPage_Title" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="PlaylistDetailPage_Button_PlayAll_Text" xml:space="preserve">
+    <value>Play all</value>
+  </data>
+  <data name="PlaylistDetailPage_Button_PlayRandomized_Text" xml:space="preserve">
+    <value>Shuffle all</value>
+  </data>
   <data name="PlaylistItem_PartNumberOfEntries" xml:space="preserve">
     <value>Songs</value>
   </data>

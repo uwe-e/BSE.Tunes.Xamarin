@@ -157,10 +157,10 @@
     <value>Anmelden</value>
   </data>
   <data name="LoginPage_Entry_Placeholder_EnterPassword" xml:space="preserve">
-    <value>Gebe das Passwort ein</value>
+    <value>Gib das Passwort ein</value>
   </data>
   <data name="LoginPage_Entry_Placeholder_EnterUserName" xml:space="preserve">
-    <value>Gebe den Benutzernamen ein</value>
+    <value>Gib den Benutzernamen ein</value>
   </data>
   <data name="LoginSettingsPage_ActionSheet_Title" xml:space="preserve">
     <value>Willst du das Konto für dieses BSETunes löschen?</value>
@@ -176,6 +176,12 @@
   </data>
   <data name="LoginSettingsPage_Title" xml:space="preserve">
     <value>Konto</value>
+  </data>
+  <data name="PlaylistDetailPage_Button_PlayAll_Text" xml:space="preserve">
+    <value>Alle wiedergeben</value>
+  </data>
+  <data name="PlaylistDetailPage_Button_PlayRandomized_Text" xml:space="preserve">
+    <value>Zufallswiedergabe</value>
   </data>
   <data name="PlaylistItem_PartNumberOfEntries" xml:space="preserve">
     <value>Songs</value>

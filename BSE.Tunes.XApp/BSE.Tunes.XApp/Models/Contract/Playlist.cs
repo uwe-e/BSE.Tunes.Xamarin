@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BSE.Tunes.XApp.Models.Contract
 {
     public class Playlist
     {
+        private IEnumerable<PlaylistEntry> _playlistEntries;
+
         public int Id
         {
             get; set;
@@ -28,5 +31,7 @@ namespace BSE.Tunes.XApp.Models.Contract
             get;
             set;
         }
+
+        public IEnumerable<PlaylistEntry> Entries => _playlistEntries ?? (_playlistEntries = new List<PlaylistEntry>());
     }
 }

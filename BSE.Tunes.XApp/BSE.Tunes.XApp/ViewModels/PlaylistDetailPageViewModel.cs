@@ -20,12 +20,17 @@ namespace BSE.Tunes.XApp.ViewModels
         private Playlist _playlist;
         private ObservableCollection<GridPanel> _items;
         private string _coverSource;
+        private bool _isFlyoutOpen;
         private DelegateCommand _playAllCommand;
         private DelegateCommand _playAllRandomizedCommand;
-        private DelegateCommand<object> _playCommand;
+        private DelegateCommand<GridPanel> _playCommand;
+        private DelegateCommand<GridPanel> _openFlyoutCommand;
 
-        public DelegateCommand<object> PlayCommand => _playCommand
-            ?? (_playCommand = new DelegateCommand<object>(PlayTrack));
+        public DelegateCommand<GridPanel> PlayCommand => _playCommand
+            ?? (_playCommand = new DelegateCommand<GridPanel>(PlayTrack));
+
+        public DelegateCommand<GridPanel> OpenFlyoutCommand => _openFlyoutCommand
+            ?? (_openFlyoutCommand = new DelegateCommand<GridPanel>(OpenFlyout));
 
         public DelegateCommand PlayAllCommand => _playAllCommand
             ?? (_playAllCommand = new DelegateCommand(PlayAll, CanPlayAll));
@@ -55,6 +60,12 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 SetProperty<string>(ref _coverSource, value);
             }
+        }
+
+        public bool IsFlyoutOpen
+        {
+            get { return _isFlyoutOpen; }
+            set { SetProperty(ref _isFlyoutOpen, value); }
         }
 
         public ObservableCollection<GridPanel> Items => _items ?? (_items = new ObservableCollection<GridPanel>());
@@ -101,6 +112,7 @@ namespace BSE.Tunes.XApp.ViewModels
                                         albumIds.Take(4),
                                         Playlist.Guid.ToString(),
                                         500, false);
+                    IsFlyoutOpen = false;
 
                     PlayAllCommand.RaiseCanExecuteChanged();
                     PlayAllRandomizedCommand.RaiseCanExecuteChanged();
@@ -108,13 +120,13 @@ namespace BSE.Tunes.XApp.ViewModels
             }
             IsBusy = false;
         }
-        private void PlayTrack(object obj)
+        private void PlayTrack(GridPanel obj)
         {
-            if (obj is PlaylistEntry track)
+            if (obj?.Data is PlaylistEntry entry)
             {
                 PlayTracks(new List<int>
                 {
-                    track.Id
+                    entry.TrackId
                 }, AudioPlayerMode.Song);
             }
         }
@@ -148,6 +160,12 @@ namespace BSE.Tunes.XApp.ViewModels
         private ObservableCollection<int> GetTrackIds()
         {
             return new ObservableCollection<int>(Items.Select(track => ((PlaylistEntry)track.Data).TrackId));
+        }
+        
+        private void OpenFlyout(GridPanel obj)
+        {
+            // new NotImplementedException();
+            IsFlyoutOpen = !IsFlyoutOpen;
         }
     }
 }

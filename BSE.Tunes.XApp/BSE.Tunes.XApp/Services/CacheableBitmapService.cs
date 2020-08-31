@@ -11,7 +11,7 @@ namespace BSE.Tunes.XApp.Services
     public class CacheableBitmapService : ICacheableBitmapService
     {
         private const string ThumbnailPart = "_thumb";
-        private const string ImageExtension = ".jpg";
+        private const string ImageExtension = ".png";
         private readonly IStorageService _storageService;
         private readonly IDataService _dataService;
         private readonly IRequestService _requestService;
@@ -39,7 +39,7 @@ namespace BSE.Tunes.XApp.Services
 				{
 					SKImage stitchedImage = await Combine(albumIds, width, height, asThumbnail);
 
-					using (SKData encoded = stitchedImage.Encode(SKEncodedImageFormat.Jpeg, 150))
+					using (SKData encoded = stitchedImage.Encode(SKEncodedImageFormat.Png, 150))
 					{
 						using (System.IO.Stream outFile = System.IO.File.OpenWrite(fullName))
 						{

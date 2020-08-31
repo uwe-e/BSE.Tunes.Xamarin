@@ -2,98 +2,114 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+             xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="BSE.Tunes.XApp.Views.PlaylistDetailPage"
-             NavigationPage.HasNavigationBar="False">
-
+             NavigationPage.HasNavigationBar="False"
+             x:Name="page">
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <ScrollView>
-                    <ScrollView.Padding>
-                        <OnPlatform x:TypeArguments="Thickness">
-                            <On Platform="iOS" Value="0,0,0,50"/>
-                        </OnPlatform>
-                    </ScrollView.Padding>
-                    <StackLayout Padding="12,12,12,0">
-                        <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal">
-                            <StackLayout Margin="5,0,5,0" HeightRequest="150">
-                                <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding CoverSource}" WidthRequest="150" />
-                            </StackLayout>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition x:Name="actionRow" Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Label x:Name="infoTitle" Text="{Binding Playlist.Name}" LineBreakMode="TailTruncation"
+                <StackLayout.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" Value="0,90,0,50"/>
+                    </OnPlatform>
+                </StackLayout.Padding>
+                <CollectionView ItemsSource="{Binding Items}" VerticalOptions="Start">
+                    <CollectionView.Header>
+                        <StackLayout Spacing="0">
+                            <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal">
+                                <StackLayout Margin="5,0,5,0" HeightRequest="150">
+                                    <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding CoverSource}" WidthRequest="150" />
+                                </StackLayout>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition x:Name="actionRow" Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label x:Name="infoTitle" Text="{Binding Playlist.Name}" LineBreakMode="TailTruncation"
                                        Grid.Row="0" FontSize="Header" TextColor="{StaticResource PrimaryLabelColor}"/>
-                                <Label x:Name="infoSubTitle" Text="{Binding Album.Artist.Name}" LineBreakMode="TailTruncation"
+                                    <Label x:Name="infoSubTitle" Text="{Binding Album.Artist.Name}" LineBreakMode="TailTruncation"
                                        Grid.Row="1" TextColor="{StaticResource SecondaryLabelColor}"/>
-                                <Label x:Name="albumGenre" LineBreakMode="TailTruncation"
+                                    <Label x:Name="albumGenre" LineBreakMode="TailTruncation"
                                        Grid.Row="2" TextColor="{StaticResource SecondaryLabelColor}">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="{Binding Album.Year}"/>
-                                            <Span Text=" "/>
-                                            <Span Text="{Binding Album.Genre.Name}"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </Grid>
-                        </StackLayout>
-                        <StackLayout VerticalOptions="StartAndExpand">
-                            <StackLayout Orientation="Horizontal">
-                                <Button Text="{i18n:Translate PlaylistDetailPage_Button_PlayAll_Text}"
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Album.Year}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{Binding Album.Genre.Name}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                            </StackLayout>
+                            <StackLayout VerticalOptions="StartAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Button Text="{i18n:Translate PlaylistDetailPage_Button_PlayAll_Text}"
                                         ImageSource="icon_play_d_blue_20_50"
                                         HorizontalOptions="Start"
                                         Command="{Binding PlayAllCommand}"/>
-                                <Button Text="{i18n:Translate PlaylistDetailPage_Button_PlayRandomized_Text}"
+                                    <Button Text="{i18n:Translate PlaylistDetailPage_Button_PlayRandomized_Text}"
                                         ImageSource="icon_shuffle_d_blue_20_50"
                                         HorizontalOptions="End"
                                         Command="{Binding PlayAllRandomizedCommand}"/>
+                                </StackLayout>
                             </StackLayout>
                         </StackLayout>
-                        <StackLayout VerticalOptions="StartAndExpand">
-                            <CollectionView ItemsSource="{Binding Items}" VerticalOptions="Start">
-                                <!--<CollectionView.Behaviors>
-                                    <prism:EventToCommandBehavior EventName="ItemTapped"
-                                                                  Command="{Binding PlayCommand}"
-                                                                  EventArgsParameterPath="Item"/>
-                                </CollectionView.Behaviors>-->
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout>
-                                            <Grid Margin="15">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="50"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="40"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Image Source="{Binding ImageSource}" 
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.PlayCommand,
+                                                            Source={x:Reference page}}"
+                                                                      CommandParameter="{Binding}"/>
+                                </StackLayout.GestureRecognizers>
+                                <Grid Margin="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ImageSource}" 
                                                        Aspect="AspectFill" HeightRequest="50"/>
-                                                <StackLayout Grid.Column="1">
-                                                    <Label Text="{Binding Title}"
+                                    <StackLayout Grid.Column="1">
+                                        <Label Text="{Binding Title}"
                                                            LineBreakMode="TailTruncation"/>
-                                                    <Label Margin="0,-5,0,0"
+                                        <Label Margin="0,-5,0,0"
                                                            FontSize="13"
                                                            Text="{Binding SubTitle}"
                                                            LineBreakMode="TailTruncation"/>
-                                                </StackLayout>
-                                                <Button Grid.Column="2" Text="..." BackgroundColor="Transparent"/>
-                                            </Grid>
-                                        </StackLayout>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </StackLayout>
-                    </StackLayout>
-                </ScrollView>
+                                    </StackLayout>
+                                    <Button Grid.Column="2"
+                                                        FontSize="18"
+                                                        Text="..."
+                                                        Command="{Binding Path=BindingContext.OpenFlyoutCommand, Source={x:Reference page}}"
+                                                        CommandParameter="{Binding}"
+                                                        BackgroundColor="Transparent"/>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </StackLayout>
+            
+            <controls:Flyout IsOpen="{Binding IsFlyoutOpen, Mode=TwoWay}"
+                             AbsoluteLayout.LayoutBounds="0,0,1,1"
+                             AbsoluteLayout.LayoutFlags="All">
+                
+                <StackLayout Spacing="0">
+                    <Label  BackgroundColor="LawnGreen" Text="ugugugugu"/>
+                    <Label Text="hshshsh" BackgroundColor="Blue"/>
+                </StackLayout>
+
+            </controls:Flyout>
+            
             <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
                  AbsoluteLayout.LayoutFlags="PositionProportional"
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">

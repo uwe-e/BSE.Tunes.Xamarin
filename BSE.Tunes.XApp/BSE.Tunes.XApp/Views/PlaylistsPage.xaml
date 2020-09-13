@@ -5,9 +5,8 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              xmlns:template="clr-namespace:BSE.Tunes.XApp.Views.Templates"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              x:Class="BSE.Tunes.XApp.Views.PlaylistsPage"
-             ios:Page.UseSafeArea="True"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Title="{i18n:Translate PlaylistsPage_Title}">
 
     <ContentPage.Content>

@@ -6,15 +6,11 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              x:Class="BSE.Tunes.XApp.Views.HomePage"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Title="{i18n:Translate HomePage_Title}">
 
     <ContentPage.Content>
         <ScrollView>
-            <ScrollView.Padding>
-                <OnPlatform x:TypeArguments="Thickness">
-                    <On Platform="iOS" Value="0,0,0,10"/>
-                </OnPlatform>
-            </ScrollView.Padding>
             <StackLayout>
 
                 <local:FeaturedItemsView HeightRequest="280" />

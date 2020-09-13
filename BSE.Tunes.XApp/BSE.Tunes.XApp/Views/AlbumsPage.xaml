@@ -6,16 +6,12 @@
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              xmlns:template="clr-namespace:BSE.Tunes.XApp.Views.Templates"
              x:Class="BSE.Tunes.XApp.Views.AlbumsPage"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              Title="{i18n:Translate AlbumsPage_Title}">
 
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <StackLayout.Padding>
-                    <OnPlatform x:TypeArguments="Thickness">
-                        <On Platform="iOS" Value="0,50,0,0"/>
-                    </OnPlatform>
-                </StackLayout.Padding>
                 <CollectionView x:Name="albumsView"  ItemsSource="{Binding Items}"
                                 RemainingItemsThreshold="{Binding PageSize}"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}"
@@ -43,5 +39,5 @@
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
-    
+
 </ContentPage>

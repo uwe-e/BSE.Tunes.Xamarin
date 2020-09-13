@@ -4,24 +4,23 @@
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              xmlns:prism="http://prismlibrary.com"
              xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.AlbumDetailPage"
-             NavigationPage.HasNavigationBar="False">
+             BackgroundColor="{DynamicResource BackgroundColor}"
+             NavigationPage.HasNavigationBar="False"
+             x:Name="page">
+    
     <ContentPage.ToolbarItems>
+        
         <ToolbarItem Text="..." />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <ScrollView>
-                    <ScrollView.Padding>
-                    <OnPlatform x:TypeArguments="Thickness">
-                        <On Platform="iOS" Value="0,0,0,50"/>
-                    </OnPlatform>
-                    </ScrollView.Padding>
-                    <StackLayout Padding="12,12,12,0">
-                        <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal">
+                <CollectionView ItemsSource="{Binding Tracks}" VerticalOptions="FillAndExpand">
+                    <CollectionView.Header>
+                        <StackLayout Spacing="0">
+                            <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal">
                             <StackLayout Margin="5,0,5,0" HeightRequest="150">
                                 <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding CoverSource}" WidthRequest="150" />
                             </StackLayout>
@@ -48,7 +47,7 @@
                                 </Label>
                             </Grid>
                         </StackLayout>
-                        <StackLayout VerticalOptions="StartAndExpand">
+                            <StackLayout VerticalOptions="StartAndExpand">
                             <StackLayout Orientation="Horizontal">
                                 <Button Text="{i18n:Translate AlbumsDetailPage_Button_PlayAll_Text}"
                                         ImageSource="icon_play_d_blue_20_50"
@@ -60,38 +59,41 @@
                                         Command="{Binding PlayAllRandomizedCommand}"/>
                             </StackLayout>
                         </StackLayout>
-                        <StackLayout VerticalOptions="StartAndExpand">
-                            <ListView ItemsSource="{Binding Tracks}" VerticalOptions="Start" RowHeight="45"
-                                      ios:ListView.SeparatorStyle="FullWidth">
-                                <ListView.Behaviors>
-                                    <prism:EventToCommandBehavior EventName="ItemTapped"
-                                                                  Command="{Binding PlayCommand}"
-                                                                  EventArgsParameterPath="Item"/>
-                                </ListView.Behaviors>
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="25"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Label Text="{Binding TrackNumber}"
+                        </StackLayout>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.PlayCommand,
+                                                            Source={x:Reference page}}"
+                                                                      CommandParameter="{Binding}"/>
+                                </StackLayout.GestureRecognizers>
+                                <Grid Margin="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="25"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding TrackNumber}"
                                                        Grid.Column="0"
                                                        TextColor="{StaticResource SecondaryLabelColor}" VerticalTextAlignment="Center"/>
-                                                <Label Text="{Binding Name}"
+                                    <Label Text="{Binding Name}"
                                                        Grid.Column="1"
                                                        TextColor="{StaticResource PrimaryLabelColor}" 
                                                        VerticalTextAlignment="Center"
                                                        LineBreakMode="TailTruncation"/>
-                                            </Grid>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackLayout>
-                    </StackLayout>
-                </ScrollView>
+                                    <Button Grid.Column="2"
+                                            FontSize="18"
+                                            Text="..."
+                                            Command="{Binding Path=BindingContext.OpenFlyoutCommand, Source={x:Reference page}}"
+                                            CommandParameter="{Binding}"
+                                            BackgroundColor="Transparent"/>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </StackLayout>
             <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
                  AbsoluteLayout.LayoutFlags="PositionProportional"

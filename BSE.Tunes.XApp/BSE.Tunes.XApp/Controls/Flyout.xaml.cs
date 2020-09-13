@@ -15,6 +15,15 @@ namespace BSE.Tunes.XApp.Controls
         private double _pageHeight;
         private double _flyoutHeight;
 
+        public static readonly BindableProperty FlyoutBackgroundColorProperty =
+            BindableProperty.Create(nameof(FlyoutBackgroundColor), typeof(Color), typeof(Flyout), default(Color));
+
+        public Color FlyoutBackgroundColor
+        {
+            get { return (Color)GetValue(FlyoutBackgroundColorProperty); }
+            set { SetValue(FlyoutBackgroundColorProperty, value); }
+        }
+
         public static readonly BindableProperty IsOpenProperty
             = BindableProperty.Create(
                 nameof(IsOpen),
@@ -72,11 +81,10 @@ namespace BSE.Tunes.XApp.Controls
             IsVisible = false;
          }
 
-        private void Open()
+        private async void Open()
         {
             IsVisible = _fader.IsVisible = true;
-            //_fader.IsVisible = true;
-            _fader.FadeTo(1, AnimationSpeed, Easing.SinInOut);
+            await _fader.FadeTo(1, AnimationSpeed, Easing.SinInOut);
 
             /*
              * for measuring the height of the flyout, this flyout is stored in the 2nd row of the grid with the height "Auto".
@@ -89,7 +97,7 @@ namespace BSE.Tunes.XApp.Controls
                 Grid.SetRow(_flyout, 0);
             }
 
-            _flyout.TranslateTo(0, _pageHeight - _flyoutHeight, AnimationSpeed, Easing.SinInOut);
+            await _flyout.TranslateTo(0, _pageHeight - _flyoutHeight, AnimationSpeed, Easing.SinInOut);
         }
 
         private void OnFaderTapped(object sender, EventArgs e)

@@ -25,43 +25,38 @@
                               Cover="{Binding CoverSource, Mode=TwoWay}"
                               AudioPlayerState="{Binding AudioPlayerState, Mode=TwoWay}"/>
     </controls:ExtendedTabbedPage.AudioPlayerBar>
-    <TabbedPage.Children>
+    
+    <controls:ExtendedTabbedPage.Children>
         <NavigationPage Title="{i18n:Translate HomePage_Title}"
-                        IconImageSource="icon_home"
-                        ios:NavigationPage.IsNavigationBarTranslucent="True">
+                        IconImageSource="icon_home">
             <x:Arguments>
                 <views:HomePage/>
             </x:Arguments>
         </NavigationPage>
         <NavigationPage Title="{i18n:Translate AlbumsPage_Title}"
-                        IconImageSource="icon_album"
-                        ios:NavigationPage.IsNavigationBarTranslucent="True">
+                        IconImageSource="icon_album">
             <x:Arguments>
                 <views:AlbumsPage/>
             </x:Arguments>
         </NavigationPage>
         <NavigationPage Title="{i18n:Translate PlaylistsPage_Title}"
-                        IconImageSource="icon_playlists"
-                        ios:NavigationPage.IsNavigationBarTranslucent="True">
+                        IconImageSource="icon_playlists">
             <x:Arguments>
                 <views:PlaylistsPage/>
             </x:Arguments>
         </NavigationPage>
         <NavigationPage Title="{i18n:Translate SearchPage_Title}"
-                        IconImageSource="icon_search"
-                        ios:NavigationPage.IsNavigationBarTranslucent="True">
+                        IconImageSource="icon_search">
             <x:Arguments>
                 <views:SearchPage/>
             </x:Arguments>
         </NavigationPage>
         <NavigationPage Title="{i18n:Translate SettingsPage_Title}"
-                        IconImageSource="icon_settings"
-                        ios:NavigationPage.IsNavigationBarTranslucent="True">
+                        IconImageSource="icon_settings">
             <x:Arguments>
                 <views:SettingsPage/>
             </x:Arguments>
         </NavigationPage>
-    </TabbedPage.Children>
-
+    </controls:ExtendedTabbedPage.Children>
 
 </controls:ExtendedTabbedPage>

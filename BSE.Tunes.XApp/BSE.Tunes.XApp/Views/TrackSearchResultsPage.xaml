@@ -6,6 +6,7 @@
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              x:Class="BSE.Tunes.XApp.Views.TrackSearchResultsPage"
              Title="{i18n:Translate TrackSearchResultsPage_Title}"
+             BackgroundColor="{DynamicResource BackgroundColor}"
              x:Name="tracksSearchResultsPage">
 
     <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">

@@ -33,10 +33,10 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             var tabBarFrame = TabBar.Frame;
             if (_audioPlayerBar != null)
             {
-                var audioPlayerFrame = _audioPlayerBar.Frame;
-
                 _audioPlayerBar.Frame = new System.Drawing.RectangleF((float)Element.X, (float)(frame.Top + frame.Height - tabBarFrame.Height - 60), (float)Element.Width, (float)60);
-
+                
+                var audioPlayerFrame = _audioPlayerBar.Frame;
+                
                 Page.ContainerArea = new Rectangle(0, 0, frame.Width, frame.Height - audioPlayerFrame.Height - tabBarFrame.Height);
             }
         }

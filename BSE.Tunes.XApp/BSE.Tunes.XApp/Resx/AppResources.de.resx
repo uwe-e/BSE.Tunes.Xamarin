@@ -177,6 +177,9 @@
   <data name="LoginSettingsPage_Title" xml:space="preserve">
     <value>Konto</value>
   </data>
+  <data name="ManageAlbumsPage_ButtonClose_Text" xml:space="preserve">
+    <value>Schliessen</value>
+  </data>
   <data name="PlaylistDetailPage_Button_PlayAll_Text" xml:space="preserve">
     <value>Alle wiedergeben</value>
   </data>

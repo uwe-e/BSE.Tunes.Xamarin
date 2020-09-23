@@ -35,7 +35,8 @@ namespace BSE.Tunes.XApp
             Device.SetFlags(new[] {
                 "CarouselView_Experimental",
                 "IndicatorView_Experimental",
-                "AppTheme_Experimental"
+                "AppTheme_Experimental",
+                "Brush_Experimental"
             });
 
             if (Application.Current != null)
@@ -67,6 +68,7 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<AlbumsPage, AlbumsPageViewModel>();
             containerRegistry.RegisterForNavigation<AlbumDetailPage, AlbumDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<ManageAlbumsPage, ManageAlbumsPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaylistsPage, PlaylistsPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaylistDetailPage, PlaylistDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<SearchPage, SearchPageViewModel>();
@@ -85,6 +87,7 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterSingleton<IPlayerManager, PlayerManager>();
             containerRegistry.Register<ICacheableBitmapService, CacheableBitmapService>();
             containerRegistry.Register<IStorageService, StorageService>();
+            containerRegistry.RegisterSingleton<IFlyoutNavigationService, FlyoutNavigationService>();
 
             var playerService = DependencyService.Get<IPlayerService>();
             containerRegistry.RegisterInstance(playerService);

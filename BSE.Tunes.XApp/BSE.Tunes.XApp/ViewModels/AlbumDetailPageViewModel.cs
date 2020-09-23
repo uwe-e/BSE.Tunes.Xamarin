@@ -1,8 +1,10 @@
 ﻿using BSE.Tunes.XApp.Collections;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism.Commands;
 using Prism.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,6 +13,7 @@ namespace BSE.Tunes.XApp.ViewModels
 {
     public class AlbumDetailPageViewModel : ViewModelBase
     {
+        private readonly IFlyoutNavigationService _flyoutNavigationService;
         private readonly IDataService _dataService;
         private readonly IPlayerManager _playerManager;
         private Album _album;
@@ -19,6 +22,8 @@ namespace BSE.Tunes.XApp.ViewModels
         private DelegateCommand _playAllCommand;
         private DelegateCommand _playAllRandomizedCommand;
         private DelegateCommand<object> _playCommand;
+        private DelegateCommand<object> _openFlyoutCommand;
+        private DelegateCommand<object> _openDialogCommand;
 
         public DelegateCommand<object> PlayCommand => _playCommand
             ?? (_playCommand = new DelegateCommand<object>(PlayTrack));
@@ -28,6 +33,14 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public DelegateCommand PlayAllRandomizedCommand => _playAllRandomizedCommand
             ?? (_playAllRandomizedCommand = new DelegateCommand(PlayAllRandomized, CanPlayAllRandomized));
+
+        public DelegateCommand<object> OpenFlyoutCommand => _openFlyoutCommand
+            ?? (_openFlyoutCommand = new DelegateCommand<object>(OpenFlyout));
+
+        public DelegateCommand<object> OpenDialogCommand => _openDialogCommand
+            ?? (_openDialogCommand = new DelegateCommand<object>(OpenDialog));
+
+        
 
         public Album Album
         {
@@ -56,10 +69,12 @@ namespace BSE.Tunes.XApp.ViewModels
         public ObservableCollection<Track> Tracks => _tracks ?? (_tracks = new ObservableCollection<Track>());
 
         public AlbumDetailPageViewModel(INavigationService navigationService,
+            IFlyoutNavigationService flyoutNavigationService,
             IResourceService resourceService,
             IDataService dataService,
             IPlayerManager playerManager) : base(navigationService, resourceService)
         {
+            _flyoutNavigationService = flyoutNavigationService;
             _dataService = dataService;
             _playerManager = playerManager;
         }
@@ -72,6 +87,12 @@ namespace BSE.Tunes.XApp.ViewModels
                 Album = await _dataService.GetAlbumById(album.Id);
                 foreach(Track track in Album.Tracks)
                 {
+                    track.Album = new Album
+                    {
+                        AlbumId = Album.AlbumId,
+                        Id = Album.Id,
+                        Title = Album.Title
+                    };
                     Tracks.Add(track);
                 }
                 CoverSource = _dataService.GetImage(Album.AlbumId)?.AbsoluteUri;
@@ -122,6 +143,20 @@ namespace BSE.Tunes.XApp.ViewModels
         private ObservableCollection<int> GetTrackIds()
         {
             return new ObservableCollection<int>(Tracks.Select(track => track.Id));
+        }
+        
+        private async void OpenFlyout(object obj)
+        {
+            var navigationParams = new NavigationParameters
+                    {
+                        { "track", obj as Track }
+                    };
+
+            await _flyoutNavigationService.ShowFlyoutAsync(nameof(ManageAlbumsPage), navigationParams);
+        }
+        
+        private void OpenDialog(object obj)
+        {
         }
     }
 }

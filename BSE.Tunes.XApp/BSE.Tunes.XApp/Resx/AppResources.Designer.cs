@@ -241,6 +241,15 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string ManageAlbumsPage_ButtonClose_Text {
+            get {
+                return ResourceManager.GetString("ManageAlbumsPage_ButtonClose_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Play all.
         /// </summary>
         internal static string PlaylistDetailPage_Button_PlayAll_Text {

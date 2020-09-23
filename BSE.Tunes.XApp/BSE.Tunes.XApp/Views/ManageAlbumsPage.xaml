@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
+                     xmlns:prism="http://prismlibrary.com"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+                     xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
+                     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                     ios:Page.ModalPresentationStyle="OverFullScreen"
+                     prism:ViewModelLocator.AutowireViewModel="True"
+                     FlyoutBackgroundColor="{DynamicResource SystemGray6}"
+                     BackgroundColor="#a8000000"
+                     x:Class="BSE.Tunes.XApp.Views.ManageAlbumsPage"
+                     CloseButtonText="{i18n:Translate ManageAlbumsPage_ButtonClose_Text}"
+                     CloseFlyoutCommand="{Binding CloseFlyoutCommand}">
+
+    <controls:FlyoutPage.Content>
+        <StackLayout>
+            <Label Text="Welcome to Xamarin.Forms Popups!"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand"/>
+            <Button Text="Zu Playlist hinzufügen" Command="{Binding AddToPlaylistCommand}"/>
+        </StackLayout>
+    </controls:FlyoutPage.Content>
+    
+</controls:FlyoutPage>

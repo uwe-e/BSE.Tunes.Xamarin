@@ -35,5 +35,12 @@
             <Setter Property="TextColor" Value="{DynamicResource SystemRed}"/>
         </Style>
 
+        <Style x:Key="ContextMenuButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}"/>
+            <Setter Property="TextColor" Value="{DynamicResource PrimaryLabelColor}"/>
+            <Setter Property="Text" Value="···"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+
     </Application.Resources>
 </prism:PrismApplication>

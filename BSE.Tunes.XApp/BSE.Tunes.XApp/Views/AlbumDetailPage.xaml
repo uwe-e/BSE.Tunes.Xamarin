@@ -11,8 +11,7 @@
              x:Name="page">
     
     <ContentPage.ToolbarItems>
-        
-        <ToolbarItem Text="..." />
+        <ToolbarItem Text="···" Command="{Binding OpenDialogCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -84,11 +83,9 @@
                                                        VerticalTextAlignment="Center"
                                                        LineBreakMode="TailTruncation"/>
                                     <Button Grid.Column="2"
-                                            FontSize="18"
-                                            Text="..."
+                                            Style="{DynamicResource ContextMenuButtonStyle}"
                                             Command="{Binding Path=BindingContext.OpenFlyoutCommand, Source={x:Reference page}}"
-                                            CommandParameter="{Binding}"
-                                            BackgroundColor="Transparent"/>
+                                            CommandParameter="{Binding}"/>
                                 </Grid>
                             </StackLayout>
                         </DataTemplate>

@@ -83,11 +83,9 @@
                                                            LineBreakMode="TailTruncation"/>
                                     </StackLayout>
                                     <Button Grid.Column="2"
-                                                        FontSize="18"
-                                                        Text="..."
-                                                        Command="{Binding Path=BindingContext.OpenFlyoutCommand, Source={x:Reference page}}"
-                                                        CommandParameter="{Binding}"
-                                                        BackgroundColor="Transparent"/>
+                                            Style="{DynamicResource ContextMenuButtonStyle}"
+                                            Command="{Binding Path=BindingContext.OpenFlyoutCommand, Source={x:Reference page}}"
+                                            CommandParameter="{Binding}"/>
                                 </Grid>
                             </StackLayout>
                         </DataTemplate>

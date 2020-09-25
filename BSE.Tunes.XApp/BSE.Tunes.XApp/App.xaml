@@ -42,5 +42,10 @@
             <Setter Property="FontSize" Value="18"/>
         </Style>
 
+        <Style TargetType="controls:FlyoutButton">
+            <Setter Property="TextColor" Value="{DynamicResource PrimaryLabelColor}"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+
     </Application.Resources>
 </prism:PrismApplication>

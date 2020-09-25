@@ -8,17 +8,34 @@
                      ios:Page.ModalPresentationStyle="OverFullScreen"
                      prism:ViewModelLocator.AutowireViewModel="True"
                      FlyoutBackgroundColor="{DynamicResource SystemGray6}"
-                     BackgroundColor="#a8000000"
+                     BackgroundColor="#66000000"
                      x:Class="BSE.Tunes.XApp.Views.ManageAlbumsPage"
                      CloseButtonText="{i18n:Translate ManageAlbumsPage_ButtonClose_Text}"
                      CloseFlyoutCommand="{Binding CloseFlyoutCommand}">
 
     <controls:FlyoutPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms Popups!"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand"/>
-            <Button Text="Zu Playlist hinzufügen" Command="{Binding AddToPlaylistCommand}"/>
+        <StackLayout Padding="5">
+            <StackLayout Orientation="Horizontal">
+                <Image Aspect="AspectFill" HeightRequest="50">
+                    <Image.Source>
+                        <UriImageSource Uri="{Binding ImageSource}" 
+                                        CacheValidity="1" 
+                                        CachingEnabled="true"/>
+                    </Image.Source>
+                </Image>
+                <StackLayout>
+                    <Label Text="{Binding Track.Name}"
+                                           LineBreakMode="TailTruncation"/>
+                    <Label Margin="0,-5,0,0"
+                                           FontSize="13"
+                                           Text="{Binding Track.Album.Artist.Name}"
+                                           LineBreakMode="TailTruncation"/>
+                </StackLayout>
+            </StackLayout>
+            <Grid>
+                <controls:FlyoutButton HorizontalOptions="FillAndExpand" ImageSource="{AppThemeBinding Light=icon_add_list_bl_50.png, Dark=icon_add_list_wh_50.png}" Text="Zu Playlist hinzufügen" Command="{Binding AddToPlaylistCommand}"/> 
+            </Grid>
+            
         </StackLayout>
     </controls:FlyoutPage.Content>
     

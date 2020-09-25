@@ -91,7 +91,8 @@ namespace BSE.Tunes.XApp.ViewModels
                     {
                         AlbumId = Album.AlbumId,
                         Id = Album.Id,
-                        Title = Album.Title
+                        Title = Album.Title,
+                        Artist = Album.Artist
                     };
                     Tracks.Add(track);
                 }

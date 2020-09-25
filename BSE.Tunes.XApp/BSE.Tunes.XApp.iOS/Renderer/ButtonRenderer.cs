@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using BSE.Tunes.XApp.Controls;
+using UIKit;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using BSERenderer = BSE.Tunes.XApp.iOS.Renderer;
 using ButtonSpecific = BSE.Tunes.XApp.PlatformConfiguration.iOSSpecific.Button;
@@ -15,6 +17,24 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             {
                 SetLineBreakMode(e);
                 SetTextAlignment(e);
+                SetHorizontalTextAlignment(e);
+            }
+        }
+
+        private void SetHorizontalTextAlignment(ElementChangedEventArgs<Button> e)
+        {
+            if (e.NewElement is FlyoutButton flyoutButton)
+            {
+                var horizontalTextAlignment = flyoutButton.HorizontalContentAlignment;
+                switch (horizontalTextAlignment)
+                {
+                    case TextAlignment.Start:
+                        Control.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
+                        break;
+                    case TextAlignment.End:
+                        Control.HorizontalAlignment = UIControlContentHorizontalAlignment.Right;
+                        break;
+                }
             }
         }
 

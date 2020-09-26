@@ -19,7 +19,7 @@
 
                 <local:AlbumsCarouselView HeightRequest="240"/>
 
-                <local:FeaturedAlbumsView HeightRequest="300"/>
+                <local:FeaturedAlbumsView HeightRequest="260"/>
 
             </StackLayout>
         </ScrollView>

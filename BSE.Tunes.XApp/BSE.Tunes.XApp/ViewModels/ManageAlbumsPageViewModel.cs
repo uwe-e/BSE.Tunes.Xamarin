@@ -15,7 +15,9 @@ namespace BSE.Tunes.XApp.ViewModels
         private ICommand _closeFlyoutCommand;
         private ICommand _addToPlaylistCommand;
         private Track _track;
+        private Album _album;
         private string _imageSource;
+        private string _subTitle;
 
         public ICommand CloseFlyoutCommand => _closeFlyoutCommand ?? (_closeFlyoutCommand = new DelegateCommand(CloseFlyout));
 
@@ -33,6 +35,18 @@ namespace BSE.Tunes.XApp.ViewModels
             }
         }
 
+        public Album Album
+        {
+            get
+            {
+                return _album;
+            }
+            set
+            {
+                SetProperty<Album>(ref _album, value);
+            }
+        }
+
         public string ImageSource
         {
             get
@@ -42,6 +56,18 @@ namespace BSE.Tunes.XApp.ViewModels
             set
             {
                 SetProperty<string>(ref _imageSource, value);
+            }
+        }
+
+        public string SubTitle
+        {
+            get
+            {
+                return _subTitle;
+            }
+            set
+            {
+                SetProperty<string>(ref _subTitle, value);
             }
         }
 
@@ -57,16 +83,29 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            Track = parameters.GetValue<Track>("track");
-            ImageSource = _dataService.GetImage(Track.Album.AlbumId, true)?.AbsoluteUri;
+            if (parameters.GetValue<object>("source") is Track track)
+            {
+                Track = track;
+                Album = track.Album;
+                Title = track.Name;
+            }
+            if (parameters.GetValue<object>("source") is Album album)
+            {
+                Album = album;
+                Title = album.Title;
+            }
+            if (Album != null)
+            {
+                SubTitle = Album?.Artist.Name;
+                ImageSource = _dataService.GetImage(Album.AlbumId, true)?.AbsoluteUri;
+            }
+
             base.OnNavigatedTo(parameters);
         }
 
         private async void CloseFlyout()
         {
             await _flyoutNavigationService.CloseFlyoutAsync();
-
-            //await NavigationService.GoBackAsync(useModalNavigation: true, animated: false);
         }
         
         private void AddToPlaylist()

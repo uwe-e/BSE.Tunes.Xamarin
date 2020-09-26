@@ -11,7 +11,7 @@
              x:Name="page">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="···" Command="{Binding OpenDialogCommand}"/>
+        <ToolbarItem Text="···" Command="{Binding OpenFlyoutCommand}" CommandParameter="{Binding Album}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">

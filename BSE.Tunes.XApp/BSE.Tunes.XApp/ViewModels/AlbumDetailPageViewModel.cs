@@ -4,7 +4,6 @@ using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
 using Prism.Commands;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -23,7 +22,6 @@ namespace BSE.Tunes.XApp.ViewModels
         private DelegateCommand _playAllRandomizedCommand;
         private DelegateCommand<object> _playCommand;
         private DelegateCommand<object> _openFlyoutCommand;
-        private DelegateCommand<object> _openDialogCommand;
 
         public DelegateCommand<object> PlayCommand => _playCommand
             ?? (_playCommand = new DelegateCommand<object>(PlayTrack));
@@ -36,11 +34,6 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public DelegateCommand<object> OpenFlyoutCommand => _openFlyoutCommand
             ?? (_openFlyoutCommand = new DelegateCommand<object>(OpenFlyout));
-
-        public DelegateCommand<object> OpenDialogCommand => _openDialogCommand
-            ?? (_openDialogCommand = new DelegateCommand<object>(OpenDialog));
-
-        
 
         public Album Album
         {
@@ -150,14 +143,11 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             var navigationParams = new NavigationParameters
                     {
-                        { "track", obj as Track }
+                        { "source", obj }
                     };
 
             await _flyoutNavigationService.ShowFlyoutAsync(nameof(ManageAlbumsPage), navigationParams);
         }
         
-        private void OpenDialog(object obj)
-        {
-        }
     }
 }

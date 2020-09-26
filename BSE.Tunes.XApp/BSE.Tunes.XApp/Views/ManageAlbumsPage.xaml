@@ -24,11 +24,11 @@
                     </Image.Source>
                 </Image>
                 <StackLayout>
-                    <Label Text="{Binding Track.Name}"
+                    <Label Text="{Binding Title}"
                                            LineBreakMode="TailTruncation"/>
                     <Label Margin="0,-5,0,0"
                                            FontSize="13"
-                                           Text="{Binding Track.Album.Artist.Name}"
+                                           Text="{Binding SubTitle}"
                                            LineBreakMode="TailTruncation"/>
                 </StackLayout>
             </StackLayout>

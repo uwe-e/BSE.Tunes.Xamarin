@@ -180,6 +180,9 @@
   <data name="ManageAlbumsPage_ButtonClose_Text" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="ManageAlbumsPage_Button_AddToPlaylist" xml:space="preserve">
+    <value>Add to playlist</value>
+  </data>
   <data name="PlaylistDetailPage_Button_PlayAll_Text" xml:space="preserve">
     <value>Play all</value>
   </data>
@@ -188,6 +191,12 @@
   </data>
   <data name="PlaylistItem_PartNumberOfEntries" xml:space="preserve">
     <value>Songs</value>
+  </data>
+  <data name="PlaylistSelectorDialogPage_ButtonCancel_Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="PlaylistSelectorDialogPage_Title" xml:space="preserve">
+    <value>Add to playlist</value>
   </data>
   <data name="PlaylistsPage_Title" xml:space="preserve">
     <value>Playlists</value>

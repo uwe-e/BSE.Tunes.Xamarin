@@ -33,7 +33,10 @@
                 </StackLayout>
             </StackLayout>
             <Grid>
-                <controls:FlyoutButton HorizontalOptions="FillAndExpand" ImageSource="{AppThemeBinding Light=icon_add_list_bl_50.png, Dark=icon_add_list_wh_50.png}" Text="Zu Playlist hinzufügen" Command="{Binding AddToPlaylistCommand}"/> 
+                <controls:FlyoutButton HorizontalOptions="FillAndExpand"
+                                       ImageSource="{AppThemeBinding Light=icon_add_list_bl_50.png, Dark=icon_add_list_wh_50.png}"
+                                       Text="{i18n:Translate ManageAlbumsPage_Button_AddToPlaylist}"
+                                       Command="{Binding AddToPlaylistCommand}"/> 
             </Grid>
             
         </StackLayout>

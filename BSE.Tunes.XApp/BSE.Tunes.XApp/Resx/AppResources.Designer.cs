@@ -241,6 +241,15 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to playlist.
+        /// </summary>
+        internal static string ManageAlbumsPage_Button_AddToPlaylist {
+            get {
+                return ResourceManager.GetString("ManageAlbumsPage_Button_AddToPlaylist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string ManageAlbumsPage_ButtonClose_Text {
@@ -273,6 +282,24 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string PlaylistItem_PartNumberOfEntries {
             get {
                 return ResourceManager.GetString("PlaylistItem_PartNumberOfEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string PlaylistSelectorDialogPage_ButtonCancel_Text {
+            get {
+                return ResourceManager.GetString("PlaylistSelectorDialogPage_ButtonCancel_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to playlist.
+        /// </summary>
+        internal static string PlaylistSelectorDialogPage_Title {
+            get {
+                return ResourceManager.GetString("PlaylistSelectorDialogPage_Title", resourceCulture);
             }
         }
         

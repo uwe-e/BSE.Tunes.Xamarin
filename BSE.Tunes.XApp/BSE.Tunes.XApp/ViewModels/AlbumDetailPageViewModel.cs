@@ -1,18 +1,23 @@
 ﻿using BSE.Tunes.XApp.Collections;
+using BSE.Tunes.XApp.Events;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
     public class AlbumDetailPageViewModel : ViewModelBase
     {
         private readonly IFlyoutNavigationService _flyoutNavigationService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
         private readonly IPlayerManager _playerManager;
         private Album _album;
@@ -63,14 +68,21 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public AlbumDetailPageViewModel(INavigationService navigationService,
             IFlyoutNavigationService flyoutNavigationService,
+            IEventAggregator eventAggregator,
             IResourceService resourceService,
             IDataService dataService,
             IPlayerManager playerManager) : base(navigationService, resourceService)
         {
             _flyoutNavigationService = flyoutNavigationService;
+            _eventAggregator = eventAggregator;
             _dataService = dataService;
             _playerManager = playerManager;
+
+            _eventAggregator.GetEvent<AddTrackToPlaylistEvent>().Subscribe(SelectPlaylist);
+            _eventAggregator.GetEvent<AddAlbumToPlaylistEvent>().Subscribe(SelectPlaylist);
         }
+
+        
 
         public async override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -149,5 +161,15 @@ namespace BSE.Tunes.XApp.ViewModels
             await _flyoutNavigationService.ShowFlyoutAsync(nameof(ManageAlbumsPage), navigationParams);
         }
         
+        private async void SelectPlaylist(object obj)
+        {
+            await _flyoutNavigationService.CloseFlyoutAsync();
+            var navigationParams = new NavigationParameters
+            {
+                { "source", obj }
+            };
+            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(PlaylistSelectorDialogPage)}", navigationParams, useModalNavigation: true);
+            await NavigationService.NavigateAsync(nameof(PlaylistSelectorDialogPage), navigationParams, useModalNavigation: true);
+        }
     }
 }

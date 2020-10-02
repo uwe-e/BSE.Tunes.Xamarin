@@ -1,6 +1,8 @@
-﻿using BSE.Tunes.XApp.Models.Contract;
+﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Navigation;
 using System;
 using System.Runtime.CompilerServices;
@@ -11,6 +13,7 @@ namespace BSE.Tunes.XApp.ViewModels
     public class ManageAlbumsPageViewModel : ViewModelBase
     {
         private readonly IFlyoutNavigationService _flyoutNavigationService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
         private ICommand _closeFlyoutCommand;
         private ICommand _addToPlaylistCommand;
@@ -74,10 +77,12 @@ namespace BSE.Tunes.XApp.ViewModels
         public ManageAlbumsPageViewModel(
             INavigationService navigationService,
             IFlyoutNavigationService flyoutNavigationService,
+            IEventAggregator eventAggregator,
             IDataService dataService,
             IResourceService resourceService) : base(navigationService, resourceService)
         {
             _flyoutNavigationService = flyoutNavigationService;
+            _eventAggregator = eventAggregator;
             _dataService = dataService;
         }
 
@@ -96,7 +101,7 @@ namespace BSE.Tunes.XApp.ViewModels
             }
             if (Album != null)
             {
-                SubTitle = Album?.Artist.Name;
+                SubTitle = Album.Artist.Name;
                 ImageSource = _dataService.GetImage(Album.AlbumId, true)?.AbsoluteUri;
             }
 
@@ -110,6 +115,14 @@ namespace BSE.Tunes.XApp.ViewModels
         
         private void AddToPlaylist()
         {
+            if (Track != null)
+            {
+                _eventAggregator.GetEvent<AddTrackToPlaylistEvent>().Publish(Track);
+            }
+            else
+            {
+                _eventAggregator.GetEvent<AddAlbumToPlaylistEvent>().Publish(Album);
+            }
         }
     }
 }

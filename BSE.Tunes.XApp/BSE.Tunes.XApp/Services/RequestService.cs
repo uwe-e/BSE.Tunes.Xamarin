@@ -44,6 +44,22 @@ namespace BSE.Tunes.XApp.Services
             return result;
         }
 
+        public async Task<TResult> PutAsync<TResult, TRequest>(Uri uri, TRequest from)
+        {
+            TResult result = default;
+            using (var client = await GetHttpClient())
+            {
+                var serialized = await Task.Run(() => JsonConvert.SerializeObject(from));
+                using (var responseMessage = await client.PutAsync(uri,
+                                                                    new StringContent(serialized, Encoding.UTF8, "application/json")))
+                {
+                    var responseData = await responseMessage.Content.ReadAsStringAsync();
+                    result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(responseData));
+                }
+            }
+            return result;
+        }
+
         public async Task<HttpClient> GetHttpClient(bool withRefreshToken = true)
         {
             //if (Connectivity.NetworkAccess != NetworkAccess.Internet)

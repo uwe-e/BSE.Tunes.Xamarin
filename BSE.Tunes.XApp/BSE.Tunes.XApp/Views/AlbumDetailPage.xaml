@@ -16,12 +16,12 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <CollectionView ItemsSource="{Binding Tracks}" VerticalOptions="FillAndExpand">
+                <CollectionView ItemsSource="{Binding Items}" VerticalOptions="FillAndExpand">
                     <CollectionView.Header>
                         <StackLayout Spacing="0">
                             <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal">
                             <StackLayout Margin="5,0,5,0" HeightRequest="150">
-                                <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding CoverSource}" WidthRequest="150" />
+                                    <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding Image}" WidthRequest="150" />
                             </StackLayout>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -74,10 +74,10 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label Text="{Binding TrackNumber}"
+                                    <Label Text="{Binding Number}"
                                                        Grid.Column="0"
                                                        TextColor="{StaticResource SecondaryLabelColor}" VerticalTextAlignment="Center"/>
-                                    <Label Text="{Binding Name}"
+                                    <Label Text="{Binding Title}"
                                                        Grid.Column="1"
                                                        TextColor="{StaticResource PrimaryLabelColor}" 
                                                        VerticalTextAlignment="Center"

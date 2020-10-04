@@ -1,44 +1,23 @@
 ﻿using BSE.Tunes.XApp.Collections;
 using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
-    public class AlbumDetailPageViewModel : ViewModelBase
+    public class AlbumDetailPageViewModel : TracklistBaseViewModel
     {
         private readonly IFlyoutNavigationService _flyoutNavigationService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
-        private readonly IPlayerManager _playerManager;
         private Album _album;
-        private ObservableCollection<Track> _tracks;
-        private string _coverSource;
-        private DelegateCommand _playAllCommand;
-        private DelegateCommand _playAllRandomizedCommand;
-        private DelegateCommand<object> _playCommand;
-        private DelegateCommand<object> _openFlyoutCommand;
-
-        public DelegateCommand<object> PlayCommand => _playCommand
-            ?? (_playCommand = new DelegateCommand<object>(PlayTrack));
-
-        public DelegateCommand PlayAllCommand => _playAllCommand
-            ?? (_playAllCommand = new DelegateCommand(PlayAll, CanPlayAll));
-
-        public DelegateCommand PlayAllRandomizedCommand => _playAllRandomizedCommand
-            ?? (_playAllRandomizedCommand = new DelegateCommand(PlayAllRandomized, CanPlayAllRandomized));
-
-        public DelegateCommand<object> OpenFlyoutCommand => _openFlyoutCommand
-            ?? (_openFlyoutCommand = new DelegateCommand<object>(OpenFlyout));
 
         public Album Album
         {
@@ -52,37 +31,26 @@ namespace BSE.Tunes.XApp.ViewModels
             }
         }
 
-        public string CoverSource
-        {
-            get
-            {
-                return _coverSource;
-            }
-            set
-            {
-                SetProperty<string>(ref _coverSource, value);
-            }
-        }
-
-        public ObservableCollection<Track> Tracks => _tracks ?? (_tracks = new ObservableCollection<Track>());
-
         public AlbumDetailPageViewModel(INavigationService navigationService,
             IFlyoutNavigationService flyoutNavigationService,
             IEventAggregator eventAggregator,
             IResourceService resourceService,
             IDataService dataService,
-            IPlayerManager playerManager) : base(navigationService, resourceService)
+            IPlayerManager playerManager) : base(
+                navigationService,
+                resourceService,
+                flyoutNavigationService,
+                playerManager,
+                eventAggregator)
         {
             _flyoutNavigationService = flyoutNavigationService;
             _eventAggregator = eventAggregator;
             _dataService = dataService;
-            _playerManager = playerManager;
 
             _eventAggregator.GetEvent<AddTrackToPlaylistEvent>().Subscribe(SelectPlaylist);
             _eventAggregator.GetEvent<AddAlbumToPlaylistEvent>().Subscribe(SelectPlaylist);
+            //_eventAggregator.GetEvent<SelectedToPlaylistEvent>().Subscribe(AddToPlaylist);
         }
-
-        
 
         public async override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -99,18 +67,24 @@ namespace BSE.Tunes.XApp.ViewModels
                         Title = Album.Title,
                         Artist = Album.Artist
                     };
-                    Tracks.Add(track);
+                    Items.Add(new GridPanel
+                    {
+                        Number = track.TrackNumber,
+                        Title = track.Name,
+                        Data = track
+
+                    });
                 }
-                CoverSource = _dataService.GetImage(Album.AlbumId)?.AbsoluteUri;
+                Image = _dataService.GetImage(Album.AlbumId)?.AbsoluteUri;
                 PlayAllCommand.RaiseCanExecuteChanged();
                 PlayAllRandomizedCommand.RaiseCanExecuteChanged();
                 IsBusy = false;
             }
         }
 
-        private void PlayTrack(object obj)
+        protected override void PlayTrack(GridPanel obj)
         {
-            if (obj is Track track)
+            if (obj?.Data is Track track)
             {
                 PlayTracks(new List<int>
                 {
@@ -119,48 +93,21 @@ namespace BSE.Tunes.XApp.ViewModels
             }
         }
         
-        private bool CanPlayAll()
-        {
-            return Tracks.Count > 0;
-        }
-
-        private void PlayAll()
+        protected override void PlayAll()
         {
             PlayTracks(GetTrackIds(), AudioPlayerMode.CD);
         }
 
-        private bool CanPlayAllRandomized()
-        {
-            return CanPlayAll();
-        }
-
-        private void PlayAllRandomized()
+        protected override void PlayAllRandomized()
         {
             PlayTracks(GetTrackIds().ToRandomCollection(), AudioPlayerMode.CD);
         }
         
-        private void PlayTracks(IEnumerable<int> trackIds, AudioPlayerMode audioPlayerMode)
+        protected override  ObservableCollection<int> GetTrackIds()
         {
-            _playerManager.PlayTracks(
-                            new System.Collections.ObjectModel.ObservableCollection<int>(trackIds),
-                            audioPlayerMode);
+            return new ObservableCollection<int>(Items.Select(track => ((Track)track.Data).Id));
         }
 
-        private ObservableCollection<int> GetTrackIds()
-        {
-            return new ObservableCollection<int>(Tracks.Select(track => track.Id));
-        }
-        
-        private async void OpenFlyout(object obj)
-        {
-            var navigationParams = new NavigationParameters
-                    {
-                        { "source", obj }
-                    };
-
-            await _flyoutNavigationService.ShowFlyoutAsync(nameof(ManageAlbumsPage), navigationParams);
-        }
-        
         private async void SelectPlaylist(object obj)
         {
             await _flyoutNavigationService.CloseFlyoutAsync();
@@ -168,8 +115,8 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 { "source", obj }
             };
-            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(PlaylistSelectorDialogPage)}", navigationParams, useModalNavigation: true);
             await NavigationService.NavigateAsync(nameof(PlaylistSelectorDialogPage), navigationParams, useModalNavigation: true);
         }
+
     }
 }

@@ -121,6 +121,12 @@ namespace BSE.Tunes.XApp.Services
             return _requestService.PostAsync<bool, History>(new UriBuilder(strUrl).Uri, history);
         }
 
+        public Task<Playlist> AppendToPlaylist(Playlist playlist)
+        {
+            string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/playlists/playlist/append";
+            return _requestService.PutAsync<Playlist, Playlist>(new UriBuilder(strUrl).Uri, playlist);
+        }
+
         public Task<ObservableCollection<Playlist>> GetPlaylistsByUserName(string userName, int skip, int limit)
         {
             string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/playlists/{userName}/?skip={skip}&limit={limit}";
@@ -144,7 +150,5 @@ namespace BSE.Tunes.XApp.Services
             string strUrl = $"{_settingsService.ServiceEndPoint}/api/v2/playlists/{userName}/{playlistId}/imageids/?limit={limit}";
             return _requestService.GetAsync<ObservableCollection<Guid>>(new UriBuilder(strUrl).Uri);
         }
-
-        
     }
 }

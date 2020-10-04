@@ -28,12 +28,12 @@
                            Text="{i18n:Translate PlaylistSelectorDialogPage_Title}" 
                            VerticalOptions="CenterAndExpand"/>
                     </Grid>
-                    <CollectionView ItemsSource="{Binding PlaylistFlyoutItems}">
+                    <CollectionView ItemsSource="{Binding PlaylistFlyoutItems}" VerticalOptions="FillAndExpand">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <controls:FlyoutButton Text="{Binding Text}"
                                                    Command="{Binding SelectFlyoutItemCommand}"
-                                                   CommandParameter="{Binding Data}"/>
+                                                   CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>

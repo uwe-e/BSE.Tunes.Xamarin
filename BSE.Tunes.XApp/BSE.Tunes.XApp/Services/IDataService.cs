@@ -14,6 +14,7 @@ namespace BSE.Tunes.XApp.Services
         Task<int> GetNumberOfAlbumsByGenre(int? genreId);
         Task<ObservableCollection<Album>> GetAlbumsByGenre(int? genreId, int skip, int limit);
         Uri GetImage(Guid imageId, bool asThumbnail = false);
+        Task<Playlist> AppendToPlaylist(Playlist playlist);
         Task<ObservableCollection<Playlist>> GetPlaylistsByUserName(string userName, int skip, int limit);
         Task<Playlist> GetPlaylistById(int playlistId, string userName);
         Task<Playlist> GetPlaylistByIdWithNumberOfEntries(int playlistId, string userName);

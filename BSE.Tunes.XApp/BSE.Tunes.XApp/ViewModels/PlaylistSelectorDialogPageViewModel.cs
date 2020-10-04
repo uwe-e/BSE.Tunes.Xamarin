@@ -1,8 +1,11 @@
-﻿using BSE.Tunes.XApp.Models.Contract;
+﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -17,6 +20,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private ObservableCollection<FlyoutItemViewModel> _playlistFlyoutItems;
         private readonly IDataService _dataService;
         private readonly ISettingsService _settingsService;
+        private readonly IEventAggregator _eventAggregator;
 
         public ICommand CancelCommand => _cancelCommand ?? (_cancelCommand = new DelegateCommand(CloseDialog));
         
@@ -51,10 +55,12 @@ namespace BSE.Tunes.XApp.ViewModels
             INavigationService navigationService,
             IResourceService resourceService,
             IDataService dataService,
-            ISettingsService settingsService) : base(navigationService, resourceService)
+            ISettingsService settingsService,
+            IEventAggregator eventAggregator) : base(navigationService, resourceService)
         {
             _dataService = dataService;
             _settingsService = settingsService;
+            _eventAggregator = eventAggregator;
         }
 
         public async override void OnNavigatedTo(INavigationParameters parameters)
@@ -71,6 +77,34 @@ namespace BSE.Tunes.XApp.ViewModels
             IsBusy = false;
             
             base.OnNavigatedTo(parameters);
+        }
+
+        protected virtual void AddTracksToPlaylist(Playlist playlist, Track[] tracks)
+        {
+            if (playlist != null && tracks != null)
+            {
+                foreach (var track in tracks)
+                {
+                    if (track != null)
+                    {
+                        playlist.Entries.Add(new PlaylistEntry
+                        {
+                            PlaylistId = playlist.Id,
+                            TrackId = track.Id,
+                            Guid = Guid.NewGuid()
+                        });
+                    }
+                }
+                AppendToPlaylist(playlist);
+            }
+        }
+
+        protected virtual async void AppendToPlaylist(Playlist playlist)
+        {
+            var changedPlaylist = await _dataService.AppendToPlaylist(playlist);
+
+
+            CloseDialog();
         }
 
         private async Task CreatePlaylistFlyoutItems()
@@ -96,8 +130,17 @@ namespace BSE.Tunes.XApp.ViewModels
 
         private void OnFlyoutItemClicked(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
-
+            if (sender is FlyoutItemViewModel flyoutItem)
+            {
+                if (Album != null)
+                {
+                    AddTracksToPlaylist(flyoutItem.Data as Playlist, Album.Tracks);
+                }
+                if (Track != null)
+                {
+                    AddTracksToPlaylist(flyoutItem.Data as Playlist, new Track[] { Track });
+                }
+            }
         }
 
         private async void CloseDialog()

@@ -5,7 +5,7 @@ namespace BSE.Tunes.XApp.Models.Contract
 {
     public class Playlist
     {
-        private IEnumerable<PlaylistEntry> _playlistEntries;
+        private IList<PlaylistEntry> _playlistEntries;
 
         public int Id
         {
@@ -32,6 +32,6 @@ namespace BSE.Tunes.XApp.Models.Contract
             set;
         }
 
-        public IEnumerable<PlaylistEntry> Entries => _playlistEntries ?? (_playlistEntries = new List<PlaylistEntry>());
+        public IList<PlaylistEntry> Entries => _playlistEntries ?? (_playlistEntries = new List<PlaylistEntry>());
     }
 }

@@ -25,6 +25,36 @@ namespace BSE.Tunes.XApp.Services
             return null;
         }
 
+        public bool TryToGetImagePath(string fileName, out string filePath)
+        {
+            var imageFolderPath = GetImageFolder();
+            filePath = Path.Combine(imageFolderPath, fileName);
+            return File.Exists(filePath);
+        }
+
+        public Task<long> GetUsedDiskSpaceAsync()
+        {
+            return Task.Run(() =>
+            {
+                return GetUsedDiskSpace();
+            });
+        }
+
+        public long GetUsedDiskSpace()
+        {
+            long length = default;
+            string imageFolderPath = GetImageFolder();
+            DirectoryInfo directoryInfo = new DirectoryInfo(imageFolderPath);
+            if (directoryInfo.Exists)
+            {
+                foreach (var fileInfo in directoryInfo.GetFiles())
+                {
+                    length += fileInfo.Length;
+                }
+            }
+            return length;
+        }
+
         public string GetImageFolder()
         {
             var cacheFolder = FileSystem.CacheDirectory;
@@ -36,11 +66,18 @@ namespace BSE.Tunes.XApp.Services
             return imageFolderPath;
         }
 
-        public bool TryToGetImagePath(string fileName, out string filePath)
+        public Task DeleteCachedImagesAsync()
         {
-            var imageFolderPath = GetImageFolder();
-            filePath = Path.Combine(imageFolderPath, fileName);
-            return File.Exists(filePath);
+            string imageFolderPath = GetImageFolder();
+            DirectoryInfo directoryInfo = new DirectoryInfo(imageFolderPath);
+            if (directoryInfo.Exists)
+            {
+                foreach (var fileInfo in directoryInfo.GetFiles())
+                {
+                    fileInfo.Delete();
+                }
+            }
+            return Task.CompletedTask;
         }
     }
 }

@@ -32,8 +32,13 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <controls:FlyoutButton Text="{Binding Text}"
-                                                   Command="{Binding SelectFlyoutItemCommand}"
-                                                   CommandParameter="{Binding}"/>
+                                                       ImageSource="{Binding ImageSource}"
+                                                       Command="{Binding SelectFlyoutItemCommand}"
+                                                       CommandParameter="{Binding}">
+                                    <!--<controls:FlyoutButton.ImageSource>
+                                        <ImageSource B
+                                    </controls:FlyoutButton.ImageSource>-->
+                                </controls:FlyoutButton>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>

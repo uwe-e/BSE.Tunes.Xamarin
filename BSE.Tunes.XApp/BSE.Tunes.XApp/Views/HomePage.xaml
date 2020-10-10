@@ -21,6 +21,8 @@
 
                 <local:FeaturedAlbumsView HeightRequest="260"/>
 
+                <local:FeaturedPlaylistsView HeightRequest="260"/>
+
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

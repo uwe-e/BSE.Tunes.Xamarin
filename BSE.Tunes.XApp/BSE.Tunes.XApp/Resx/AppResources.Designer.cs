@@ -115,6 +115,51 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete all downloaded files?.
+        /// </summary>
+        internal static string CacheSettingsPage_ActionSheet_Title {
+            get {
+                return ResourceManager.GetString("CacheSettingsPage_ActionSheet_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Cache.
+        /// </summary>
+        internal static string CacheSettingsPage_ButtonDelete_Text {
+            get {
+                return ResourceManager.GetString("CacheSettingsPage_ButtonDelete_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used by BSEtunes.
+        /// </summary>
+        internal static string CacheSettingsPage_SectionDiskSpace_Description_Text {
+            get {
+                return ResourceManager.GetString("CacheSettingsPage_SectionDiskSpace_Description_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disk Space.
+        /// </summary>
+        internal static string CacheSettingsPage_SectionDiskSpace_Description_Title {
+            get {
+                return ResourceManager.GetString("CacheSettingsPage_SectionDiskSpace_Description_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disk Space.
+        /// </summary>
+        internal static string CacheSettingsPage_Title {
+            get {
+                return ResourceManager.GetString("CacheSettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string Dialog_Result_Ok {
@@ -138,6 +183,15 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string HomePage_FeatAlbums_SectionHeader_Button_Text {
             get {
                 return ResourceManager.GetString("HomePage_FeatAlbums_SectionHeader_Button_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Playlists.
+        /// </summary>
+        internal static string HomePage_FeatPlaylists_SectionHeader_Button_Text {
+            get {
+                return ResourceManager.GetString("HomePage_FeatPlaylists_SectionHeader_Button_Text", resourceCulture);
             }
         }
         
@@ -426,6 +480,24 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string SettingsPage_SectionAccount_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_SectionAccount_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used by BSEtunes.
+        /// </summary>
+        internal static string SettingsPage_SectionDiskSpace_Description_Text {
+            get {
+                return ResourceManager.GetString("SettingsPage_SectionDiskSpace_Description_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disk Space.
+        /// </summary>
+        internal static string SettingsPage_SectionDiskSpace_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_SectionDiskSpace_Title", resourceCulture);
             }
         }
         

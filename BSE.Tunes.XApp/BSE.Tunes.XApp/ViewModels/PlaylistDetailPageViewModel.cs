@@ -15,7 +15,7 @@ namespace BSE.Tunes.XApp.ViewModels
     {
         private readonly IDataService _dataService;
         private readonly ISettingsService _settingsService;
-        private readonly ICacheableBitmapService _cacheableBitmapService;
+        private readonly IStichedBitmapService _cacheableBitmapService;
         private Playlist _playlist;
 
         public Playlist Playlist
@@ -37,7 +37,7 @@ namespace BSE.Tunes.XApp.ViewModels
             IEventAggregator eventAggregator,
             IDataService dataService,
             ISettingsService settingsService,
-            ICacheableBitmapService cacheableBitmapService,
+            IStichedBitmapService cacheableBitmapService,
             IPlayerManager playerManager) : base(navigationService, resourceService, flyoutNavigationService, playerManager, eventAggregator)
         {
             _dataService = dataService;
@@ -70,9 +70,12 @@ namespace BSE.Tunes.XApp.ViewModels
                     }
 
                     Image = await _cacheableBitmapService.GetBitmapSource(
-                                        albumIds.Take(4),
-                                        Playlist.Guid.ToString(),
-                                        500, false);
+                                        Playlist.Id);
+
+                    //Image = await _cacheableBitmapService.GetBitmapSource(
+                    //                    albumIds.Take(4),
+                    //                    Playlist.Guid.ToString(),
+                    //                    500, false);
                     PlayAllCommand.RaiseCanExecuteChanged();
                     PlayAllRandomizedCommand.RaiseCanExecuteChanged();
                 }

@@ -15,6 +15,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly IFlyoutNavigationService _flyoutNavigationService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
+        private readonly IStichedBitmapService _stichedBitmapService;
         private ICommand _closeFlyoutCommand;
         private ICommand _addToPlaylistCommand;
         private Track _track;
@@ -79,14 +80,16 @@ namespace BSE.Tunes.XApp.ViewModels
             IFlyoutNavigationService flyoutNavigationService,
             IEventAggregator eventAggregator,
             IDataService dataService,
+            IStichedBitmapService stichedBitmapService,
             IResourceService resourceService) : base(navigationService, resourceService)
         {
             _flyoutNavigationService = flyoutNavigationService;
             _eventAggregator = eventAggregator;
             _dataService = dataService;
+            _stichedBitmapService = stichedBitmapService;
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public async override void OnNavigatedTo(INavigationParameters parameters)
         {
             if (parameters.GetValue<object>("source") is Track track)
             {
@@ -98,6 +101,12 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 Album = album;
                 Title = album.Title;
+            }
+            if (parameters.GetValue<object>("source") is PlaylistEntry playlistEntry)
+            {
+                Title = playlistEntry.Track?.Name;
+                SubTitle = playlistEntry.Artist;
+                ImageSource = await _stichedBitmapService.GetBitmapSource(playlistEntry.PlaylistId, 50, true);
             }
             if (Album != null)
             {

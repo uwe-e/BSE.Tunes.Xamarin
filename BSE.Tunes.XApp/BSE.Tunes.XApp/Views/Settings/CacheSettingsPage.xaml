@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="BSE.Tunes.XApp.Views.Settings.CacheSettingsPage"
+             ios:NavigationPage.IsNavigationBarTranslucent="True"
+             ios:Page.PrefersHomeIndicatorAutoHidden="true"
+             Title="{i18n:Translate CacheSettingsPage_Title}">
+
+    <ContentPage.Content>
+        <TableView Intent="Settings">
+            <TableRoot>
+                <TableSection Title="{i18n:Translate CacheSettingsPage_SectionDiskSpace_Description_Title}">
+                    <TextCell Text="{i18n:Translate CacheSettingsPage_SectionDiskSpace_Description_Text}"
+                              Detail="{Binding UsedDiskSpace}"/>
+                    <ViewCell>
+                        <Button Text="{i18n:Translate CacheSettingsPage_ButtonDelete_Text}"
+                                Command="{Binding DeleteCommand}"
+                                Style="{StaticResource DestroyButtonStyle}"/>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </ContentPage.Content>
+
+</ContentPage>

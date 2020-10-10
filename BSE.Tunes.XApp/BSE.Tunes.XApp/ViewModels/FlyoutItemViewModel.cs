@@ -22,6 +22,12 @@ namespace BSE.Tunes.XApp.ViewModels
             set { _text = value; }
         }
 
+        public string ImageSource
+        {
+            get;
+            set;
+        }
+
         public dynamic Data
         {
             get;

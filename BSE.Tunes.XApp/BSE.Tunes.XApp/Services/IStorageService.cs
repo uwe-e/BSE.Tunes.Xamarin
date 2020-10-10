@@ -10,5 +10,11 @@ namespace BSE.Tunes.XApp.Services
         string GetImageFolder();
 
         bool TryToGetImagePath(string fileName, out string filePath);
+
+        Task<long> GetUsedDiskSpaceAsync();
+
+        long GetUsedDiskSpace();
+
+        Task DeleteCachedImagesAsync();
     }
 }

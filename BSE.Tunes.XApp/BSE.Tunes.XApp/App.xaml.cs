@@ -8,6 +8,7 @@ using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Styles;
 using Prism.Mvvm;
 using System;
+using BSE.Tunes.XApp.Views.Settings;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace BSE.Tunes.XApp
@@ -78,6 +79,7 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<ServiceEndpointSettingsPage, ServiceEndpointSettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<ServiceEndpointSettingsPage, ServiceEndpointSettingsPageViewModel>();
+            containerRegistry.RegisterForNavigation<CacheSettingsPage, CacheSettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginSettingsPage, LoginSettingsPageViewModel>();
 
             containerRegistry.RegisterSingleton<ISettingsService, SettingsService>();
@@ -86,7 +88,7 @@ namespace BSE.Tunes.XApp
             containerRegistry.Register<IResourceService, ResourceService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterSingleton<IPlayerManager, PlayerManager>();
-            containerRegistry.Register<ICacheableBitmapService, CacheableBitmapService>();
+            containerRegistry.Register<IStichedBitmapService, StichedBitmapService>();
             containerRegistry.Register<IStorageService, StorageService>();
             containerRegistry.RegisterSingleton<IFlyoutNavigationService, FlyoutNavigationService>();
 
@@ -94,7 +96,8 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterInstance(playerService);
 
             ViewModelLocationProvider.Register<FeaturedAlbumsView, FeaturedAlbumsViewModel>();
-            
+            ViewModelLocationProvider.Register<FeaturedPlaylistsView, FeaturedPlaylistsViewModel>();
+
         }
 
         private void SetTheme(OSAppTheme theme)

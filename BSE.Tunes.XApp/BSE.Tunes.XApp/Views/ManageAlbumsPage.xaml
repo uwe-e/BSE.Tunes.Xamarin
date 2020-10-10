@@ -16,13 +16,9 @@
     <controls:FlyoutPage.Content>
         <StackLayout Padding="5">
             <StackLayout Orientation="Horizontal">
-                <Image Aspect="AspectFill" HeightRequest="50">
-                    <Image.Source>
-                        <UriImageSource Uri="{Binding ImageSource}" 
-                                        CacheValidity="1" 
-                                        CachingEnabled="true"/>
-                    </Image.Source>
-                </Image>
+                <Image Aspect="AspectFill" HeightRequest="50"
+                       Source="{Binding ImageSource}"/>
+
                 <StackLayout>
                     <Label Text="{Binding Title}"
                                            LineBreakMode="TailTruncation"/>

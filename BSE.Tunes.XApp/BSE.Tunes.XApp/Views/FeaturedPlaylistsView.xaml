@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+             xmlns:template="clr-namespace:BSE.Tunes.XApp.Views.Templates"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="BSE.Tunes.XApp.Views.FeaturedPlaylistsView">
+
+    <ContentView.Content>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout VerticalOptions="Start" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+
+                <controls:SectionHeaderButton Text="{i18n:Translate HomePage_FeatPlaylists_SectionHeader_Button_Text}"
+                                              Style="{DynamicResource SectionHeaderButtonStyle}"
+                                              HorizontalOptions="Start"/>
+
+                <controls:HorizontalScrollView ItemsSource="{Binding Items}" HeightRequest="200"
+                                           SelectedItemCommand="{Binding SelectItemCommand}">
+                    <controls:HorizontalScrollView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <template:ViewItemTemplate/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </controls:HorizontalScrollView.ItemTemplate>
+                </controls:HorizontalScrollView>
+
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color ="{Binding PrimaryLabelColor}"/>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentView.Content>
+
+</ContentView>

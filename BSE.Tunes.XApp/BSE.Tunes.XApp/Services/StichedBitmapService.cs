@@ -1,30 +1,61 @@
-﻿using FFImageLoading.Work;
-using SkiaSharp;
+﻿using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 
 namespace BSE.Tunes.XApp.Services
 {
-    public class CacheableBitmapService : ICacheableBitmapService
+    public class StichedBitmapService : IStichedBitmapService
     {
         private const string ThumbnailPart = "_thumb";
-        private const string ImageExtension = ".png";
+        private const string ImageExtension = "png";
         private readonly IStorageService _storageService;
         private readonly IDataService _dataService;
+        private readonly ISettingsService _settingsService;
         private readonly IRequestService _requestService;
 
 
-        public CacheableBitmapService(
+        public StichedBitmapService(
             IStorageService storageService,
 			IDataService dataService,
+			ISettingsService settingsService,
             IRequestService requestService)
         {
             _storageService = storageService;
             _dataService = dataService;
+            _settingsService = settingsService;
             _requestService = requestService;
+        }
+		public async Task<string> GetBitmapSource(int playlistId, int width = 300, bool asThumbnail = false)
+		{
+			if (playlistId > 0)
+            {
+				string fileName = $"{playlistId}_{width}.{ImageExtension}";
+				if (!_storageService.TryToGetImagePath(fileName, out string fullName))
+                {
+					int height = width;
+
+                    ObservableCollection<Guid> albumIds = await GetImageIds(playlistId);
+
+                    SKImage stitchedImage = await Combine(albumIds, width, height, asThumbnail);
+
+                    using (SKData encoded = stitchedImage.Encode(SKEncodedImageFormat.Png, 150))
+                    {
+                        using (System.IO.Stream outFile = System.IO.File.OpenWrite(fullName))
+                        {
+                            encoded.SaveTo(outFile);
+                        }
+                    }
+                }
+				return fullName;
+			}
+			return null;
+		}
+
+        private async Task<ObservableCollection<Guid>> GetImageIds(int playlistId)
+        {
+            return await _dataService.GetPlaylistImageIdsById(playlistId, _settingsService.User.UserName, 4);
         }
 
         public async Task<string> GetBitmapSource(IEnumerable<Guid> albumIds, string cacheName, int width, bool asThumbnail = false)
@@ -123,5 +154,7 @@ namespace BSE.Tunes.XApp.Services
 				}
 			}
 		}
+
+        
     }
 }

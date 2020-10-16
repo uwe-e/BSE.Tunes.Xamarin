@@ -4,7 +4,6 @@ using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using Prism.Events;
 using Prism.Navigation;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -13,6 +12,7 @@ namespace BSE.Tunes.XApp.ViewModels
     public class FeaturedItemsViewModel : ViewModelBase
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IImageService _imageService;
         private readonly IDataService _dataService;
         private ObservableCollection<GridPanel> _items;
         private ICommand _selectItemCommand;
@@ -25,10 +25,11 @@ namespace BSE.Tunes.XApp.ViewModels
         public FeaturedItemsViewModel(INavigationService navigationService,
             IEventAggregator eventAggregator,
             IResourceService resourceService,
-            ISettingsService settingsService,
+            IImageService imageService,
             IDataService dataService) : base(navigationService, resourceService)
         {
             _eventAggregator = eventAggregator;
+            _imageService = imageService;
             _dataService = dataService;
 
             LoadData();
@@ -47,7 +48,7 @@ namespace BSE.Tunes.XApp.ViewModels
                         {
                             Title = album.Title,
                             SubTitle = album.Artist.Name,
-                            ImageSource = this._dataService.GetImage(album.AlbumId)?.AbsoluteUri,
+                            ImageSource = _imageService.GetBitmapSource(album.AlbumId),
                             Data = album
                         });
                     }
@@ -55,6 +56,7 @@ namespace BSE.Tunes.XApp.ViewModels
                 IsBusy = false;
             }
         }
+
         private void SelectItem(GridPanel obj)
         {
             if (obj?.Data is Album album)
@@ -62,6 +64,5 @@ namespace BSE.Tunes.XApp.ViewModels
                 _eventAggregator.GetEvent<AlbumSelectedEvent>().Publish(album);
             }
         }
-
     }
 }

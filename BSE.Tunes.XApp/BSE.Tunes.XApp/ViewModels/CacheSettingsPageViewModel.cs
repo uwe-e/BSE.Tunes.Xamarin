@@ -1,4 +1,6 @@
-﻿using BSE.Tunes.XApp.Services;
+﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Services;
+using Prism.Events;
 using Prism.Navigation;
 using Prism.Services;
 using System;
@@ -9,7 +11,9 @@ namespace BSE.Tunes.XApp.ViewModels
     {
         private readonly IPageDialogService _pageDialogService;
         private readonly IStorageService _storageService;
+        private readonly IEventAggregator _eventAggregator;
         private string _usedDiskSpace;
+        private bool _isCacheChanged;
 
         public string UsedDiskSpace
         {
@@ -29,18 +33,29 @@ namespace BSE.Tunes.XApp.ViewModels
             IPlayerManager playerManager,
             IPageDialogService pageDialogService,
             IStorageService storageService,
+            IEventAggregator eventAggregator,
             IResourceService resourceService) : base(navigationService, settingsService, playerManager, resourceService)
         {
             _pageDialogService = pageDialogService;
             _storageService = storageService;
+            _eventAggregator = eventAggregator;
+
+            _eventAggregator.GetEvent<CacheChangedEvent>().Subscribe((args) =>
+            {
+                LoadSettings();
+            });
         }
 
         public async override void LoadSettings()
         {
-            var usedSpace = await _storageService.GetUsedDiskSpaceAsync();
-            if (usedSpace > 0)
+            if (!_isCacheChanged)
             {
+                _isCacheChanged = true;
+
+                var usedSpace = await _storageService.GetUsedDiskSpaceAsync();
                 UsedDiskSpace = $"{Math.Round(Convert.ToDecimal(usedSpace / 1024f / 1024f), 2)} MB";
+                
+                _isCacheChanged = false;
             }
         }
 
@@ -63,6 +78,8 @@ namespace BSE.Tunes.XApp.ViewModels
         private async void DeleteAction()
         {
             await _storageService.DeleteCachedImagesAsync();
+
+            _eventAggregator.GetEvent<CacheChangedEvent>().Publish(CacheChangeMode.Removed);
         }
     }
 }

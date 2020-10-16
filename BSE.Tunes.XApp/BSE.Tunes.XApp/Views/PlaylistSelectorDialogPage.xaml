@@ -31,14 +31,13 @@
                     <CollectionView ItemsSource="{Binding PlaylistFlyoutItems}" VerticalOptions="FillAndExpand">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <controls:FlyoutButton Text="{Binding Text}"
-                                                       ImageSource="{Binding ImageSource}"
-                                                       Command="{Binding SelectFlyoutItemCommand}"
-                                                       CommandParameter="{Binding}">
-                                    <!--<controls:FlyoutButton.ImageSource>
-                                        <ImageSource B
-                                    </controls:FlyoutButton.ImageSource>-->
-                                </controls:FlyoutButton>
+                                <Grid Padding="0,5,0,5">
+                                    <controls:FlyoutButton Text="{Binding Text}"
+                                                           ImageSource="{Binding ImageSource}"
+                                                           Command="{Binding SelectFlyoutItemCommand}"
+                                                           CommandParameter="{Binding}">
+                                    </controls:FlyoutButton>
+                                </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
@@ -51,5 +50,5 @@
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
-    
+
 </ContentPage>

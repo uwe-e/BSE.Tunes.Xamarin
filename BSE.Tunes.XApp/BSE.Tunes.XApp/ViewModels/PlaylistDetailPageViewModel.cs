@@ -15,7 +15,7 @@ namespace BSE.Tunes.XApp.ViewModels
     {
         private readonly IDataService _dataService;
         private readonly ISettingsService _settingsService;
-        private readonly IStichedBitmapService _cacheableBitmapService;
+        private readonly IImageService _imageService;
         private Playlist _playlist;
 
         public Playlist Playlist
@@ -37,12 +37,12 @@ namespace BSE.Tunes.XApp.ViewModels
             IEventAggregator eventAggregator,
             IDataService dataService,
             ISettingsService settingsService,
-            IStichedBitmapService cacheableBitmapService,
+            IImageService imageService,
             IPlayerManager playerManager) : base(navigationService, resourceService, flyoutNavigationService, playerManager, eventAggregator)
         {
             _dataService = dataService;
             _settingsService = settingsService;
-            _cacheableBitmapService = cacheableBitmapService;
+            _imageService = imageService;
         }
 
         public async override void OnNavigatedTo(INavigationParameters parameters)
@@ -62,20 +62,16 @@ namespace BSE.Tunes.XApp.ViewModels
                             {
                                 Title = entry.Name,
                                 SubTitle = entry.Artist,
-                                ImageSource = _dataService.GetImage(entry.AlbumId, true)?.AbsoluteUri,
+                                ImageSource = _imageService.GetBitmapSource(entry.AlbumId, true),
                                 Data = entry
                             });
                             albumIds.Add(entry.AlbumId);
                         }
                     }
 
-                    Image = await _cacheableBitmapService.GetBitmapSource(
+                    Image = await _imageService.GetStitchedBitmapSource(
                                         Playlist.Id);
 
-                    //Image = await _cacheableBitmapService.GetBitmapSource(
-                    //                    albumIds.Take(4),
-                    //                    Playlist.Guid.ToString(),
-                    //                    500, false);
                     PlayAllCommand.RaiseCanExecuteChanged();
                     PlayAllRandomizedCommand.RaiseCanExecuteChanged();
                 }

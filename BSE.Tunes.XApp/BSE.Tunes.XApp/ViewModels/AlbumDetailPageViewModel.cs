@@ -17,6 +17,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly IFlyoutNavigationService _flyoutNavigationService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
+        private readonly IImageService _imageService;
         private Album _album;
 
         public Album Album
@@ -36,6 +37,7 @@ namespace BSE.Tunes.XApp.ViewModels
             IEventAggregator eventAggregator,
             IResourceService resourceService,
             IDataService dataService,
+            IImageService imageService,
             IPlayerManager playerManager) : base(
                 navigationService,
                 resourceService,
@@ -46,7 +48,7 @@ namespace BSE.Tunes.XApp.ViewModels
             _flyoutNavigationService = flyoutNavigationService;
             _eventAggregator = eventAggregator;
             _dataService = dataService;
-
+            _imageService = imageService;
             _eventAggregator.GetEvent<AddTrackToPlaylistEvent>().Subscribe(SelectPlaylist);
             _eventAggregator.GetEvent<AddAlbumToPlaylistEvent>().Subscribe(SelectPlaylist);
             //_eventAggregator.GetEvent<SelectedToPlaylistEvent>().Subscribe(AddToPlaylist);
@@ -75,7 +77,7 @@ namespace BSE.Tunes.XApp.ViewModels
 
                     });
                 }
-                Image = _dataService.GetImage(Album.AlbumId)?.AbsoluteUri;
+                Image = _imageService.GetBitmapSource(Album.AlbumId);
                 PlayAllCommand.RaiseCanExecuteChanged();
                 PlayAllRandomizedCommand.RaiseCanExecuteChanged();
                 IsBusy = false;

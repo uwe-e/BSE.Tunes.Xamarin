@@ -23,7 +23,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private int _pageSize;
         private int _pageNumber;
         private bool _hasItems;
-        
+        private readonly IImageService _imageService;
         private readonly IDataService _dataService;
 
         public event EventHandler IsActiveChanged;
@@ -68,8 +68,10 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public AlbumsPageViewModel(INavigationService navigationService,
             IResourceService resourceService,
+            IImageService imageService,
             IDataService dataService) : base(navigationService, resourceService)
         {
+            _imageService = imageService;
             _dataService = dataService;
             PageSize = 10;
         }
@@ -122,7 +124,7 @@ namespace BSE.Tunes.XApp.ViewModels
                             {
                                 Title = album.Title,
                                 SubTitle = album.Artist.Name,
-                                ImageSource = _dataService.GetImage(album.AlbumId)?.AbsoluteUri,
+                                ImageSource = _imageService.GetBitmapSource(album.AlbumId),
                                 Data = album
                             });
                         }

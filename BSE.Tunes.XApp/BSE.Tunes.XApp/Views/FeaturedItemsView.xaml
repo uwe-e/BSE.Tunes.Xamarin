@@ -5,8 +5,6 @@
              xmlns:templates="clr-namespace:BSE.Tunes.XApp.Views.Templates"
              xmlns:cv="clr-namespace:PanCardView;assembly=PanCardView"
              xmlns:cvcntrols="clr-namespace:PanCardView.Controls;assembly=PanCardView"
-             xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
-             xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.FeaturedItemsView">
     <ContentView.Resources>
@@ -25,12 +23,13 @@
             <StackLayout VerticalOptions="Start" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <cv:CoverFlowView x:Name="featuredItemsCardsView"
                                   ItemsSource="{Binding Items}"
-                                  IsClippedToBounds="True"
                                   IsCyclical = "True"
-                                  PositionShiftValue="125">
+                                  PositionShiftValue="145">
                     <cv:CoverFlowView.ItemTemplate>
                         <DataTemplate>
-                            <templates:SlidePanelTemplate>
+                            <templates:SlidePanelTemplate Margin="72,0,72,20"
+                                                          IsClippedToBounds="True"
+                                                          HorizontalOptions="Fill">
                                 <templates:SlidePanelTemplate.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=featuredItemsCardsView}}" CommandParameter="{Binding}"/>
                                 </templates:SlidePanelTemplate.GestureRecognizers>

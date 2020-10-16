@@ -12,6 +12,7 @@ namespace BSE.Tunes.XApp.ViewModels
     public class FeaturedAlbumsViewModel : ViewModelBase
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IImageService _imageService;
         private readonly IDataService _dataService;
         private ObservableCollection<GridPanel> _items;
         private ICommand _selectItemCommand;
@@ -25,9 +26,11 @@ namespace BSE.Tunes.XApp.ViewModels
         public FeaturedAlbumsViewModel(INavigationService navigationService,
             IEventAggregator eventAggregator,
             IResourceService resourceService,
+            IImageService imageService,
             IDataService dataService) : base(navigationService, resourceService)
         {
             _eventAggregator = eventAggregator;
+            _imageService = imageService;
             _dataService = dataService;
 
             LoadData();
@@ -45,9 +48,9 @@ namespace BSE.Tunes.XApp.ViewModels
                         {
                             Title = album.Title,
                             SubTitle = album.Artist.Name,
-                            ImageSource = _dataService.GetImage(album.AlbumId, true)?.AbsoluteUri,
+                            ImageSource = _imageService.GetBitmapSource(album.AlbumId),
                             Data = album
-                        });
+                        }); ;
                     }
                 }
                 IsBusy = false;

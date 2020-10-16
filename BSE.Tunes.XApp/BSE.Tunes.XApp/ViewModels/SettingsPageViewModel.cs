@@ -1,8 +1,10 @@
-﻿using BSE.Tunes.XApp.Services;
+﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
 using BSE.Tunes.XApp.Views.Settings;
 using Prism;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Navigation;
 using System;
 using System.Windows.Input;
@@ -12,9 +14,11 @@ namespace BSE.Tunes.XApp.ViewModels
     public class SettingsPageViewModel : ViewModelBase, IActiveAware
     {
         private readonly ISettingsService _settingsService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IStorageService _storageService;
         private bool _isActive;
         private bool _isActivated;
+        private bool _isCacheChanged;
         private string _serviceEndPoint;
         private string _userName;
         private string _usedDiskSpace;
@@ -77,10 +81,24 @@ namespace BSE.Tunes.XApp.ViewModels
         public SettingsPageViewModel(INavigationService navigationService,
             ISettingsService settingsService,
             IResourceService resourceService,
+            IEventAggregator eventAggregator,
             IStorageService storageService) : base(navigationService, resourceService)
         {
             _settingsService = settingsService;
+            _eventAggregator = eventAggregator;
             _storageService = storageService;
+
+            _eventAggregator.GetEvent<CacheChangedEvent>().Subscribe((args) =>
+            {
+                switch (args)
+                {
+                    case CacheChangeMode.Added:
+                    case CacheChangeMode.Removed:
+
+                        LoadCacheSettings();
+                        break;
+                }
+            });
         }
 
         private void RaiseIsActiveChanged()
@@ -94,17 +112,27 @@ namespace BSE.Tunes.XApp.ViewModels
             IsActiveChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        private async void LoadSettings()
+        private void LoadSettings()
         {
             ServiceEndPoint = _settingsService?.ServiceEndPoint;
             UserName = _settingsService?.User.UserName;
-            var usedSpace = await _storageService.GetUsedDiskSpaceAsync();
-            if (usedSpace > 0)
+            
+            LoadCacheSettings();
+        }
+
+        private async void LoadCacheSettings()
+        {
+            if (!_isCacheChanged)
             {
-                UsedDiskSpace = $"{Math.Round(Convert.ToDecimal(usedSpace / 1024f / 1024f),2)} MB";
+                _isCacheChanged = true;
+
+                var usedSpace = await _storageService.GetUsedDiskSpaceAsync();
+                UsedDiskSpace = $"{Math.Round(Convert.ToDecimal(usedSpace / 1024f / 1024f), 2)} MB";
+
+                _isCacheChanged = false;
             }
         }
-        
+
         private async void NavigateToAccountDetail()
         {
             await NavigationService.NavigateAsync(nameof(LoginSettingsPage));

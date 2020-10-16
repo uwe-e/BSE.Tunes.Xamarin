@@ -20,7 +20,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private ObservableCollection<FlyoutItemViewModel> _playlistFlyoutItems;
         private readonly IDataService _dataService;
         private readonly ISettingsService _settingsService;
-        private readonly IStichedBitmapService _stichedBitmapService;
+        private readonly IImageService _imageService;
         private readonly IEventAggregator _eventAggregator;
 
         public ICommand CancelCommand => _cancelCommand ?? (_cancelCommand = new DelegateCommand(CloseDialog));
@@ -57,12 +57,12 @@ namespace BSE.Tunes.XApp.ViewModels
             IResourceService resourceService,
             IDataService dataService,
             ISettingsService settingsService,
-            IStichedBitmapService stichedBitmapService,
+            IImageService imageService,
             IEventAggregator eventAggregator) : base(navigationService, resourceService)
         {
             _dataService = dataService;
             _settingsService = settingsService;
-            _stichedBitmapService = stichedBitmapService;
+            _imageService = imageService;
             _eventAggregator = eventAggregator;
         }
 
@@ -122,7 +122,7 @@ namespace BSE.Tunes.XApp.ViewModels
                         var flyoutItem = new FlyoutItemViewModel
                         {
                             Text = playlist.Name,
-                            ImageSource = await _stichedBitmapService.GetBitmapSource(playlist.Id, 30, true),
+                            ImageSource = await _imageService.GetStitchedBitmapSource(playlist.Id, 50, true),
                             Data = playlist
                         };
                         flyoutItem.ItemClicked += OnFlyoutItemClicked;

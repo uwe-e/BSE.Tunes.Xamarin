@@ -1,8 +1,10 @@
-﻿using BSE.Tunes.XApp.Models;
+﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using Prism;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
@@ -14,7 +16,8 @@ namespace BSE.Tunes.XApp.ViewModels
     {
         private readonly IDataService _dataService;
         private readonly ISettingsService _settingsService;
-        private readonly IStichedBitmapService _cacheableBitmapService;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IImageService _imageService;
         private ObservableCollection<GridPanel> _items;
         private bool _isActive;
         private bool _isActivated;
@@ -50,12 +53,21 @@ namespace BSE.Tunes.XApp.ViewModels
             IResourceService resourceService,
             IDataService dataService,
             ISettingsService settingsService,
-            IStichedBitmapService cacheableBitmapService) : base(navigationService, resourceService)
+            IEventAggregator eventAggregator,
+            IImageService imageService) : base(navigationService, resourceService)
         {
             _dataService = dataService;
             _settingsService = settingsService;
-            _cacheableBitmapService = cacheableBitmapService;
+            _eventAggregator = eventAggregator;
+            _imageService = imageService;
             _pageSize = 10;
+
+            _eventAggregator.GetEvent<CacheChangedEvent>().Subscribe((args) =>
+            {
+                Items.Clear();
+                IsActive = _isActivated = false;
+                RaiseIsActiveChanged();
+            });
         }
 
         protected virtual void RaiseIsActiveChanged()
@@ -67,7 +79,6 @@ namespace BSE.Tunes.XApp.ViewModels
                 IsBusy = false;
                 _hasItems = true;
                 _pageNumber = 0;
-
 
                 LoadMoreItems();
             }
@@ -105,22 +116,10 @@ namespace BSE.Tunes.XApp.ViewModels
                                 {
                                     Title = playlist.Name,
                                     SubTitle = FormatNumberOfEntriesString(playlist),
-                                    ImageSource = await _cacheableBitmapService.GetBitmapSource(
+                                    ImageSource = await _imageService.GetStitchedBitmapSource(
                                         playlist.Id),
                                     Data = playlist
                                 });
-                                //ObservableCollection<Guid> albumIds = await _dataService.GetPlaylistImageIdsById(playlist.Id, _settingsService.User.UserName, 4);
-
-                                //Items.Add(new GridPanel
-                                //{
-                                //    Title = playlist.Name,
-                                //    SubTitle = FormatNumberOfEntriesString(playlist),
-                                //    ImageSource = await _cacheableBitmapService.GetBitmapSource(
-                                //        albumIds,
-                                //        playlist.Guid.ToString(),
-                                //        150, true),
-                                //    Data = playlist
-                                //});
                             }
                         }
                     }

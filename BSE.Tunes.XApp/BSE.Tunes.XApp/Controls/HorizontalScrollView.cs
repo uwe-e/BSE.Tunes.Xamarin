@@ -6,6 +6,7 @@ using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.Controls
 {
+    [Obsolete("Use Xamarin.Forms.CollectionView instead")]
     public class HorizontalScrollView : ScrollView
     {
         private readonly StackLayout _itemsStackLayout;

@@ -16,16 +16,20 @@
                                               Style="{DynamicResource SectionHeaderButtonStyle}"
                                               HorizontalOptions="Start"/>
 
-                <controls:HorizontalScrollView ItemsSource="{Binding Items}" HeightRequest="200"
-                                           SelectedItemCommand="{Binding SelectItemCommand}">
-                    <controls:HorizontalScrollView.ItemTemplate>
+                <CollectionView x:Name="featuredAlbumssView"
+                                ItemsSource="{Binding Items}"
+                                ItemsLayout="HorizontalList">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <template:ViewItemTemplate/>
-                            </ViewCell>
+                            <template:ViewItemTemplate Padding="0,0,10,0">
+                                <template:ViewItemTemplate.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=featuredAlbumssView}}"
+                                                          CommandParameter="{Binding}"/>
+                                </template:ViewItemTemplate.GestureRecognizers>
+                            </template:ViewItemTemplate>
                         </DataTemplate>
-                    </controls:HorizontalScrollView.ItemTemplate>
-                </controls:HorizontalScrollView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 
             </StackLayout>
             <StackLayout IsVisible="{Binding IsBusy}" Padding="12"

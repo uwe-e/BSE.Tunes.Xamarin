@@ -24,10 +24,10 @@
                 <cv:CoverFlowView x:Name="featuredItemsCardsView"
                                   ItemsSource="{Binding Items}"
                                   IsCyclical = "True"
-                                  PositionShiftValue="145">
+                                  PositionShiftValue="125">
                     <cv:CoverFlowView.ItemTemplate>
                         <DataTemplate>
-                            <templates:SlidePanelTemplate Margin="72,0,72,20"
+                            <templates:SlidePanelTemplate HeightRequest="260" Margin="62,0,62,20"
                                                           IsClippedToBounds="True"
                                                           HorizontalOptions="Fill">
                                 <templates:SlidePanelTemplate.GestureRecognizers>

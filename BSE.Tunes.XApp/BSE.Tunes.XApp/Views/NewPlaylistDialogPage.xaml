@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage  xmlns="http://xamarin.com/schemas/2014/forms"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:prism="http://prismlibrary.com"
+              prism:ViewModelLocator.AutowireViewModel="True"
+              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+              ios:Page.ModalPresentationStyle="FormSheet"
+              x:Class="BSE.Tunes.XApp.Views.NewPlaylistDialogPage"
+              BackgroundColor="{DynamicResource SystemGray6}">
+
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <StackLayout Padding="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="33*"/>
+                            <ColumnDefinition Width="34*"/>
+                            <ColumnDefinition Width="33*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0"
+                                Text="{i18n:Translate NewPlaylistDialogPage_ButtonCancel_Text}"
+                                Command="{Binding CancelCommand}"/>
+                        <Label Grid.Column="1"
+                               Text="{i18n:Translate NewPlaylistDialogPage_Title}"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="Center"/>
+                        <Button Grid.Column="2"
+                                Text="{i18n:Translate NewPlaylistDialogPage_ButtonSave_Text}"
+                                Command="{Binding SaveCommand}"/>
+                    </Grid>
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Image Aspect="AspectFill"
+                                   HeightRequest="100"
+                                   WidthRequest="100"
+                                   Source="{Binding ImageSource}"/>
+                            <Entry Text="{Binding PlaylistName}"
+                                   HorizontalOptions="FillAndExpand"
+                                   Placeholder="{i18n:Translate NewPlaylistDialogPage_Entry_Placeholder_EnterUserName}"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+
+</ContentPage>

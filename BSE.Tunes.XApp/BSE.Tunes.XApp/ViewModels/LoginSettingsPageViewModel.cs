@@ -59,7 +59,7 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 SettingsService.User = null;
 
-                await NavigationService.NavigateAsync("/" + nameof(NavigationPage) + "/" + nameof(LoginWizzardPage));
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(LoginWizzardPage)}");
             }
         }
     }

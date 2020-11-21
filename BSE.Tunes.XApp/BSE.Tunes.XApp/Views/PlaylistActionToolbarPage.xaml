@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
+                     xmlns:prism="http://prismlibrary.com"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+                     xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
+                     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                     ios:Page.ModalPresentationStyle="OverFullScreen"
+                     prism:ViewModelLocator.AutowireViewModel="True"
+                     FlyoutBackgroundColor="{DynamicResource SystemGray6}"
+                     BackgroundColor="#66000000"
+                     x:Class="BSE.Tunes.XApp.Views.PlaylistActionToolbarPage"
+                     CloseButtonText="{i18n:Translate ManageAlbumsPage_ButtonClose_Text}"
+                     CloseFlyoutCommand="{Binding CloseFlyoutCommand}">
+
+    <controls:FlyoutPage.Content>
+        <StackLayout Padding="5">
+            <StackLayout Orientation="Horizontal">
+                <Image Aspect="AspectFill"
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       Source="{Binding ImageSource}"/>
+
+                <StackLayout>
+                    <Label Text="{Binding Title}"
+                           LineBreakMode="TailTruncation"/>
+                    <Label Margin="0,-5,0,0"
+                           FontSize="13"
+                           Text="{Binding SubTitle}"
+                           LineBreakMode="TailTruncation"/>
+                </StackLayout>
+            </StackLayout>
+            <controls:FlyoutButton HorizontalOptions="FillAndExpand"
+                                   ImageSource="{AppThemeBinding Light=icon_add_list_bk.png, Dark=icon_add_list_wh.png}"
+                                   Text="{i18n:Translate ManageAlbumsPage_Button_AddToPlaylist}"
+                                   Command="{Binding AddToPlaylistCommand}"/>
+            <controls:FlyoutButton HorizontalOptions="FillAndExpand"
+                                   IsVisible="{Binding CanRemoveFromPlaylist}"
+                                   ImageSource="{AppThemeBinding Light=icon_delete_bk.png, Dark=icon_delete_wh.png}"
+                                   Text="{i18n:Translate ManageAlbumsPage_Button_RemoveFromPlaylist}"
+                                   Command="{Binding RemoveFromPlaylistCommand}"/>
+            <controls:FlyoutButton HorizontalOptions="FillAndExpand"
+                                   IsVisible="{Binding CanRemovePlaylist}"
+                                   ImageSource="{AppThemeBinding Light=icon_delete_bk.png, Dark=icon_delete_wh.png}"
+                                   Text="{i18n:Translate ManageAlbumsPage_Button_RemovePlaylist}"
+                                   Command="{Binding RemovePlaylistCommand}"/>
+        </StackLayout>
+    </controls:FlyoutPage.Content>
+    
+</controls:FlyoutPage>

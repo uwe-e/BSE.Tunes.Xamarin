@@ -48,28 +48,11 @@ namespace BSE.Tunes.XApp.Services
             CreateAndSaveBitmap(absoluteUri, fileFullName, asThumbnail);
             return absoluteUri;
         }
-
-        private async void CreateAndSaveBitmap(string imageUri, string fileName, bool asThumbnail)
+        
+        public async Task RemoveStitchedBitmaps(int playlistId)
         {
-            SKBitmap bitmap = await CreateBitmapFromStream(imageUri);
-            if (bitmap != null)
-            {
-                if (!asThumbnail)
-                {
-                    bitmap = bitmap.Resize(new SKImageInfo(300, 300), SKFilterQuality.Medium);
-                }
-                using (SKImage image = SKImage.FromBitmap(bitmap))
-                {
-                    using (SKData encoded = image.Encode(SKEncodedImageFormat.Jpeg, 100))
-                    {
-                        using (System.IO.Stream outFile = System.IO.File.OpenWrite(fileName))
-                        {
-                            encoded.SaveTo(outFile);
-                        }
-                    }
-                    _eventAggregator.GetEvent<CacheChangedEvent>().Publish(CacheChangeMode.Added);
-                }
-            }
+            string searchPattern = $"{playlistId}_*.{ImageExtension}";
+            await _storageService.DeleteCachedImagesAsync(searchPattern);
         }
 
         public async Task<string> GetStitchedBitmapSource(int playlistId, int width = 300, bool asThumbnail = false)
@@ -97,6 +80,29 @@ namespace BSE.Tunes.XApp.Services
 			}
 			return null;
 		}
+
+        private async void CreateAndSaveBitmap(string imageUri, string fileName, bool asThumbnail)
+        {
+            SKBitmap bitmap = await CreateBitmapFromStream(imageUri);
+            if (bitmap != null)
+            {
+                if (!asThumbnail)
+                {
+                    bitmap = bitmap.Resize(new SKImageInfo(300, 300), SKFilterQuality.Medium);
+                }
+                using (SKImage image = SKImage.FromBitmap(bitmap))
+                {
+                    using (SKData encoded = image.Encode(SKEncodedImageFormat.Jpeg, 100))
+                    {
+                        using (System.IO.Stream outFile = System.IO.File.OpenWrite(fileName))
+                        {
+                            encoded.SaveTo(outFile);
+                        }
+                    }
+                    _eventAggregator.GetEvent<CacheChangedEvent>().Publish(CacheChangeMode.Added);
+                }
+            }
+        }
 
         private async Task<ObservableCollection<Guid>> GetImageIds(int playlistId)
         {
@@ -211,12 +217,17 @@ namespace BSE.Tunes.XApp.Services
             {
                 using (var httpClient = await _requestService.GetHttpClient())
                 {
-                    var stream = await httpClient.GetStreamAsync(imageUri);
-                    if (stream != null)
+                    try
                     {
-                        //create a bitmap from the file and add it to the list
-                        bitmap = SKBitmap.Decode(stream);
+                        var stream = await httpClient.GetStreamAsync(imageUri);
+                        if (stream != null)
+                        {
+                            //create a bitmap from the file and add it to the list
+                            bitmap = SKBitmap.Decode(stream);
+                        }
                     }
+                    //if there´s no image
+                    catch (Exception) { }
                 }
             }
 
@@ -227,5 +238,9 @@ namespace BSE.Tunes.XApp.Services
         {
             return _dataService.GetImage(id, asThumbnail);
         }
+
+        
+
+        
     }
 }

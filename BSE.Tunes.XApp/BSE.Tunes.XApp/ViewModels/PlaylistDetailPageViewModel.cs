@@ -1,18 +1,23 @@
 ﻿using BSE.Tunes.XApp.Collections;
+using BSE.Tunes.XApp.Events;
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using Prism.Events;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
     public class PlaylistDetailPageViewModel : TracklistBaseViewModel
     {
+        private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
         private readonly ISettingsService _settingsService;
         private readonly IImageService _imageService;
@@ -38,47 +43,48 @@ namespace BSE.Tunes.XApp.ViewModels
             IDataService dataService,
             ISettingsService settingsService,
             IImageService imageService,
-            IPlayerManager playerManager) : base(navigationService, resourceService, flyoutNavigationService, playerManager, eventAggregator)
+            IPlayerManager playerManager) : base(
+                navigationService,
+                resourceService,
+                flyoutNavigationService,
+                dataService,
+                playerManager,
+                imageService,
+                eventAggregator)
         {
             _dataService = dataService;
             _settingsService = settingsService;
             _imageService = imageService;
+            _eventAggregator = eventAggregator;
+
+            _eventAggregator.GetEvent<PlaylistActionContextChanged>().Subscribe(async args =>
+            {
+                if (args is PlaylistActionContext managePlaylistContext)
+                {
+                    if (managePlaylistContext.ActionMode == PlaylistActionMode.PlaylistUpdated)
+                    {
+                        //managePlaylistContext.ActionMode = PlaylistActionMode.None;
+                        //if (managePlaylistContext.PlaylistTo == Playlist)
+                        {
+                            Image = null;
+                            Image = await _imageService.GetStitchedBitmapSource(Playlist.Id);
+                        }
+                        
+                    }
+                }
+            });
         }
 
         public async override void OnNavigatedTo(INavigationParameters parameters)
         {
             Playlist playlist = parameters.GetValue<Playlist>("playlist");
-            Collection<Guid> albumIds = new Collection<Guid>(); ;
             if (playlist != null)
             {
-                Playlist = await _dataService.GetPlaylistById(playlist.Id, _settingsService.User.UserName);
-                if (Playlist != null)
-                {
-                    foreach (var entry in Playlist.Entries?.OrderBy(pe => pe.SortOrder))
-                    {
-                        if (entry != null)
-                        {
-                            Items.Add(new GridPanel
-                            {
-                                Title = entry.Name,
-                                SubTitle = entry.Artist,
-                                ImageSource = _imageService.GetBitmapSource(entry.AlbumId, true),
-                                Data = entry
-                            });
-                            albumIds.Add(entry.AlbumId);
-                        }
-                    }
-
-                    Image = await _imageService.GetStitchedBitmapSource(
-                                        Playlist.Id);
-
-                    PlayAllCommand.RaiseCanExecuteChanged();
-                    PlayAllRandomizedCommand.RaiseCanExecuteChanged();
-                }
+                await LoadPlaylistDetails(playlist);
             }
             IsBusy = false;
         }
-        
+
         protected override void PlayTrack(GridPanel obj)
         {
             if (obj?.Data is PlaylistEntry entry)
@@ -103,6 +109,55 @@ namespace BSE.Tunes.XApp.ViewModels
         protected override ObservableCollection<int> GetTrackIds()
         {
             return new ObservableCollection<int>(Items.Select(track => ((PlaylistEntry)track.Data).TrackId));
+        }
+
+        protected async override Task UpdatePlaylist(PlaylistActionContext managePlaylistContext)
+        {
+            IsBusy = true;
+            if (managePlaylistContext.Data is PlaylistEntry playlistEntry)
+            {
+                Playlist.Entries.Remove(playlistEntry);
+
+                var playlist = await _dataService.UpdatePlaylist(Playlist);
+
+                GridPanel panel = Items.Where(p => p.Id == playlistEntry.Id).FirstOrDefault<GridPanel>();
+                Items.Remove(panel);
+
+                await _imageService.RemoveStitchedBitmaps(playlist.Id);
+
+
+                managePlaylistContext.ActionMode = PlaylistActionMode.PlaylistUpdated;
+                _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(managePlaylistContext);
+
+            }
+            IsBusy = false;
+        }
+
+        private async Task LoadPlaylistDetails(Playlist playlist)
+        {
+            Playlist = await _dataService.GetPlaylistById(playlist.Id, _settingsService.User.UserName);
+            if (Playlist != null)
+            {
+                foreach (var entry in Playlist.Entries?.OrderBy(pe => pe.SortOrder))
+                {
+                    if (entry != null)
+                    {
+                        Items.Add(new GridPanel
+                        {
+                            Id = entry.Id,
+                            Title = entry.Name,
+                            SubTitle = entry.Artist,
+                            ImageSource = _imageService.GetBitmapSource(entry.AlbumId, true),
+                            Data = entry
+                        });
+                    }
+                }
+
+                Image = await _imageService.GetStitchedBitmapSource(Playlist.Id);
+
+                PlayAllCommand.RaiseCanExecuteChanged();
+                PlayAllRandomizedCommand.RaiseCanExecuteChanged();
+            }
         }
     }
 }

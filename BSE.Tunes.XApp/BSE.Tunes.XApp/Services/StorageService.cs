@@ -66,13 +66,14 @@ namespace BSE.Tunes.XApp.Services
             return imageFolderPath;
         }
 
-        public Task DeleteCachedImagesAsync()
+        public Task DeleteCachedImagesAsync(string searchPattern = null)
         {
             string imageFolderPath = GetImageFolder();
             DirectoryInfo directoryInfo = new DirectoryInfo(imageFolderPath);
             if (directoryInfo.Exists)
             {
-                foreach (var fileInfo in directoryInfo.GetFiles())
+                //var files = directoryInfo.GetFiles(searchPattern ?? "*");
+                foreach (var fileInfo in directoryInfo.GetFiles(searchPattern ?? "*"))
                 {
                     fileInfo.Delete();
                 }

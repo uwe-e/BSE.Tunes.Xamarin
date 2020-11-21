@@ -19,33 +19,35 @@
                 <CollectionView ItemsSource="{Binding Items}" VerticalOptions="FillAndExpand">
                     <CollectionView.Header>
                         <StackLayout Spacing="0">
-                            <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal">
-                            <StackLayout Margin="5,0,5,0" HeightRequest="150">
-                                    <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding Image}" WidthRequest="150" />
+                            <StackLayout VerticalOptions="StartAndExpand"
+                                         Orientation="Horizontal"
+                                         Margin="3,0,3,0">
+                                <!--<StackLayout Margin="5,0,5,0" HeightRequest="150">-->
+                                    <ffimageLoading:CachedImage HeightRequest="150" HorizontalOptions="Start" Source="{Binding Image}" WidthRequest="150" />
+                                <!--</StackLayout>-->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition x:Name="actionRow" Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label x:Name="infoTitle" Text="{Binding Album.Title}" LineBreakMode="TailTruncation"
+                                           Grid.Row="0" FontSize="Header" TextColor="{StaticResource PrimaryLabelColor}"/>
+                                    <Label x:Name="infoSubTitle" Text="{Binding Album.Artist.Name}" LineBreakMode="TailTruncation"
+                                           Grid.Row="1" TextColor="{StaticResource SecondaryLabelColor}"/>
+                                    <Label x:Name="albumGenre" LineBreakMode="TailTruncation"
+                                           Grid.Row="2" TextColor="{StaticResource SecondaryLabelColor}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Album.Year}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{Binding Album.Genre.Name}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
                             </StackLayout>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition x:Name="actionRow" Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Label x:Name="infoTitle" Text="{Binding Album.Title}" LineBreakMode="TailTruncation"
-                                       Grid.Row="0" FontSize="Header" TextColor="{StaticResource PrimaryLabelColor}"/>
-                                <Label x:Name="infoSubTitle" Text="{Binding Album.Artist.Name}" LineBreakMode="TailTruncation"
-                                       Grid.Row="1" TextColor="{StaticResource SecondaryLabelColor}"/>
-                                <Label x:Name="albumGenre" LineBreakMode="TailTruncation"
-                                       Grid.Row="2" TextColor="{StaticResource SecondaryLabelColor}">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="{Binding Album.Year}"/>
-                                            <Span Text=" "/>
-                                            <Span Text="{Binding Album.Genre.Name}"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </Grid>
-                        </StackLayout>
                             <StackLayout VerticalOptions="StartAndExpand">
                             <StackLayout Orientation="Horizontal">
                                 <Button Text="{i18n:Translate AlbumsDetailPage_Button_PlayAll_Text}"

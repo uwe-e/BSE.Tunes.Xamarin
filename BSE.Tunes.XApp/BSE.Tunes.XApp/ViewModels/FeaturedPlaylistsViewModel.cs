@@ -6,6 +6,7 @@ using Prism.Events;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Linq;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -38,10 +39,49 @@ namespace BSE.Tunes.XApp.ViewModels
             _dataService = dataService;
 
             LoadData();
+
+            _eventAggregator.GetEvent<PlaylistActionContextChanged>().Subscribe(async args =>
+            {
+                if (args is PlaylistActionContext managePlaylistContext)
+                {
+                    if (managePlaylistContext.ActionMode == PlaylistActionMode.PlaylistUpdated)
+                    {
+                        GridPanel panel = null;
+                        if (managePlaylistContext.PlaylistTo is Playlist playlist)
+                        {
+                            panel = Items.Where(p => p.Id == playlist.Id).FirstOrDefault();
+                            if (panel != null)
+                            {
+                                panel.ImageSource = await _imageService.GetStitchedBitmapSource(playlist.Id);
+                            }
+                        }
+                        if (managePlaylistContext.Data is PlaylistEntry playlistEntry)
+                        {
+                            panel = Items.Where(p => p.Id == playlistEntry.PlaylistId).FirstOrDefault();
+                            if (panel != null)
+                            {
+                                panel.ImageSource = await _imageService.GetStitchedBitmapSource(playlistEntry.PlaylistId);
+                            }
+                        }
+                        //managePlaylistContext.ActionMode = PlaylistActionMode.None;
+                        //if (managePlaylistContext.PlaylistTo == Playlist)
+                        {
+                            //Items.Select(p => p.Id == )
+                        }
+                        //if (panel != null)
+                        //{
+                        //    panel.ImageSource = await _imageService.GetStitchedBitmapSource(
+                        //                playlist.Id),
+                        //}
+
+                    }
+                }
+            });
         }
 
         private async void LoadData()
         {
+            Items.Clear();
             var playlists = await _dataService.GetPlaylistsByUserName(_settingsService.User.UserName, 0, 5);
             if (playlists != null)
             {
@@ -49,6 +89,7 @@ namespace BSE.Tunes.XApp.ViewModels
                 {
                     Items.Add(new GridPanel
                     {
+                        Id = playlist.Id,
                         Title = playlist.Name,
                         SubTitle = $"{playlist.NumberEntries} {ResourceService.GetString("PlaylistItem_PartNumberOfEntries")}",
                         ImageSource = await _imageService.GetStitchedBitmapSource(

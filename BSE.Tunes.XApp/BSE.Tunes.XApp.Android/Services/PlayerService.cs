@@ -39,7 +39,7 @@ namespace BSE.Tunes.XApp.Droid.Services
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

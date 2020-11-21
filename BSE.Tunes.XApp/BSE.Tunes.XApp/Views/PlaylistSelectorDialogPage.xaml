@@ -17,7 +17,8 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="33*"/>
-                            <ColumnDefinition Width="67*"/>
+                            <ColumnDefinition Width="33*"/>
+                            <ColumnDefinition Width="33*"/>
                         </Grid.ColumnDefinitions>
 
                         <Button Grid.Column="0"
@@ -25,8 +26,13 @@
                             Text="{i18n:Translate PlaylistSelectorDialogPage_ButtonCancel_Text}"
                             Command="{Binding CancelCommand}"/>
                         <Label Grid.Column="1" 
-                           Text="{i18n:Translate PlaylistSelectorDialogPage_Title}" 
-                           VerticalOptions="CenterAndExpand"/>
+                           Text="{i18n:Translate PlaylistSelectorDialogPage_Title}"
+                               HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="Center"/>
+                        <Button Grid.Column="2" 
+                                Text="+" 
+                                Command="{Binding OpenNewPlaylistDialogCommand}"
+                                VerticalOptions="Center" HorizontalOptions="End"/>
                     </Grid>
                     <CollectionView ItemsSource="{Binding PlaylistFlyoutItems}" VerticalOptions="FillAndExpand">
                         <CollectionView.ItemTemplate>

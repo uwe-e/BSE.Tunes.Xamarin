@@ -1,12 +1,17 @@
 ﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
+using Prism.Services;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -15,42 +20,23 @@ namespace BSE.Tunes.XApp.ViewModels
     public class PlaylistSelectorDialogPageViewModel : ViewModelBase
     {
         private ICommand _cancelCommand;
-        private Album _album;
-        private Track _track;
+        private ICommand _openNewPlaylistDialogCommand;
         private ObservableCollection<FlyoutItemViewModel> _playlistFlyoutItems;
+        private PlaylistActionContext _playlistActionContext;
         private readonly IDataService _dataService;
         private readonly ISettingsService _settingsService;
         private readonly IImageService _imageService;
+        private readonly IPlaylistManager _playlistManager;
         private readonly IEventAggregator _eventAggregator;
 
-        public ICommand CancelCommand => _cancelCommand ?? (_cancelCommand = new DelegateCommand(CloseDialog));
-        
+        public ICommand CancelCommand =>
+            _cancelCommand ?? (_cancelCommand = new DelegateCommand(CloseDialog));
+
+        public ICommand OpenNewPlaylistDialogCommand =>
+            _openNewPlaylistDialogCommand ?? (_openNewPlaylistDialogCommand = new DelegateCommand(OpenNewPlaylistDialog));
+
         public virtual ObservableCollection<FlyoutItemViewModel> PlaylistFlyoutItems => 
             _playlistFlyoutItems ?? (_playlistFlyoutItems = new ObservableCollection<FlyoutItemViewModel>());
-
-        public Track Track
-        {
-            get
-            {
-                return _track;
-            }
-            set
-            {
-                SetProperty<Track>(ref _track, value);
-            }
-        }
-
-        public Album Album
-        {
-            get
-            {
-                return _album;
-            }
-            set
-            {
-                SetProperty<Album>(ref _album, value);
-            }
-        }
 
         public PlaylistSelectorDialogPageViewModel(
             INavigationService navigationService,
@@ -58,57 +44,54 @@ namespace BSE.Tunes.XApp.ViewModels
             IDataService dataService,
             ISettingsService settingsService,
             IImageService imageService,
+            IPlaylistManager playlistManager,
             IEventAggregator eventAggregator) : base(navigationService, resourceService)
         {
             _dataService = dataService;
             _settingsService = settingsService;
             _imageService = imageService;
+            _playlistManager = playlistManager;
             _eventAggregator = eventAggregator;
         }
 
         public async override void OnNavigatedTo(INavigationParameters parameters)
         {
-            if (parameters.GetValue<object>("source") is Track track)
-            {
-                Track = track;
-            }
-            if (parameters.GetValue<object>("source") is Album album)
-            {
-                Album = album;
-            }
+            _playlistActionContext = parameters.GetValue<PlaylistActionContext>("source");
+
             await CreatePlaylistFlyoutItems();
+
             IsBusy = false;
             
             base.OnNavigatedTo(parameters);
         }
 
-        protected virtual void AddTracksToPlaylist(Playlist playlist, Track[] tracks)
-        {
-            if (playlist != null && tracks != null)
-            {
-                foreach (var track in tracks)
-                {
-                    if (track != null)
-                    {
-                        playlist.Entries.Add(new PlaylistEntry
-                        {
-                            PlaylistId = playlist.Id,
-                            TrackId = track.Id,
-                            Guid = Guid.NewGuid()
-                        });
-                    }
-                }
-                AppendToPlaylist(playlist);
-            }
-        }
+        //protected virtual void AddTracksToPlaylist(Playlist playlist, Track[] tracks)
+        //{
+        //    if (playlist != null && tracks != null)
+        //    {
+        //        foreach (var track in tracks)
+        //        {
+        //            if (track != null)
+        //            {
+        //                playlist.Entries.Add(new PlaylistEntry
+        //                {
+        //                    PlaylistId = playlist.Id,
+        //                    TrackId = track.Id,
+        //                    Guid = Guid.NewGuid()
+        //                });
+        //            }
+        //        }
+        //        AppendToPlaylist(playlist);
+        //    }
+        //}
 
-        protected virtual async void AppendToPlaylist(Playlist playlist)
-        {
-            var changedPlaylist = await _dataService.AppendToPlaylist(playlist);
+        //protected virtual async void AppendToPlaylist(Playlist playlist)
+        //{
+        //    var changedPlaylist = await _dataService.AppendToPlaylist(playlist);
 
 
-            CloseDialog();
-        }
+        //    CloseDialog();
+        //}
 
         private async Task CreatePlaylistFlyoutItems()
         {
@@ -136,14 +119,9 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             if (sender is FlyoutItemViewModel flyoutItem)
             {
-                if (Album != null)
-                {
-                    AddTracksToPlaylist(flyoutItem.Data as Playlist, Album.Tracks);
-                }
-                if (Track != null)
-                {
-                    AddTracksToPlaylist(flyoutItem.Data as Playlist, new Track[] { Track });
-                }
+                _playlistActionContext.PlaylistTo = flyoutItem.Data as Playlist;
+                _playlistActionContext.ActionMode = PlaylistActionMode.AddToPlaylist;
+                _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(_playlistActionContext);
             }
         }
 
@@ -151,5 +129,12 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             await NavigationService.GoBackAsync(useModalNavigation: true);
         }
+        
+        private void OpenNewPlaylistDialog()
+        {
+            _playlistActionContext.ActionMode = PlaylistActionMode.CreatePlaylist;
+            _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(_playlistActionContext);
+        }
+
     }
 }

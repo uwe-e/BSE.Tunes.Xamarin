@@ -15,10 +15,13 @@ namespace BSE.Tunes.XApp.Services
         Task<ObservableCollection<Album>> GetAlbumsByGenre(int? genreId, int skip, int limit);
         Uri GetImage(Guid imageId, bool asThumbnail = false);
         Task<Playlist> AppendToPlaylist(Playlist playlist);
+        Task DeletePlaylist(int playlistId);
         Task<ObservableCollection<Playlist>> GetPlaylistsByUserName(string userName, int skip, int limit);
         Task<Playlist> GetPlaylistById(int playlistId, string userName);
         Task<Playlist> GetPlaylistByIdWithNumberOfEntries(int playlistId, string userName);
         Task<ObservableCollection<Guid>> GetPlaylistImageIdsById(int playlistId, string userName, int limit);
+        Task<Playlist> InsertPlaylist(Playlist playlist);
+        Task<Playlist> UpdatePlaylist(Playlist playlist);
         Task<SystemInfo> GetSystemInfo();
         Task<Track> GetTrackById(int trackId);
         Task<ObservableCollection<int>> GetTrackIdsByGenre(int? genreId = null);

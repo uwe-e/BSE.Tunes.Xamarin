@@ -201,6 +201,24 @@
   <data name="ManageAlbumsPage_Button_AddToPlaylist" xml:space="preserve">
     <value>Add to playlist</value>
   </data>
+  <data name="ManageAlbumsPage_Button_RemoveFromPlaylist" xml:space="preserve">
+    <value>Remove from playlist</value>
+  </data>
+  <data name="ManageAlbumsPage_Button_RemovePlaylist" xml:space="preserve">
+    <value>Delete Playlist</value>
+  </data>
+  <data name="NewPlaylistDialogPage_ButtonCancel_Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="NewPlaylistDialogPage_ButtonSave_Text" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="NewPlaylistDialogPage_Entry_Placeholder_EnterUserName" xml:space="preserve">
+    <value>Name of the playlist</value>
+  </data>
+  <data name="NewPlaylistDialogPage_Title" xml:space="preserve">
+    <value>Create a new playlist</value>
+  </data>
   <data name="PlaylistDetailPage_Button_PlayAll_Text" xml:space="preserve">
     <value>Play all</value>
   </data>

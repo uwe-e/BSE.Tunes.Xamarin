@@ -23,7 +23,7 @@
                         <StackLayout Spacing="0">
                             <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal">
                                 <StackLayout Margin="5,0,5,0" HeightRequest="150">
-                                    <ffimageLoading:CachedImage HorizontalOptions="Start" Source="{Binding Image}" WidthRequest="150" />
+                                    <Image HorizontalOptions="Start" Source="{Binding Image}" WidthRequest="150" />
                                 </StackLayout>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -76,7 +76,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding ImageSource}" 
+                                    <Image Source="{Binding ImageSource, Mode=TwoWay}" 
                                                        Aspect="AspectFill" HeightRequest="50"/>
                                     <StackLayout Grid.Column="1">
                                         <Label Text="{Binding Title}"

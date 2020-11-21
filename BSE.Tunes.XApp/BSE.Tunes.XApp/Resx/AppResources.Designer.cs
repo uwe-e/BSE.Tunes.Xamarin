@@ -304,11 +304,65 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove from playlist.
+        /// </summary>
+        internal static string ManageAlbumsPage_Button_RemoveFromPlaylist {
+            get {
+                return ResourceManager.GetString("ManageAlbumsPage_Button_RemoveFromPlaylist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Playlist.
+        /// </summary>
+        internal static string ManageAlbumsPage_Button_RemovePlaylist {
+            get {
+                return ResourceManager.GetString("ManageAlbumsPage_Button_RemovePlaylist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string ManageAlbumsPage_ButtonClose_Text {
             get {
                 return ResourceManager.GetString("ManageAlbumsPage_ButtonClose_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string NewPlaylistDialogPage_ButtonCancel_Text {
+            get {
+                return ResourceManager.GetString("NewPlaylistDialogPage_ButtonCancel_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready.
+        /// </summary>
+        internal static string NewPlaylistDialogPage_ButtonSave_Text {
+            get {
+                return ResourceManager.GetString("NewPlaylistDialogPage_ButtonSave_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of the playlist.
+        /// </summary>
+        internal static string NewPlaylistDialogPage_Entry_Placeholder_EnterUserName {
+            get {
+                return ResourceManager.GetString("NewPlaylistDialogPage_Entry_Placeholder_EnterUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new playlist.
+        /// </summary>
+        internal static string NewPlaylistDialogPage_Title {
+            get {
+                return ResourceManager.GetString("NewPlaylistDialogPage_Title", resourceCulture);
             }
         }
         

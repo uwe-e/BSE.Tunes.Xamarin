@@ -69,8 +69,9 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<AlbumsPage, AlbumsPageViewModel>();
             containerRegistry.RegisterForNavigation<AlbumDetailPage, AlbumDetailPageViewModel>();
-            containerRegistry.RegisterForNavigation<ManageAlbumsPage, ManageAlbumsPageViewModel>();
+            containerRegistry.RegisterForNavigation<PlaylistActionToolbarPage, PlaylistActionToolbarPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaylistSelectorDialogPage, PlaylistSelectorDialogPageViewModel>();
+            containerRegistry.RegisterForNavigation<NewPlaylistDialogPage, NewPlaylistDialogPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaylistsPage, PlaylistsPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaylistDetailPage, PlaylistDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<SearchPage, SearchPageViewModel>();
@@ -88,8 +89,12 @@ namespace BSE.Tunes.XApp
             containerRegistry.Register<IResourceService, ResourceService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterSingleton<IPlayerManager, PlayerManager>();
+            containerRegistry.RegisterSingleton<IPlaylistManager, PlaylistManager>();
             containerRegistry.Register<IImageService, ImageService>();
             containerRegistry.Register<IStorageService, StorageService>();
+            
+            
+
             containerRegistry.RegisterSingleton<IFlyoutNavigationService, FlyoutNavigationService>();
 
             var playerService = DependencyService.Get<IPlayerService>();
@@ -97,7 +102,7 @@ namespace BSE.Tunes.XApp
 
             ViewModelLocationProvider.Register<FeaturedAlbumsView, FeaturedAlbumsViewModel>();
             ViewModelLocationProvider.Register<FeaturedPlaylistsView, FeaturedPlaylistsViewModel>();
-
+            
         }
 
         private void SetTheme(OSAppTheme theme)

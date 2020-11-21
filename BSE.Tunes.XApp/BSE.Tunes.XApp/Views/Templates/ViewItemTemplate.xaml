@@ -9,7 +9,10 @@
                    CornerRadius="3"
                    IsClippedToBounds="True"
                    HasShadow="False">
-                <ffimageLoading:CachedImage Source="{Binding ImageSource}"
+                <!--<ffimageLoading:CachedImage Source="{Binding ImageSource}"
+                                        Aspect="AspectFill"
+                                        WidthRequest="160" HeightRequest="160"/>-->
+                <Image Source="{Binding ImageSource, Mode=TwoWay}"
                                         Aspect="AspectFill"
                                         WidthRequest="160" HeightRequest="160"/>
                 <!--<Grid WidthRequest="160" HeightRequest="160" BackgroundColor="Red"/>-->

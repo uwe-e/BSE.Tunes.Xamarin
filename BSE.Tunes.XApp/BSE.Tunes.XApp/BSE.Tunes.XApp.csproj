@@ -50,6 +50,12 @@
     <Compile Update="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\NewPlaylistDialogPage.xaml.cs">
+      <DependentUpon>NewPlaylistDialogPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PlaylistActionToolbarPage.xaml.cs">
+      <DependentUpon>PlaylistActionToolbarPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ServiceEndpointWizzardPage.xaml.cs">
       <DependentUpon>ServiceEndpointWizzardPage.xaml</DependentUpon>
     </Compile>
@@ -114,7 +120,10 @@
     <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ManageAlbumsPage.xaml">
+    <EmbeddedResource Update="Views\NewPlaylistDialogPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\PlaylistActionToolbarPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PlaylistDetailPage.xaml">

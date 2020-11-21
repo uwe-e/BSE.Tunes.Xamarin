@@ -60,7 +60,7 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 SettingsService.ServiceEndPoint = null;
 
-                await NavigationService.NavigateAsync("/" + nameof(NavigationPage) + "/" + nameof(ServiceEndpointWizzardPage));
+                await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(ServiceEndpointWizzardPage)}");
             }
         }
 

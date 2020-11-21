@@ -60,6 +60,14 @@ namespace BSE.Tunes.XApp.Services
             return result;
         }
 
+        public async Task DeleteAsync(Uri uri)
+        {
+            using (var client = await GetHttpClient())
+            {
+                var responseMessage = await client.DeleteAsync(uri);
+            }
+        }
+
         public async Task<HttpClient> GetHttpClient(bool withRefreshToken = true)
         {
             //if (Connectivity.NetworkAccess != NetworkAccess.Internet)

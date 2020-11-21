@@ -15,6 +15,6 @@ namespace BSE.Tunes.XApp.Services
 
         long GetUsedDiskSpace();
 
-        Task DeleteCachedImagesAsync();
+        Task DeleteCachedImagesAsync(string searchPattern = null);
     }
 }

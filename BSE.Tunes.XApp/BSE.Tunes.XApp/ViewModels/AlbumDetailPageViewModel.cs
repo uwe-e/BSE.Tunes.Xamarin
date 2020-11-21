@@ -1,11 +1,13 @@
 ﻿using BSE.Tunes.XApp.Collections;
-using BSE.Tunes.XApp.Events;
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
-using BSE.Tunes.XApp.Views;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
+using Prism.Services;
+using Prism.Services.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,8 +16,6 @@ namespace BSE.Tunes.XApp.ViewModels
 {
     public class AlbumDetailPageViewModel : TracklistBaseViewModel
     {
-        private readonly IFlyoutNavigationService _flyoutNavigationService;
-        private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
         private readonly IImageService _imageService;
         private Album _album;
@@ -42,16 +42,13 @@ namespace BSE.Tunes.XApp.ViewModels
                 navigationService,
                 resourceService,
                 flyoutNavigationService,
+                dataService,
                 playerManager,
+                imageService,
                 eventAggregator)
         {
-            _flyoutNavigationService = flyoutNavigationService;
-            _eventAggregator = eventAggregator;
             _dataService = dataService;
             _imageService = imageService;
-            _eventAggregator.GetEvent<AddTrackToPlaylistEvent>().Subscribe(SelectPlaylist);
-            _eventAggregator.GetEvent<AddAlbumToPlaylistEvent>().Subscribe(SelectPlaylist);
-            //_eventAggregator.GetEvent<SelectedToPlaylistEvent>().Subscribe(AddToPlaylist);
         }
 
         public async override void OnNavigatedTo(INavigationParameters parameters)
@@ -60,7 +57,7 @@ namespace BSE.Tunes.XApp.ViewModels
             if (album != null)
             {
                 Album = await _dataService.GetAlbumById(album.Id);
-                foreach(Track track in Album.Tracks)
+                foreach (Track track in Album.Tracks)
                 {
                     track.Album = new Album
                     {
@@ -94,7 +91,7 @@ namespace BSE.Tunes.XApp.ViewModels
                 }, AudioPlayerMode.Song);
             }
         }
-        
+
         protected override void PlayAll()
         {
             PlayTracks(GetTrackIds(), AudioPlayerMode.CD);
@@ -104,21 +101,15 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             PlayTracks(GetTrackIds().ToRandomCollection(), AudioPlayerMode.CD);
         }
-        
-        protected override  ObservableCollection<int> GetTrackIds()
+
+        protected override ObservableCollection<int> GetTrackIds()
         {
             return new ObservableCollection<int>(Items.Select(track => ((Track)track.Data).Id));
         }
 
-        private async void SelectPlaylist(object obj)
+        private void CloseNewPlaylistDialogCallback(IDialogResult obj)
         {
-            await _flyoutNavigationService.CloseFlyoutAsync();
-            var navigationParams = new NavigationParameters
-            {
-                { "source", obj }
-            };
-            await NavigationService.NavigateAsync(nameof(PlaylistSelectorDialogPage), navigationParams, useModalNavigation: true);
+            //throw new NotImplementedException();
         }
-
     }
 }

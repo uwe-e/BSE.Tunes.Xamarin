@@ -4,7 +4,6 @@ using Prism.Common;
 using Prism.Ioc;
 using Prism.Logging;
 using Prism.Navigation;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BSE.Tunes.XApp.Services

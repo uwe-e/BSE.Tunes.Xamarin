@@ -7,7 +7,6 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.AlbumDetailPage"
              BackgroundColor="{DynamicResource BackgroundColor}"
-             NavigationPage.HasNavigationBar="False"
              x:Name="page">
     
     <ContentPage.ToolbarItems>

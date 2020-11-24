@@ -89,12 +89,8 @@ namespace BSE.Tunes.XApp
             containerRegistry.Register<IResourceService, ResourceService>();
             containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterSingleton<IPlayerManager, PlayerManager>();
-            containerRegistry.RegisterSingleton<IPlaylistManager, PlaylistManager>();
             containerRegistry.Register<IImageService, ImageService>();
             containerRegistry.Register<IStorageService, StorageService>();
-            
-            
-
             containerRegistry.RegisterSingleton<IFlyoutNavigationService, FlyoutNavigationService>();
 
             var playerService = DependencyService.Get<IPlayerService>();

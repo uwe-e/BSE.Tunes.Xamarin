@@ -4,7 +4,6 @@ using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
 using Prism.Events;
 using Prism.Navigation;
-using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -28,7 +27,8 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 { "album", album }
             };
-            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(AlbumDetailPage)}", navigationParams);
+            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(AlbumDetailPage)}", navigationParams);
+            await NavigationService.NavigateAsync($"{nameof(AlbumDetailPage)}", navigationParams);
         }
 
         private async void SelectPlaylist(Playlist playlist)
@@ -37,7 +37,8 @@ namespace BSE.Tunes.XApp.ViewModels
                     {
                         { "playlist", playlist }
                     };
-            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(PlaylistDetailPage)}", navigationParams);
+            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(PlaylistDetailPage)}", navigationParams);
+            await NavigationService.NavigateAsync($"{nameof(PlaylistDetailPage)}", navigationParams);
         }
         
     }

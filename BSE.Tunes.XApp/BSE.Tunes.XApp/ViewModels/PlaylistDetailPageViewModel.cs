@@ -111,7 +111,13 @@ namespace BSE.Tunes.XApp.ViewModels
             return new ObservableCollection<int>(Items.Select(track => ((PlaylistEntry)track.Data).TrackId));
         }
 
-        protected async override Task UpdatePlaylist(PlaylistActionContext managePlaylistContext)
+        protected override async Task RemoveFromPlaylist(PlaylistActionContext managePlaylistContext)
+        {
+            await base.RemoveFromPlaylist(managePlaylistContext);
+            await UpdateCurrentPlaylist(managePlaylistContext);
+        }
+        
+        private async Task UpdateCurrentPlaylist(PlaylistActionContext managePlaylistContext)
         {
             IsBusy = true;
             if (managePlaylistContext.Data is PlaylistEntry playlistEntry)
@@ -124,7 +130,6 @@ namespace BSE.Tunes.XApp.ViewModels
                 Items.Remove(panel);
 
                 await _imageService.RemoveStitchedBitmaps(playlist.Id);
-
 
                 managePlaylistContext.ActionMode = PlaylistActionMode.PlaylistUpdated;
                 _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(managePlaylistContext);

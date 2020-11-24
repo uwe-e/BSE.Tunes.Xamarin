@@ -324,7 +324,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionBSETunesXAppiOSHideInfoBar="True" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadDebuggerTimeoutExceptionBSETunesXAppiOSHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

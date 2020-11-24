@@ -1,6 +1,7 @@
 ﻿using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism;
 using Prism.Commands;
 using Prism.Navigation;
@@ -150,7 +151,8 @@ namespace BSE.Tunes.XApp.ViewModels
                     {
                         { "album", album }
                     };
-                await NavigationService.NavigateAsync("NavigationPage/AlbumDetailPage", navigationParams);
+                //await NavigationService.NavigateAsync("NavigationPage/AlbumDetailPage", navigationParams);
+                await NavigationService.NavigateAsync($"{nameof(AlbumDetailPage)}", navigationParams);
             }
         }
     }

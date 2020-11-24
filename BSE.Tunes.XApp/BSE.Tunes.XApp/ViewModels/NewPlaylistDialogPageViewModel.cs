@@ -2,16 +2,10 @@
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
-using Prism.AppModel;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Mvvm;
 using Prism.Navigation;
-using Prism.Services.Dialogs;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
@@ -110,12 +104,6 @@ namespace BSE.Tunes.XApp.ViewModels
 
         private async void SavePlaylist()
         {
-            //Playlist playlist = new Playlist
-            //{
-            //    Name = PlaylistName,
-            //    UserName = _settingsService.User.UserName,
-            //    Guid = Guid.NewGuid()
-            //};
             try
             {
                 var playlist = await _dataService.InsertPlaylist(new Playlist
@@ -126,7 +114,6 @@ namespace BSE.Tunes.XApp.ViewModels
                 });
                 _playlistActionContext.ActionMode = PlaylistActionMode.AddToPlaylist;
                 _playlistActionContext.PlaylistTo = playlist as Playlist;
-                Debug.Print($"{nameof(SavePlaylist)} - contextaction: PlaylistActionMode.Append");
                 _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(_playlistActionContext);
             }
             catch(Exception ex)

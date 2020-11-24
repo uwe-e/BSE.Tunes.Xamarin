@@ -46,34 +46,8 @@ namespace BSE.Tunes.XApp.ViewModels
                 {
                     if (managePlaylistContext.ActionMode == PlaylistActionMode.PlaylistUpdated)
                     {
-                        GridPanel panel = null;
-                        if (managePlaylistContext.PlaylistTo is Playlist playlist)
-                        {
-                            panel = Items.Where(p => p.Id == playlist.Id).FirstOrDefault();
-                            if (panel != null)
-                            {
-                                panel.ImageSource = await _imageService.GetStitchedBitmapSource(playlist.Id);
-                            }
-                        }
-                        if (managePlaylistContext.Data is PlaylistEntry playlistEntry)
-                        {
-                            panel = Items.Where(p => p.Id == playlistEntry.PlaylistId).FirstOrDefault();
-                            if (panel != null)
-                            {
-                                panel.ImageSource = await _imageService.GetStitchedBitmapSource(playlistEntry.PlaylistId);
-                            }
-                        }
-                        //managePlaylistContext.ActionMode = PlaylistActionMode.None;
-                        //if (managePlaylistContext.PlaylistTo == Playlist)
-                        {
-                            //Items.Select(p => p.Id == )
-                        }
-                        //if (panel != null)
-                        //{
-                        //    panel.ImageSource = await _imageService.GetStitchedBitmapSource(
-                        //                playlist.Id),
-                        //}
-
+                        IsBusy = true;
+                        LoadData();
                     }
                 }
             });

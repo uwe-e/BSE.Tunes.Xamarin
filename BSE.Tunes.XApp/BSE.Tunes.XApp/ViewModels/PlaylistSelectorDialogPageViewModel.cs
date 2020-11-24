@@ -26,7 +26,6 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly IDataService _dataService;
         private readonly ISettingsService _settingsService;
         private readonly IImageService _imageService;
-        private readonly IPlaylistManager _playlistManager;
         private readonly IEventAggregator _eventAggregator;
 
         public ICommand CancelCommand =>
@@ -44,13 +43,11 @@ namespace BSE.Tunes.XApp.ViewModels
             IDataService dataService,
             ISettingsService settingsService,
             IImageService imageService,
-            IPlaylistManager playlistManager,
             IEventAggregator eventAggregator) : base(navigationService, resourceService)
         {
             _dataService = dataService;
             _settingsService = settingsService;
             _imageService = imageService;
-            _playlistManager = playlistManager;
             _eventAggregator = eventAggregator;
         }
 
@@ -64,34 +61,6 @@ namespace BSE.Tunes.XApp.ViewModels
             
             base.OnNavigatedTo(parameters);
         }
-
-        //protected virtual void AddTracksToPlaylist(Playlist playlist, Track[] tracks)
-        //{
-        //    if (playlist != null && tracks != null)
-        //    {
-        //        foreach (var track in tracks)
-        //        {
-        //            if (track != null)
-        //            {
-        //                playlist.Entries.Add(new PlaylistEntry
-        //                {
-        //                    PlaylistId = playlist.Id,
-        //                    TrackId = track.Id,
-        //                    Guid = Guid.NewGuid()
-        //                });
-        //            }
-        //        }
-        //        AppendToPlaylist(playlist);
-        //    }
-        //}
-
-        //protected virtual async void AppendToPlaylist(Playlist playlist)
-        //{
-        //    var changedPlaylist = await _dataService.AppendToPlaylist(playlist);
-
-
-        //    CloseDialog();
-        //}
 
         private async Task CreatePlaylistFlyoutItems()
         {

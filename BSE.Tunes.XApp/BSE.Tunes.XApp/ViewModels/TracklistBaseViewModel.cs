@@ -6,15 +6,11 @@ using BSE.Tunes.XApp.Views;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
-using Prism.Services;
-using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -24,7 +20,6 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly IDataService _dataService;
         private readonly IPlayerManager _playerManager;
         private readonly IImageService _imageService;
-        private readonly IPlaylistManager _playlistManager;
         private readonly IEventAggregator _eventAggregator;
         private ObservableCollection<GridPanel> _items;
         private string _image;
@@ -59,11 +54,6 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 SetProperty<string>(ref _image, value);
             }
-        }
-
-        protected IPlaylistManager PlaylistManager
-        {
-            get { return _playlistManager; }
         }
 
         public TracklistBaseViewModel(
@@ -109,7 +99,7 @@ namespace BSE.Tunes.XApp.ViewModels
                             break;
                         case PlaylistActionMode.PlaylistDeleted:
                             managePlaylistContext.ActionMode = PlaylistActionMode.None;
-                            await NavigationService.NavigateAsync($"/{ nameof(NavigationPage)}/{nameof(PlaylistsPage)}");
+                            await NavigationService.GoBackAsync();
                             break;
                         //case PlaylistActionMode.PlaylistUpdated:
                         //    managePlaylistContext.ActionMode = PlaylistActionMode.None;
@@ -204,8 +194,6 @@ namespace BSE.Tunes.XApp.ViewModels
                         { "source", source }
             };
 
-            Debug.Print($"{nameof(OpenFlyout)} - new PlaylistActionContext created");
-
             await FlyoutNavigationService.ShowFlyoutAsync(nameof(PlaylistActionToolbarPage), navigationParams);
         }
 
@@ -247,7 +235,6 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 await AddTracksToPlaylist(managePlaylistContext, tracks);
             }
-
         }
 
         private async Task AddTracksToPlaylist(PlaylistActionContext managePlaylistContext, IEnumerable<Track> tracks)
@@ -268,20 +255,16 @@ namespace BSE.Tunes.XApp.ViewModels
                     }
                 }
                 await _dataService.AppendToPlaylist(playlistTo);
+                await _imageService.RemoveStitchedBitmaps(playlistTo.Id);
 
                 managePlaylistContext.ActionMode = PlaylistActionMode.PlaylistUpdated;
                 _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(managePlaylistContext);
             }
         }
 
-        protected virtual Task UpdatePlaylist(PlaylistActionContext managePlaylistContext) {
-            return null;
-        }
-        
-        private async Task RemoveFromPlaylist(PlaylistActionContext managePlaylistContext)
+        protected virtual async Task RemoveFromPlaylist(PlaylistActionContext managePlaylistContext)
         {
             await _flyoutNavigationService.CloseFlyoutAsync();
-            await UpdatePlaylist(managePlaylistContext);
         }
 
         private async Task RemovePlaylist(PlaylistActionContext managePlaylistContext)
@@ -297,8 +280,6 @@ namespace BSE.Tunes.XApp.ViewModels
                 _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(managePlaylistContext);
             }
         }
-
-        
         
         private async Task CreateNewPlaylist(PlaylistActionContext context)
         {

@@ -2,6 +2,7 @@
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism;
 using Prism.Commands;
 using Prism.Events;
@@ -9,6 +10,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -61,6 +63,13 @@ namespace BSE.Tunes.XApp.ViewModels
             _eventAggregator = eventAggregator;
             _imageService = imageService;
             _pageSize = 10;
+
+            _eventAggregator.GetEvent<PlaylistActionContextChanged>().Subscribe(args =>
+            {
+                Items.Clear();
+                IsActive = _isActivated = false;
+                RaiseIsActiveChanged();
+            });
 
             _eventAggregator.GetEvent<CacheChangedEvent>().Subscribe((args) =>
             {
@@ -140,7 +149,8 @@ namespace BSE.Tunes.XApp.ViewModels
                     {
                         { "playlist", playlist }
                     };
-                await NavigationService.NavigateAsync("NavigationPage/PlaylistDetailPage", navigationParams);
+
+                await NavigationService.NavigateAsync($"{nameof(PlaylistDetailPage)}", navigationParams);
             }
         }
 

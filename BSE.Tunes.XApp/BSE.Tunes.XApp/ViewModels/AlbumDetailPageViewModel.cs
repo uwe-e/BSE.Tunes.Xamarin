@@ -2,12 +2,8 @@
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
-using Prism.Services;
-using Prism.Services.Dialogs;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -105,11 +101,6 @@ namespace BSE.Tunes.XApp.ViewModels
         protected override ObservableCollection<int> GetTrackIds()
         {
             return new ObservableCollection<int>(Items.Select(track => ((Track)track.Data).Id));
-        }
-
-        private void CloseNewPlaylistDialogCallback(IDialogResult obj)
-        {
-            //throw new NotImplementedException();
         }
     }
 }

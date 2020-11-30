@@ -17,7 +17,9 @@
                                VerticalOptions="StartAndExpand"
                                HorizontalOptions="Fill"
                                Text="{Binding TextValue}"
-                               Placeholder="{i18n:Translate SearchPage_SearchBar_Placeholder}">
+                               TextColor="{DynamicResource PrimaryLabelColor}"
+                               Placeholder="{i18n:Translate SearchPage_SearchBar_Placeholder}"
+                               PlaceholderColor="{DynamicResource SecondaryLabelColor}">
                         <SearchBar.Behaviors>
                             <prism:EventToCommandBehavior EventName="TextChanged"
                                                   Command="{Binding TextChangedCommand}"

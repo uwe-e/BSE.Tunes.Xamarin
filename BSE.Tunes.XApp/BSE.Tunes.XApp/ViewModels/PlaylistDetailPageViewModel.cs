@@ -5,11 +5,8 @@ using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using Prism.Events;
 using Prism.Navigation;
-using Prism.Services;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -63,13 +60,20 @@ namespace BSE.Tunes.XApp.ViewModels
                 {
                     if (managePlaylistContext.ActionMode == PlaylistActionMode.PlaylistUpdated)
                     {
-                        //managePlaylistContext.ActionMode = PlaylistActionMode.None;
-                        //if (managePlaylistContext.PlaylistTo == Playlist)
+                        // if there's a playlistentry that has changed..
+                        // and there's no playlistTo object, then it's probably an entry that has been removed. 
+                        if (managePlaylistContext.PlaylistTo == null && managePlaylistContext.Data is PlaylistEntry playlistEntry)
                         {
-                            Image = null;
-                            Image = await _imageService.GetStitchedBitmapSource(Playlist.Id);
+                            managePlaylistContext.PlaylistTo = new Playlist
+                            {
+                                Id = playlistEntry.PlaylistId
+                            };
                         }
-                        
+
+                        if (managePlaylistContext.PlaylistTo?.Id == Playlist.Id)
+                        {
+                            await LoadPlaylistDetails(managePlaylistContext.PlaylistTo);
+                        }
                     }
                 }
             });
@@ -140,6 +144,8 @@ namespace BSE.Tunes.XApp.ViewModels
 
         private async Task LoadPlaylistDetails(Playlist playlist)
         {
+            Items.Clear();
+            Image = null;
             Playlist = await _dataService.GetPlaylistById(playlist.Id, _settingsService.User.UserName);
             if (Playlist != null)
             {

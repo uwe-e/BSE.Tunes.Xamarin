@@ -2,16 +2,11 @@
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
-using BSE.Tunes.XApp.Views;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
-using Prism.Services;
-using Prism.Services.Dialogs;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 

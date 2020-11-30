@@ -20,10 +20,13 @@
                 <CollectionView ItemsSource="{Binding Items}" VerticalOptions="FillAndExpand">
                     <CollectionView.Header>
                         <StackLayout Spacing="0">
-                            <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal">
-                                <StackLayout Margin="5,0,5,0" HeightRequest="150">
-                                    <Image HorizontalOptions="Start" Source="{Binding Image}" WidthRequest="150" />
-                                </StackLayout>
+                            <StackLayout VerticalOptions="StartAndExpand" Orientation="Horizontal"
+                                         Margin="3,0,3,0">
+                                <!--<StackLayout Margin="5,0,5,0" HeightRequest="150">-->
+                                    <Image HorizontalOptions="Start" Source="{Binding Image}"
+                                           Aspect="AspectFit"
+                                           WidthRequest="150" HeightRequest="150"/>
+                                <!--</StackLayout>-->
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
@@ -65,11 +68,10 @@
                         <DataTemplate>
                             <StackLayout>
                                 <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.PlayCommand,
-                                                            Source={x:Reference page}}"
-                                                                      CommandParameter="{Binding}"/>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.PlayCommand, Source={x:Reference page}}"
+                                                          CommandParameter="{Binding}"/>
                                 </StackLayout.GestureRecognizers>
-                                <Grid Margin="15">
+                                <Grid Margin="3,10,3,10">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="50"/>
                                         <ColumnDefinition Width="*"/>

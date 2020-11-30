@@ -6,7 +6,6 @@ using Prism.Events;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Linq;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -44,10 +43,13 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 if (args is PlaylistActionContext managePlaylistContext)
                 {
-                    if (managePlaylistContext.ActionMode == PlaylistActionMode.PlaylistUpdated)
+                    switch (managePlaylistContext.ActionMode)
                     {
-                        IsBusy = true;
-                        LoadData();
+                        case PlaylistActionMode.PlaylistUpdated:
+                        case PlaylistActionMode.PlaylistDeleted:
+                            IsBusy = true;
+                            LoadData();
+                            break;
                     }
                 }
             });

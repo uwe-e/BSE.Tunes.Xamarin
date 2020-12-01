@@ -61,13 +61,12 @@ namespace BSE.Tunes.XApp.ViewModels
                     if (managePlaylistContext.ActionMode == PlaylistActionMode.PlaylistUpdated)
                     {
                         // if there's a playlistentry that has changed..
-                        // and there's no playlistTo object, then it's probably an entry that has been removed. 
+                        // and there's no playlistTo object, then it's probably an entry within this current playlist detail that has been removed. 
                         if (managePlaylistContext.PlaylistTo == null && managePlaylistContext.Data is PlaylistEntry playlistEntry)
                         {
-                            managePlaylistContext.PlaylistTo = new Playlist
-                            {
-                                Id = playlistEntry.PlaylistId
-                            };
+                            //if so, then we need a new image
+                            Image = null;
+                            Image = await _imageService.GetStitchedBitmapSource(Playlist.Id);
                         }
 
                         if (managePlaylistContext.PlaylistTo?.Id == Playlist.Id)

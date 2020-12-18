@@ -38,8 +38,6 @@
                                    Source="{Binding ImageSource}"/>
                             <Entry Text="{Binding PlaylistName}"
                                    HorizontalOptions="FillAndExpand"
-                                   TextColor="{DynamicResource PrimaryLabelColor}"
-                                   PlaceholderColor="{DynamicResource SecondaryLabelColor}"
                                    Placeholder="{i18n:Translate NewPlaylistDialogPage_Entry_Placeholder_EnterUserName}"/>
                         </StackLayout>
                     </StackLayout>

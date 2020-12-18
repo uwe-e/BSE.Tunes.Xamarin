@@ -5,10 +5,10 @@
              xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
     <ContentView.Content>
         <Grid>
-
+ 
             <ffimageLoading:CachedImage Source="{Binding ImageSource}" Aspect="AspectFill"/>
 
-            <StackLayout BackgroundColor="#33000000" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+            <StackLayout BackgroundColor="#C0000000" VerticalOptions="End" HorizontalOptions="FillAndExpand">
                 <Label HorizontalTextAlignment="Center"
                        Text="{Binding Title}"
                        TextColor="White"

@@ -216,7 +216,7 @@ namespace BSE.Tunes.XApp.ViewModels
                     {
                         { "album", album }
                     };
-                await NavigationService.NavigateAsync("NavigationPage/AlbumDetailPage", navigationParams);
+                await NavigationService.NavigateAsync($"{nameof(AlbumDetailPage)}", navigationParams);
             }
         }
         

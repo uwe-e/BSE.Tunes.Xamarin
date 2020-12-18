@@ -195,6 +195,12 @@
   <data name="LoginSettingsPage_Title" xml:space="preserve">
     <value>Konto</value>
   </data>
+  <data name="LoginWizzardPage_Label_Passwort_Text" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="LoginWizzardPage_Label_UserName_Text" xml:space="preserve">
+    <value>Benutzernamen</value>
+  </data>
   <data name="ManageAlbumsPage_ButtonClose_Text" xml:space="preserve">
     <value>Schliessen</value>
   </data>
@@ -269,6 +275,9 @@
   </data>
   <data name="ServiceEndpointSettingsPage_Title" xml:space="preserve">
     <value>Webserver</value>
+  </data>
+  <data name="ServiceEndpointWizzardPage_Label_ServiceEndPoint_Text" xml:space="preserve">
+    <value>Trage hier die Adresse des gewünschten BSEtunes ein.</value>
   </data>
   <data name="SettingsPage_SectionAccount_Description_Text" xml:space="preserve">
     <value>Konto für dieses BSEtunes</value>

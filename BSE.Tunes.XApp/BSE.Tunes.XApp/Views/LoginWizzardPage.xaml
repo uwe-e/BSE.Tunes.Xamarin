@@ -4,6 +4,8 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              prism:ViewModelLocator.AutowireViewModel="True"
+             BackgroundColor="{DynamicResource BackgroundColor}"
+             NavigationPage.HasNavigationBar="False"
              x:Class="BSE.Tunes.XApp.Views.LoginWizzardPage">
 
     <ContentPage.Content>
@@ -27,19 +29,31 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
+                        <Label Text="{i18n:Translate LoginWizzardPage_Label_UserName_Text}"/>
+                        
                         <Entry Text="{Binding UserName, Mode=TwoWay}"
-                                   Placeholder="{i18n:Translate LoginPage_Entry_Placeholder_EnterUserName}"
-                                   Margin="0,8"/>
+                               Placeholder="{i18n:Translate LoginPage_Entry_Placeholder_EnterUserName}"
+                               PlaceholderColor="{DynamicResource SecondaryLabelColor}"
+                               BackgroundColor="{DynamicResource SystemGray6}"
+                               Margin="0,8"
+                               Grid.Row="1"/>
 
-                        <Entry Text="{Binding Password, Mode=TwoWay}" 
-                                   IsPassword="true" 
-                                   Placeholder="{i18n:Translate LoginPage_Entry_Placeholder_EnterPassword}" 
-                                   Margin="0,8"
-                                   Grid.Row="1"/>
-                        <Button Text="{i18n:Translate LoginPage_Button_Text_Login}" Command="{Binding SaveCommand}"
-                                    Grid.Row="2"/>
+                        <Label Text="{i18n:Translate LoginWizzardPage_Label_Passwort_Text}"
+                               Grid.Row="2"/>
+                        
+                        <Entry Text="{Binding Password, Mode=TwoWay}"
+                               IsPassword="true"
+                               Placeholder="{i18n:Translate LoginPage_Entry_Placeholder_EnterPassword}"
+                               PlaceholderColor="{DynamicResource SecondaryLabelColor}"
+                               BackgroundColor="{DynamicResource SystemGray6}"
+                               Margin="0,8"
+                               Grid.Row="3"/>
+                        <Button Text="{i18n:Translate LoginPage_Button_Text_Login}"
+                                Command="{Binding SaveCommand}"
+                                Grid.Row="4"/>
 
 
                     </Grid>

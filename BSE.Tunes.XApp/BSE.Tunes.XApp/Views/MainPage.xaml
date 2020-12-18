@@ -12,6 +12,9 @@
     xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     android:TabbedPage.ToolbarPlacement="Bottom"
+    android:TabbedPage.BarItemColor="{DynamicResource SecondaryLabelColor}"
+    android:TabbedPage.BarSelectedItemColor="{DynamicResource PrimaryLabelColor}"
+    android:TabbedPage.IsSwipePagingEnabled="False"
     ios:TabbedPage.TranslucencyMode="Opaque"
     BarBackgroundColor="{DynamicResource SystemGray6}"
     NavigationPage.HasNavigationBar="False">

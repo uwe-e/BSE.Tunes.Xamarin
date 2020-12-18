@@ -232,7 +232,7 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the username.
+        ///   Looks up a localized string similar to Enter your username.
         /// </summary>
         internal static string LoginPage_Entry_Placeholder_EnterUserName {
             get {
@@ -291,6 +291,24 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string LoginSettingsPage_Title {
             get {
                 return ResourceManager.GetString("LoginSettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        internal static string LoginWizzardPage_Label_Passwort_Text {
+            get {
+                return ResourceManager.GetString("LoginWizzardPage_Label_Passwort_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User name.
+        /// </summary>
+        internal static string LoginWizzardPage_Label_UserName_Text {
+            get {
+                return ResourceManager.GetString("LoginWizzardPage_Label_UserName_Text", resourceCulture);
             }
         }
         
@@ -475,7 +493,7 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to delete the address of this BSETunes?.
+        ///   Looks up a localized string similar to Do you want to delete the address for this BSETunes?.
         /// </summary>
         internal static string ServiceEndpointSettingsPage_ActionSheet_Title {
             get {
@@ -516,6 +534,15 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string ServiceEndpointSettingsPage_Title {
             get {
                 return ResourceManager.GetString("ServiceEndpointSettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the address of the web that contains the desired BSEtunes..
+        /// </summary>
+        internal static string ServiceEndpointWizzardPage_Label_ServiceEndPoint_Text {
+            get {
+                return ResourceManager.GetString("ServiceEndpointWizzardPage_Label_ServiceEndPoint_Text", resourceCulture);
             }
         }
         

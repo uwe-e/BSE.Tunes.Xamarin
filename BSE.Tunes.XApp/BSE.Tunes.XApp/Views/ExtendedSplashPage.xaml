@@ -1,12 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="BSE.Tunes.XApp.Views.ExtendedSplashPage"
-             BackgroundColor="{DynamicResource BackgroundColor}">
+<controls:FulllScreenLoadingPage xmlns="http://xamarin.com/schemas/2014/forms"
+                                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                                 xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
+                                 xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                                 prism:ViewModelLocator.AutowireViewModel="True"
+                                 x:Class="BSE.Tunes.XApp.Views.ExtendedSplashPage"
+                                 BackgroundColor="{DynamicResource BackgroundColor}">
+
+    <ContentPage.BackgroundColor>
+        <!--
+            OnPlatform overrides the BackgroundColor
+            The "Default" attribute throws an error when using a DynamicResource
+        -->
+        <OnPlatform x:TypeArguments="Color" Default="Transparent">
+            <On Platform="Android" Value="Transparent" />
+        </OnPlatform>
+    </ContentPage.BackgroundColor>
     
     <ContentPage.Content>
+        
         <Grid AutomationId="splash">
             <Image Aspect="AspectFill">
                 <Image.Source>
@@ -15,16 +27,7 @@
                     </OnPlatform>
                 </Image.Source>
             </Image>
-            <ActivityIndicator 
-                Color="{Binding PrimaryLabelColor}"
-                IsRunning="{Binding IsBusy}" 
-                IsVisible="{Binding IsBusy}" />
         </Grid>
-        <!--<StackLayout IsVisible="True" Padding="12"
-                 AbsoluteLayout.LayoutFlags="PositionProportional"
-                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-                <ActivityIndicator IsRunning="True" Color ="#80000000"/>
-            </StackLayout>-->
     </ContentPage.Content>
     
-</ContentPage>
+</controls:FulllScreenLoadingPage>

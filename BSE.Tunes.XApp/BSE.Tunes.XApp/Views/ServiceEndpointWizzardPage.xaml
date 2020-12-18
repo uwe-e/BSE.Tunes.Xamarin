@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
+             BackgroundColor="{DynamicResource BackgroundColor}"
+             NavigationPage.HasNavigationBar="False"
              x:Class="BSE.Tunes.XApp.Views.ServiceEndpointWizzardPage">
+    
     <Grid>
 
         <ScrollView HorizontalOptions="Center">
@@ -26,8 +30,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-
-                    <Label Text="Enter the address of the web that contains the audio service."
+                    <Label Text="{i18n:Translate ServiceEndpointWizzardPage_Label_ServiceEndPoint_Text}"
                            Margin="0,8"
                            HorizontalTextAlignment="Center"/>
                     <Entry Text="{Binding ServiceEndPoint, Mode=TwoWay}"

@@ -39,32 +39,32 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public bool IsActive
         {
-            get { return _isActive; }
-            set { SetProperty(ref _isActive, value, RaiseIsActiveChanged); }
+            get => _isActive;
+            set => SetProperty(ref _isActive, value, RaiseIsActiveChanged);
         }
 
         public bool HasItems
         {
-            get { return _hasItems; }
-            set { SetProperty(ref _hasItems, value); }
+            get => _hasItems;
+            set => SetProperty(ref _hasItems, value);
         }
 
         public int PageSize
         {
-            get { return _pageSize; }
-            set { SetProperty(ref _pageSize, value); }
+            get => _pageSize;
+            set => SetProperty(ref _pageSize, value);
         }
 
         public int PageNumber
         {
-            get { return _pageNumber; }
-            set { SetProperty(ref _pageNumber, value); }
+            get => _pageNumber;
+            set => SetProperty(ref _pageNumber, value);
         }
 
         public int TotalNumberOfItems
         {
-            get { return _totalNumberOfItems; }
-            set { SetProperty(ref _totalNumberOfItems, value); }
+            get => _totalNumberOfItems;
+            set => SetProperty(ref _totalNumberOfItems, value);
         }
 
         public AlbumsPageViewModel(INavigationService navigationService,
@@ -151,7 +151,6 @@ namespace BSE.Tunes.XApp.ViewModels
                     {
                         { "album", album }
                     };
-                //await NavigationService.NavigateAsync("NavigationPage/AlbumDetailPage", navigationParams);
                 await NavigationService.NavigateAsync($"{nameof(AlbumDetailPage)}", navigationParams);
             }
         }

@@ -7,13 +7,13 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.SettingsPage"
              Title="{i18n:Translate SettingsPage_Title}">
-    
+
     <ContentPage.Content>
         <TableView Intent="Settings">
             <TableRoot>
                 <TableSection Title="{i18n:Translate SettingsPage_SectionWebserver_Title}">
                     <TextCell Text="{i18n:Translate SettingsPage_SectionWebserver_Description_Text}"
-                              Detail="{Binding ServiceEndPoint}" 
+                              Detail="{Binding ServiceEndPoint}"
                               Command="{Binding ToServiceEndpointDetailCommand}"
                               bseios:TextCell.Accessory="DisclosureIndicator"/>
                 </TableSection>

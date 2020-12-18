@@ -27,6 +27,7 @@
 
         <Style x:Key="SectionHeaderButtonStyle" TargetType="controls:SectionHeaderButton">
             <Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}"/>
+            <Setter Property="TextTransform" Value="None"/>
             <Setter Property="TextColor" Value="{DynamicResource PrimaryLabelColor}"/>
         </Style>
 
@@ -47,5 +48,31 @@
             <Setter Property="BackgroundColor" Value="Transparent"/>
         </Style>
 
+        <Style TargetType="TextCell">
+            <Setter Property="TextColor" Value="Green"/>
+            <Setter Property="DetailColor" Value="{DynamicResource PrimaryLabelColor}"/>
+        </Style>
+        
+        <Style TargetType="controls:ListViewItem">
+            <Setter Property="TitleBackgroundColor" Value="{DynamicResource PrimaryLabelColor}"/>
+            <Setter Property="SubTitleBackgroundColor" Value="{DynamicResource SecondaryLabelColor}"/>
+        </Style>
+
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="{DynamicResource BackgroundColor}"/>
+            <Setter Property="BarTextColor" Value="{DynamicResource PrimaryLabelColor}"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="TextTransform" Value="None"/>
+        </Style>
+        
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="{DynamicResource PrimaryLabelColor}"/>
+            <Setter Property="BackgroundColor" Value="{DynamicResource SystemGray6}"/>
+            <Setter Property="PlaceholderColor" Value="{DynamicResource SecondaryLabelColor}"/>
+        </Style>
+        
+        
     </Application.Resources>
 </prism:PrismApplication>

@@ -15,7 +15,9 @@
 
     <controls:FlyoutPage.Content>
         <StackLayout Padding="5">
-            <StackLayout Orientation="Horizontal">
+            <controls:ListViewItem ImageSource="{Binding ImageSource}" Title="{Binding Title}"
+                                   SubTitle="{Binding SubTitle}"/>
+            <!--<StackLayout Orientation="Horizontal">
                 <Image Aspect="AspectFill"
                        HeightRequest="50"
                        WidthRequest="50"
@@ -29,7 +31,7 @@
                            Text="{Binding SubTitle}"
                            LineBreakMode="TailTruncation"/>
                 </StackLayout>
-            </StackLayout>
+            </StackLayout>-->
             <controls:FlyoutButton HorizontalOptions="FillAndExpand"
                                    ImageSource="{AppThemeBinding Light=icon_add_list_bk.png, Dark=icon_add_list_wh.png}"
                                    Text="{i18n:Translate ManageAlbumsPage_Button_AddToPlaylist}"

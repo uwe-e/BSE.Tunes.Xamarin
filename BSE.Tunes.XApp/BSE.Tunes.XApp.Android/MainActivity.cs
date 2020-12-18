@@ -9,8 +9,9 @@ using Prism.Ioc;
 
 namespace BSE.Tunes.XApp.Droid
 {
-    [Activity(Label = "BSE.Tunes.XApp",
-        Icon = "@drawable/ic_launcher",
+    [Activity(
+        Label = "@string/appName",
+        Icon = "@mipmap/ic_launcher",
         Theme = "@style/MainTheme",
         MainLauncher = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -21,6 +22,7 @@ namespace BSE.Tunes.XApp.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
+            base.SetTheme(Resource.Style.MainTheme);
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);

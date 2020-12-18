@@ -57,5 +57,7 @@
 	<array>
 		<string>audio</string>
 	</array>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>

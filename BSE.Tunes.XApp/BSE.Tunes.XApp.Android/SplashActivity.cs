@@ -7,8 +7,9 @@ using Android.Views;
 
 namespace BSE.Tunes.XApp.Droid
 {
-    [Activity(Label = "SplashActivity",
-        Icon = "@drawable/ic_launcher",
+    [Activity(
+        Label = "@string/appName",
+        Icon = "@mipmap/ic_launcher",
         Theme = "@style/SplashTheme",
         MainLauncher = true,
         NoHistory = true,

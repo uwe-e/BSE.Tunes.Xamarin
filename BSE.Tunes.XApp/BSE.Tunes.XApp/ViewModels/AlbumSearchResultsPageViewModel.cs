@@ -48,7 +48,7 @@ namespace BSE.Tunes.XApp.ViewModels
                     {
                         { "album", album }
                     };
-                await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(AlbumDetailPage)}", navigationParams);
+                await NavigationService.NavigateAsync($"{nameof(AlbumDetailPage)}", navigationParams);
             }
         }
     }

@@ -178,7 +178,7 @@
     <value>Enter your password</value>
   </data>
   <data name="LoginPage_Entry_Placeholder_EnterUserName" xml:space="preserve">
-    <value>Enter the username</value>
+    <value>Enter your username</value>
   </data>
   <data name="LoginSettingsPage_ActionSheet_Title" xml:space="preserve">
     <value>Do you want to delete your account for this BSETunes?</value>
@@ -194,6 +194,12 @@
   </data>
   <data name="LoginSettingsPage_Title" xml:space="preserve">
     <value>Account</value>
+  </data>
+  <data name="LoginWizzardPage_Label_Passwort_Text" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="LoginWizzardPage_Label_UserName_Text" xml:space="preserve">
+    <value>User name</value>
   </data>
   <data name="ManageAlbumsPage_ButtonClose_Text" xml:space="preserve">
     <value>Close</value>
@@ -256,7 +262,7 @@
     <value>Search</value>
   </data>
   <data name="ServiceEndpointSettingsPage_ActionSheet_Title" xml:space="preserve">
-    <value>Do you want to delete the address of this BSETunes?</value>
+    <value>Do you want to delete the address for this BSETunes?</value>
   </data>
   <data name="ServiceEndpointSettingsPage_ButtonDelete_Text" xml:space="preserve">
     <value>Delete Address</value>
@@ -269,6 +275,9 @@
   </data>
   <data name="ServiceEndpointSettingsPage_Title" xml:space="preserve">
     <value>Webserver</value>
+  </data>
+  <data name="ServiceEndpointWizzardPage_Label_ServiceEndPoint_Text" xml:space="preserve">
+    <value>Enter the address of the web that contains the desired BSEtunes.</value>
   </data>
   <data name="SettingsPage_SectionAccount_Description_Text" xml:space="preserve">
     <value>The Account for this BSEtunes</value>

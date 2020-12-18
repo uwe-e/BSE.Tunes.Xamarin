@@ -32,7 +32,7 @@
                                         <RowDefinition x:Name="actionRow" Height="*"/>
                                     </Grid.RowDefinitions>
                                     <Label x:Name="infoTitle" Text="{Binding Album.Title}" LineBreakMode="TailTruncation"
-                                           Grid.Row="0" FontSize="Header" TextColor="{StaticResource PrimaryLabelColor}"/>
+                                           Grid.Row="0" FontSize="Medium" TextColor="{StaticResource PrimaryLabelColor}"/>
                                     <Label x:Name="infoSubTitle" Text="{Binding Album.Artist.Name}" LineBreakMode="TailTruncation"
                                            Grid.Row="1" TextColor="{StaticResource SecondaryLabelColor}"/>
                                     <Label x:Name="albumGenre" LineBreakMode="TailTruncation"

@@ -4,6 +4,7 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+             xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
              x:Class="BSE.Tunes.XApp.Views.SearchPage"
              Title="{i18n:Translate SearchPage_Title}" Padding="10"
              BackgroundColor="{DynamicResource BackgroundColor}"
@@ -53,11 +54,11 @@
                                                 </StackLayout.GestureRecognizers>
                                                 <Grid Margin="15">
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="50"/>
+                                                        <!--<ColumnDefinition Width="50"/>-->
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="15"/>
                                                     </Grid.ColumnDefinitions>
-                                                    <Image Source="{Binding ImageSource}" 
+                                                    <!--<Image Source="{Binding ImageSource}" 
                                                        Aspect="AspectFill" HeightRequest="50"/>
                                                     <StackLayout Grid.Column="1">
                                                         <Label Text="{Binding Title}"
@@ -66,10 +67,14 @@
                                                                FontSize="13"
                                                                Text="{Binding SubTitle}"
                                                                LineBreakMode="TailTruncation"/>
-                                                    </StackLayout>
+                                                    </StackLayout>-->
+                                                    <controls:ListViewItem ImageSource="{Binding ImageSource}"
+                                                                           Title="{Binding Title}"
+                                                                           SubTitle="{Binding SubTitle}"
+                                                                           Grid.Column="0"/>
                                                     <Image Source="icon_chevron_right_d_gray"
                                                            Aspect="AspectFit"
-                                                           Grid.Column="2"/>
+                                                           Grid.Column="1"/>
                                                 </Grid>
 
                                                 <BoxView Style="{DynamicResource SeparatorItem}" />
@@ -104,11 +109,15 @@
                                                 </StackLayout.GestureRecognizers>
                                                 <Grid Margin="15">
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="50"/>
+                                                        <!--<ColumnDefinition Width="50"/>-->
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="15"/>
                                                     </Grid.ColumnDefinitions>
-                                                    <Image Source="{Binding ImageSource}" 
+                                                    <controls:ListViewItem ImageSource="{Binding ImageSource}"
+                                                                           Title="{Binding Title}"
+                                                                           SubTitle="{Binding SubTitle}"
+                                                                           Grid.Column="0"/>
+                                                    <!--<Image Source="{Binding ImageSource}" 
                                                            Aspect="AspectFill" HeightRequest="50"/>
                                                     <StackLayout Grid.Column="1">
                                                         <Label Text="{Binding Title}"
@@ -117,7 +126,7 @@
                                                                FontSize="13"
                                                                Text="{Binding SubTitle}"
                                                                LineBreakMode="TailTruncation"/>
-                                                    </StackLayout>
+                                                    </StackLayout>-->
                                                 </Grid>
 
                                                 <BoxView Style="{DynamicResource SeparatorItem}" />

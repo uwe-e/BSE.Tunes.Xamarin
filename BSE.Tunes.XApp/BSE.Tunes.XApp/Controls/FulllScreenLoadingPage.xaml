@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BSE.Tunes.XApp.Controls.FulllScreenLoadingPage">
+    
+    <ContentPage.ControlTemplate>
+        <ControlTemplate>
+            <AbsoluteLayout>
+                <ContentPresenter AbsoluteLayout.LayoutFlags="All"
+                                  AbsoluteLayout.LayoutBounds="0, 0, 1, 1" />
+
+                <ContentView AbsoluteLayout.LayoutFlags="All"
+                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                             BackgroundColor="{TemplateBinding BackgroundColor}"
+                             IsVisible="{Binding Path=BindingContext.IsBusy}">
+
+                    <ActivityIndicator HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       IsRunning="True"/>
+
+                </ContentView>
+            </AbsoluteLayout>
+        </ControlTemplate>
+    </ContentPage.ControlTemplate>
+    
+</ContentPage>

@@ -38,6 +38,7 @@
                                    Source="{Binding ImageSource}"/>
                             <Entry Text="{Binding PlaylistName}"
                                    HorizontalOptions="FillAndExpand"
+                                   ReturnCommand="{Binding SaveCommand}"
                                    Placeholder="{i18n:Translate NewPlaylistDialogPage_Entry_Placeholder_EnterUserName}"/>
                         </StackLayout>
                     </StackLayout>

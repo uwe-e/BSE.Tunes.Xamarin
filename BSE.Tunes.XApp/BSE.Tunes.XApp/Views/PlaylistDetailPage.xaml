@@ -35,11 +35,11 @@
                                         <RowDefinition x:Name="actionRow" Height="*"/>
                                     </Grid.RowDefinitions>
                                     <Label x:Name="infoTitle" Text="{Binding Playlist.Name}" LineBreakMode="TailTruncation"
-                                       Grid.Row="0" FontSize="Medium" TextColor="{StaticResource PrimaryLabelColor}"/>
+                                       Grid.Row="0" FontSize="Medium" TextColor="{DynamicResource PrimaryLabelColor}"/>
                                     <Label x:Name="infoSubTitle" Text="{Binding Album.Artist.Name}" LineBreakMode="TailTruncation"
-                                       Grid.Row="1" TextColor="{StaticResource SecondaryLabelColor}"/>
+                                       Grid.Row="1" TextColor="{DynamicResource SecondaryLabelColor}"/>
                                     <Label x:Name="albumGenre" LineBreakMode="TailTruncation"
-                                       Grid.Row="2" TextColor="{StaticResource SecondaryLabelColor}">
+                                       Grid.Row="2" TextColor="{DynamicResource SecondaryLabelColor}">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{Binding Album.Year}"/>
@@ -53,13 +53,13 @@
                             <StackLayout VerticalOptions="StartAndExpand">
                                 <StackLayout Orientation="Horizontal">
                                     <Button Text="{i18n:Translate PlaylistDetailPage_Button_PlayAll_Text}"
-                                        ImageSource="icon_play_d_blue_20_50"
-                                        HorizontalOptions="Start"
-                                        Command="{Binding PlayAllCommand}"/>
+                                            ImageSource="{AppThemeBinding Light=icon_play_pk_light.png, Dark=icon_play_pk_dark.png}"
+                                            Command="{Binding PlayAllCommand}"
+                                            Style="{DynamicResource DetailActionButtonStyle}"/>
                                     <Button Text="{i18n:Translate PlaylistDetailPage_Button_PlayRandomized_Text}"
-                                        ImageSource="icon_shuffle_d_blue_20_50"
-                                        HorizontalOptions="End"
-                                        Command="{Binding PlayAllRandomizedCommand}"/>
+                                            ImageSource="{AppThemeBinding Light=icon_shuffle_pk_light.png, Dark=icon_shuffle_pk_dark.png}"
+                                            Command="{Binding PlayAllRandomizedCommand}"
+                                            Style="{DynamicResource DetailActionButtonStyle}"/>
                                 </StackLayout>
                             </StackLayout>
                         </StackLayout>
@@ -77,15 +77,15 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding ImageSource, Mode=TwoWay}" 
-                                                       Aspect="AspectFill" HeightRequest="50"/>
+                                    <Image Source="{Binding ImageSource, Mode=TwoWay}"
+                                           Aspect="AspectFill" HeightRequest="50"/>
                                     <StackLayout Grid.Column="1">
                                         <Label Text="{Binding Title}"
-                                                           LineBreakMode="TailTruncation"/>
+                                               LineBreakMode="TailTruncation"/>
                                         <Label Margin="0,-5,0,0"
-                                                           FontSize="13"
-                                                           Text="{Binding SubTitle}"
-                                                           LineBreakMode="TailTruncation"/>
+                                               FontSize="13"
+                                               Text="{Binding SubTitle}"
+                                               LineBreakMode="TailTruncation"/>
                                     </StackLayout>
                                     <Button Grid.Column="2"
                                             Style="{DynamicResource ContextMenuButtonStyle}"

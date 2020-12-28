@@ -19,7 +19,8 @@ namespace BSE.Tunes.XApp.Droid.Services
 
         public Task<bool> CloseAsync()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public void Pause()

@@ -19,7 +19,7 @@
                     <ViewCell>
                         <Button Text="{i18n:Translate LoginSettingsPage_ButtonDelete_Text}"
                                 Command="{Binding DeleteCommand}"
-                                Style="{StaticResource DestroyButtonStyle}"/>
+                                Style="{StaticResource SubmitActionButtonStyle}"/>
                     </ViewCell>
                 </TableSection>
             </TableRoot>

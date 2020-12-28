@@ -4,9 +4,23 @@
              x:Class="BSE.Tunes.XApp.Styles.DarkTheme">
 
     <Color x:Key="BackgroundColor">#FF000000</Color>
-    <Color x:Key="SystemBlue">#0A84FF</Color>
-    <Color x:Key="SystemRed">#FF455F</Color>
 
+    <Color x:Key="SystemWhite">#FFFFFFFF</Color>
+    
+    <Color x:Key="SystemBlue">#0A84FF</Color>
+    <Color x:Key="SystemGreen">#30D158</Color>
+    <Color x:Key="SystemIndigo">#5E5CE6</Color>
+    <Color x:Key="SystemOrange">#FF9F0A</Color>
+    <Color x:Key="SystemPink">#FF375F</Color>
+    <Color x:Key="SystemPurple">#BF5AF2</Color>
+    <Color x:Key="SystemRed">#FF455F</Color>
+    <Color x:Key="SystemTeal">#64D2FF</Color>
+    
+
+    <Color x:Key="SystemGray">#8E9398</Color>
+    <Color x:Key="SystemGray2">#636366</Color>
+    <Color x:Key="SystemGray3">#48484A</Color>
+    <Color x:Key="SystemGray4">#3A3A3C</Color>
     <Color x:Key="SystemGray5">#2C2C2E</Color>
     <Color x:Key="SystemGray6">#1C1C1E</Color>
 

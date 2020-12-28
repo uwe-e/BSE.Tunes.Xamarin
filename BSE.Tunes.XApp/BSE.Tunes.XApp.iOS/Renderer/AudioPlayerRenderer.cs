@@ -33,6 +33,12 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             if (Element != null)
             {
                 SetupUserInterface();
+                if (e.NewElement.ProgressColor != Color.Default)
+                {
+                    SetProgressColor(e.NewElement.ProgressColor);
+                }
+
+                UpdateIconColors();
             }
         }
 
@@ -50,7 +56,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
                                    Bounds.Top,
                                    Bounds.Width - 4,
                                    7);
-            
+
             _coverImageView.Frame = new CGRect(leftX,
                                    7,
                                    controlWidth,
@@ -77,7 +83,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
                                    controlHeight);
 
             _bottomBorder.Frame = new CGRect(Bounds.Left,
-                Bounds.Top + Bounds.Height -1 ,
+                Bounds.Top + Bounds.Height - 1,
                 Bounds.Width,
                 1);
         }
@@ -86,9 +92,14 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         {
             base.OnElementPropertyChanged(sender, e);
 
+            System.Diagnostics.Debug.WriteLine($"{nameof(OnElementChanged)} Property: {e.PropertyName}");
             if (e.PropertyName == nameof(Player.Progress))
             {
                 SetProgress(Player.Progress);
+            }
+            if (e.PropertyName == nameof(Player.ProgressColor))
+            {
+                SetProgressColor(Player.ProgressColor);
             }
             if (e.PropertyName == nameof(Player.AudioPlayerState))
             {
@@ -108,63 +119,49 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             }
         }
 
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+            if (previousTraitCollection?.UserInterfaceStyle != TraitCollection.UserInterfaceStyle)
+            {
+                UpdateIconColors();
+            }
+        }
+
         private void SetupUserInterface()
         {
             _progressView = new UIProgressView()
             {
-                //BackgroundColor = UIColor.Red,
                 Progress = (float)Player.Progress
             };
-
             AddSubview(_progressView);
 
-            _coverImageView = new UIImageView()
-            {
-                //BackgroundColor = UIColor.Orange,
-            };
-
+            _coverImageView = new UIImageView();
             AddSubview(_coverImageView);
 
             _titleLabel = new UILabel()
             {
-                //BackgroundColor = UIColor.Blue,
                 LineBreakMode = UILineBreakMode.TailTruncation,
-                //Text = "This is the title"
             };
-
             AddSubview(_titleLabel);
 
             _artistLabel = new UILabel()
             {
-                //BackgroundColor = UIColor.Red,
                 LineBreakMode = UILineBreakMode.TailTruncation,
-                //Text = "This is the title",
                 Font = UIFont.SystemFontOfSize(11)
             };
-
             AddSubview(_artistLabel);
 
-            _playButton = new UIButton()
-            {
-                //BackgroundColor = UIColor.Green,
-            };
-            _playButton.SetBackgroundImage(UIImage.FromFile("icon_play_d_blue_20_50"), UIControlState.Normal);
+            _playButton = new UIButton();
             _playButton.TouchUpInside -= PlayButtonTouchUpInside;
             _playButton.TouchUpInside += PlayButtonTouchUpInside;
-
             AddSubview(_playButton);
 
-            _playNextButton = new UIButton()
-            {
-                //BackgroundColor = UIColor.Yellow,
-            };
-            _playNextButton.SetBackgroundImage(UIImage.FromFile("icon-playnext_gray_20_50"), UIControlState.Disabled);
-            _playNextButton.SetBackgroundImage(UIImage.FromFile("icon-playnext_d_blue_20_50"), UIControlState.Normal);
+            _playNextButton = new UIButton();
             _playNextButton.TouchUpInside -= PlayNextButtonTouchUpInside;
             _playNextButton.TouchUpInside += PlayNextButtonTouchUpInside;
             _playNextButton.Enabled = false;
             AddSubview(_playNextButton);
-
 
             _bottomBorder = new UIView
             {
@@ -172,6 +169,37 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             };
             AddSubview(_bottomBorder);
         }
+        
+        private void UpdateIconColors()
+        {
+            if (this.TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
+            {
+                _playButton?.SetBackgroundImage(UIImage.FromFile("icon_play_wh_20"), UIControlState.Normal);
+                if (_audioPlayerState == AudioPlayerState.Playing)
+                {
+                    _playButton?.SetBackgroundImage(UIImage.FromFile("icon_pause_wh_20"), UIControlState.Normal);
+                }
+                
+                _playNextButton?.SetBackgroundImage(UIImage.FromFile("icon_playnext_wh"), UIControlState.Normal);
+                _playNextButton?.SetBackgroundImage(UIImage.FromFile("icon_playnext_gy_dark"), UIControlState.Disabled);
+            }
+            else
+            {
+                _playButton?.SetBackgroundImage(UIImage.FromFile("icon_play_bk_20"), UIControlState.Normal);
+                if(_audioPlayerState == AudioPlayerState.Playing)
+                {
+                    _playButton?.SetBackgroundImage(UIImage.FromFile("icon_pause_bk_20"), UIControlState.Normal);
+                }
+
+                _playNextButton?.SetBackgroundImage(UIImage.FromFile("icon_playnext_bk"), UIControlState.Normal);
+                _playNextButton?.SetBackgroundImage(UIImage.FromFile("icon_playnext_gy_light"), UIControlState.Disabled);
+            }
+        }
+        private void SetProgressColor(Color progressColor)
+        {
+            _progressView.ProgressTintColor = progressColor.ToUIColor();
+        }
+
         private void SetProgress(double progress)
         {
             _progressView.Hidden = progress == default ? true : false;
@@ -194,16 +222,23 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         private void SetPlayerState(AudioPlayerState audioPlayerState)
         {
             _audioPlayerState = audioPlayerState;
+            
+            var iconPlay = "icon_play_bk_20";
+            var iconPause = "icon_pause_bk_20";
+            if (this.TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
+            {
+                iconPlay = "icon_play_wh_20";
+                iconPause = "icon_pause_wh_20";
+            }
+
             switch (audioPlayerState)
             {
                 case AudioPlayerState.Playing:
-                    _playButton.SetBackgroundImage(UIImage.FromFile("icon_pause_d_blue_20_50@2x.png"), UIControlState.Normal);
+                    _playButton.SetBackgroundImage(UIImage.FromFile(iconPause), UIControlState.Normal);
                     break;
                 case AudioPlayerState.Paused:
-                    _playButton.SetBackgroundImage(UIImage.FromFile("icon_play_d_blue_20_50@2x.png"), UIControlState.Normal);
+                    _playButton.SetBackgroundImage(UIImage.FromFile(iconPlay), UIControlState.Normal);
                     break;
-                //default:
-                //    break;
             }
         }
 

@@ -135,6 +135,9 @@
   <data name="AlbumsPage_Title" xml:space="preserve">
     <value>Albums</value>
   </data>
+  <data name="AlertDialog_Error_Title_Text" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="CacheSettingsPage_ActionSheet_Title" xml:space="preserve">
     <value>Are you sure you want to delete all downloaded files?</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="CacheSettingsPage_Title" xml:space="preserve">
     <value>Disk Space</value>
+  </data>
+  <data name="Dialog_Result_Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="Dialog_Result_Ok" xml:space="preserve">
     <value>OK</value>
@@ -207,6 +213,9 @@
   <data name="ManageAlbumsPage_Button_AddToPlaylist" xml:space="preserve">
     <value>Add to playlist</value>
   </data>
+  <data name="ManageAlbumsPage_Button_DisplayAlbumInfo" xml:space="preserve">
+    <value>Show album</value>
+  </data>
   <data name="ManageAlbumsPage_Button_RemoveFromPlaylist" xml:space="preserve">
     <value>Remove from playlist</value>
   </data>
@@ -236,6 +245,9 @@
   </data>
   <data name="PlaylistSelectorDialogPage_ButtonCancel_Text" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="PlaylistSelectorDialogPage_Button_NewPlaylist_Text" xml:space="preserve">
+    <value>New Playlist</value>
   </data>
   <data name="PlaylistSelectorDialogPage_Title" xml:space="preserve">
     <value>Add to playlist</value>

@@ -8,7 +8,7 @@
  
             <ffimageLoading:CachedImage Source="{Binding ImageSource}" Aspect="AspectFill"/>
 
-            <StackLayout BackgroundColor="#C0000000" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+            <StackLayout BackgroundColor="#A0000000" VerticalOptions="End" HorizontalOptions="FillAndExpand">
                 <Label HorizontalTextAlignment="Center"
                        Text="{Binding Title}"
                        TextColor="White"

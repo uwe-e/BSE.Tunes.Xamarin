@@ -30,22 +30,13 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public string ImageSource
         {
-            get
-            {
-                return _imageSource;
-            }
-            set
-            {
-                SetProperty<string>(ref _imageSource, value);
-            }
+            get => _imageSource;
+            set => SetProperty<string>(ref _imageSource, value);
         }
 
         public string PlaylistName
         {
-            get
-            {
-                return _playlistName;
-            }
+            get => _playlistName;
             set
             {
                 SetProperty<string>(ref _playlistName, value);

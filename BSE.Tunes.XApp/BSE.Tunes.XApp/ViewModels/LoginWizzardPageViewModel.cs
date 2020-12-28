@@ -17,10 +17,7 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public string UserName
         {
-            get
-            {
-                return _userName;
-            }
+            get => _userName;
             set
             {
                 SetProperty(ref _userName, value);
@@ -29,10 +26,7 @@ namespace BSE.Tunes.XApp.ViewModels
         }
         public string Password
         {
-            get
-            {
-                return _password;
-            }
+            get => _password;
             set
             {
                 SetProperty(ref _password, value);
@@ -65,9 +59,14 @@ namespace BSE.Tunes.XApp.ViewModels
             }
             catch (Exception)
             {
+                var title = ResourceService.GetString("AlertDialog_Error_Title_Text");
                 var message = ResourceService.GetString("LoginPageViewModel_LoginException");
-                var dialogResult = ResourceService.GetString("Dialog_Result_Ok");
-                await _pageDialogService.DisplayAlertAsync("", message, dialogResult);
+                var dialogResult = ResourceService.GetString("Dialog_Result_Cancel");
+                
+                await _pageDialogService.DisplayAlertAsync(
+                    title,
+                    message,
+                    dialogResult);
             }
         }
 

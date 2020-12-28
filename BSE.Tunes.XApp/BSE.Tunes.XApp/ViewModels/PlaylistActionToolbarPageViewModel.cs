@@ -2,9 +2,11 @@
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
+using System;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -19,11 +21,13 @@ namespace BSE.Tunes.XApp.ViewModels
         private ICommand _addToPlaylistCommand;
         private ICommand _removeFromPlaylistCommand;
         private ICommand _removePlaylistCommand;
+        private ICommand _displayAlbumInfoCommand;
         private string _imageSource;
         private string _subTitle;
         private PlaylistActionContext _playlistActionContext;
         private bool _canRemovePlaylist;
         private bool _canRemoveFromPlaylist;
+        private bool _canDisplayAlbumInfo;
 
         public ICommand CloseFlyoutCommand => _closeFlyoutCommand
             ?? (_closeFlyoutCommand = new DelegateCommand(CloseFlyout));
@@ -37,52 +41,37 @@ namespace BSE.Tunes.XApp.ViewModels
         public ICommand RemovePlaylistCommand => _removePlaylistCommand
             ?? (_removePlaylistCommand = new DelegateCommand(RemovePlaylist));
 
+        public ICommand DisplayAlbumInfoCommand => _displayAlbumInfoCommand
+            ?? (_displayAlbumInfoCommand = new DelegateCommand(ShowAlbum));
+
         public string ImageSource
         {
-            get
-            {
-                return _imageSource;
-            }
-            set
-            {
-                SetProperty<string>(ref _imageSource, value);
-            }
+            get => _imageSource;
+            set => SetProperty<string>(ref _imageSource, value);
         }
 
         public string SubTitle
         {
-            get
-            {
-                return _subTitle;
-            }
-            set
-            {
-                SetProperty<string>(ref _subTitle, value);
-            }
+            get => _subTitle;
+            set => SetProperty<string>(ref _subTitle, value);
         }
 
         public bool CanRemovePlaylist
         {
-            get
-            {
-                return _canRemovePlaylist;
-            }
-            set
-            {
-                SetProperty<bool>(ref _canRemovePlaylist, value);
-            }
+            get => _canRemovePlaylist;
+            set => SetProperty<bool>(ref _canRemovePlaylist, value);
         }
 
         public bool CanRemoveFromPlaylist
         {
-            get
-            {
-                return _canRemoveFromPlaylist;
-            }
-            set
-            {
-                SetProperty<bool>(ref _canRemoveFromPlaylist, value);
-            }
+            get => _canRemoveFromPlaylist;
+            set => SetProperty<bool>(ref _canRemoveFromPlaylist, value);
+        }
+
+        public bool CanDisplayAlbumInfo
+        {
+            get => _canDisplayAlbumInfo;
+            set => SetProperty<bool>(ref _canDisplayAlbumInfo, value);
         }
 
         public PlaylistActionToolbarPageViewModel(
@@ -121,6 +110,7 @@ namespace BSE.Tunes.XApp.ViewModels
             if (_playlistActionContext?.Data is PlaylistEntry playlistEntry)
             {
                 CanRemoveFromPlaylist = true;
+                CanDisplayAlbumInfo = true;
                 Title = playlistEntry.Track?.Name;
                 SubTitle = playlistEntry.Artist;
                 ImageSource = _imageService.GetBitmapSource(playlistEntry.AlbumId, true);
@@ -157,6 +147,15 @@ namespace BSE.Tunes.XApp.ViewModels
             if (_playlistActionContext != null)
             {
                 _playlistActionContext.ActionMode = PlaylistActionMode.RemoveFromPlaylist;
+                _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(_playlistActionContext);
+            }
+        }
+        
+        private void ShowAlbum()
+        {
+            if (_playlistActionContext != null)
+            {
+                _playlistActionContext.ActionMode = PlaylistActionMode.ShowAlbum;
                 _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(_playlistActionContext);
             }
         }

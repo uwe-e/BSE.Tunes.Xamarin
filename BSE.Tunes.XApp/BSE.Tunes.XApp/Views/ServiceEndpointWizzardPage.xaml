@@ -35,8 +35,11 @@
                            HorizontalTextAlignment="Center"/>
                     <Entry Text="{Binding ServiceEndPoint, Mode=TwoWay}"
                            Margin="0,8"
+                           ReturnCommand="{Binding SaveCommand}"
+                           ReturnType="Done"
                            Grid.Row="1" />
                     <Button Text="Submit" Command="{Binding SaveCommand}"
+                            Style="{DynamicResource SubmitActionButtonStyle}"
                             Grid.Row="2"/>
 
                 </Grid>

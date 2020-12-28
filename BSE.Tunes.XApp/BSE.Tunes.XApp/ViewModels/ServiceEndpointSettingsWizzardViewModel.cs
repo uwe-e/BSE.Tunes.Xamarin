@@ -19,10 +19,7 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public string ServiceEndPoint
         {
-            get
-            {
-                return _serviceEndPoint;
-            }
+            get => _serviceEndPoint;
             set
             {
                 SetProperty(ref _serviceEndPoint, value);
@@ -31,11 +28,6 @@ namespace BSE.Tunes.XApp.ViewModels
         }
 
         public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(Save, CanSave));
-
-        private bool CanSave()
-        {
-            return !String.IsNullOrEmpty(ServiceEndPoint);
-        }
 
         public ServiceEndpointSettingsWizzardViewModel(INavigationService navigationService,
             IResourceService resourceService,
@@ -49,7 +41,12 @@ namespace BSE.Tunes.XApp.ViewModels
             _dataService = dataService;
             _authenticationService = authenticationService;
         }
-
+        
+        private bool CanSave()
+        {
+            return !String.IsNullOrEmpty(ServiceEndPoint);
+        }
+        
         private async void Save()
         {
             var uriBuilder = new UriBuilder(ServiceEndPoint);
@@ -77,7 +74,13 @@ namespace BSE.Tunes.XApp.ViewModels
             }
             catch (Exception exception)
             {
-                await _pageDialogService.DisplayAlertAsync("test", exception.Message, "cancel");
+                var title = ResourceService.GetString("AlertDialog_Error_Title_Text");
+                var dialogResult = ResourceService.GetString("Dialog_Result_Cancel");
+
+                await _pageDialogService.DisplayAlertAsync(
+                    title,
+                    exception.Message,
+                    dialogResult);
             }
         }
     }

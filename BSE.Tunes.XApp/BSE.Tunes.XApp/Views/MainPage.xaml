@@ -20,10 +20,12 @@
     NavigationPage.HasNavigationBar="False">
 
     <controls:ExtendedTabbedPage.AudioPlayerBar>
+
         <controls:AudioPlayer PlayCommand="{Binding PlayCommand}"
                               PauseCommand="{Binding PauseCommand}"
                               PlayNextCommand="{Binding PlayNextCommand}"
                               Progress="{Binding Progress, Mode=TwoWay}"
+                              ProgressColor="{DynamicResource SystemPink}"
                               Track="{Binding CurrentTrack, Mode=TwoWay}"
                               Cover="{Binding CoverSource, Mode=TwoWay}"
                               AudioPlayerState="{Binding AudioPlayerState, Mode=TwoWay}"/>

@@ -1,6 +1,7 @@
 ﻿using BSE.Tunes.XApp.Controls;
 using BSE.Tunes.XApp.iOS.Renderer;
 using System;
+using System.ComponentModel;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -41,6 +42,18 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (Tabbed != null)
+                {
+                    Tabbed.PropertyChanged -= OnPropertyChanged;
+                }
+            }
+            base.Dispose(disposing);
+        }
+
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
             base.OnElementChanged(e);
@@ -51,11 +64,21 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             }
             try
             {
+                Tabbed.PropertyChanged += OnPropertyChanged;
                 SetupUserInterface();
+                UpdatePlayerBackgroundColor();
             }
             catch (Exception exception)
             {
                 System.Diagnostics.Debug.WriteLine($"\t\t\tERROR: {exception.Message}");
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == TabbedPage.BarBackgroundColorProperty.PropertyName)
+            {
+                UpdatePlayerBackgroundColor();
             }
         }
 
@@ -69,10 +92,13 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             }
             _audioPlayerBar = audioPlayerRenderer.NativeView;
             _audioPlayerBar.Hidden = false;
-            _audioPlayerBar.BackgroundColor = ((TabbedPage)Element).BarBackgroundColor.ToUIColor();
 
             View.AddSubview(_audioPlayerBar);
-            //View.Add(_audioPlayerBar);
+        }
+        
+        private void UpdatePlayerBackgroundColor()
+        {
+            _audioPlayerBar.BackgroundColor = ((TabbedPage)Element).BarBackgroundColor.ToUIColor();
         }
     }
 }

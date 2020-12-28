@@ -48,23 +48,39 @@
             <Setter Property="BackgroundColor" Value="Transparent"/>
         </Style>
 
-        <Style TargetType="TextCell">
-            <Setter Property="TextColor" Value="Green"/>
-            <Setter Property="DetailColor" Value="{DynamicResource PrimaryLabelColor}"/>
-        </Style>
-        
         <Style TargetType="controls:ListViewItem">
             <Setter Property="TitleBackgroundColor" Value="{DynamicResource PrimaryLabelColor}"/>
             <Setter Property="SubTitleBackgroundColor" Value="{DynamicResource SecondaryLabelColor}"/>
         </Style>
 
         <Style TargetType="NavigationPage">
-            <Setter Property="BarBackgroundColor" Value="{DynamicResource BackgroundColor}"/>
+            <Setter Property="BarBackgroundColor" Value="{DynamicResource SystemGray6}"/>
             <Setter Property="BarTextColor" Value="{DynamicResource PrimaryLabelColor}"/>
         </Style>
 
         <Style TargetType="Button">
             <Setter Property="TextTransform" Value="None"/>
+        </Style>
+
+        <Style x:Key="SubmitActionButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{DynamicResource SystemPink}"/>
+            <Setter Property="TextColor" Value="{DynamicResource SystemWhite}"/>
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="{DynamicResource SystemWhite}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="DetailActionButtonStyle" TargetType="Button">
+            <Setter Property="TextColor" Value="{DynamicResource SystemPink}"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
         </Style>
         
         <Style TargetType="Entry">

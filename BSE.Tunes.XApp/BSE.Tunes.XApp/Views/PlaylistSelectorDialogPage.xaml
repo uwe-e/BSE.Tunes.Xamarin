@@ -13,27 +13,26 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <StackLayout Padding="5">
+                <StackLayout Padding="5" Margin="0,10">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="33*"/>
-                            <ColumnDefinition Width="33*"/>
-                            <ColumnDefinition Width="33*"/>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
                         </Grid.ColumnDefinitions>
 
                         <Button Grid.Column="0"
                             HorizontalOptions="StartAndExpand"
                             Text="{i18n:Translate PlaylistSelectorDialogPage_ButtonCancel_Text}"
-                            Command="{Binding CancelCommand}"/>
+                            Command="{Binding CancelCommand}"
+                                Style="{DynamicResource DetailActionButtonStyle}"/>
                         <Label Grid.Column="1" 
                            Text="{i18n:Translate PlaylistSelectorDialogPage_Title}"
-                               HorizontalOptions="CenterAndExpand"
+                               HorizontalOptions="StartAndExpand"
                            VerticalOptions="Center"/>
-                        <Button Grid.Column="2" 
-                                Text="+" 
-                                Command="{Binding OpenNewPlaylistDialogCommand}"
-                                VerticalOptions="Center" HorizontalOptions="End"/>
                     </Grid>
+                    <Button Text="{i18n:Translate PlaylistSelectorDialogPage_Button_NewPlaylist_Text}"
+                            Command="{Binding OpenNewPlaylistDialogCommand}"
+                            Style="{StaticResource SubmitActionButtonStyle}"/>
                     <CollectionView ItemsSource="{Binding PlaylistFlyoutItems}" VerticalOptions="FillAndExpand">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>

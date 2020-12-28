@@ -36,8 +36,8 @@
                         
                         <Entry Text="{Binding UserName, Mode=TwoWay}"
                                Placeholder="{i18n:Translate LoginPage_Entry_Placeholder_EnterUserName}"
-                               PlaceholderColor="{DynamicResource SecondaryLabelColor}"
-                               BackgroundColor="{DynamicResource SystemGray6}"
+                               ReturnCommand="{Binding SaveCommand}"
+                               ReturnType="Done"
                                Margin="0,8"
                                Grid.Row="1"/>
 
@@ -47,12 +47,13 @@
                         <Entry Text="{Binding Password, Mode=TwoWay}"
                                IsPassword="true"
                                Placeholder="{i18n:Translate LoginPage_Entry_Placeholder_EnterPassword}"
-                               PlaceholderColor="{DynamicResource SecondaryLabelColor}"
-                               BackgroundColor="{DynamicResource SystemGray6}"
+                               ReturnCommand="{Binding SaveCommand}"
+                               ReturnType="Done"
                                Margin="0,8"
                                Grid.Row="3"/>
                         <Button Text="{i18n:Translate LoginPage_Button_Text_Login}"
                                 Command="{Binding SaveCommand}"
+                                Style="{DynamicResource SubmitActionButtonStyle}"
                                 Grid.Row="4"/>
 
 

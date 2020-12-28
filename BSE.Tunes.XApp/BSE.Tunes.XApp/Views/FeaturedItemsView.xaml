@@ -10,11 +10,11 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <Style x:Key="ActiveIndicator" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="{StaticResource SystemBlue}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource SystemPink}" />
             </Style>
             <Style x:Key="InactiveIndicator" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="OutlineColor" Value="{StaticResource SystemBlue}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource TerciaryLabelColor}" />
+                <Setter Property="OutlineColor" Value="{DynamicResource TerciaryLabelColor}" />
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
@@ -37,13 +37,10 @@
                         </DataTemplate>
                     </cv:CoverFlowView.ItemTemplate>
 
-                    <!--<cvcntrols:IndicatorsControl  AbsoluteLayout.LayoutBounds="100, 250, 100, 50" AbsoluteLayout.LayoutFlags="None"  SelectedIndicatorStyle="{StaticResource ActiveIndicator}"/>-->
                     <cvcntrols:IndicatorsControl  AbsoluteLayout.LayoutBounds=".5, 1.08, -1, -1"
                                                   AbsoluteLayout.LayoutFlags="PositionProportional"
                                                   SelectedIndicatorStyle="{StaticResource ActiveIndicator}"
                                                   UnselectedIndicatorStyle="{StaticResource InactiveIndicator}"/>
-                    <!--<cvcntrols:LeftArrowControl />
-                <cvcntrols:RightArrowControl/>-->
                 </cv:CoverFlowView>
             </StackLayout>
             <StackLayout IsVisible="{Binding IsBusy}" Padding="12"

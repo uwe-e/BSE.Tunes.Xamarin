@@ -19,8 +19,8 @@ namespace BSE.Tunes.XApp.Controls
 
         public ICommand PlayCommand
         {
-            get { return (ICommand)GetValue(PlayCommandProperty); }
-            set { SetValue(PlayCommandProperty, value); }
+            get => (ICommand)GetValue(PlayCommandProperty);
+            set => SetValue(PlayCommandProperty, value);
         }
 
         public static readonly BindableProperty PlayCommandParameterProperty
@@ -33,8 +33,8 @@ namespace BSE.Tunes.XApp.Controls
 
         public object PlayCommandParameter
         {
-            get { return GetValue(PlayCommandParameterProperty); }
-            set { SetValue(PlayCommandParameterProperty, value); }
+            get => GetValue(PlayCommandParameterProperty);
+            set => SetValue(PlayCommandParameterProperty, value);
         }
 
         public static readonly BindableProperty PauseCommandProperty
@@ -48,8 +48,8 @@ namespace BSE.Tunes.XApp.Controls
 
         public ICommand PauseCommand
         {
-            get { return (ICommand)GetValue(PauseCommandProperty); }
-            set { SetValue(PauseCommandProperty, value); }
+            get => (ICommand)GetValue(PauseCommandProperty);
+            set => SetValue(PauseCommandProperty, value);
         }
 
         public static readonly BindableProperty PauseCommandParameterProperty
@@ -62,8 +62,8 @@ namespace BSE.Tunes.XApp.Controls
 
         public object PauseCommandParameter
         {
-            get { return GetValue(PauseCommandParameterProperty); }
-            set { SetValue(PauseCommandParameterProperty, value); }
+            get => GetValue(PauseCommandParameterProperty);
+            set => SetValue(PauseCommandParameterProperty, value);
         }
 
         public static readonly BindableProperty PlayNextCommandProperty
@@ -77,8 +77,8 @@ namespace BSE.Tunes.XApp.Controls
 
         public ICommand PlayNextCommand
         {
-            get { return (ICommand)GetValue(PlayNextCommandProperty); }
-            set { SetValue(PlayNextCommandProperty, value); }
+            get => (ICommand)GetValue(PlayNextCommandProperty);
+            set => SetValue(PlayNextCommandProperty, value);
         }
 
         public static readonly BindableProperty PlayNextCommandParameterProperty
@@ -91,8 +91,8 @@ namespace BSE.Tunes.XApp.Controls
 
         public object PlayNextCommandParameter
         {
-            get { return GetValue(PlayNextCommandParameterProperty); }
-            set { SetValue(PlayNextCommandParameterProperty, value); }
+            get => GetValue(PlayNextCommandParameterProperty);
+            set => SetValue(PlayNextCommandParameterProperty, value);
         }
 
         public static readonly BindableProperty ProgressProperty
@@ -103,8 +103,8 @@ namespace BSE.Tunes.XApp.Controls
 
         public double Progress
         {
-            get { return (double)GetValue(ProgressProperty); }
-            set { SetValue(ProgressProperty, value); }
+            get => (double)GetValue(ProgressProperty);
+            set => SetValue(ProgressProperty, value);
         }
 
         public static readonly BindableProperty AudioPlayerStateProperty
@@ -114,10 +114,19 @@ namespace BSE.Tunes.XApp.Controls
                         typeof(AudioPlayer),
                         AudioPlayerState.Closed);
 
+        public static readonly BindableProperty ProgressColorProperty =
+            BindableProperty.Create(nameof(ProgressColor), typeof(Color), typeof(AudioPlayer), default(Color));
+
+        public Color ProgressColor
+        {
+            get => (Color)GetValue(ProgressColorProperty);
+            set => SetValue(ProgressColorProperty, value);
+        }
+
         public AudioPlayerState AudioPlayerState
         {
-            get { return (AudioPlayerState)GetValue(AudioPlayerStateProperty); }
-            set { SetValue(AudioPlayerStateProperty, value); }
+            get => (AudioPlayerState)GetValue(AudioPlayerStateProperty);
+            set => SetValue(AudioPlayerStateProperty, value);
         }
 
         public static readonly BindableProperty TrackProperty
@@ -128,8 +137,8 @@ namespace BSE.Tunes.XApp.Controls
 
         public Track Track
         {
-            get { return (Track)GetValue(TrackProperty); }
-            set { SetValue(TrackProperty, value); }
+            get => (Track)GetValue(TrackProperty);
+            set => SetValue(TrackProperty, value);
         }
 
 
@@ -141,8 +150,8 @@ namespace BSE.Tunes.XApp.Controls
 
         public ImageSource Cover
         {
-            get { return (ImageSource)GetValue(CoverProperty); }
-            set { SetValue(CoverProperty, value); }
+            get => (ImageSource)GetValue(CoverProperty);
+            set => SetValue(CoverProperty, value);
         }
 
         public static readonly BindableProperty IsPlayNextEnabledProperty
@@ -153,8 +162,8 @@ namespace BSE.Tunes.XApp.Controls
 
         public bool IsPlayNextEnabled
         {
-            get { return (bool)GetValue(IsPlayNextEnabledProperty); }
-            set { SetValue(IsPlayNextEnabledProperty, value); }
+            get => (bool)GetValue(IsPlayNextEnabledProperty);
+            set => SetValue(IsPlayNextEnabledProperty, value);
         }
 
         public void SendPauseClicked()

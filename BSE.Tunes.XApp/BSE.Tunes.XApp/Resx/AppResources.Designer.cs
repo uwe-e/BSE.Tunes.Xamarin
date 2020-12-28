@@ -115,6 +115,15 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string AlertDialog_Error_Title_Text {
+            get {
+                return ResourceManager.GetString("AlertDialog_Error_Title_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete all downloaded files?.
         /// </summary>
         internal static string CacheSettingsPage_ActionSheet_Title {
@@ -156,6 +165,15 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string CacheSettingsPage_Title {
             get {
                 return ResourceManager.GetString("CacheSettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Dialog_Result_Cancel {
+            get {
+                return ResourceManager.GetString("Dialog_Result_Cancel", resourceCulture);
             }
         }
         
@@ -322,6 +340,15 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show album.
+        /// </summary>
+        internal static string ManageAlbumsPage_Button_DisplayAlbumInfo {
+            get {
+                return ResourceManager.GetString("ManageAlbumsPage_Button_DisplayAlbumInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove from playlist.
         /// </summary>
         internal static string ManageAlbumsPage_Button_RemoveFromPlaylist {
@@ -408,6 +435,15 @@ namespace BSE.Tunes.XApp.Resx {
         internal static string PlaylistItem_PartNumberOfEntries {
             get {
                 return ResourceManager.GetString("PlaylistItem_PartNumberOfEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Playlist.
+        /// </summary>
+        internal static string PlaylistSelectorDialogPage_Button_NewPlaylist_Text {
+            get {
+                return ResourceManager.GetString("PlaylistSelectorDialogPage_Button_NewPlaylist_Text", resourceCulture);
             }
         }
         

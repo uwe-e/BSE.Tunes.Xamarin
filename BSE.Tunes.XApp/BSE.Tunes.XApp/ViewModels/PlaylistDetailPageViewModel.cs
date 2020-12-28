@@ -3,8 +3,10 @@ using BSE.Tunes.XApp.Events;
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism.Events;
 using Prism.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -22,14 +24,8 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public Playlist Playlist
         {
-            get
-            {
-                return _playlist;
-            }
-            set
-            {
-                SetProperty<Playlist>(ref _playlist, value);
-            }
+            get => _playlist;
+            set => SetProperty<Playlist>(ref _playlist, value);
         }
 
         public PlaylistDetailPageViewModel(
@@ -73,6 +69,10 @@ namespace BSE.Tunes.XApp.ViewModels
                         {
                             await LoadPlaylistDetails(managePlaylistContext.PlaylistTo);
                         }
+                    }
+                    if (managePlaylistContext.ActionMode == PlaylistActionMode.ShowAlbum)
+                    {
+                        await ShowAlbum(managePlaylistContext);
                     }
                 }
             });
@@ -167,6 +167,25 @@ namespace BSE.Tunes.XApp.ViewModels
 
                 PlayAllCommand.RaiseCanExecuteChanged();
                 PlayAllRandomizedCommand.RaiseCanExecuteChanged();
+            }
+        }
+        
+        private async Task ShowAlbum(PlaylistActionContext playlistActionContext)
+        {
+            await FlyoutNavigationService.CloseFlyoutAsync();
+
+            if (playlistActionContext?.Data is PlaylistEntry playlistEntry)
+            {
+                var album = playlistEntry.Track?.Album;
+                if (album != null)
+                {
+                    var navigationParams = new NavigationParameters
+                    {
+                        {"album", album }
+                    };
+
+                    await NavigationService.NavigateAsync($"{nameof(AlbumDetailPage)}", navigationParams);
+                }
             }
         }
     }

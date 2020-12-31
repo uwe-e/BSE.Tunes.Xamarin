@@ -1,5 +1,5 @@
-# BSE.Tunes.Xamarin
-This is the Xamarin cross platform client of the BSE system. With this client you can play singles, whole albums, the content of your self created playlists and randomized, the whole content of your selected BSEtunes.
+# BSEtunes Xamarin client
+This is the Xamarin cross platform client of the BSEtunes system. With this client you can play singles, whole albums, the content of your self created playlists and randomized, the whole content of your selected BSEtunes.
 
 ![BSEtunes](Images/bsetunes_iphone_animation.gif)
 
@@ -33,7 +33,7 @@ The App supports globalization. Currently available languages are german and eng
 
 ### The playlist patchwork images
 
-A playlist image is a composition of the cover images of the first four playlist entries. These cover images are stitched together via ![Skia](https://github.com/mono/SkiaSharp).
+A playlist image is a composition of the cover images of the first four playlist entries. These cover images are stitched together via [Skia](https://github.com/mono/SkiaSharp).
 The stitching process needs some performance. Because of that, the created images in different sizes are cached. If a playlist is changed, only the images for this playlist will be recreated.
 
 ### Settings
@@ -45,17 +45,17 @@ All settings can be changed in the settings view.
 ## Tools
 
 The App was created using the following tools
-- ![Prism.DryIoc.Forms](https://prismlibrary.com/index.html): MVVM framework for building loosely coupled, modular, maintainable, and testable XAML applications.
-- ![SkiaSharp.Views.Form](https://github.com/mono/SkiaSharp): a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library.
-- ![Xamarin.FFImageLoading](https://github.com/luberda-molinet/FFImageLoading): Image loading, caching & transforming library for Xamarin
-- ![CardsView](https://github.com/AndreiMisiukevich/CardView): CardsView | CarouselView | CoverflowView | CubeView framework for Xamarin.Forms
+- [Prism.DryIoc.Forms](https://prismlibrary.com/index.html): MVVM framework for building loosely coupled, modular, maintainable, and testable XAML applications.
+- [SkiaSharp.Views.Form](https://github.com/mono/SkiaSharp): a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library.
+- [Xamarin.FFImageLoading](https://github.com/luberda-molinet/FFImageLoading): Image loading, caching & transforming library for Xamarin
+- [CardsView](https://github.com/AndreiMisiukevich/CardView): CardsView | CarouselView | CoverflowView | CubeView framework for Xamarin.Forms
 
 ## BSE System
 
 The whole BSE system constists of the following components
 
 - BSEadmin: a Windows client for to adminster the system's music content.
-	Its partly described at ![code project](https://www.codeproject.com/Articles/43068/BSEtunes)
+	Its partly described at [code project](https://www.codeproject.com/Articles/43068/BSEtunes)
 - BSEtunes UWP client at https://github.com/uwe-e/BSE.Tunes
 - BSEtunes Web API at https://github.com/uwe-e/BSE.Tunes
   

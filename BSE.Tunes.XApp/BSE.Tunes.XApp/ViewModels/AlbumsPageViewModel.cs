@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -28,10 +29,14 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly IDataService _dataService;
 
         public event EventHandler IsActiveChanged;
-        
-        public ICommand LoadMoreItemsCommand => 
-            _loadMoreItemsCommand ?? (_loadMoreItemsCommand = new DelegateCommand(LoadMoreItems, HasMoreItems));
-        
+
+        public ICommand LoadMoreItemsCommand => _loadMoreItemsCommand ?? (
+            _loadMoreItemsCommand = new DelegateCommand(() =>
+            {
+                PageSize = 5;
+                Device.BeginInvokeOnMainThread(() => LoadMoreItems());
+            }, HasMoreItems));
+
         public ICommand SelectItemCommand => _selectItemCommand
             ?? (_selectItemCommand = new Xamarin.Forms.Command<GridPanel>(SelectItem));
 
@@ -74,10 +79,10 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             _imageService = imageService;
             _dataService = dataService;
-            PageSize = 10;
+            PageSize = 20;
         }
 
-        protected async virtual void RaiseIsActiveChanged()
+        protected virtual async void RaiseIsActiveChanged()
         {
             if (IsActive && !_isActivated)
             {

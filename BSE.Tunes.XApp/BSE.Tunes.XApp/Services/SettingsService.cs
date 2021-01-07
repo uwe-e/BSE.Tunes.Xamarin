@@ -6,41 +6,26 @@ namespace BSE.Tunes.XApp.Services
     {
         public string ServiceEndPoint
         {
-            get
-            {
-                return AppSettings.ServiceEndPoint;
-            }
-            set
-            {
-                AppSettings.ServiceEndPoint = value;
-            }
+            get => AppSettings.ServiceEndPoint;
+            set => AppSettings.ServiceEndPoint = value;
         }
 
         public User User
         {
-            get
-            {
-                return AppSettings.User;
-            }
-            set
-            {
-                AppSettings.User = value;
-            }
+            get => AppSettings.User;
+            set => AppSettings.User = value;
         }
 
         public string Token
         {
-            get
-            {
-                return User.Token;
-            }
+            get => User.Token;
             set
             {
-                var user = this.User;
+                var user = User;
                 if (user != null)
                 {
                     user.Token = value;
-                    this.User = user;
+                    User = user;
                 }
             }
         }

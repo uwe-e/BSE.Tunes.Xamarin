@@ -31,22 +31,25 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public event EventHandler IsActiveChanged;
 
-        public ICommand LoadMoreItemsCommand =>
-            _loadMoreItemsCommand ?? (_loadMoreItemsCommand = new DelegateCommand(LoadMoreItems));
+        public ICommand LoadMoreItemsCommand => _loadMoreItemsCommand ?? (
+            _loadMoreItemsCommand = new DelegateCommand(() =>
+            {
+                Device.BeginInvokeOnMainThread(() => LoadMoreItems());
+            }));
 
         public ICommand SelectItemCommand => _selectItemCommand
             ?? (_selectItemCommand = new Xamarin.Forms.Command<GridPanel>(SelectItem));
 
         public bool IsActive
         {
-            get { return _isActive; }
-            set { SetProperty(ref _isActive, value, RaiseIsActiveChanged); }
+            get => _isActive;
+            set => SetProperty(ref _isActive, value, RaiseIsActiveChanged);
         }
 
         public int PageSize
         {
-            get { return _pageSize; }
-            set { SetProperty(ref _pageSize, value); }
+            get => _pageSize;
+            set => SetProperty(ref _pageSize, value);
         }
 
         public ObservableCollection<GridPanel> Items => _items ?? (_items = new ObservableCollection<GridPanel>());
@@ -125,8 +128,7 @@ namespace BSE.Tunes.XApp.ViewModels
                                 {
                                     Title = playlist.Name,
                                     SubTitle = FormatNumberOfEntriesString(playlist),
-                                    ImageSource = await _imageService.GetStitchedBitmapSource(
-                                        playlist.Id),
+                                    ImageSource = await _imageService.GetStitchedBitmapSource(playlist.Id),
                                     Data = playlist
                                 });
                             }

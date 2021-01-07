@@ -9,6 +9,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
@@ -46,13 +47,15 @@ namespace BSE.Tunes.XApp.ViewModels
             _eventAggregator = eventAggregator;
         }
 
-        public async override void OnNavigatedTo(INavigationParameters parameters)
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
             _playlistActionContext = parameters.GetValue<PlaylistActionContext>("source");
 
-            await CreatePlaylistFlyoutItems();
-
-            IsBusy = false;
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await CreatePlaylistFlyoutItems();
+                IsBusy = false;
+            });
             
             base.OnNavigatedTo(parameters);
         }

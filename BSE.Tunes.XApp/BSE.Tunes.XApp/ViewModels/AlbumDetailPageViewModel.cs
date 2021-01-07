@@ -18,14 +18,8 @@ namespace BSE.Tunes.XApp.ViewModels
 
         public Album Album
         {
-            get
-            {
-                return _album;
-            }
-            set
-            {
-                SetProperty<Album>(ref _album, value);
-            }
+            get => _album;
+            set => SetProperty<Album>(ref _album, value);
         }
 
         public AlbumDetailPageViewModel(INavigationService navigationService,
@@ -47,7 +41,7 @@ namespace BSE.Tunes.XApp.ViewModels
             _imageService = imageService;
         }
 
-        public async override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             Album album = parameters.GetValue<Album>("album");
             if (album != null)

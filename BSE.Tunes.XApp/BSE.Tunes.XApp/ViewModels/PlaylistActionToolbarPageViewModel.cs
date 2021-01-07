@@ -86,7 +86,7 @@ namespace BSE.Tunes.XApp.ViewModels
             _imageService = imageService;
         }
 
-        public async override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             _playlistActionContext = parameters.GetValue<PlaylistActionContext>("source");
             if (_playlistActionContext?.Data is Track track)

@@ -13,11 +13,12 @@
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <CollectionView x:Name="albumsView"  ItemsSource="{Binding Items}"
-                                RemainingItemsThreshold="{Binding PageSize}"
+                                ItemSizingStrategy="MeasureFirstItem"
+                                RemainingItemsThreshold="5"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreItemsCommand}"
                                 VerticalOptions="FillAndExpand">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="2" />
+                        <GridItemsLayout Orientation="Vertical" Span="{OnIdiom 2, Tablet=3}" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

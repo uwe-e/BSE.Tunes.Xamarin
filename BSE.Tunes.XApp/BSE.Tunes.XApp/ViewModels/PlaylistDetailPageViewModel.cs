@@ -6,7 +6,6 @@ using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
 using Prism.Events;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -78,7 +77,7 @@ namespace BSE.Tunes.XApp.ViewModels
             });
         }
 
-        public async override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             Playlist playlist = parameters.GetValue<Playlist>("playlist");
             if (playlist != null)

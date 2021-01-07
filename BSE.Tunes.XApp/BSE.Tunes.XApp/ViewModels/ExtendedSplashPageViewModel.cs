@@ -23,7 +23,7 @@ namespace BSE.Tunes.XApp.ViewModels
             _authenticationService = authenticationService;
         }
 
-        public async override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             try
             {

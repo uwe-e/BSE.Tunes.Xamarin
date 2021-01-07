@@ -45,7 +45,14 @@ namespace BSE.Tunes.XApp.Services
             }
 
             string absoluteUri = GetImageUrl(asThumbnail, albumId).AbsoluteUri;
-            CreateAndSaveBitmap(absoluteUri, fileFullName, asThumbnail);
+            
+            //Fire and forget
+            Task.Run(() =>
+            {
+                //we create and save the image into the file system to use it next time.
+                CreateAndSaveBitmap(absoluteUri, fileFullName, asThumbnail);
+            }).ConfigureAwait(false);
+                
             return absoluteUri;
         }
         

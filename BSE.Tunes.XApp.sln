@@ -189,6 +189,7 @@ Global
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Release|ARM.ActiveCfg = Release|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Release|iPhone.ActiveCfg = Release|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Release|iPhone.Build.0 = Release|iPhone
+		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Release|iPhone.Deploy.0 = Release|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Release|x64.ActiveCfg = Release|iPhone

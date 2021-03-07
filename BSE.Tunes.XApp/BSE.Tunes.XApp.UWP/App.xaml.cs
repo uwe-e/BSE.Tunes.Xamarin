@@ -1,5 +1,4 @@
-﻿using CarouselView.FormsPlugin.UWP;
-using FFImageLoading.Forms;
+﻿using FFImageLoading.Forms;
 using FFImageLoading.Forms.Platform;
 using System;
 using System.Collections.Generic;
@@ -59,7 +58,6 @@ namespace BSE.Tunes.XApp.UWP
                 var rendererAssemblies = new List<Assembly>()
                 {
                     typeof(CachedImage).GetTypeInfo().Assembly,
-                    typeof(CarouselViewRenderer).GetTypeInfo().Assembly
                 };
                 FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
                 // Xamarin.Forms Shell is only partially available on the Universal Windows Platform (UWP).

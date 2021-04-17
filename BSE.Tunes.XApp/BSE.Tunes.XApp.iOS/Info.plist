@@ -25,7 +25,7 @@
     <key>CFBundleIdentifier</key>
     <string>com.bsetunes.xapp</string>
     <key>CFBundleVersion</key>
-    <string>1.0.0.6</string>
+    <string>1.0.0.7</string>
     <key>CFBundleIconFiles</key>
     <array>
       <string>Icon-60@2x</string>
@@ -60,6 +60,6 @@
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.0.006</string>
+    <string>1.0.007</string>
   </dict>
 </plist>

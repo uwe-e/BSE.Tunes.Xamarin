@@ -50,14 +50,7 @@ namespace BSE.Tunes.XApp.Services
         {
             AudioPlayerMode = audioPlayerMode;
             int trackId = Playlist?.FirstOrDefault() ?? 0;
-            if (trackId > 0)
-            {
-                Track track = await _dataService.GetTrackById(trackId);
-                if (track != null)
-                {
-                    _playerService.SetTrack(track);
-                }
-            }
+            await PlayTrack(trackId);
         }
 
         public void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioPlayerMode)
@@ -72,9 +65,25 @@ namespace BSE.Tunes.XApp.Services
             return Playlist?.Count > 0;
         }
 
+        public bool CanPlayPreviosTrack()
+        {
+            return Playlist?.CanMovePrevious ?? false;
+        }
+
         public bool CanPlayNextTrack()
         {
             return Playlist?.CanMoveNext ?? false;
+        }
+
+        public async void PlayPreviousTrack()
+        {
+            if (CanPlayPreviosTrack())
+            {
+                if (Playlist.MovePrevious())
+                {
+                    await PlayTrack(Playlist.Current);
+                }
+            }
         }
 
         public async void PlayNextTrack()
@@ -83,17 +92,20 @@ namespace BSE.Tunes.XApp.Services
             {
                 if (Playlist.MoveNext())
                 {
-                    _playerService.Stop();
-                    var trackId = Playlist.Current;
-                    if (trackId > 0)
-                    {
-                        Track track = await _dataService.GetTrackById(trackId);
-                        if (track != null)
-                        {
-                            Console.WriteLine($"Next Track with ID {track.Id} requested: ");
-                            _playerService.SetTrack(track);
-                        }
-                    }
+                    await PlayTrack(Playlist.Current);
+                }
+            }
+        }
+
+        private async Task PlayTrack(int trackId)
+        {
+            _playerService.Stop();
+            if (trackId > 0)
+            {
+                Track track = await _dataService.GetTrackById(trackId);
+                if (track != null)
+                {
+                    _playerService.SetTrack(track, _dataService.GetImage(track.Album.AlbumId, true));
                 }
             }
         }
@@ -168,7 +180,5 @@ namespace BSE.Tunes.XApp.Services
                 });
             }
         }
-
-        
     }
 }

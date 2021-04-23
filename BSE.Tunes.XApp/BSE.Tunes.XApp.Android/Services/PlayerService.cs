@@ -19,7 +19,6 @@ namespace BSE.Tunes.XApp.Droid.Services
 
         public Task<bool> CloseAsync()
         {
-            //throw new NotImplementedException();
             return Task.FromResult(true);
         }
 
@@ -34,6 +33,11 @@ namespace BSE.Tunes.XApp.Droid.Services
         }
 
         public void SetTrack(Track track)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetTrack(Track track, Uri coverUri)
         {
             throw new NotImplementedException();
         }

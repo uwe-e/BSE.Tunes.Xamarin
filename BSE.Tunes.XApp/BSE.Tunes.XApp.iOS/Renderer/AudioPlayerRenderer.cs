@@ -39,6 +39,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
                 }
 
                 UpdateIconColors();
+
             }
         }
 
@@ -116,6 +117,27 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             if (e.PropertyName == nameof(Player.IsPlayNextEnabled))
             {
                 UpdateIsPlayNextEnabled(Player.IsPlayNextEnabled);
+            }
+        }
+
+        public override void RemoteControlReceived(UIEvent theEvent)
+        {
+            // executed from ExtendedTabbedRenderer
+            Console.WriteLine($"{nameof(RemoteControlReceived)} {theEvent.Subtype} ");
+            switch (theEvent.Subtype)
+            {
+                case UIEventSubtype.RemoteControlPause:
+                    PlayButtonTouchUpInside(this, EventArgs.Empty);
+                    break;
+                case UIEventSubtype.RemoteControlPlay:
+                    PlayButtonTouchUpInside(this, EventArgs.Empty);
+                    break;
+                case UIEventSubtype.RemoteControlPreviousTrack:
+                    PlayPreviousButtonTouchUpInside(this, EventArgs.Empty);
+                    break;
+                case UIEventSubtype.RemoteControlNextTrack:
+                    PlayNextButtonTouchUpInside(this, EventArgs.Empty);
+                    break;
             }
         }
 
@@ -260,7 +282,17 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             }
             element?.SendPlayClicked();
         }
-        
+
+        private void PlayPreviousButtonTouchUpInside(object sender, EventArgs e)
+        {
+            OnPlayPreviousButtonTouchUpInside(Element as IPlayerController);
+        }
+
+        private void OnPlayPreviousButtonTouchUpInside(IPlayerController element)
+        {
+            element?.SendPlayPreviousClicked();
+        }
+
         private void PlayNextButtonTouchUpInside(object sender, EventArgs e)
         {
             OnPlayNextButtonTouchUpInside(Element as IPlayerController);

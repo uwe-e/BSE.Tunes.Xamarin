@@ -15,6 +15,13 @@ namespace BSE.Tunes.XApp.iOS.Renderer
 
         ExtendedTabbedPage Page => Element as ExtendedTabbedPage;
 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+
+            UIApplication.SharedApplication.BeginReceivingRemoteControlEvents();
+        }
+
         public override void ViewDidLayoutSubviews()
         {
             base.ViewDidLayoutSubviews();
@@ -42,6 +49,14 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             }
         }
 
+        public override void RemoteControlReceived(UIEvent theEvent)
+        {
+            base.RemoteControlReceived(theEvent);
+            // The AudioPlayer view does not receive a RemoteControlReceived event.
+            // Because of this we execute that event from here.
+            //Console.WriteLine($"{nameof(RemoteControlReceived)} {theEvent.Subtype} ");
+            _audioPlayerBar?.RemoteControlReceived(theEvent);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -7,11 +7,13 @@ using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Net.Http;
 using BSE.Tunes.XApp.Services;
 using Foundation;
+using MediaPlayer;
 using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using UIKit;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(PlayerService))]
@@ -54,7 +56,12 @@ namespace BSE.Tunes.XApp.iOS.Services
             _player?.Stop();
         }
 
-        public async void SetTrack(Track track)
+        public void SetTrack(Track track)
+        {
+            SetTrack(track, null);
+        }
+        
+        public async void SetTrack(Track track, Uri coverUri)
         {
             if (track != null)
             {
@@ -74,10 +81,36 @@ namespace BSE.Tunes.XApp.iOS.Services
                             // Set up the session for playback category
                             session.SetCategory(AVAudioSessionCategory.Playback, AVAudioSessionCategoryOptions.DefaultToSpeaker);
                             session.OverrideOutputAudioPort(AVAudioSessionPortOverride.Speaker, out NSError error);
+                            //session.SetActive(true);
+
+                            SetNowPlayingInfo(track, coverUri);
                         }
                     }
                 }
             }
+        }
+
+        private void SetNowPlayingInfo(Track track, Uri coverUri)
+        {
+            // Moved to ExtendedTabbedRenderer because of a UIKit Consistency error: you are calling a UIKit method that can only be invoked from the UI thread.
+            //UIKit.UIApplication.SharedApplication.BeginReceivingRemoteControlEvents();
+
+            MPNowPlayingInfo np = new MPNowPlayingInfo();
+            np.Title = track.Name;
+            np.Artist = track.Album.Artist.Name;
+            np.AlbumTitle = track.Album.Title;
+            if (coverUri != null)
+            {
+                using (var data = NSData.FromUrl(coverUri))
+                {
+                    if (data != null)
+                    {
+                        np.Artwork = new MPMediaItemArtwork(UIImage.LoadFromData(data));
+                    }
+                }
+            }
+
+            MPNowPlayingInfoCenter.DefaultCenter.NowPlaying = np;
         }
 
         private Task<bool> CleanUpPlayerResources()
@@ -256,5 +289,6 @@ namespace BSE.Tunes.XApp.iOS.Services
             return queueStream;
         }
 
+        
     }
 }

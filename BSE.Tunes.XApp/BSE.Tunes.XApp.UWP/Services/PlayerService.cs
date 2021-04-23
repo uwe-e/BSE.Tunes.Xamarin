@@ -37,6 +37,11 @@ namespace BSE.Tunes.XApp.UWP.Services
             throw new NotImplementedException();
         }
 
+        public void SetTrack(Track track, Uri coverUri)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Stop()
         {
             throw new NotImplementedException();

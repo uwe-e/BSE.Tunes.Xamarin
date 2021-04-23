@@ -12,10 +12,12 @@ namespace BSE.Tunes.XApp.Services
         Track CurrentTrack { get; }
         float Progress { get; }
         bool CanPlay();
+        bool CanPlayPreviosTrack();
         bool CanPlayNextTrack();
         void Play();
         void PlayTracks(AudioPlayerMode audioPlayerMode);
         void PlayTracks(ObservableCollection<int> trackIds, AudioPlayerMode audioPlayerMode);
+        void PlayPreviousTrack();
         void PlayNextTrack();
         void Pause();
         Task<bool> CloseAsync();

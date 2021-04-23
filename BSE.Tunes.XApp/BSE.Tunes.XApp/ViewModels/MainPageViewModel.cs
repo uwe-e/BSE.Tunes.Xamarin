@@ -21,6 +21,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private Timer _progressTimer ;
         private DelegateCommand _playCommand;
         private DelegateCommand _pauseCommand;
+        private DelegateCommand _playPreviousCommand;
         private DelegateCommand _playNextCommand;
         private AudioPlayerState _audioPlayerState = AudioPlayerState.Closed;
         private AudioPlayerMode _audioPlayerMode = AudioPlayerMode.None;
@@ -30,6 +31,8 @@ namespace BSE.Tunes.XApp.ViewModels
             ?? (_playCommand = new DelegateCommand(Play, CanPlay));
         public DelegateCommand PauseCommand => _pauseCommand
             ?? (_pauseCommand = new DelegateCommand(Pause, CanPause));
+        public DelegateCommand PlayPreviousCommand => _playPreviousCommand
+            ?? (_playPreviousCommand = new DelegateCommand(PlayPrevious, CanPlayPrevious));
         public DelegateCommand PlayNextCommand => _playNextCommand
             ?? (_playNextCommand = new DelegateCommand(PlayNext, CanPlayNext));
 
@@ -162,7 +165,6 @@ namespace BSE.Tunes.XApp.ViewModels
 
         private async void Play()
         {
-            
             try
             {
                 switch (AudioPlayerState)
@@ -195,6 +197,16 @@ namespace BSE.Tunes.XApp.ViewModels
         private void Pause()
         {
             _playerManager.Pause();
+        }
+        
+        private bool CanPlayPrevious()
+        {
+            return _playerManager.CanPlayPreviosTrack();
+        }
+
+        private void PlayPrevious()
+        {
+            _playerManager.PlayPreviousTrack();
         }
         
         private bool CanPlayNext()

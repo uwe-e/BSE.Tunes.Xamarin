@@ -23,6 +23,7 @@
 
         <controls:AudioPlayer PlayCommand="{Binding PlayCommand}"
                               PauseCommand="{Binding PauseCommand}"
+                              PlayPreviousCommand="{Binding PlayPreviousCommand}"
                               PlayNextCommand="{Binding PlayNextCommand}"
                               Progress="{Binding Progress, Mode=TwoWay}"
                               ProgressColor="{DynamicResource SystemPink}"

@@ -619,6 +619,33 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BSEtunes Xamarin Client.
+        /// </summary>
+        internal static string SettingsPage_SectionInformation_Text {
+            get {
+                return ResourceManager.GetString("SettingsPage_SectionInformation_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        internal static string SettingsPage_SectionInformation_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_SectionInformation_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        internal static string SettingsPage_SectionInformation_VersionString {
+            get {
+                return ResourceManager.GetString("SettingsPage_SectionInformation_VersionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The address of this BSEtunes.
         /// </summary>
         internal static string SettingsPage_SectionWebserver_Description_Text {

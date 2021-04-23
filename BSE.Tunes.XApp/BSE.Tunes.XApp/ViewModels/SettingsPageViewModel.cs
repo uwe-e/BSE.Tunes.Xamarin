@@ -16,12 +16,14 @@ namespace BSE.Tunes.XApp.ViewModels
         private readonly ISettingsService _settingsService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IStorageService _storageService;
+        private readonly IAppInfoService _appInfoService;
         private bool _isActive;
         private bool _isActivated;
         private bool _isCacheChanged;
         private string _serviceEndPoint;
         private string _userName;
         private string _usedDiskSpace;
+        private string _versionString;
         private DelegateCommand _toServiceEndpointDetailCommand;
         private DelegateCommand _toAccountDetailCommand;
         private ICommand _toCacheSettingsDetailCommand;
@@ -76,17 +78,33 @@ namespace BSE.Tunes.XApp.ViewModels
             }
         }
 
+        public string VersionString
+        {
+            get
+            {
+                return _versionString;
+            }
+            set
+            {
+                SetProperty(ref _versionString, value);
+            }
+        }
+        
         public event EventHandler IsActiveChanged;
 
         public SettingsPageViewModel(INavigationService navigationService,
             ISettingsService settingsService,
             IResourceService resourceService,
             IEventAggregator eventAggregator,
-            IStorageService storageService) : base(navigationService, resourceService)
+            IStorageService storageService,
+            IAppInfoService appInfoService) : base(navigationService, resourceService)
         {
             _settingsService = settingsService;
             _eventAggregator = eventAggregator;
             _storageService = storageService;
+            _appInfoService = appInfoService;
+
+            _versionString = $"{ResourceService.GetString("SettingsPage_SectionInformation_VersionString")} {_appInfoService.VersionString}";
 
             _eventAggregator.GetEvent<CacheChangedEvent>().Subscribe((args) =>
             {

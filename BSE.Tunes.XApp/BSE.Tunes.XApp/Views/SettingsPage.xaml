@@ -29,6 +29,10 @@
                               Command="{Binding ToCacheSettingsDetailCommand}"
                               bseios:TextCell.Accessory="DisclosureIndicator"/>
                 </TableSection>
+                <TableSection Title="{i18n:Translate SettingsPage_SectionInformation_Title}">
+                    <TextCell Text="{i18n:Translate SettingsPage_SectionInformation_Text}"
+                              Detail="{Binding VersionString}"/>
+                </TableSection>
             </TableRoot>
         </TableView>
     </ContentPage.Content>

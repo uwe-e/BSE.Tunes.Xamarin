@@ -1,5 +1,4 @@
 ﻿using BSE.Tunes.XApp.Controls;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace BSE.Tunes.XApp.Views

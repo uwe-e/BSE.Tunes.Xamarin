@@ -27,7 +27,12 @@
                                    IsClippedToBounds="True"
                                    HasShadow="False"
                                    BackgroundColor="{DynamicResource BackgroundColor}">
-                                <templates:SlidePanelTemplate Margin="0"></templates:SlidePanelTemplate>
+                                <templates:SlidePanelTemplate Margin="0">
+                                    <templates:SlidePanelTemplate.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=carouselView}}"
+                                                              CommandParameter="{Binding}"/>
+                                    </templates:SlidePanelTemplate.GestureRecognizers>
+                                </templates:SlidePanelTemplate>
                             </Frame>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>

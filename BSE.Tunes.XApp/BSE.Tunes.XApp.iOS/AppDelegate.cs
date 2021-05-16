@@ -23,6 +23,7 @@ namespace BSE.Tunes.XApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            Xamarin.Forms.Svg.iOS.SvgImage.Init();
             CardsViewRenderer.Preserve();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));

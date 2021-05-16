@@ -21,7 +21,9 @@
 
     <controls:ExtendedTabbedPage.AudioPlayerBar>
 
-        <controls:AudioPlayer PlayCommand="{Binding PlayCommand}"
+        <controls:AudioPlayer SelectTrackCommand="{Binding SelectTrackCommand}"
+                              SelectTrackCommandParameter="{Binding CurrentTrack}"
+                              PlayCommand="{Binding PlayCommand}"
                               PauseCommand="{Binding PauseCommand}"
                               PlayPreviousCommand="{Binding PlayPreviousCommand}"
                               PlayNextCommand="{Binding PlayNextCommand}"

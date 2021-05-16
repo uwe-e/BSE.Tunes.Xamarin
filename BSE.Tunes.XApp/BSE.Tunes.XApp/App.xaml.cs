@@ -32,6 +32,8 @@ namespace BSE.Tunes.XApp
         {
             InitializeComponent();
 
+            Xamarin.Forms.Svg.SvgImageSource.RegisterAssembly();
+
             // Enable your flags here!
             Device.SetFlags(new[] {
                 "CarouselView_Experimental",
@@ -63,6 +65,7 @@ namespace BSE.Tunes.XApp
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<PlayerDialogPage, PlayerDialogPageViewModel>();
             containerRegistry.RegisterForNavigation<ServiceEndpointWizzardPage, ServiceEndpointSettingsWizzardViewModel>();
             containerRegistry.RegisterForNavigation<ExtendedSplashPage, ExtendedSplashPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginWizzardPage, LoginWizzardPageViewModel>();
@@ -92,6 +95,7 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterSingleton<IPlayerManager, PlayerManager>();
             containerRegistry.Register<IImageService, ImageService>();
             containerRegistry.Register<IStorageService, StorageService>();
+            containerRegistry.Register<ITimerService, TimerService>();
             containerRegistry.RegisterSingleton<IFlyoutNavigationService, FlyoutNavigationService>();
 
             var playerService = DependencyService.Get<IPlayerService>();
@@ -99,7 +103,6 @@ namespace BSE.Tunes.XApp
 
             ViewModelLocationProvider.Register<FeaturedAlbumsView, FeaturedAlbumsViewModel>();
             ViewModelLocationProvider.Register<FeaturedPlaylistsView, FeaturedPlaylistsViewModel>();
-            
         }
 
         private void SetTheme(OSAppTheme theme)

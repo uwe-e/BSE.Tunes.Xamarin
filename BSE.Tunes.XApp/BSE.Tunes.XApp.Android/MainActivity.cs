@@ -25,6 +25,7 @@ namespace BSE.Tunes.XApp.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            Xamarin.Forms.Svg.Droid.SvgImage.Init(this);
             CardsViewRenderer.Preserve();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
             CrossCurrentActivity.Current.Init(this, bundle);

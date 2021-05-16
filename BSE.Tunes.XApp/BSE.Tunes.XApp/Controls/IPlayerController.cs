@@ -6,6 +6,7 @@
         void SendPauseClicked();
         void SendPlayNextClicked();
         void SendPlayPreviousClicked();
+        void SendSelectTrackClicked();
     }
 
 }

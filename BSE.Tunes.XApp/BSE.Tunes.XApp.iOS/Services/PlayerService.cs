@@ -188,7 +188,7 @@ namespace BSE.Tunes.XApp.iOS.Services
                 Console.WriteLine($"Exception thrown in {nameof(StreamDownloadHandler)} with message {exception.Message}");
                 if (exception.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
-                    MediaStateChanged(MediaState.BadRequest);
+                    MediaStateChanged.Invoke(MediaState.BadRequest);
                 }
             }
             catch (Exception exception)
@@ -218,14 +218,14 @@ namespace BSE.Tunes.XApp.iOS.Services
             Console.WriteLine($"Player: Output Ready");
             
             _audioQueueTimeline = outputAudioQueue.CreateTimeline();
-            MediaStateChanged(MediaState.Opened);
+            MediaStateChanged.Invoke(MediaState.Opened);
         }
 
         private void OnPlayerFinished(object sender, EventArgs e)
         {
             Console.WriteLine($"Player: Output Finished");
             
-            MediaStateChanged(MediaState.Ended);
+            MediaStateChanged.Invoke(MediaState.Ended);
         }
 
         private void OnAudioPlayerStateChanged(AudioPlayerState audioPlayerState)
@@ -233,7 +233,7 @@ namespace BSE.Tunes.XApp.iOS.Services
             if (audioPlayerState != AudioPlayerState)
             {
                 AudioPlayerState = audioPlayerState;
-                AudioPlayerStateChanged(audioPlayerState);
+                AudioPlayerStateChanged.Invoke(audioPlayerState);
             }
         }
 

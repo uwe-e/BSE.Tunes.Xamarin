@@ -16,12 +16,13 @@ namespace BSE.Tunes.XApp.iOS.Renderer
     public class AudioPlayerRenderer : ViewRenderer<AudioPlayer, UIView>
     {
         private AudioPlayerState _audioPlayerState = AudioPlayerState.Closed;
+        private UIControl _infoPanel;
         private UIButton _playNextButton;
         private UIButton _playButton;
         private UIView _bottomBorder;
         private UILabel _titleLabel;
         private UILabel _artistLabel;
-        private UIImageView _coverImageView;
+        private UIImageView _coverImage;
         private UIProgressView _progressView;
 
         AudioPlayer Player => Element as AudioPlayer;
@@ -57,20 +58,26 @@ namespace BSE.Tunes.XApp.iOS.Renderer
                                    Bounds.Top,
                                    Bounds.Width - 4,
                                    7);
-
-            _coverImageView.Frame = new CGRect(leftX,
+            
+            _infoPanel.Frame = new CGRect(leftX,
                                    7,
+                                   controlWidth + offsetLeft + rightX - 10 - (2 * controlWidth) - (3 * offsetLeft),
+                                   controlHeight);
+
+            // coverimage + both labels are controls within the infopanel
+            _coverImage.Frame = new CGRect(0,
+                                   0,
                                    controlWidth,
                                    controlHeight);
 
-            _titleLabel.Frame = new CGRect(leftX + controlWidth + offsetLeft,
-                                   7,
-                                   rightX - 10 - (2 * controlWidth) - (3 * offsetLeft),
+            _titleLabel.Frame = new CGRect(controlWidth + offsetLeft,
+                                   0,
+                                   _infoPanel.Frame.Width - controlWidth - offsetLeft - offsetLeft,
                                    24);
 
-            _artistLabel.Frame = new CGRect(leftX + controlWidth + offsetLeft,
-                                   32,
-                                   rightX - 10 - (2 * controlWidth) - (3 * offsetLeft),
+            _artistLabel.Frame = new CGRect(controlWidth + offsetLeft,
+                                   25,
+                                   _infoPanel.Frame.Width - controlWidth - offsetLeft - offsetLeft,
                                    20);
 
             _playButton.Frame = new CGRect(rightX - controlWidth - offsetLeft,
@@ -158,21 +165,26 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             };
             AddSubview(_progressView);
 
-            _coverImageView = new UIImageView();
-            AddSubview(_coverImageView);
+            _infoPanel = new UIControl();
+            _infoPanel.TouchUpInside -= InfoPanelTouchUpInside;
+            _infoPanel.TouchUpInside += InfoPanelTouchUpInside;
+            AddSubview(_infoPanel);
+
+            _coverImage = new UIImageView();
+            _infoPanel.AddSubview(_coverImage);
 
             _titleLabel = new UILabel()
             {
-                LineBreakMode = UILineBreakMode.TailTruncation,
+                LineBreakMode = UILineBreakMode.TailTruncation
             };
-            AddSubview(_titleLabel);
+            _infoPanel.AddSubview(_titleLabel);
 
             _artistLabel = new UILabel()
             {
                 LineBreakMode = UILineBreakMode.TailTruncation,
                 Font = UIFont.SystemFontOfSize(11)
             };
-            AddSubview(_artistLabel);
+            _infoPanel.AddSubview(_artistLabel);
 
             _playButton = new UIButton();
             _playButton.TouchUpInside -= PlayButtonTouchUpInside;
@@ -191,7 +203,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             };
             AddSubview(_bottomBorder);
         }
-        
+
         private void UpdateIconColors()
         {
             if (this.TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
@@ -237,7 +249,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
             var image = await Task.Run(() => new ImageLoaderSourceHandler().LoadImageAsync(imageSource, default, 1f));
             if (image != null)
             {
-                _coverImageView.Image = image;
+                _coverImage.Image = image;
             }
         }
 
@@ -262,6 +274,16 @@ namespace BSE.Tunes.XApp.iOS.Renderer
                     _playButton.SetBackgroundImage(UIImage.FromFile(iconPlay), UIControlState.Normal);
                     break;
             }
+        }
+
+        private void InfoPanelTouchUpInside(object sender, EventArgs e)
+        {
+            OnCoverImageButtonTouchUpInside(Element as IPlayerController);
+        }
+
+        private void OnCoverImageButtonTouchUpInside(IPlayerController playerController)
+        {
+            playerController.SendSelectTrackClicked();
         }
 
         private void UpdateIsPlayNextEnabled(bool isPlayNextEnabled)

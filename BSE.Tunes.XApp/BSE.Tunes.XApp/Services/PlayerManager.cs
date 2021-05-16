@@ -14,9 +14,11 @@ namespace BSE.Tunes.XApp.Services
         private readonly IDataService _dataService;
         private readonly ISettingsService _settingsService;
         private readonly IEventAggregator _eventAggregator;
+        private readonly ITimerService _timerService;
+        private readonly IPlayerService _playerService;
+        private float _oldProgress;
+        
         private int _attempToPlay;
-
-        private IPlayerService _playerService { get; }
 
         public NavigableCollection<int> Playlist { get; set; }
         public AudioPlayerMode AudioPlayerMode { get; private set; }
@@ -27,12 +29,16 @@ namespace BSE.Tunes.XApp.Services
         public PlayerManager(IDataService dataService,
             IPlayerService playerService,
             ISettingsService settingsService,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator,
+            ITimerService timerService)
         {
             _dataService = dataService;
             _playerService = playerService;
             _settingsService = settingsService;
             _eventAggregator = eventAggregator;
+            _timerService = timerService;
+            _timerService.TimerElapsed += OnTimerElapsed;
+            _timerService.Start();
             _playerService.AudioPlayerStateChanged += OnAudioPlayerStateChanged;
             _playerService.MediaStateChanged += OnMediaStateChanged;
         }
@@ -115,6 +121,21 @@ namespace BSE.Tunes.XApp.Services
             return _playerService.CloseAsync();
         }
         
+        private void OnTimerElapsed()
+        {
+            var newProgress = Progress;
+            Console.WriteLine($"AudioPlayerState: {AudioPlayerState}");
+            if (newProgress != _oldProgress)
+            {
+                _eventAggregator.GetEvent<MediaProgressChangedEvent>().Publish(new MediaProgress
+                {
+                    Progress = newProgress,
+                    ProgressOld = _oldProgress
+                });
+                _oldProgress = newProgress;
+            }
+        }
+
         private void OnAudioPlayerStateChanged(AudioPlayerState audioPlayerState)
         {
             if (AudioPlayerState != audioPlayerState)

@@ -8,14 +8,43 @@ namespace BSE.Tunes.XApp.Controls
 {
     public class AudioPlayer : View, IPlayerController, IPlayerElement
     {
+        public static readonly BindableProperty SelectTrackCommandProperty
+            = BindableProperty.Create(
+                nameof(IPlayerElement.SelectTrackCommand),
+                typeof(ICommand),
+                typeof(IPlayerElement),
+                null,
+                propertyChanging: OnSelectTrackCommandChanging,
+                propertyChanged: OnSelectTrackCommandChanged);
+
+        public ICommand SelectTrackCommand
+        {
+            get => (ICommand)GetValue(SelectTrackCommandProperty);
+            set => SetValue(SelectTrackCommandProperty, value);
+        }
+
+        public static readonly BindableProperty SelectTrackCommandParameterProperty
+            = BindableProperty.Create(
+                nameof(IPlayerElement.SelectTrackCommandParameter),
+                typeof(object),
+                typeof(IPlayerElement),
+                null,
+                propertyChanged: (bindable, oldvalue, newvalue) => SelectTrackCommandCanExecuteChanged(bindable, EventArgs.Empty));
+
+        public object SelectTrackCommandParameter
+        {
+            get => GetValue(SelectTrackCommandParameterProperty);
+            set => SetValue(SelectTrackCommandParameterProperty, value);
+        }
+
         public static readonly BindableProperty PlayCommandProperty
-        = BindableProperty.Create(
-            nameof(IPlayerElement.PlayCommand),
-            typeof(ICommand),
-            typeof(IPlayerElement),
-            null,
-            propertyChanging: OnPlayCommandChanging,
-            propertyChanged: OnPlayCommandChanged);
+            = BindableProperty.Create(
+                nameof(IPlayerElement.PlayCommand),
+                typeof(ICommand),
+                typeof(IPlayerElement),
+                null,
+                propertyChanging: OnPlayCommandChanging,
+                propertyChanged: OnPlayCommandChanged);
 
         public ICommand PlayCommand
         {
@@ -225,6 +254,49 @@ namespace BSE.Tunes.XApp.Controls
         public void SendPlayPreviousClicked()
         {
             PlayPreviousCommand?.Execute(PlayPreviousCommandParameter);
+        }
+
+        public void SendSelectTrackClicked()
+        {
+            SelectTrackCommand?.Execute(SelectTrackCommandParameter);
+        }
+
+        private static void OnSelectTrackCommandChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            IPlayerElement player = (IPlayerElement)bindable;
+            if (newValue is ICommand newCommand)
+            {
+                newCommand.CanExecuteChanged += player.OnSelectTrackCommandCanExecuteChanged;
+            }
+            if (player.PlayCommand != null)
+            {
+                SelectTrackCommandCanExecuteChanged(player, EventArgs.Empty);
+            }
+        }
+
+        private static void OnSelectTrackCommandChanging(BindableObject bindable, object oldValue, object newValue)
+        {
+            IPlayerElement player = (IPlayerElement)bindable;
+            if (oldValue != null)
+            {
+                (oldValue as ICommand).CanExecuteChanged -= player.OnSelectTrackCommandCanExecuteChanged;
+            }
+        }
+
+        private static void SelectTrackCommandCanExecuteChanged(object sender, EventArgs empty)
+        {
+            if (sender is AudioPlayer control)
+            {
+                control.SelectTrackCommand?.CanExecute(control.SelectTrackCommandParameter);
+            }
+        }
+
+        public void OnSelectTrackCommandCanExecuteChanged(object sender, EventArgs e)
+        {
+            if (sender is AudioPlayer control)
+            {
+                control.PlayCommand?.CanExecute(control.SelectTrackCommandParameter);
+            }
         }
 
         private static void OnPlayCommandChanged(BindableObject bindable, object oldValue, object newValue)

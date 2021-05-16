@@ -5,6 +5,10 @@ namespace BSE.Tunes.XApp.Controls
 {
     interface IPlayerElement
     {
+        object SelectTrackCommandParameter { get; set; }
+        ICommand SelectTrackCommand { get; set; }
+        void OnSelectTrackCommandCanExecuteChanged(object sender, EventArgs e);
+
         object PlayCommandParameter { get; set; }
         ICommand PlayCommand { get; set; }
         void OnPlayCommandCanExecuteChanged(object sender, EventArgs e);

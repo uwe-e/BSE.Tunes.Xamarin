@@ -17,9 +17,13 @@ namespace BSE.Tunes.XApp.Controls
         ICommand PauseCommand { get; set; }
         void OnPauseCommandCanExecuteChanged(object sender, EventArgs e);
 
+        bool IsPlayNextEnabled { get; set; }
+
         object PlayNextCommandParameter { get; set; }
         ICommand PlayNextCommand { get; set; }
         void OnPlayNextCommandCanExecuteChanged(object sender, EventArgs e);
+
+        bool IsPlayPreviousEnabled { get; set; }
 
         object PlayPreviousCommandParameter { get; set; }
         ICommand PlayPreviousCommand { get; set; }

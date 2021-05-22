@@ -34,7 +34,7 @@ namespace BSE.Tunes.XApp.ViewModels
 
         private async void LoadData()
         {
-            var albums = await this._dataService.GetFeaturedAlbums(6);
+            var albums = await _dataService.GetFeaturedAlbums(6);
             if (albums != null)
             {
                 foreach (var album in albums)
@@ -45,7 +45,7 @@ namespace BSE.Tunes.XApp.ViewModels
                         {
                             Title = album.Title,
                             SubTitle = album.Artist.Name,
-                            ImageSource = this._dataService.GetImage(album.AlbumId)?.AbsoluteUri,
+                            ImageSource = _dataService.GetImage(album.AlbumId)?.AbsoluteUri,
                             Data = album
                         });
                     }

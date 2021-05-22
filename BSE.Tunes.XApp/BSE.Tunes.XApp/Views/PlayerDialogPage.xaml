@@ -1,17 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
-             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             xmlns:converter="clr-namespace:BSE.Tunes.XApp.Converter"
-             ios:Page.ModalPresentationStyle="FormSheet"
-             BackgroundColor="{DynamicResource BackgroundColor}"
-             x:Class="BSE.Tunes.XApp.Views.PlayerDialogPage">
+<controls:RemoteControlPage xmlns="http://xamarin.com/schemas/2014/forms"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                            xmlns:prism="http://prismlibrary.com"
+                            xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
+                            prism:ViewModelLocator.AutowireViewModel="True"
+                            xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                            xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                            xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
+                            xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
+                            xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                            xmlns:converter="clr-namespace:BSE.Tunes.XApp.Converter"
+                            ios:Page.ModalPresentationStyle="FormSheet"
+                            BackgroundColor="{DynamicResource BackgroundColor}"
+                            x:Class="BSE.Tunes.XApp.Views.PlayerDialogPage"
+                            AudioPlayerState="{Binding AudioPlayerState, Mode=TwoWay}"
+                            PlayCommand="{Binding PlayCommand}"
+                            PauseCommand="{Binding PauseCommand}"
+                            PlayPreviousCommand="{Binding PlayPreviousCommand}"
+                            PlayNextCommand="{Binding PlayNextCommand}">
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="PrimaryPlayerLabelColor">#FFFFFFFF</Color>
@@ -19,6 +26,7 @@
             <converter:AudioPlayerStateToBoolConverter x:Key="AudioPlayerStateToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -153,9 +161,10 @@
                             </Button>
                         </Grid>
                     </StackLayout>
+                    
                 </StackLayout>
             </Grid>
         </AbsoluteLayout>
     </ContentPage.Content>
 
-</ContentPage>
+</controls:RemoteControlPage>

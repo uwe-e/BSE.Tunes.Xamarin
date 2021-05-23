@@ -76,7 +76,11 @@
                                LineBreakMode="TailTruncation"/>
                     </StackLayout>
                     <StackLayout Margin="0,10">
-                        <Slider Value="{Binding Progress}"/>
+                        <Slider Value="{Binding Progress}">
+                            <Slider.ThumbImageSource>
+                                <svg:SvgImageSource Source="Resources.thumb.svg" Height="10" Color="{StaticResource PrimaryPlayerLabelColor}"/>
+                            </Slider.ThumbImageSource>
+                        </Slider>
                         <StackLayout Orientation="Horizontal">
                             <Label Text="0:00" TextColor="{StaticResource SecondaryPlayerLabelColor}"/>
                             <Label Text="{Binding CurrentTrack.Duration, StringFormat='{0:mm\\:ss}'}"

@@ -16,6 +16,7 @@
     <None Remove="Resources\play.svg" />
     <None Remove="Resources\playnext.svg" />
     <None Remove="Resources\playprevious.svg" />
+    <None Remove="Resources\thumb.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
     <EmbeddedResource Include="Resources\play.svg" />
     <EmbeddedResource Include="Resources\playnext.svg" />
     <EmbeddedResource Include="Resources\playprevious.svg" />
+    <EmbeddedResource Include="Resources\thumb.svg" />
   </ItemGroup>
 
   <ItemGroup>

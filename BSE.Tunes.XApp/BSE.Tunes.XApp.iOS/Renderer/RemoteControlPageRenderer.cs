@@ -17,7 +17,6 @@ namespace BSE.Tunes.XApp.iOS.Renderer
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
             base.OnElementChanged(e);
-
             Page.PropertyChanged += OnPagePropertyChanged;
         }
         protected override void Dispose(bool disposing)

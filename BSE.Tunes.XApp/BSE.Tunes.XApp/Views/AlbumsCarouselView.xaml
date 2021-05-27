@@ -15,11 +15,37 @@
                                               Style="{DynamicResource SectionHeaderButtonStyle}"
                                               HorizontalOptions="Start"/>
 
-                <CarouselView x:Name="carouselView"
-                              Margin="-50,0,0,0" ItemsSource="{Binding Items}"
-                              PeekAreaInsets="50">
+                <CollectionView x:Name="carouselView" ItemsSource="{Binding Items}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal"
+                                           SnapPointsType="MandatorySingle"
+                                           SnapPointsAlignment="Start"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="0" CornerRadius="10"
+                                   IsClippedToBounds="True"
+                                   HasShadow="False"
+                                   BackgroundColor="{DynamicResource BackgroundColor}">
+                                <templates:SlidePanelTemplate WidthRequest="{OnIdiom Default=320, Tablet=420}"  Margin="0">
+                                    <templates:SlidePanelTemplate.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=carouselView}}"
+                                                              CommandParameter="{Binding}"/>
+                                    </templates:SlidePanelTemplate.GestureRecognizers>
+                                </templates:SlidePanelTemplate>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+
+                <!--<CarouselView x:Name="carouselView"
+                              Margin="0,0,0,0" ItemsSource="{Binding Items}"
+                              PeekAreaInsets="100" BackgroundColor="Lime" >
                     <CarouselView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal" />
+                        <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal"
+                                           SnapPointsType="MandatorySingle"
+                           SnapPointsAlignment="Center"/>
                     </CarouselView.ItemsLayout>
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
@@ -36,7 +62,7 @@
                             </Frame>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
-                </CarouselView>
+                </CarouselView>-->
                 <!--<IndicatorView ItemsSourceBy="carouselView"
                            IndicatorsShape="Circle"
                            IndicatorColor="Gray"

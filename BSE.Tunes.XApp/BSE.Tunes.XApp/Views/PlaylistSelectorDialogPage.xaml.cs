@@ -9,8 +9,8 @@ namespace BSE.Tunes.XApp.Views
         public PlaylistSelectorDialogPage()
         {
             InitializeComponent();
-
-            On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
+            //On<iOS>().s
+            //On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
         }
     }
 }

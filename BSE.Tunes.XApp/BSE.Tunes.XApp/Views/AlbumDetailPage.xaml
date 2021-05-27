@@ -22,7 +22,9 @@
                                          Orientation="Horizontal"
                                          Margin="3,0,3,0">
                                 <!--<StackLayout Margin="5,0,5,0" HeightRequest="150">-->
-                                    <ffimageLoading:CachedImage HeightRequest="150" HorizontalOptions="Start" Source="{Binding Image}" WidthRequest="150" />
+                                    <ffimageLoading:CachedImage HeightRequest="{OnIdiom Default=150, Tablet=250}" 
+                                                                WidthRequest="{OnIdiom Default=150, Tablet=250}" 
+                                                                HorizontalOptions="Start" Source="{Binding Image}"/>
                                 <!--</StackLayout>-->
                                 <Grid>
                                     <Grid.RowDefinitions>

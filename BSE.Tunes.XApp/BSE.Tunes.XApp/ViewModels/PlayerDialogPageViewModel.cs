@@ -1,15 +1,25 @@
 ﻿using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
 using Prism.Services;
+using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
     public class PlayerDialogPageViewModel : PlayerBaseViewModel
     {
         private readonly IImageService _imageService;
+        private ICommand _closeDialogCommand;
         private string _coverImage;
+
+        public ICommand CloseDialogCommand => _closeDialogCommand
+            ?? (_closeDialogCommand = new DelegateCommand(async() =>
+            {
+                await NavigationService.GoBackAsync();
+            }));
+            
 
         public string CoverImage
         {

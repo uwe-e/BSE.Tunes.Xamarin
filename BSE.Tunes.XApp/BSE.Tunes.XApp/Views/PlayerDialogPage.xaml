@@ -10,15 +10,15 @@
                             xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
                             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
                             xmlns:converter="clr-namespace:BSE.Tunes.XApp.Converter"
-                            ios:Page.ModalPresentationStyle="FormSheet"
+                            ios:Page.ModalPresentationStyle="OverFullScreen"
                             BackgroundColor="{DynamicResource BackgroundColor}"
                             x:Class="BSE.Tunes.XApp.Views.PlayerDialogPage"
                             AudioPlayerState="{Binding AudioPlayerState, Mode=TwoWay}"
                             PlayCommand="{Binding PlayCommand}"
                             PauseCommand="{Binding PauseCommand}"
                             PlayPreviousCommand="{Binding PlayPreviousCommand}"
-                            PlayNextCommand="{Binding PlayNextCommand}">
-    
+                            PlayNextCommand="{Binding PlayNextCommand}" >
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="PrimaryPlayerLabelColor">#FFFFFFFF</Color>
@@ -26,7 +26,7 @@
             <converter:AudioPlayerStateToBoolConverter x:Key="AudioPlayerStateToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -40,132 +40,140 @@
                     </ffimageLoading:CachedImage.Transformations>
                 </ffimageLoading:CachedImage>
                 <StackLayout InputTransparent="false"
-                                 HorizontalOptions="FillAndExpand" VerticalOptions="Fill" BackgroundColor="Black" Opacity="0.3"/>
-                <StackLayout Margin="30">
-                    <StackLayout>
-                        <!--<BoxView HorizontalOptions="Center" HeightRequest="5" WidthRequest="50" BackgroundColor="{DynamicResource PrimaryLabelColor}"/>-->
-                        <Image>
-                            <Image.Source>
-                                <svg:SvgImageSource Source="Resources.arrowdown.svg" Color="{StaticResource PrimaryPlayerLabelColor}"/>
-                            </Image.Source>
-                        </Image>
-                    </StackLayout>
-                    <!--<BoxView HeightRequest="10"/>-->
-                    <ffimageLoading:CachedImage Aspect="AspectFill"
-                                                Margin="0,10"
-                                                HorizontalOptions="Center"
-                                                WidthRequest="300"
-                                                HeightRequest="300"
-                                                Source="{Binding CoverImage}">
-                        <ffimageLoading:CachedImage.Transformations>
-                            <fftransformations:RoundedTransformation Radius="10"/>
-                        </ffimageLoading:CachedImage.Transformations>
-                    </ffimageLoading:CachedImage>
-                    <!--<BoxView HeightRequest="40"/>-->
-                    <StackLayout Margin="0,10">
-                        <Label Text="{Binding CurrentTrack.Album.Artist.Name}"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Fill" BackgroundColor="Black" Opacity="0.3"/>
+                <StackLayout Margin="30" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{OnIdiom Default=1, Tablet=.15*}"/>
+                            <ColumnDefinition Width="{OnIdiom Default=*, Tablet=.7*}"/>
+                            <ColumnDefinition Width="{OnIdiom Default=1, Tablet=.15*}"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout HorizontalOptions="Center" Grid.Column="1">
+                            <StackLayout>
+                                <Button Command="{Binding CloseDialogCommand}" HorizontalOptions="FillAndExpand" HeightRequest="40">
+                                    <Button.ImageSource>
+                                        <svg:SvgImageSource Source="Resources.arrowdown.svg" Height="20" Color="{StaticResource PrimaryPlayerLabelColor}"/>
+                                    </Button.ImageSource>
+                                </Button>
+                            </StackLayout>
+                            <ffimageLoading:CachedImage Aspect="AspectFill"
+                                                        Margin="0,10"
+                                                        HorizontalOptions="Center"
+                                                        WidthRequest="{OnIdiom Default=300, Tablet=430}"
+                                                        HeightRequest="{OnIdiom Default=300, Tablet=430}"
+                                                        Source="{Binding CoverImage}">
+                                <ffimageLoading:CachedImage.Transformations>
+                                    <fftransformations:RoundedTransformation Radius="10"/>
+                                </ffimageLoading:CachedImage.Transformations>
+                            </ffimageLoading:CachedImage>
+                            <StackLayout>
+                                <StackLayout Margin="0,10">
+                                    <Label Text="{Binding CurrentTrack.Album.Artist.Name}"
                                Margin="0,-5,0,0"
                                TextColor="{StaticResource PrimaryPlayerLabelColor}"
                                FontSize="22"
                                FontAttributes="Bold"
                                LineBreakMode="TailTruncation"/>
-                        <Label Text="{Binding CurrentTrack.Name}"
+                                    <Label Text="{Binding CurrentTrack.Name}"
                                Margin="0,-5,0,0"
                                TextColor="{StaticResource SecondaryPlayerLabelColor}"
                                FontSize="22"
                                LineBreakMode="TailTruncation"/>
-                    </StackLayout>
-                    <StackLayout Margin="0,10">
-                        <Slider Value="{Binding Progress}">
-                            <Slider.ThumbImageSource>
-                                <svg:SvgImageSource Source="Resources.thumb.svg" Height="10" Color="{StaticResource PrimaryPlayerLabelColor}"/>
-                            </Slider.ThumbImageSource>
-                        </Slider>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="0:00" TextColor="{StaticResource SecondaryPlayerLabelColor}"/>
-                            <Label Text="{Binding CurrentTrack.Duration, StringFormat='{0:mm\\:ss}'}"
+                                </StackLayout>
+                                <StackLayout Margin="0,10">
+                                    <Slider Value="{Binding Progress}">
+                                        <Slider.ThumbImageSource>
+                                            <svg:SvgImageSource Source="Resources.thumb.svg" Height="10" Color="{StaticResource PrimaryPlayerLabelColor}"/>
+                                        </Slider.ThumbImageSource>
+                                    </Slider>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="0:00" TextColor="{StaticResource SecondaryPlayerLabelColor}"/>
+                                        <Label Text="{Binding CurrentTrack.Duration, StringFormat='{0:mm\\:ss}'}"
                                    HorizontalOptions="EndAndExpand"
                                    TextColor="{StaticResource SecondaryPlayerLabelColor}"/>
-                        </StackLayout>
-                    </StackLayout>
-                    <StackLayout Margin="40,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="33*"/>
-                                <ColumnDefinition Width="33*"/>
-                                <ColumnDefinition Width="33*"/>
-                            </Grid.ColumnDefinitions>
-                            <Button HorizontalOptions="Start" Command="{Binding PlayPreviousCommand}">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="CommonStates">
-                                        <VisualState x:Name="Normal">
-                                            <VisualState.Setters>
-                                                <Setter Property="ImageSource">
-                                                    <Setter.Value>
-                                                        <svg:SvgImageSource Source="Resources.playprevious.svg" Height="35" Color="{StaticResource PrimaryPlayerLabelColor}"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                        <VisualState x:Name="Disabled">
-                                            <VisualState.Setters>
-                                                <Setter Property="ImageSource">
-                                                    <Setter.Value>
-                                                        <svg:SvgImageSource Source="Resources.playprevious.svg" Height="35" Color="{StaticResource SecondaryPlayerLabelColor}"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                            </Button>
-                            <Button Grid.Column="1" HorizontalOptions="Center" WidthRequest="50"
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="33*"/>
+                                            <ColumnDefinition Width="33*"/>
+                                            <ColumnDefinition Width="33*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button HorizontalOptions="FillAndExpand" Command="{Binding PlayPreviousCommand}">
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="CommonStates">
+                                                    <VisualState x:Name="Normal">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="ImageSource">
+                                                                <Setter.Value>
+                                                                    <svg:SvgImageSource Source="Resources.playprevious.svg" Height="35" Color="{StaticResource PrimaryPlayerLabelColor}"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                    <VisualState x:Name="Disabled">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="ImageSource">
+                                                                <Setter.Value>
+                                                                    <svg:SvgImageSource Source="Resources.playprevious.svg" Height="35" Color="{StaticResource SecondaryPlayerLabelColor}"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                        </Button>
+                                        <Button Grid.Column="1" HorizontalOptions="FillAndExpand"
                                     Command="{Binding PlayCommand}">
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding AudioPlayerState, Converter={StaticResource AudioPlayerStateToBoolConverter}}" Value="True">
-                                        <Setter Property="ImageSource">
-                                            <Setter.Value>
-                                                <svg:SvgImageSource Source="Resources.pause.svg" Height="35" Color="{StaticResource PrimaryPlayerLabelColor}" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="Button" Binding="{Binding AudioPlayerState, Converter={StaticResource AudioPlayerStateToBoolConverter}}" Value="False">
-                                        <Setter Property="ImageSource">
-                                            <Setter.Value>
-                                                <svg:SvgImageSource Source="Resources.play.svg" Height="35" Color="{StaticResource PrimaryPlayerLabelColor}" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button Grid.Column="2" HorizontalOptions="End"
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding AudioPlayerState, Converter={StaticResource AudioPlayerStateToBoolConverter}}" Value="True">
+                                                    <Setter Property="ImageSource">
+                                                        <Setter.Value>
+                                                            <svg:SvgImageSource Source="Resources.pause.svg" Height="35" Color="{StaticResource PrimaryPlayerLabelColor}" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Button" Binding="{Binding AudioPlayerState, Converter={StaticResource AudioPlayerStateToBoolConverter}}" Value="False">
+                                                    <Setter Property="ImageSource">
+                                                        <Setter.Value>
+                                                            <svg:SvgImageSource Source="Resources.play.svg" Height="35" Color="{StaticResource PrimaryPlayerLabelColor}" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                        <Button Grid.Column="2" HorizontalOptions="FillAndExpand"
                                     Command="{Binding PlayNextCommand}">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="CommonStates">
-                                        <VisualState x:Name="Normal">
-                                            <VisualState.Setters>
-                                                <Setter Property="ImageSource">
-                                                    <Setter.Value>
-                                                        <svg:SvgImageSource Source="Resources.playnext.svg" Height="35" Color="{StaticResource PrimaryPlayerLabelColor}"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                        <VisualState x:Name="Disabled">
-                                            <VisualState.Setters>
-                                                <Setter Property="ImageSource">
-                                                    <Setter.Value>
-                                                        <svg:SvgImageSource Source="Resources.playnext.svg" Height="35" Color="{StaticResource SecondaryPlayerLabelColor}"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                            </Button>
-                        </Grid>
-                    </StackLayout>
-                    
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="CommonStates">
+                                                    <VisualState x:Name="Normal">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="ImageSource">
+                                                                <Setter.Value>
+                                                                    <svg:SvgImageSource Source="Resources.playnext.svg" Height="35" Color="{StaticResource PrimaryPlayerLabelColor}"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                    <VisualState x:Name="Disabled">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="ImageSource">
+                                                                <Setter.Value>
+                                                                    <svg:SvgImageSource Source="Resources.playnext.svg" Height="35" Color="{StaticResource SecondaryPlayerLabelColor}"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                        </Button>
+                                    </Grid>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
                 </StackLayout>
             </Grid>
         </AbsoluteLayout>

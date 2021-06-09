@@ -1,5 +1,4 @@
-﻿using BSE.Tunes.XApp.Controls;
-using BSE.Tunes.XApp.Events;
+﻿using BSE.Tunes.XApp.Events;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
@@ -69,7 +68,7 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 { "source", currentTrack }
             };
-            await NavigationService.NavigateAsync(nameof(PlayerDialogPage), navigationParams, useModalNavigation: true);
+            await NavigationService.NavigateAsync(nameof(NowPlayingPage), navigationParams, useModalNavigation: true);
         }
 
         protected override async void Play()

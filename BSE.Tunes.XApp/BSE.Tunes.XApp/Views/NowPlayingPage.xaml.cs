@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.Views
 {
-    public partial class PlayerDialogPage : RemoteControlPage
+    public partial class NowPlayingPage : RemoteControlPage
     {
-        public PlayerDialogPage()
+        public NowPlayingPage()
         {
             InitializeComponent();
         }

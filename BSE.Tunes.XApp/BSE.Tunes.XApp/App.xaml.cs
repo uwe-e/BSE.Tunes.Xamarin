@@ -65,7 +65,7 @@ namespace BSE.Tunes.XApp
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
-            containerRegistry.RegisterForNavigation<PlayerDialogPage, PlayerDialogPageViewModel>();
+            containerRegistry.RegisterForNavigation<NowPlayingPage, NowPlayingPageViewModel>();
             containerRegistry.RegisterForNavigation<ServiceEndpointWizzardPage, ServiceEndpointSettingsWizzardViewModel>();
             containerRegistry.RegisterForNavigation<ExtendedSplashPage, ExtendedSplashPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginWizzardPage, LoginWizzardPageViewModel>();

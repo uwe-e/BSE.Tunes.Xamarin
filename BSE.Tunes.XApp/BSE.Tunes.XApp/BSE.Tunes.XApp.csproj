@@ -73,6 +73,9 @@
     <Compile Update="Views\NewPlaylistDialogPage.xaml.cs">
       <DependentUpon>NewPlaylistDialogPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\NowPlayingPage.xaml.cs">
+      <DependentUpon>NowPlayingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PlaylistActionToolbarPage.xaml.cs">
       <DependentUpon>PlaylistActionToolbarPage.xaml</DependentUpon>
     </Compile>
@@ -149,7 +152,7 @@
     <EmbeddedResource Update="Views\NewPlaylistDialogPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\PlayerDialogPage.xaml">
+    <EmbeddedResource Update="Views\NowPlayingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PlaylistActionToolbarPage.xaml">

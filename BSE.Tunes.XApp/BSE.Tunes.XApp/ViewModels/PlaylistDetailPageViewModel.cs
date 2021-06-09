@@ -171,8 +171,6 @@ namespace BSE.Tunes.XApp.ViewModels
         
         private async Task ShowAlbum(PlaylistActionContext playlistActionContext)
         {
-            await FlyoutNavigationService.CloseFlyoutAsync();
-
             if (playlistActionContext?.Data is PlaylistEntry playlistEntry)
             {
                 var album = playlistEntry.Track?.Album;

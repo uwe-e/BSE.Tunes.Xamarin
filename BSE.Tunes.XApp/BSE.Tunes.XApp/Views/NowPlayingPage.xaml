@@ -12,7 +12,7 @@
                             xmlns:converter="clr-namespace:BSE.Tunes.XApp.Converter"
                             ios:Page.ModalPresentationStyle="OverFullScreen"
                             BackgroundColor="{DynamicResource BackgroundColor}"
-                            x:Class="BSE.Tunes.XApp.Views.PlayerDialogPage"
+                            x:Class="BSE.Tunes.XApp.Views.NowPlayingPage"
                             AudioPlayerState="{Binding AudioPlayerState, Mode=TwoWay}"
                             PlayCommand="{Binding PlayCommand}"
                             PauseCommand="{Binding PauseCommand}"
@@ -23,6 +23,12 @@
         <ResourceDictionary>
             <Color x:Key="PrimaryPlayerLabelColor">#FFFFFFFF</Color>
             <Color x:Key="SecondaryPlayerLabelColor">#66FFFFFF</Color>
+            <Style x:Key="PlayerContextMenuButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="TextColor" Value="{StaticResource PrimaryPlayerLabelColor}"/>
+                <Setter Property="Text" Value="···"/>
+                <Setter Property="FontSize" Value="22"/>
+            </Style>
             <converter:AudioPlayerStateToBoolConverter x:Key="AudioPlayerStateToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -68,31 +74,43 @@
                                 </ffimageLoading:CachedImage.Transformations>
                             </ffimageLoading:CachedImage>
                             <StackLayout>
-                                <StackLayout Margin="0,10">
-                                    <Label Text="{Binding CurrentTrack.Album.Artist.Name}"
-                               Margin="0,-5,0,0"
-                               TextColor="{StaticResource PrimaryPlayerLabelColor}"
-                               FontSize="22"
-                               FontAttributes="Bold"
-                               LineBreakMode="TailTruncation"/>
-                                    <Label Text="{Binding CurrentTrack.Name}"
-                               Margin="0,-5,0,0"
-                               TextColor="{StaticResource SecondaryPlayerLabelColor}"
-                               FontSize="22"
-                               LineBreakMode="TailTruncation"/>
+                                <StackLayout Orientation="Horizontal">
+                                    
+                                    <StackLayout Margin="0,10">
+                                        <Label Text="{Binding CurrentTrack.Album.Artist.Name}"
+                                           Margin="0,-5,0,0"
+                                           TextColor="{StaticResource PrimaryPlayerLabelColor}"
+                                           FontSize="22"
+                                           FontAttributes="Bold"
+                                           LineBreakMode="TailTruncation"/>
+                                        <Label Text="{Binding CurrentTrack.Name}"
+                                               Margin="0,-5,0,0"
+                                               TextColor="{StaticResource SecondaryPlayerLabelColor}"
+                                               FontSize="22"
+                                               LineBreakMode="TailTruncation"/>
+                                    </StackLayout>
+
+                                    <Button HorizontalOptions="EndAndExpand" Style="{StaticResource PlayerContextMenuButtonStyle}"
+                                            Command="{Binding OpenFlyoutCommand}"
+                                            CommandParameter="{Binding CurrentTrack}">
+                                    </Button>
+
                                 </StackLayout>
                                 <StackLayout Margin="0,10">
+                                    
                                     <Slider Value="{Binding Progress}">
                                         <Slider.ThumbImageSource>
                                             <svg:SvgImageSource Source="Resources.thumb.svg" Height="10" Color="{StaticResource PrimaryPlayerLabelColor}"/>
                                         </Slider.ThumbImageSource>
                                     </Slider>
+
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="0:00" TextColor="{StaticResource SecondaryPlayerLabelColor}"/>
                                         <Label Text="{Binding CurrentTrack.Duration, StringFormat='{0:mm\\:ss}'}"
-                                   HorizontalOptions="EndAndExpand"
-                                   TextColor="{StaticResource SecondaryPlayerLabelColor}"/>
+                                               HorizontalOptions="EndAndExpand"
+                                               TextColor="{StaticResource SecondaryPlayerLabelColor}"/>
                                     </StackLayout>
+
                                 </StackLayout>
                                 <StackLayout>
                                     <Grid>
@@ -174,6 +192,7 @@
                             </StackLayout>
                         </StackLayout>
                     </Grid>
+                
                 </StackLayout>
             </Grid>
         </AbsoluteLayout>

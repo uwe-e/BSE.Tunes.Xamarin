@@ -2,12 +2,9 @@
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
-using BSE.Tunes.XApp.Views;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
-using System;
-using System.Diagnostics;
 using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
@@ -91,6 +88,8 @@ namespace BSE.Tunes.XApp.ViewModels
             _playlistActionContext = parameters.GetValue<PlaylistActionContext>("source");
             if (_playlistActionContext?.Data is Track track)
             {
+                //comes from the nowplaying page and is used only there
+                CanDisplayAlbumInfo = (bool)_playlistActionContext?.DisplayAlbumInfo;
                 Title = track.Name;
                 SubTitle = track.Album.Artist.Name;
                 ImageSource = _imageService.GetBitmapSource(track.Album.AlbumId, true);
@@ -153,6 +152,8 @@ namespace BSE.Tunes.XApp.ViewModels
         
         private void ShowAlbum()
         {
+            CloseFlyout();
+            
             if (_playlistActionContext != null)
             {
                 _playlistActionContext.ActionMode = PlaylistActionMode.ShowAlbum;

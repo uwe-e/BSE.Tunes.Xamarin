@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<controls:FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
+<controls:BottomFlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
                      xmlns:prism="http://prismlibrary.com"
                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                      xmlns:i18n="clr-namespace:BSE.Tunes.XApp.MarkupExtensions"
@@ -13,7 +13,7 @@
                      CloseButtonText="{i18n:Translate ManageAlbumsPage_ButtonClose_Text}"
                      CloseFlyoutCommand="{Binding CloseFlyoutCommand}">
 
-    <controls:FlyoutPage.Content>
+    <controls:BottomFlyoutPage.Content>
         <StackLayout Padding="5">
             <controls:ListViewItem ImageSource="{Binding ImageSource}" Title="{Binding Title}"
                                    SubTitle="{Binding SubTitle}"/>
@@ -37,6 +37,6 @@
                                    Text="{i18n:Translate ManageAlbumsPage_Button_RemovePlaylist}"
                                    Command="{Binding RemovePlaylistCommand}"/>
         </StackLayout>
-    </controls:FlyoutPage.Content>
+    </controls:BottomFlyoutPage.Content>
     
-</controls:FlyoutPage>
+</controls:BottomFlyoutPage>

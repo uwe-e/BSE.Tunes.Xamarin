@@ -101,44 +101,7 @@ namespace BSE.Tunes.XApp.ViewModels
                             managePlaylistContext.ActionMode = PlaylistActionMode.None;
                             await NavigationService.GoBackAsync();
                             break;
-                        //case PlaylistActionMode.PlaylistUpdated:
-                        //    managePlaylistContext.ActionMode = PlaylistActionMode.None;
-                        //    break;
                     }
-                    //if (managePlaylistContext.ActionMode == PlaylistActionMode.Append)
-                    //{
-                    //    if (managePlaylistContext.PlaylistTo == null)
-                    //    {
-                    //        SelectPlaylist(managePlaylistContext);
-                    //    }
-                    //    else
-                    //    {
-                    //        AddToPlaylist(managePlaylistContext);
-                    //    }
-
-                    //}
-                    //if (managePlaylistContext.ActionMode == PlaylistActionMode.Remove)
-                    //{
-                    //    RemoveFromPlaylist(managePlaylistContext);
-                    //}
-                    //if (managePlaylistContext.ActionMode == PlaylistActionMode.New)
-                    //{
-                    //    CreateNewPlaylist(managePlaylistContext);
-                    //}
-                    //if (managePlaylistContext.ActionMode == PlaylistActionMode.Deleted)
-                    //{
-                    //    await NavigationService.NavigateAsync($"{ nameof(NavigationPage)}/{nameof(PlaylistsPage)}");
-                    //}
-                    //if (managePlaylistContext.ActionMode == PlaylistActionMode.Updated)
-                    //{
-                    //    //var playlist = managePlaylistContext.PlaylistTo;
-                    //    //if (playlist != null)
-                    //    //{
-                    //    //    await _imageService.RemoveStitchedBitmaps(playlist.Id);
-                    //    //}
-                    //    //managePlaylistContext.ActionMode = PlaylistActionMode.None;
-                    //}
-
                 }
 
             },ThreadOption.UIThread);

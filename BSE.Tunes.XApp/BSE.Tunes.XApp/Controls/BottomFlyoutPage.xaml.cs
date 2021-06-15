@@ -6,7 +6,7 @@ using Xamarin.Forms.Xaml;
 namespace BSE.Tunes.XApp.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FlyoutPage : ContentPage
+    public partial class BottomFlyoutPage : ContentPage
     {
         private ContentView _flyout;
         private BoxView _fader;
@@ -16,7 +16,7 @@ namespace BSE.Tunes.XApp.Controls
         private double _flyoutHeight;
         
         public static readonly BindableProperty FlyoutBackgroundColorProperty =
-            BindableProperty.Create(nameof(FlyoutBackgroundColor), typeof(Color), typeof(FlyoutPage), default(Color));
+            BindableProperty.Create(nameof(FlyoutBackgroundColor), typeof(Color), typeof(BottomFlyoutPage), default(Color));
 
         public Color FlyoutBackgroundColor
         {
@@ -25,7 +25,7 @@ namespace BSE.Tunes.XApp.Controls
         }
 
         public static readonly BindableProperty TransparentBackgroundColorProperty =
-            BindableProperty.Create(nameof(TransparentBackgroundColor), typeof(Color), typeof(FlyoutPage), Color.FromHex("#d8000000"));
+            BindableProperty.Create(nameof(TransparentBackgroundColor), typeof(Color), typeof(BottomFlyoutPage), Color.FromHex("#d8000000"));
 
         public Color TransparentBackgroundColor
         {
@@ -36,7 +36,7 @@ namespace BSE.Tunes.XApp.Controls
         public static readonly BindableProperty CloseFlyoutCommandProperty =
             BindableProperty.Create(
                 nameof(CloseFlyoutCommand), typeof(ICommand),
-                typeof(FlyoutPage),
+                typeof(BottomFlyoutPage),
                 null);
 
         public ICommand CloseFlyoutCommand
@@ -55,7 +55,7 @@ namespace BSE.Tunes.XApp.Controls
             set { SetValue(CloseButtonTextProperty, value); }
         }
 
-        public FlyoutPage()
+        public BottomFlyoutPage()
         {
             InitializeComponent();
             BackgroundColor = Color.Transparent;

@@ -12,7 +12,7 @@ namespace BSE.Tunes.XApp.Droid.Services
     {
         public AudioPlayerState AudioPlayerState => throw new NotImplementedException();
 
-        public float Progress => throw new NotImplementedException();
+        public float Progress => 0f;
 
         public event Action<AudioPlayerState> AudioPlayerStateChanged;
         public event Action<MediaState> MediaStateChanged;

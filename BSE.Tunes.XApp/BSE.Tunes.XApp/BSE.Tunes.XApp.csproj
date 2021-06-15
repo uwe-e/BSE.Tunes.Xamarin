@@ -29,20 +29,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CardsView" Version="2.6.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="CardsView" Version="2.7.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
-    <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
     <PackageReference Include="Xamarin.Forms.Svg" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Controls\FlyoutButton.xaml.cs">
       <DependentUpon>FlyoutButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\BottomFlyoutPage.xaml.cs">
+      <DependentUpon>BottomFlyoutPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Controls\SectionHeaderButton.xaml.cs">
       <DependentUpon>SectionHeaderButton.xaml</DependentUpon>
@@ -91,7 +94,7 @@
     <EmbeddedResource Update="Controls\FlyoutButton.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\FlyoutPage.xaml">
+    <EmbeddedResource Update="Controls\BottomFlyoutPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Controls\FulllScreenLoadingPage.xaml">

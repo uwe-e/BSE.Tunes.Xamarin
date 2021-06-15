@@ -52,8 +52,6 @@ namespace BSE.Tunes.XApp.Services
             return succeeded;
         }
 
-
-
         public async Task<TokenResponse> RequestRefreshTokenAsync(string refreshToken)
         {
             var fields = new Dictionary<string, string>

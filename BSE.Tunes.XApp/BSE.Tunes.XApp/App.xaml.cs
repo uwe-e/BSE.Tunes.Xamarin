@@ -26,7 +26,7 @@ namespace BSE.Tunes.XApp
          * "setFormsDependencyResolver = true" means that the Xamarin.Forms DepedencyService will
          * use the same DI container when resolving instances.
          */
-        public App(IPlatformInitializer initializer) : base(initializer, setFormsDependencyResolver: true) { }
+        public App(IPlatformInitializer initializer) : base(initializer) { }
 
         protected override async void OnInitialized()
         {
@@ -34,13 +34,13 @@ namespace BSE.Tunes.XApp
 
             Xamarin.Forms.Svg.SvgImageSource.RegisterAssembly();
 
-            // Enable your flags here!
-            Device.SetFlags(new[] {
-                "CarouselView_Experimental",
-                "IndicatorView_Experimental",
-                "AppTheme_Experimental",
-                "Brush_Experimental"
-            });
+            //// Enable your flags here!
+            //Device.SetFlags(new[] {
+            //    "CarouselView_Experimental",
+            //    "IndicatorView_Experimental",
+            //    "AppTheme_Experimental",
+            //    "Brush_Experimental"
+            //});
 
             if (Application.Current != null)
             {
@@ -86,12 +86,22 @@ namespace BSE.Tunes.XApp
             containerRegistry.RegisterForNavigation<CacheSettingsPage, CacheSettingsPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginSettingsPage, LoginSettingsPageViewModel>();
 
-            containerRegistry.RegisterSingleton<ISettingsService, SettingsService>();
+            ISettingsService settingsService = new SettingsService();
+            DependencyService.RegisterSingleton<ISettingsService>(settingsService);
+            containerRegistry.RegisterInstance<ISettingsService>(settingsService);
+
+            IAuthenticationService authenticationService = new AuthenticationService(settingsService);
+            DependencyService.RegisterSingleton<IAuthenticationService>(authenticationService);
+            containerRegistry.RegisterInstance<IAuthenticationService>(authenticationService);
+            
+            IRequestService requestService = new RequestService(authenticationService);
+            DependencyService.RegisterSingleton<IRequestService>(requestService);
+            containerRegistry.RegisterInstance<IRequestService>(requestService);
+            
             containerRegistry.Register<IDataService, DataService>();
             containerRegistry.Register<IAppInfoService, AppInfoService>();
-            containerRegistry.Register<IRequestService, RequestService>();
+
             containerRegistry.Register<IResourceService, ResourceService>();
-            containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
             containerRegistry.RegisterSingleton<IPlayerManager, PlayerManager>();
             containerRegistry.Register<IImageService, ImageService>();
             containerRegistry.Register<IStorageService, StorageService>();

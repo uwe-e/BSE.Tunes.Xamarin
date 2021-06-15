@@ -23,11 +23,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private DelegateCommand<object> _openFlyoutCommand;
         private string _coverImage;
 
-        public ICommand CloseDialogCommand => _closeDialogCommand
-            ?? (_closeDialogCommand = new DelegateCommand(async() =>
-            {
-                await NavigationService.GoBackAsync();
-            }));
+        public ICommand CloseDialogCommand => _closeDialogCommand ?? (_closeDialogCommand = new DelegateCommand(CloseDialog));
 
         public DelegateCommand<object> OpenFlyoutCommand => _openFlyoutCommand
             ?? (_openFlyoutCommand = new DelegateCommand<object>(OpenFlyout));
@@ -77,23 +73,13 @@ namespace BSE.Tunes.XApp.ViewModels
                             managePlaylistContext.ActionMode = PlaylistActionMode.None;
                             await CreateNewPlaylist(managePlaylistContext);
                             break;
-                    }
-                }
-            });
-            _eventAggregator.GetEvent<PlaylistActionContextChanged>().Subscribe(async args =>
-            {
-                if (args is PlaylistActionContext managePlaylistContext)
-                {
-                    if (managePlaylistContext.ActionMode == PlaylistActionMode.ShowAlbum)
-                    {
-                        await NavigationService.GoBackAsync();
+                        case PlaylistActionMode.ShowAlbum:
+                            CloseDialog();
+                            break;
                     }
                 }
             }, ThreadOption.UIThread);
-
         }
-
-        
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -176,6 +162,11 @@ namespace BSE.Tunes.XApp.ViewModels
                     _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(context);
                 }
             }
+        }
+        
+        private async void CloseDialog()
+        {
+            await NavigationService.GoBackAsync(useModalNavigation: true, animated: true);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace BSE.Tunes.XApp.ViewModels
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<AlbumSelectedEvent>().Subscribe(SelectAlbum, ThreadOption.UIThread);
             _eventAggregator.GetEvent<PlaylistSelectedEvent>().Subscribe(SelectPlaylist, ThreadOption.UIThread);
-
         }
 
         private async void SelectAlbum(Album album)

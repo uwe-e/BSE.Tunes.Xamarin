@@ -2,7 +2,7 @@
 
 namespace BSE.Tunes.XApp.Views
 {
-    public partial class PlaylistActionToolbarPage : FlyoutPage
+    public partial class PlaylistActionToolbarPage : BottomFlyoutPage
     {
         public PlaylistActionToolbarPage()
         {

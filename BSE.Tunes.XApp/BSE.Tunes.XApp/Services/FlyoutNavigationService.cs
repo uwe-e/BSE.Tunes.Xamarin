@@ -2,21 +2,20 @@
 using Prism.Behaviors;
 using Prism.Common;
 using Prism.Ioc;
-using Prism.Logging;
 using Prism.Navigation;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace BSE.Tunes.XApp.Services
 {
     public class FlyoutNavigationService : PageNavigationService, IFlyoutNavigationService
     {
-        private FlyoutPage _flyoutPage; 
+        private BottomFlyoutPage _flyoutPage; 
 
         public FlyoutNavigationService(
             IContainerExtension container,
             IApplicationProvider applicationProvider,
-            IPageBehaviorFactory pageBehaviorFactory,
-            ILoggerFacade logger) : base(container, applicationProvider, pageBehaviorFactory, logger)
+            IPageBehaviorFactory pageBehaviorFactory) : base(container, applicationProvider, pageBehaviorFactory)
         {
         }
 
@@ -26,7 +25,26 @@ namespace BSE.Tunes.XApp.Services
             {
                 await _flyoutPage.DisappearingAnimation();
             }
+            /* 
+             * Workaround for Prism 8.1.97
+             * PopUp Page wasnt completely removed
+             */
+            var result = new NavigationResult();
             
+            var page = GetCurrentPage();
+
+            var poppedPage = await DoPop(page.Navigation, true, false);
+            if (poppedPage != null)
+            {
+                PageUtilities.DestroyPage(poppedPage);
+
+                result.Success = true;
+                return result;
+            }
+            /*
+             * End of workaround
+             */
+
             return await GoBackInternal(null,useModalNavigation: true, animated: false);
         }
 
@@ -34,7 +52,7 @@ namespace BSE.Tunes.XApp.Services
         {
             var result = new NavigationResult();
             var page = CreatePageFromSegment(name);
-            if (page is FlyoutPage flyoutPage)
+            if (page is BottomFlyoutPage flyoutPage)
             {
                 _flyoutPage = flyoutPage;
 

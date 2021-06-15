@@ -1,4 +1,5 @@
 ﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
@@ -55,6 +56,26 @@ namespace BSE.Tunes.XApp.ViewModels
                     LoadCoverSource(CurrentTrack);
                 }
             }, ThreadOption.UIThread);
+            _eventAggregator.GetEvent<PlaylistActionContextChanged>().Subscribe(async args =>
+            {
+                if (args is PlaylistActionContext managePlaylistContext)
+                {
+                    if (managePlaylistContext.ActionMode == PlaylistActionMode.ShowAlbum)
+                    {
+                        if (managePlaylistContext.Data is Track track)
+                        {
+                            var navigationParams = new NavigationParameters
+                            {
+                                { "album", track.Album }
+                            };
+                            //await NavigationService.GoBackAsync(useModalNavigation: true);
+                            //await NavigationService.GoBackAsync(useModalNavigation: true);
+                            //await NavigationService.NavigateAsync($"{nameof(MainPage)}?{KnownNavigationParameters.SelectedTab}={nameof(AlbumsPage)}", navigationParams, false);
+                            //await NavigationService.NavigateAsync($"{nameof(AlbumsPage)}/{nameof(AlbumDetailPage)}", navigationParams, false);
+                        }
+                    }
+                }
+            });
         }
 
         private bool CanSelectTrack(Track currentTrack)

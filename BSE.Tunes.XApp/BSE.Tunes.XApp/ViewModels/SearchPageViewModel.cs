@@ -2,7 +2,6 @@
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
-using PanCardView.Extensions;
 using Prism.Commands;
 using Prism.Navigation;
 using System;

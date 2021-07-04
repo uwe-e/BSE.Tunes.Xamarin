@@ -1,5 +1,4 @@
 ﻿using Foundation;
-using PanCardView.iOS;
 using Prism;
 using Prism.Ioc;
 using UIKit;
@@ -24,7 +23,6 @@ namespace BSE.Tunes.XApp.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             Xamarin.Forms.Svg.iOS.SvgImage.Init();
-            CardsViewRenderer.Preserve();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));
 

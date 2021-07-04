@@ -131,9 +131,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CardsView">
-      <Version>2.7.8</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.12" />
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>

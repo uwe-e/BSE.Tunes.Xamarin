@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CardsView" Version="2.7.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
@@ -63,9 +62,6 @@
     </Compile>
     <Compile Update="Views\FeaturedAlbumsView.xaml.cs">
       <DependentUpon>FeaturedAlbumsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\FeaturedItemsView.xaml.cs">
-      <DependentUpon>FeaturedItemsView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\LoginWizzardPage.xaml.cs">
       <DependentUpon>LoginWizzardPage.xaml</DependentUpon>
@@ -132,9 +128,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\FeaturedAlbumsView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\FeaturedItemsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\FeaturedPlaylistsView.xaml">

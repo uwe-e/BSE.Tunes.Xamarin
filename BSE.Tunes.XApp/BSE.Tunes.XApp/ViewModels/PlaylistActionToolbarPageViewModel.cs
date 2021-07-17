@@ -164,6 +164,10 @@ namespace BSE.Tunes.XApp.ViewModels
                 {
                     _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().Publish(track);
                 }
+                if (_playlistActionContext.Data is PlaylistEntry playlistEntry)
+                {
+                    _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().Publish(playlistEntry.Track);
+                }
             }
         }
     }

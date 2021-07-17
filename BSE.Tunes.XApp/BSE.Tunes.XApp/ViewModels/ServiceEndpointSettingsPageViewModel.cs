@@ -1,5 +1,8 @@
-﻿using BSE.Tunes.XApp.Services;
+﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
+using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
+using Prism.Events;
 using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Forms;
@@ -9,6 +12,7 @@ namespace BSE.Tunes.XApp.ViewModels
     public class ServiceEndpointSettingsPageViewModel : BaseSettingsPageViewModel
     {
         private readonly IPageDialogService _pageDialogService;
+        private readonly IEventAggregator _eventAggregator;
         private string _serviceEndPoint;
 
         public string ServiceEndPoint
@@ -28,9 +32,24 @@ namespace BSE.Tunes.XApp.ViewModels
             ISettingsService settingsService,
             IPageDialogService pageDialogService,
             IPlayerManager playerManager,
+            IEventAggregator eventAggregator,
             IResourceService resourceService) : base(navigationService, settingsService, playerManager, resourceService)
         {
             _pageDialogService = pageDialogService;
+            _eventAggregator = eventAggregator;
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            {
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(ServiceEndpointSettingsPage)))
+                {
+                    var navigationParams = new NavigationParameters
+                    {
+                        { "album", track.Album }
+                    };
+
+                    await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);
+                }
+            });
         }
 
         public override void LoadSettings()

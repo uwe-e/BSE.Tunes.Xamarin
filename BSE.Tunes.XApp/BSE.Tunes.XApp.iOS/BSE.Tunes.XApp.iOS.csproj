@@ -27,8 +27,9 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignKey>Apple Development: Uwe Eichkorn (S5XXKJ5CQ7)</CodesignKey>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignProvision>
+    </CodesignProvision>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
   </PropertyGroup>
@@ -496,7 +497,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadDebuggerTimeoutExceptionBSETunesXAppiOSHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionBSETunesXAppiOSHideInfoBar="True" TriggeredFromHotReload="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

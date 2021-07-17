@@ -5,6 +5,7 @@ using BSE.Tunes.XApp.Services;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
@@ -27,7 +28,10 @@ namespace BSE.Tunes.XApp.ViewModels
         private bool _canDisplayAlbumInfo;
 
         public ICommand CloseFlyoutCommand => _closeFlyoutCommand
-            ?? (_closeFlyoutCommand = new DelegateCommand(CloseFlyout));
+            ?? (_closeFlyoutCommand = new DelegateCommand(async () =>
+            {
+                await CloseFlyout();
+            }));
 
         public ICommand AddToPlaylistCommand => _addToPlaylistCommand
             ?? (_addToPlaylistCommand = new DelegateCommand(AddToPlaylist));
@@ -118,7 +122,7 @@ namespace BSE.Tunes.XApp.ViewModels
             base.OnNavigatedTo(parameters);
         }
 
-        private async void CloseFlyout()
+        private async Task CloseFlyout()
         {
             await _flyoutNavigationService.CloseFlyoutAsync();
         }
@@ -150,14 +154,16 @@ namespace BSE.Tunes.XApp.ViewModels
             }
         }
         
-        private void ShowAlbum()
+        private async void ShowAlbum()
         {
-            CloseFlyout();
+            await CloseFlyout();
             
             if (_playlistActionContext != null)
             {
-                _playlistActionContext.ActionMode = PlaylistActionMode.ShowAlbum;
-                _eventAggregator.GetEvent<PlaylistActionContextChanged>().Publish(_playlistActionContext);
+                if (_playlistActionContext.Data is Track track)
+                {
+                    _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().Publish(track);
+                }
             }
         }
     }

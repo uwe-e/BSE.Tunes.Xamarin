@@ -1,17 +1,22 @@
 ﻿using BSE.Tunes.XApp.Collections;
+using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
 using Prism.Events;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
     public class AlbumDetailPageViewModel : TracklistBaseViewModel
     {
+        private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
         private readonly IImageService _imageService;
         private Album _album;
@@ -39,11 +44,31 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             _dataService = dataService;
             _imageService = imageService;
+            _eventAggregator = eventAggregator;
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            {
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(AlbumDetailPage)))
+                {
+                    var navigationParams = new NavigationParameters
+                    {
+                        { "album", track.Album }
+                    };
+
+                    await LoadAlbum(track.Album);
+                }
+            });
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             Album album = parameters.GetValue<Album>("album");
+            await LoadAlbum(album);
+        }
+
+        private async Task LoadAlbum(Album album)
+        {
+            Items.Clear();
             if (album != null)
             {
                 Album = await _dataService.GetAlbumById(album.Id);

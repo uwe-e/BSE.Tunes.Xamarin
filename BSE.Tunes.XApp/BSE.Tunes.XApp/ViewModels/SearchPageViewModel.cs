@@ -1,8 +1,11 @@
-﻿using BSE.Tunes.XApp.Models;
+﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
+using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
@@ -21,6 +24,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private DelegateCommand<GridPanel> _playCommand;
         private string _textValue;
         private readonly IDataService _dataService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IPlayerManager _playerManager;
         private ObservableCollection<GridPanel> _albums;
         private ObservableCollection<GridPanel> _tracks;
@@ -112,12 +116,27 @@ namespace BSE.Tunes.XApp.ViewModels
         public SearchPageViewModel(INavigationService navigationService,
             IResourceService resourceService,
             IDataService dataService,
+            IEventAggregator eventAggregator,
             IPlayerManager playerManager) : base(navigationService, resourceService)
         {
             _dataService = dataService;
+            _eventAggregator = eventAggregator;
             _playerManager = playerManager;
             IsBusy = false;
             HasAlbums = HasTracks = false;
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            {
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(SearchPage)))
+                {
+                    var navigationParams = new NavigationParameters
+                    {
+                        { "album", track.Album }
+                    };
+
+                    await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);
+                }
+            });
         }
 
         private async void TextChanged(string searchPhrase)

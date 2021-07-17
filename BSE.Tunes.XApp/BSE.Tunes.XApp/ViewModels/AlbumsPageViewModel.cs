@@ -1,9 +1,12 @@
-﻿using BSE.Tunes.XApp.Models;
+﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
+using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
 using Prism;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
@@ -26,6 +29,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private int _pageNumber;
         private bool _hasItems;
         private readonly IImageService _imageService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
 
         public event EventHandler IsActiveChanged;
@@ -75,11 +79,26 @@ namespace BSE.Tunes.XApp.ViewModels
         public AlbumsPageViewModel(INavigationService navigationService,
             IResourceService resourceService,
             IImageService imageService,
+            IEventAggregator eventAggregator,
             IDataService dataService) : base(navigationService, resourceService)
         {
             _imageService = imageService;
+            _eventAggregator = eventAggregator;
             _dataService = dataService;
             PageSize = 20;
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            {
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(AlbumsPage)))
+                {
+                    var navigationParams = new NavigationParameters
+                    {
+                        { "album", track.Album }
+                    };
+
+                    await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);
+                }
+            });
         }
 
         protected virtual async void RaiseIsActiveChanged()

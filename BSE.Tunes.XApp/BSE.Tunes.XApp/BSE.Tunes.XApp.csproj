@@ -40,6 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\HeaderedCollectionView.xaml.cs">
+      <DependentUpon>HeaderedCollectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Controls\FlyoutButton.xaml.cs">
       <DependentUpon>FlyoutButton.xaml</DependentUpon>
     </Compile>
@@ -87,6 +90,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Controls\HeaderedCollectionView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Controls\FlyoutButton.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

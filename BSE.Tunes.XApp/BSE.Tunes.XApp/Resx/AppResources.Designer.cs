@@ -97,6 +97,15 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Also from this Artist.
+        /// </summary>
+        internal static string AlbumsDetailPage_FurtherAlbums_Header_Text {
+            get {
+                return ResourceManager.GetString("AlbumsDetailPage_FurtherAlbums_Header_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Albums.
         /// </summary>
         internal static string AlbumSearchResultsPage_Title {

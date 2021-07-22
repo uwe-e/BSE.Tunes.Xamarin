@@ -7,6 +7,7 @@ namespace BSE.Tunes.XApp.Services
 {
     public interface IDataService
     {
+        Task<ObservableCollection<Album>> GetAlbumsByArtist(int artistId, int skip, int limit);
         Task<Album> GetAlbumById(int albumId);
         Task<Album[]> GetAlbumSearchResults(string query, int skip, int limit);
         Task<ObservableCollection<Album>> GetFeaturedAlbums(int limit);

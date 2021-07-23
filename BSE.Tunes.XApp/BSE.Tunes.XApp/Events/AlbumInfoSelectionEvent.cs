@@ -1,9 +1,9 @@
-﻿using BSE.Tunes.XApp.Models.Contract;
+﻿using BSE.Tunes.XApp.Models;
 using Prism.Events;
 
 namespace BSE.Tunes.XApp.Events
 {
-    public class AlbumInfoSelectionEvent : PubSubEvent<Track>
+    public class AlbumInfoSelectionEvent : PubSubEvent<UniqueAlbum>
     {
     }
 }

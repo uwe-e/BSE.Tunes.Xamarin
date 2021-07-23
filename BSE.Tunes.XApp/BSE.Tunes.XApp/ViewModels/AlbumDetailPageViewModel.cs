@@ -105,15 +105,17 @@ namespace BSE.Tunes.XApp.ViewModels
             _hasItems = true;
             HasFurtherAlbums = false;
 
-            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
             {
-                if (PageUtilities.IsCurrentPageTypeOf(typeof(AlbumDetailPage)))
+                /*Sometimes we have more than one AlbumDetailPage.
+                 * For preventing the execution of this event in all these pages, we check an identifier for its use.
+                */
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(AlbumDetailPage), uniqueTrack.UniqueId))
                 {
                     var navigationParams = new NavigationParameters
                     {
-                        { "album", track.Album }
+                        { "album", uniqueTrack.Album }
                     };
-
                     await NavigationService.NavigateAsync($"{nameof(AlbumDetailPage)}", navigationParams);
                 }
             });
@@ -202,6 +204,11 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             if (obj?.Data is Album album)
             {
+                /*
+                 * The property SelectedAlbum is the parameter for the SelectionChangedCommand command.
+                 * To reselect the previously selected item within the collection we need to reset the SelectedAlbum
+                 */
+                SelectedAlbum = null;
                 var navigationParams = new NavigationParameters
                     {
                         { "album", album }

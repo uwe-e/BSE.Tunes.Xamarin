@@ -48,13 +48,13 @@ namespace BSE.Tunes.XApp.ViewModels
                 LoadSettings();
             });
 
-            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
             {
                 if (PageUtilities.IsCurrentPageTypeOf(typeof(CacheSettingsPage)))
                 {
                     var navigationParams = new NavigationParameters
                     {
-                        { "album", track.Album }
+                        { "album", uniqueTrack.Album }
                     };
 
                     await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);

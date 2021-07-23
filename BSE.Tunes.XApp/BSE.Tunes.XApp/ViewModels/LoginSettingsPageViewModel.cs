@@ -38,13 +38,13 @@ namespace BSE.Tunes.XApp.ViewModels
             _pageDialogService = pageDialogService;
 
 
-            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
             {
                 if (PageUtilities.IsCurrentPageTypeOf(typeof(LoginSettingsPage)))
                 {
                     var navigationParams = new NavigationParameters
                     {
-                        { "album", track.Album }
+                        { "album", uniqueTrack.Album }
                     };
 
                     await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);

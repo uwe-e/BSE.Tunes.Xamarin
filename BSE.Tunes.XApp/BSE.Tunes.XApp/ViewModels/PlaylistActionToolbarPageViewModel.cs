@@ -5,6 +5,7 @@ using BSE.Tunes.XApp.Services;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -157,17 +158,27 @@ namespace BSE.Tunes.XApp.ViewModels
         private async void ShowAlbum()
         {
             await CloseFlyout();
-            
+
             if (_playlistActionContext != null)
             {
+                /*
+                 * This event has a unique identifier that can be used to prevent multiple execution.
+                 */ 
+                var uniqueTrack = new UniqueAlbum
+                {
+                    UniqueId = Guid.NewGuid()
+                };
+
                 if (_playlistActionContext.Data is Track track)
                 {
-                    _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().Publish(track);
+                    uniqueTrack.Album = track.Album;
                 }
                 if (_playlistActionContext.Data is PlaylistEntry playlistEntry)
                 {
-                    _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().Publish(playlistEntry.Track);
+                    uniqueTrack.Album = playlistEntry.Track.Album;
                 }
+
+                _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().Publish(uniqueTrack);
             }
         }
     }

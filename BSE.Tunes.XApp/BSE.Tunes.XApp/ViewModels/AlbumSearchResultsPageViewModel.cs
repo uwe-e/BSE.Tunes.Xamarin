@@ -22,13 +22,13 @@ namespace BSE.Tunes.XApp.ViewModels
         {
             _eventAggregator = eventAggregator;
 
-            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
             {
                 if (PageUtilities.IsCurrentPageTypeOf(typeof(AlbumSearchResultsPage)))
                 {
                     var navigationParams = new NavigationParameters
                     {
-                        { "album", track.Album }
+                        { "album", uniqueTrack.Album }
                     };
 
                     await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);

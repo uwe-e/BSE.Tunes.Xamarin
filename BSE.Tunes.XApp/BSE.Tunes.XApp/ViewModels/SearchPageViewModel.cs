@@ -125,13 +125,13 @@ namespace BSE.Tunes.XApp.ViewModels
             IsBusy = false;
             HasAlbums = HasTracks = false;
 
-            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
             {
                 if (PageUtilities.IsCurrentPageTypeOf(typeof(SearchPage)))
                 {
                     var navigationParams = new NavigationParameters
                     {
-                        { "album", track.Album }
+                        { "album", uniqueTrack.Album }
                     };
 
                     await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);

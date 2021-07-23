@@ -20,13 +20,13 @@ namespace BSE.Tunes.XApp.ViewModels
             _eventAggregator.GetEvent<AlbumSelectedEvent>().Subscribe(SelectAlbum, ThreadOption.UIThread);
             _eventAggregator.GetEvent<PlaylistSelectedEvent>().Subscribe(SelectPlaylist, ThreadOption.UIThread);
 
-            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
             {
                 if (PageUtilities.IsCurrentPageTypeOf(typeof(HomePage)))
                 {
                     var navigationParams = new NavigationParameters         
                     {
-                        { "album", track.Album }
+                        { "album", uniqueTrack.Album }
                     };
 
                     await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);

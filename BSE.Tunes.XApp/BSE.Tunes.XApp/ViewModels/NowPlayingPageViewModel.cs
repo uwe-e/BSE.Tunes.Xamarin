@@ -81,7 +81,7 @@ namespace BSE.Tunes.XApp.ViewModels
                 }
             }, ThreadOption.UIThread);
 
-            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (track) =>
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
             {
                 await CloseDialog();
             });

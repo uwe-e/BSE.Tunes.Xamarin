@@ -1,4 +1,5 @@
 ﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
@@ -18,6 +19,19 @@ namespace BSE.Tunes.XApp.ViewModels
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<AlbumSelectedEvent>().Subscribe(SelectAlbum, ThreadOption.UIThread);
             _eventAggregator.GetEvent<PlaylistSelectedEvent>().Subscribe(SelectPlaylist, ThreadOption.UIThread);
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
+            {
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(HomePage)))
+                {
+                    var navigationParams = new NavigationParameters         
+                    {
+                        { "album", uniqueTrack.Album }
+                    };
+
+                    await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);
+                }
+            });
         }
 
         private async void SelectAlbum(Album album)
@@ -26,7 +40,6 @@ namespace BSE.Tunes.XApp.ViewModels
             {
                 { "album", album }
             };
-            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(AlbumDetailPage)}", navigationParams);
             await NavigationService.NavigateAsync($"{nameof(AlbumDetailPage)}", navigationParams);
         }
 
@@ -36,7 +49,6 @@ namespace BSE.Tunes.XApp.ViewModels
                     {
                         { "playlist", playlist }
                     };
-            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(PlaylistDetailPage)}", navigationParams);
             await NavigationService.NavigateAsync($"{nameof(PlaylistDetailPage)}", navigationParams);
         }
         

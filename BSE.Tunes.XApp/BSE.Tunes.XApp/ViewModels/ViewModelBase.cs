@@ -18,6 +18,7 @@ namespace BSE.Tunes.XApp.ViewModels
                 return _navigationService;
             }
         }
+
         public IResourceService ResourceService
         {
             get
@@ -25,8 +26,6 @@ namespace BSE.Tunes.XApp.ViewModels
                 return _resourceService;
             }
         }
-
-        
 
         public string Title
         {

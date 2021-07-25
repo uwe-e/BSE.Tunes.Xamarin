@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using PanCardView.Droid;
 using Plugin.CurrentActivity;
 using Prism;
 using Prism.Ioc;
@@ -26,7 +25,6 @@ namespace BSE.Tunes.XApp.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             Xamarin.Forms.Svg.Droid.SvgImage.Init(this);
-            CardsViewRenderer.Preserve();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
             CrossCurrentActivity.Current.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));

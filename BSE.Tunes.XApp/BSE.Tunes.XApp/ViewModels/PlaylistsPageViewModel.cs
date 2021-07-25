@@ -1,4 +1,5 @@
 ﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
@@ -79,6 +80,19 @@ namespace BSE.Tunes.XApp.ViewModels
                 Items.Clear();
                 IsActive = _isActivated = false;
                 RaiseIsActiveChanged();
+            });
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
+            {
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(PlaylistsPage)))
+                {
+                    var navigationParams = new NavigationParameters
+                    {
+                        { "album", uniqueTrack.Album }
+                    };
+
+                    await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);
+                }
             });
         }
 

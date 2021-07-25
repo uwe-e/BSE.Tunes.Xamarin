@@ -1,5 +1,6 @@
 ﻿using BSE.Tunes.XApp.Collections;
 using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
@@ -73,6 +74,19 @@ namespace BSE.Tunes.XApp.ViewModels
                     {
                         await ShowAlbum(managePlaylistContext);
                     }
+                }
+            });
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
+            {
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(PlaylistDetailPage)))
+                {
+                    var navigationParams = new NavigationParameters
+                    {
+                        { "album", uniqueTrack.Album }
+                    };
+
+                    await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);
                 }
             });
         }

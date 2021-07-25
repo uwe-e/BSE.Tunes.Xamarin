@@ -5,24 +5,26 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:ffimageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:controls="clr-namespace:BSE.Tunes.XApp.Controls"
+             xmlns:template="clr-namespace:BSE.Tunes.XApp.Views.Templates"
              x:Class="BSE.Tunes.XApp.Views.AlbumDetailPage"
              BackgroundColor="{DynamicResource BackgroundColor}"
              x:Name="page">
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="···" Command="{Binding OpenFlyoutCommand}" CommandParameter="{Binding Album}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <CollectionView ItemsSource="{Binding Items}" VerticalOptions="FillAndExpand">
+                <CollectionView ItemsSource="{Binding Items}" VerticalOptions="Start">
                     <CollectionView.Header>
                         <StackLayout Spacing="0">
                             <StackLayout VerticalOptions="StartAndExpand"
                                          Orientation="Horizontal"
                                          Margin="3,0,3,0">
                                 <!--<StackLayout Margin="5,0,5,0" HeightRequest="150">-->
-                                    <ffimageLoading:CachedImage HeightRequest="{OnIdiom Default=150, Tablet=250}" 
+                                <ffimageLoading:CachedImage HeightRequest="{OnIdiom Default=150, Tablet=250}" 
                                                                 WidthRequest="{OnIdiom Default=150, Tablet=250}" 
                                                                 HorizontalOptions="Start" Source="{Binding Image}"/>
                                 <!--</StackLayout>-->
@@ -50,17 +52,17 @@
                                 </Grid>
                             </StackLayout>
                             <StackLayout VerticalOptions="StartAndExpand">
-                            <StackLayout Orientation="Horizontal">
-                                <Button Text="{i18n:Translate AlbumsDetailPage_Button_PlayAll_Text}"
+                                <StackLayout Orientation="Horizontal">
+                                    <Button Text="{i18n:Translate AlbumsDetailPage_Button_PlayAll_Text}"
                                         ImageSource="{AppThemeBinding Light=icon_play_pk_light.png, Dark=icon_play_pk_dark.png}"
                                         Command="{Binding PlayAllCommand}"
                                         Style="{DynamicResource DetailActionButtonStyle}"/>
-                                <Button Text="{i18n:Translate AlbumsDetailPage_Button_PlayRandomized_Text}"
+                                    <Button Text="{i18n:Translate AlbumsDetailPage_Button_PlayRandomized_Text}"
                                         ImageSource="{AppThemeBinding Light=icon_shuffle_pk_light.png, Dark=icon_shuffle_pk_dark.png}"
                                         Command="{Binding PlayAllRandomizedCommand}"
                                         Style="{DynamicResource DetailActionButtonStyle}"/>
+                                </StackLayout>
                             </StackLayout>
-                        </StackLayout>
                         </StackLayout>
                     </CollectionView.Header>
                     <CollectionView.ItemTemplate>
@@ -94,6 +96,26 @@
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+                    <CollectionView.Footer>
+                        <controls:HeaderedCollectionView Title="{i18n:Translate AlbumsDetailPage_FurtherAlbums_Header_Text}"
+                                                         IsBusy="{Binding IsQueryBusy}"
+                                                         IsVisible="{Binding HasFurtherAlbums}"
+                                                         HeaderButtonStyle="{DynamicResource SectionHeaderButtonStyle}"
+                                                         ActivityIndicatorColor="{Binding PrimaryLabelColor}"
+                                                         ItemsSource="{Binding Albums}"
+                                                         SelectedItem="{Binding SelectedAlbum}"
+                                                         SelectionChangedCommand="{Binding SelectAlbumCommand}"
+                                                         SelectionChangedCommandParameter="{Binding SelectedAlbum}"
+                                                         RemainingItemsThreshold="10"
+                                                         RemainingItemsThresholdReachedCommand="{Binding LoadMoreAlbumsCommand}"
+                                                         HeightRequest="260">
+                            <controls:HeaderedCollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <template:ViewItemTemplate Padding="0,0,10,0"/>
+                                </DataTemplate>
+                            </controls:HeaderedCollectionView.ItemTemplate>
+                        </controls:HeaderedCollectionView>
+                    </CollectionView.Footer>
                 </CollectionView>
             </StackLayout>
             <StackLayout IsVisible="{Binding IsBusy}" Padding="12"

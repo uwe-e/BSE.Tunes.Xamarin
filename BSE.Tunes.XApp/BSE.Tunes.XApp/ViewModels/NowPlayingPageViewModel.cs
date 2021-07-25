@@ -1,4 +1,5 @@
 ﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
 using BSE.Tunes.XApp.Models;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
@@ -23,7 +24,10 @@ namespace BSE.Tunes.XApp.ViewModels
         private DelegateCommand<object> _openFlyoutCommand;
         private string _coverImage;
 
-        public ICommand CloseDialogCommand => _closeDialogCommand ?? (_closeDialogCommand = new DelegateCommand(CloseDialog));
+        public ICommand CloseDialogCommand => _closeDialogCommand ?? (_closeDialogCommand = new DelegateCommand(async () =>
+        {
+            await CloseDialog();
+        }));
 
         public DelegateCommand<object> OpenFlyoutCommand => _openFlyoutCommand
             ?? (_openFlyoutCommand = new DelegateCommand<object>(OpenFlyout));
@@ -73,12 +77,14 @@ namespace BSE.Tunes.XApp.ViewModels
                             managePlaylistContext.ActionMode = PlaylistActionMode.None;
                             await CreateNewPlaylist(managePlaylistContext);
                             break;
-                        case PlaylistActionMode.ShowAlbum:
-                            CloseDialog();
-                            break;
                     }
                 }
             }, ThreadOption.UIThread);
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
+            {
+                await CloseDialog();
+            });
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -164,7 +170,7 @@ namespace BSE.Tunes.XApp.ViewModels
             }
         }
         
-        private async void CloseDialog()
+        private async Task CloseDialog()
         {
             await NavigationService.GoBackAsync(useModalNavigation: true, animated: true);
         }

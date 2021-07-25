@@ -46,6 +46,12 @@ namespace BSE.Tunes.XApp.Services
             return isAccessible;
         }
 
+        public Task<ObservableCollection<Album>> GetAlbumsByArtist(int artistId, int skip = 0, int limit = 10)
+        {
+            string strUrl = $"{this._settingsService.ServiceEndPoint}/api/v2/artists/{artistId}/albums?skip={skip}&limit={limit}";
+            return _requestService.GetAsync<ObservableCollection<Album>>(new UriBuilder(strUrl).Uri);
+        }
+
         public Task<ObservableCollection<Album>> GetFeaturedAlbums(int limit)
         {
             string strUrl = string.Format("{0}/api/v2/albums/featured?limit={1}", this._settingsService.ServiceEndPoint, limit);

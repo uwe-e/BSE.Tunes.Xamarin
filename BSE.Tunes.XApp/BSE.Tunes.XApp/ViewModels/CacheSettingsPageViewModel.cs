@@ -1,5 +1,8 @@
 ﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
 using BSE.Tunes.XApp.Services;
+using BSE.Tunes.XApp.Views;
+using BSE.Tunes.XApp.Views.Settings;
 using Prism.Events;
 using Prism.Navigation;
 using Prism.Services;
@@ -43,6 +46,19 @@ namespace BSE.Tunes.XApp.ViewModels
             _eventAggregator.GetEvent<CacheChangedEvent>().Subscribe((args) =>
             {
                 LoadSettings();
+            });
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
+            {
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(CacheSettingsPage)))
+                {
+                    var navigationParams = new NavigationParameters
+                    {
+                        { "album", uniqueTrack.Album }
+                    };
+
+                    await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);
+                }
             });
         }
 

@@ -13,9 +13,8 @@
         <ScrollView>
             <StackLayout >
 
-                <!--<local:FeaturedItemsView HeightRequest="{OnIdiom Default=280, Tablet=420}" />-->
-<local:AlbumsCarouselView HeightRequest="{OnIdiom Default=280, Tablet=400}"/>
-                
+                <local:AlbumsCarouselView HeightRequest="{OnIdiom Default=280, Tablet=400}"/>
+
                 <local:RandomPlayerButtonView HeightRequest="80"/>
 
                 <local:FeaturedAlbumsView HeightRequest="260"/>

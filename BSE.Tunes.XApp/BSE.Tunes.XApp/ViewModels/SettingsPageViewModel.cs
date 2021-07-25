@@ -1,4 +1,5 @@
 ﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
 using BSE.Tunes.XApp.Views.Settings;
@@ -115,6 +116,19 @@ namespace BSE.Tunes.XApp.ViewModels
 
                         LoadCacheSettings();
                         break;
+                }
+            });
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
+            {
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(SettingsPage)))
+                {
+                    var navigationParams = new NavigationParameters
+                    {
+                        { "album", uniqueTrack.Album }
+                    };
+
+                    await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);
                 }
             });
         }

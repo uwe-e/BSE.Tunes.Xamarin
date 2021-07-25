@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.1.0</Version>
+    <Version>1.0.1.1</Version>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
   <ItemGroup>
     <None Remove="Resources\arrowdown.svg" />
@@ -29,18 +29,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CardsView" Version="2.7.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
     <PackageReference Include="Xamarin.Forms.Svg" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\HeaderedCollectionView.xaml.cs">
+      <DependentUpon>HeaderedCollectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Controls\FlyoutButton.xaml.cs">
       <DependentUpon>FlyoutButton.xaml</DependentUpon>
     </Compile>
@@ -63,9 +65,6 @@
     </Compile>
     <Compile Update="Views\FeaturedAlbumsView.xaml.cs">
       <DependentUpon>FeaturedAlbumsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\FeaturedItemsView.xaml.cs">
-      <DependentUpon>FeaturedItemsView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\LoginWizzardPage.xaml.cs">
       <DependentUpon>LoginWizzardPage.xaml</DependentUpon>
@@ -91,6 +90,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Controls\HeaderedCollectionView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Controls\FlyoutButton.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -132,9 +134,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\FeaturedAlbumsView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\FeaturedItemsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\FeaturedPlaylistsView.xaml">

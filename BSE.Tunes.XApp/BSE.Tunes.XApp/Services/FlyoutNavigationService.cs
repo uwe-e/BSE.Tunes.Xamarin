@@ -36,7 +36,7 @@ namespace BSE.Tunes.XApp.Services
             var poppedPage = await DoPop(page.Navigation, true, false);
             if (poppedPage != null)
             {
-                PageUtilities.DestroyPage(poppedPage);
+                Prism.Common.PageUtilities.DestroyPage(poppedPage);
 
                 result.Success = true;
                 return result;

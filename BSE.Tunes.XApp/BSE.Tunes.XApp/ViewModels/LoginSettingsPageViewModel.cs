@@ -1,5 +1,8 @@
-﻿using BSE.Tunes.XApp.Services;
+﻿using BSE.Tunes.XApp.Events;
+using BSE.Tunes.XApp.Extensions;
+using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
+using Prism.Events;
 using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Forms;
@@ -9,6 +12,7 @@ namespace BSE.Tunes.XApp.ViewModels
     public class LoginSettingsPageViewModel : BaseSettingsPageViewModel
     {
         private string _userName;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IPageDialogService _pageDialogService;
 
         public string UserName
@@ -27,9 +31,25 @@ namespace BSE.Tunes.XApp.ViewModels
             ISettingsService settingsService,
             IPlayerManager playerManager,
             IResourceService resourceService,
+            IEventAggregator eventAggregator,
             IPageDialogService pageDialogService) : base(navigationService, settingsService, playerManager, resourceService)
         {
+            _eventAggregator = eventAggregator;
             _pageDialogService = pageDialogService;
+
+
+            _eventAggregator.GetEvent<AlbumInfoSelectionEvent>().ShowAlbum(async (uniqueTrack) =>
+            {
+                if (PageUtilities.IsCurrentPageTypeOf(typeof(LoginSettingsPage)))
+                {
+                    var navigationParams = new NavigationParameters
+                    {
+                        { "album", uniqueTrack.Album }
+                    };
+
+                    await NavigationService.NavigateAsync(nameof(AlbumDetailPage), navigationParams);
+                }
+            });
         }
 
         public override void LoadSettings()

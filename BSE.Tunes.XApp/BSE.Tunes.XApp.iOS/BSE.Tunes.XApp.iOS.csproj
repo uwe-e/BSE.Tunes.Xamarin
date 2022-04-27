@@ -53,11 +53,11 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Development: Uwe Eichkorn (S5XXKJ5CQ7)</CodesignKey>
+    <CodesignKey>iPhone Distribution: Uwe Eichkorn (98LH7BG9F6)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>
     </CodesignEntitlements>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <CodesignProvision>BSEtunes AdHoc Provisioning Profile</CodesignProvision>
     <CodesignExtraArgs />
     <CodesignResourceRules />
     <MtouchNoSymbolStrip>false</MtouchNoSymbolStrip>
@@ -212,7 +212,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations">
       <Version>2.4.11.982</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
     <PackageReference Include="Xamarin.Forms.Svg">
       <Version>1.0.3</Version>

@@ -115,6 +115,7 @@
     <Compile Include="Renderer\AudioPlayerRenderer.cs" />
     <Compile Include="Renderer\ButtonElementManager.cs" />
     <Compile Include="Renderer\ButtonRenderer.cs" />
+    <Compile Include="Renderer\ImageRenderer.cs" />
     <Compile Include="Renderer\RemoteControlPageRenderer.cs" />
     <Compile Include="Renderer\TextCellRenderer.cs" />
     <Compile Include="Renderer\ExtendedTabbedRenderer.cs" />
@@ -497,7 +498,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadDebuggerTimeoutExceptionBSETunesXAppiOSHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionBSETunesXAppiOSHideInfoBar="True" TriggeredFromHotReload="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

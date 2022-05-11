@@ -259,7 +259,7 @@
     <value>Playlists</value>
   </data>
   <data name="SearchPage_SearchBar_Placeholder" xml:space="preserve">
-    <value>Albums, Songs...</value>
+    <value>Artists, Albums, Songs...</value>
   </data>
   <data name="SearchPage_SectionAlbums_DisplayAll_Text" xml:space="preserve">
     <value>Show all</value>

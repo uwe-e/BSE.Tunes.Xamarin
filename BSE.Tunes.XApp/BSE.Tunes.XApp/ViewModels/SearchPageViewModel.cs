@@ -148,8 +148,12 @@ namespace BSE.Tunes.XApp.ViewModels
             }
             else
             {
-                await GetAlbumResults(searchPhrase);
-                await GetTrackResults(searchPhrase);
+                try
+                {
+                    await GetAlbumResults(searchPhrase);
+                    await GetTrackResults(searchPhrase);
+                }
+                catch { };
             }
             IsBusy = false;
         }
@@ -182,9 +186,14 @@ namespace BSE.Tunes.XApp.ViewModels
                 if (Tracks.Count > newResults.Count())
                 {
                     var c = Tracks.Count;
+
                     for (int i = c - 1; i >= newResults.Count(); i--)
                     {
-                        Tracks.RemoveAt(i);
+                        if (Tracks[i] != null)
+                        {
+                            Tracks.RemoveAt(i);
+                        }
+                        
                     }
                 }
             }
@@ -225,7 +234,7 @@ namespace BSE.Tunes.XApp.ViewModels
                 }
             }
         }
-        
+
         private async void SelectItem(GridPanel obj)
         {
             if (obj?.Data is Album album)
@@ -237,7 +246,7 @@ namespace BSE.Tunes.XApp.ViewModels
                 await NavigationService.NavigateAsync($"{nameof(AlbumDetailPage)}", navigationParams);
             }
         }
-        
+
         private void PlayTrack(GridPanel obj)
         {
             if (obj?.Data is Track track)
@@ -248,8 +257,8 @@ namespace BSE.Tunes.XApp.ViewModels
                 }
                 , AudioPlayerMode.Song);
             }
-        } 
-        
+        }
+
         private async void ShowAllAlbumSearchResults()
         {
             var navigationParams = new NavigationParameters
@@ -258,7 +267,7 @@ namespace BSE.Tunes.XApp.ViewModels
                     };
             await NavigationService.NavigateAsync($"{nameof(AlbumSearchResultsPage)}", navigationParams);
         }
-        
+
         private async void ShowAllTrackSearchResults()
         {
             var navigationParams = new NavigationParameters

@@ -484,7 +484,7 @@ namespace BSE.Tunes.XApp.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Albums, Songs....
+        ///   Looks up a localized string similar to Artists, Albums, Songs....
         /// </summary>
         internal static string SearchPage_SearchBar_Placeholder {
             get {

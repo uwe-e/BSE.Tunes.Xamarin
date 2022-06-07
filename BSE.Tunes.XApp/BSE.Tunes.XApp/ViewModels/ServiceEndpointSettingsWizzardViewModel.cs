@@ -49,8 +49,28 @@ namespace BSE.Tunes.XApp.ViewModels
         
         private async void Save()
         {
-            var uriBuilder = new UriBuilder(ServiceEndPoint);
-            var serviceEndPoint = uriBuilder.Uri.AbsoluteUri;
+            string serviceEndPoint = null;
+            
+            /* 
+             * if theres a valid url, use it.
+             * Valid urls are urls with a http or https scheme.
+             * an url with the scheme "http" is valid for debugging reasons.
+            */
+            if (Uri.TryCreate(ServiceEndPoint, UriKind.Absolute, out Uri uriResult))
+            {
+                serviceEndPoint = uriResult.AbsoluteUri;
+            }
+            else
+            {
+                //invalid urls have no scheme
+                if (!ServiceEndPoint?.StartsWith(Uri.UriSchemeHttps) ?? false)
+                {
+                    //build a valid url with a https scheme. That should be the default scheme.
+                    var uriBuilder = new UriBuilder(Uri.UriSchemeHttps, ServiceEndPoint);
+                    serviceEndPoint = uriBuilder.Uri.AbsoluteUri;
+                }
+            }
+
             try
             {
                 await _dataService.IsEndPointAccessibleAsync(serviceEndPoint);

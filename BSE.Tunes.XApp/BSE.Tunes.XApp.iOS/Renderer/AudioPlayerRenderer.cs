@@ -199,7 +199,7 @@ namespace BSE.Tunes.XApp.iOS.Renderer
 
             _bottomBorder = new UIView
             {
-                BackgroundColor = UIColor.SeparatorColor
+                BackgroundColor = UIColor.Separator
             };
             AddSubview(_bottomBorder);
         }

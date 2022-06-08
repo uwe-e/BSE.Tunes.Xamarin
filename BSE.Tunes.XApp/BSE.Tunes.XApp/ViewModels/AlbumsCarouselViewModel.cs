@@ -29,11 +29,18 @@ namespace BSE.Tunes.XApp.ViewModels
             _eventAggregator = eventAggregator;
             _dataService = dataService;
 
+            _eventAggregator.GetEvent<HomePageRefreshEvent>().Subscribe(() =>
+            {
+                IsBusy = true;
+                LoadData();
+            });
+
             LoadData();
         }
 
         private async void LoadData()
         {
+            Items.Clear();
             var albums = await _dataService.GetFeaturedAlbums(6);
             if (albums != null)
             {

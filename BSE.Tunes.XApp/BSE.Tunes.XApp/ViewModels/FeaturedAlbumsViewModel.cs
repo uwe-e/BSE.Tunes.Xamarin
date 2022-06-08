@@ -33,10 +33,17 @@ namespace BSE.Tunes.XApp.ViewModels
             _imageService = imageService;
             _dataService = dataService;
 
+            _eventAggregator.GetEvent<HomePageRefreshEvent>().Subscribe(() =>
+            {
+                IsBusy = true;
+                LoadData();
+            });
+
             LoadData();
         }
         private async void LoadData()
         {
+            Items.Clear();
             var albums = await _dataService.GetNewestAlbums(20);
             if (albums != null)
             {

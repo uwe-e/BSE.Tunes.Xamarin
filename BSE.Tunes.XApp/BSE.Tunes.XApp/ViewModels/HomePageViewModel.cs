@@ -3,14 +3,33 @@ using BSE.Tunes.XApp.Extensions;
 using BSE.Tunes.XApp.Models.Contract;
 using BSE.Tunes.XApp.Services;
 using BSE.Tunes.XApp.Views;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
+using System;
+using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
 {
     public class HomePageViewModel : ViewModelBase
 	{
         private readonly IEventAggregator _eventAggregator;
+        private ICommand _refreshCommand;
+        private bool _isRefreshing;
+
+        public ICommand RefreshCommand => _refreshCommand ?? (_refreshCommand = new DelegateCommand(RefreshView));
+
+        public bool IsRefreshing
+        {
+            get
+            {
+                return _isRefreshing;
+            }
+            set
+            {
+                SetProperty<bool>(ref _isRefreshing, value);
+            }
+        }
 
         public HomePageViewModel(INavigationService navigationService,
             IResourceService resourceService,
@@ -52,5 +71,10 @@ namespace BSE.Tunes.XApp.ViewModels
             await NavigationService.NavigateAsync($"{nameof(PlaylistDetailPage)}", navigationParams);
         }
         
+        private void RefreshView()
+        {
+            _eventAggregator.GetEvent<HomePageRefreshEvent>().Publish();
+            IsRefreshing = false;
+        }
     }
 }

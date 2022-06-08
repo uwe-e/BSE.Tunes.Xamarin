@@ -7,6 +7,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BSE.Tunes.XApp.ViewModels
@@ -44,6 +45,12 @@ namespace BSE.Tunes.XApp.ViewModels
             _playerManager = playerManager;
             _dataService = dataService;
 
+            _eventAggregator.GetEvent<HomePageRefreshEvent>().Subscribe(async () =>
+            {
+                IsBusy = true;
+                await LoadSystemInfo();
+            });
+
             LoadData();
         }
 
@@ -66,6 +73,13 @@ namespace BSE.Tunes.XApp.ViewModels
                 PlayRandomCommand.RaiseCanExecuteChanged();
             }
 
+            await LoadSystemInfo();
+
+            IsBusy = false;
+        }
+
+        private async Task LoadSystemInfo()
+        {
             var sysInfo = await _dataService.GetSystemInfo();
             if (sysInfo != null)
             {

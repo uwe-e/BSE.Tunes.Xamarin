@@ -18,9 +18,9 @@
 
                     <local:RandomPlayerButtonView HeightRequest="80"/>
 
-                    <local:FeaturedAlbumsView HeightRequest="260"/>
+                    <local:FeaturedAlbumsView HeightRequest="{OnIdiom Default=260, Tablet=400}"/>
 
-                    <local:FeaturedPlaylistsView HeightRequest="260"/>
+                    <local:FeaturedPlaylistsView HeightRequest="{OnIdiom Default=260, Tablet=400}"/>
 
                 </StackLayout>
             </ScrollView>

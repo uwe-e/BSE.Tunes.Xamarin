@@ -15,13 +15,13 @@
                                               Style="{DynamicResource SectionHeaderButtonStyle}"
                                               HorizontalOptions="Start"/>
 
-                <CollectionView x:Name="carouselView" ItemsSource="{Binding Items}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal"
+                <CarouselView x:Name="carouselView" ItemsSource="{Binding Items}" PeekAreaInsets="{OnIdiom Default=80, Tablet=180}">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="{OnIdiom Default=10, Tablet=20}" Orientation="Horizontal"
                                            SnapPointsType="MandatorySingle"
                                            SnapPointsAlignment="Start"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
                         <DataTemplate>
                             <Frame Padding="0" CornerRadius="10"
                                    IsClippedToBounds="True"
@@ -35,8 +35,8 @@
                                 </templates:SlidePanelTemplate>
                             </Frame>
                         </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
 
 
                 <!--<CarouselView x:Name="carouselView"

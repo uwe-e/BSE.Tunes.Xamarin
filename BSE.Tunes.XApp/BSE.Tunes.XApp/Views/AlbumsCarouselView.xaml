@@ -8,68 +8,47 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="BSE.Tunes.XApp.Views.AlbumsCarouselView">
     <ContentView.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <StackLayout  VerticalOptions="Start" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-
-                <controls:SectionHeaderButton Text="{i18n:Translate HomePage_AlbumsCarousel_SectionHeader_Button_Text}"
-                                              Style="{DynamicResource SectionHeaderButtonStyle}"
-                                              HorizontalOptions="Start"/>
-
-                <CarouselView x:Name="carouselView" ItemsSource="{Binding Items}" PeekAreaInsets="{OnIdiom Default=80, Tablet=180}">
-                    <CarouselView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="{OnIdiom Default=10, Tablet=20}" Orientation="Horizontal"
-                                           SnapPointsType="MandatorySingle"
-                                           SnapPointsAlignment="Start"/>
-                    </CarouselView.ItemsLayout>
-                    <CarouselView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame Padding="0" CornerRadius="10"
-                                   IsClippedToBounds="True"
-                                   HasShadow="False"
-                                   BackgroundColor="{DynamicResource BackgroundColor}">
-                                <templates:SlidePanelTemplate WidthRequest="{OnIdiom Default=320, Tablet=420}"  Margin="0">
-                                    <templates:SlidePanelTemplate.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=carouselView}}"
-                                                              CommandParameter="{Binding}"/>
-                                    </templates:SlidePanelTemplate.GestureRecognizers>
-                                </templates:SlidePanelTemplate>
-                            </Frame>
-                        </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
-
-
-                <!--<CarouselView x:Name="carouselView"
-                              Margin="0,0,0,0" ItemsSource="{Binding Items}"
-                              PeekAreaInsets="100" BackgroundColor="Lime" >
-                    <CarouselView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal"
-                                           SnapPointsType="MandatorySingle"
-                           SnapPointsAlignment="Center"/>
-                    </CarouselView.ItemsLayout>
-                    <CarouselView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame Padding="0" CornerRadius="10"
-                                   IsClippedToBounds="True"
-                                   HasShadow="False"
-                                   BackgroundColor="{DynamicResource BackgroundColor}">
-                                <templates:SlidePanelTemplate Margin="0">
-                                    <templates:SlidePanelTemplate.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=carouselView}}"
-                                                              CommandParameter="{Binding}"/>
-                                    </templates:SlidePanelTemplate.GestureRecognizers>
-                                </templates:SlidePanelTemplate>
-                            </Frame>
-                        </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>-->
-                <!--<IndicatorView ItemsSourceBy="carouselView"
-                           IndicatorsShape="Circle"
-                           IndicatorColor="Gray"
-                           SelectedIndicatorColor="Red"
-                           IndicatorSize="10"
-                           HorizontalOptions="Center"/>-->
-                <!--</Grid>-->
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <StackLayout>
+                    <CarouselView x:Name="carouselView"
+                                  ItemsSource="{Binding Items}"
+                                  PeekAreaInsets="{OnIdiom Default=80, Tablet=180}"
+                                  IndicatorView="indicatorView">
+                        <CarouselView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="0"
+                                               Orientation="Horizontal"
+                                               SnapPointsType="MandatorySingle"
+                                               SnapPointsAlignment="Start"/>
+                        </CarouselView.ItemsLayout>
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Frame HasShadow="False"
+                                           Padding="0"
+                                           CornerRadius="0"
+                                           IsClippedToBounds="True"
+                                           BackgroundColor="{DynamicResource BackgroundColor}">
+                                        <templates:SlidePanelTemplate HeightRequest="{OnIdiom Default=250, Tablet=410}" 
+                                                                      WidthRequest="{OnIdiom Default=320, Tablet=410}"
+                                                                      Margin="0">
+                                                <templates:SlidePanelTemplate.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Name=carouselView}}"
+                                                                          CommandParameter="{Binding}"/>
+                                                </templates:SlidePanelTemplate.GestureRecognizers>
+                                            </templates:SlidePanelTemplate>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <IndicatorView x:Name="indicatorView"
+                                   IndicatorSize="{OnIdiom Default=5, Tablet=10}"
+                                   IndicatorColor="Gray"
+                                   SelectedIndicatorColor="Red"
+                                   HorizontalOptions="FillAndExpand"/>
+                    <!-- IndicatorView is invisible except HorizontalOptions are "FillAndExpand" -->
+                </StackLayout>
             </StackLayout>
             <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
                  AbsoluteLayout.LayoutFlags="PositionProportional"

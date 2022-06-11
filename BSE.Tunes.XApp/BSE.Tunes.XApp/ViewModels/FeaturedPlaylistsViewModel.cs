@@ -39,7 +39,7 @@ namespace BSE.Tunes.XApp.ViewModels
 
             LoadData();
 
-            _eventAggregator.GetEvent<PlaylistActionContextChanged>().Subscribe(async args =>
+            _eventAggregator.GetEvent<PlaylistActionContextChanged>().Subscribe(args =>
             {
                 if (args is PlaylistActionContext managePlaylistContext)
                 {

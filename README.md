@@ -59,3 +59,6 @@ The whole BSE system constists of the following components
 - BSEtunes UWP client at https://github.com/uwe-e/BSE.Tunes
 - BSEtunes Web API at https://github.com/uwe-e/BSE.Tunes
   
+## HOW TOs
+
+- [using a developer profile](/docs/using-developer-provisioning-profile.md)

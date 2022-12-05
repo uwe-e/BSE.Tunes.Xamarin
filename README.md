@@ -48,7 +48,6 @@ The App was created using the following tools
 - [Prism.DryIoc.Forms](https://prismlibrary.com/index.html): MVVM framework for building loosely coupled, modular, maintainable, and testable XAML applications.
 - [SkiaSharp.Views.Form](https://github.com/mono/SkiaSharp): a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library.
 - [Xamarin.FFImageLoading](https://github.com/luberda-molinet/FFImageLoading): Image loading, caching & transforming library for Xamarin
-- [CardsView](https://github.com/AndreiMisiukevich/CardView): CardsView | CarouselView | CoverflowView | CubeView framework for Xamarin.Forms
 
 ## BSE System
 
@@ -56,7 +55,7 @@ The whole BSE system constists of the following components
 
 - BSEadmin: a Windows client for to adminster the system's music content.
 	Its partly described at [code project](https://www.codeproject.com/Articles/43068/BSEtunes)
-- BSEtunes UWP client at https://github.com/uwe-e/BSE.Tunes
+- BSEtunes UWP client at https://github.com/uwe-e/BSE.Tunes.UWP
 - BSEtunes Web API at https://github.com/uwe-e/BSE.Tunes
   
 ## HOW TOs

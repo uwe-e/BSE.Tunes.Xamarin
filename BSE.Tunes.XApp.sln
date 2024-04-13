@@ -161,6 +161,7 @@ Global
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Ad-Hoc|ARM.ActiveCfg = Ad-Hoc|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Ad-Hoc|iPhone.Deploy.0 = Ad-Hoc|iPhone
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Ad-Hoc|iPhoneSimulator
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Ad-Hoc|iPhoneSimulator.Build.0 = Ad-Hoc|iPhoneSimulator
 		{EF6EC470-EBC0-4038-8D47-7BC838A05F58}.Ad-Hoc|x64.ActiveCfg = Ad-Hoc|iPhone

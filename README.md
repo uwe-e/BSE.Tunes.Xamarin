@@ -1,4 +1,7 @@
 # BSEtunes Xamarin client
+
+> The further development of the Xamarin project has ended, and the project has been ported to .NET MAUI at https://github.com/uwe-e/BSE.Tunes.Client.
+
 This is the Xamarin cross platform client of the BSEtunes system. With this client you can play singles, whole albums, the content of your self created playlists and randomized, the whole content of your selected BSEtunes.
 
 ![BSEtunes](Images/bsetunes_iphone_animation.gif)

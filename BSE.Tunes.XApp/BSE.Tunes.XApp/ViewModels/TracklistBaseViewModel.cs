@@ -29,7 +29,7 @@ namespace BSE.Tunes.XApp.ViewModels
         private DelegateCommand<GridPanel> _playCommand;
 
         public DelegateCommand<GridPanel> PlayCommand => _playCommand
-            ?? (_playCommand = new DelegateCommand<GridPanel>(PlayTrack));
+            ?? (_playCommand = new DelegateCommand<GridPanel>(PlayTrack, CanExecutePlayTrack));
 
         public DelegateCommand PlayAllCommand => _playAllCommand
             ?? (_playAllCommand = new DelegateCommand(PlayAll, CanPlayAll));
@@ -105,6 +105,10 @@ namespace BSE.Tunes.XApp.ViewModels
                 }
 
             },ThreadOption.UIThread);
+        }
+        protected virtual bool CanExecutePlayTrack(GridPanel panel)
+        {
+            throw new NotImplementedException();
         }
 
         protected virtual void PlayTrack(GridPanel obj)
